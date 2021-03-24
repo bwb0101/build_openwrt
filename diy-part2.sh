@@ -17,3 +17,7 @@ echo "" >> package/base-files/files/etc/sysctl.d/10-default.conf
 echo "net.ipv4.neigh.default.gc_thresh1 = 512"  >> package/base-files/files/etc/sysctl.d/10-default.conf
 echo "net.ipv4.neigh.default.gc_thresh2 = 2048" >> package/base-files/files/etc/sysctl.d/10-default.conf
 echo "net.ipv4.neigh.default.gc_thresh3 = 4096" >> package/base-files/files/etc/sysctl.d/10-default.conf
+
+echo "" >> package/base-files/files/etc/netdata/netdata.conf
+echo "[plugin:proc]" >> package/base-files/files/etc/netdata/netdata.conf
+echo -e "\tipc = no" >> package/base-files/files/etc/netdata/netdata.conf
