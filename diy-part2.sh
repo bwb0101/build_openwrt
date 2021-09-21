@@ -21,3 +21,12 @@ echo "net.ipv4.neigh.default.gc_thresh3 = 4096" >> package/base-files/files/etc/
 #echo "" >> package/base-files/files/etc/netdata/netdata.conf
 #echo "[plugin:proc]" >> package/base-files/files/etc/netdata/netdata.conf
 #echo -e "\tipc = no" >> package/base-files/files/etc/netdata/netdata.conf
+
+for X in $(ls -1 target/linux/x86 | grep "config-"); 
+do
+echo "\nCONFIG_64BIT=y" >> target/linux/x86/${X};
+echo "\nCONFIG_DRM=y" >> target/linux/x86/${X};
+echo "\nCONFIG_DRM_I915=y" >> target/linux/x86/${X};
+echo "\nCONFIG_DRM_I915_GVT=y" >> target/linux/x86/${X};
+echo "\nCONFIG_DUMMY_CONSOLE=y" >> target/linux/x86/${X};
+done
