@@ -22,11 +22,12 @@ echo "net.ipv4.neigh.default.gc_thresh3 = 4096" >> package/base-files/files/etc/
 #echo "[plugin:proc]" >> package/base-files/files/etc/netdata/netdata.conf
 #echo -e "\tipc = no" >> package/base-files/files/etc/netdata/netdata.conf
 
+sudo mkdir /lib/firmware/i915
+sudo curl -L https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/kbl_dmc_ver1_04.bin -o /lib/firmware/i915/kbl_dmc_ver1_04.bin
+
 for X in $(ls -1 target/linux/x86 | grep "config-"); 
 do
-echo "CONFIG_64BIT=y" >> target/linux/x86/${X};
-echo "CONFIG_DRM=y" >> target/linux/x86/${X};
-echo "CONFIG_DRM_I915=y" >> target/linux/x86/${X};
-echo "CONFIG_DRM_I915_GVT=y" >> target/linux/x86/${X};
-echo "CONFIG_DUMMY_CONSOLE=y" >> target/linux/x86/${X};
+echo "CONFIG_FIRMWARE_IN_KERNEL=y" >> target/linux/x86/${X};
+echo 'CONFIG_EXTRA_FIRMWARE="i915/kbl_dmc_ver1_04.bin"' >> target/linux/x86/${X};
+echo 'CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"' >> target/linux/x86/${X};
 done
