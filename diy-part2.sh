@@ -11,7 +11,7 @@
 #
 
 # Modify default IP
-#sed -i 's/192.168.0.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.28.1/g' package/base-files/files/bin/config_generate
 
 echo "" >> package/base-files/files/etc/sysctl.d/10-default.conf
 echo "net.ipv4.neigh.default.gc_thresh1 = 512"  >> package/base-files/files/etc/sysctl.d/10-default.conf
