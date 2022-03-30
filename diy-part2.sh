@@ -13,8 +13,8 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.28.1/g' package/base-files/files/bin/config_generate
 
-# fix versync version to 2.10.5 bug
-sed -i 's/2.10.5/2.13.2/g' feeds/lienol/verysync/Makefile
+# fix versync version 2.10.5 bug
+#sed -i 's/2.10.5/2.13.2/g' feeds/lienol/verysync/Makefile
 
 #echo "" >> package/base-files/files/etc/sysctl.d/10-default.conf
 #echo "net.ipv4.neigh.default.gc_thresh1 = 512"  >> package/base-files/files/etc/sysctl.d/10-default.conf
