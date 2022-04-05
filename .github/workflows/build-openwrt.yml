@@ -124,6 +124,16 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
+    - name: deploy packags to server
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
+      if: steps.compile.outputs.status == 'success'
+      with:
+        username: 'root'
+        server: '${{ secrets.SFTP_SERVER_IP }}'
+        ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+        local_path: 'openwrt/bin/*'
+        remote_path: '/volume1/www/openwrt/snapshots'
+
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
@@ -193,12 +203,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: deploy packags to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
-      if: steps.compile.outputs.status == 'success'
-      with:
-        username: 'root'
-        server: '${{ secrets.SFTP_SERVER_IP }}'
-        ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-        local_path: 'openwrt/bin/*'
-        remote_path: '/volume1/www/openwrt/snapshots'
