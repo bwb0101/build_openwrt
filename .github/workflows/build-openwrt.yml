@@ -137,6 +137,7 @@ jobs:
       with:
         username: 'root'
         server: '${{ secrets.SFTP_SERVER_IP }}'
+        port: 2222
         ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
         local_path: 'openwrt/bin/*'
         remote_path: '/volume1/www/openwrt/snapshots'
