@@ -27,11 +27,8 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        sudo rm -rf /swapfile /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+    - name: Checkout
+      uses: actions/checkout@v2
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
