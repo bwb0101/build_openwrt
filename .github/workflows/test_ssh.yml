@@ -27,8 +27,8 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Deploy packags to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
+    - name: Upload-Files-Action
+      uses: zhenyuWang/Upload-File-Action@v1.0.1
       with:
         username: 'root'
         server: '${{ secrets.SFTP_SERVER_IP }}'
