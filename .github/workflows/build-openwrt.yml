@@ -57,11 +57,11 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
 
     - name: Clone source code
-      working-directory: /workdir
+      #working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        #ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     - name: Cache
       uses: klever1988/cachewrtbuild@main
       with:
@@ -130,6 +130,9 @@ jobs:
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
+
+    - name: List directory file
+      run: ls -l
 
     - name: Set openwrt sftp local path
       if: steps.compile.outputs.status == 'success' && !cancelled()
