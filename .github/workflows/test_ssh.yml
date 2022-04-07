@@ -26,7 +26,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
 
-    steps:
+    steps:         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       env:
@@ -41,4 +41,4 @@ jobs:
         port: 2222
         ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
         local_path: '$GITHUB_WORKSPACE/*'
-        remote_path: '/volume1/www/openwrt/snapshots'
+        remote_path: '/www/openwrt/snapshots'
