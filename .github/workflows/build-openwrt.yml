@@ -132,7 +132,6 @@ jobs:
         path: openwrt/bin
 
     - name: Set openwrt sftp local path
-      id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt/bin
