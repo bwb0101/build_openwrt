@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Upload-Files-Action
-      uses: zhenyuWang/Upload-File-Action@v1.0.1
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
         username: 'root'
         server: '${{ secrets.SFTP_SERVER_IP }}'
