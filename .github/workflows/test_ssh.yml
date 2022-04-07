@@ -34,5 +34,5 @@ jobs:
         server: '${{ secrets.SFTP_SERVER_IP }}'
         port: 2222
         ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-        local_path: './*'
+        local_path: '$GITHUB_WORKSPACE/*'
         remote_path: '/volume1/www/openwrt/snapshots'
