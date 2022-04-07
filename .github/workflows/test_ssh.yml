@@ -1,0 +1,38 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+#
+
+name: Build OpenWrt
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Deploy packags to server
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
+      with:
+        username: 'root'
+        server: '${{ secrets.SFTP_SERVER_IP }}'
+        port: 2222
+        ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+        local_path: './*'
+        remote_path: '/volume1/www/openwrt/snapshots'
