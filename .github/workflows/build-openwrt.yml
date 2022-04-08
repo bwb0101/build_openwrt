@@ -131,24 +131,17 @@ jobs:
         path: openwrt/bin
 
     - name: List directory file
-      run: ls -l
-
-    - name: Set openwrt sftp local path
-      if: steps.compile.outputs.status == 'success' && !cancelled()
-      run: |
-        cd openwrt/bin
-        echo "OPPATH=$PWD" >> $GITHUB_ENV
+      run: ls -l && ls -l openwrt
 
     - name: Deploy packags to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
       if: steps.compile.outputs.status == 'success' && !cancelled()
-      with:
-        username: 'root'
-        server: '${{ secrets.SFTP_SERVER_IP }}'
-        port: 2222
-        ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-        local_path: '${{ env.OPPATH }}/*'
-        remote_path: '/www/openwrt/snapshots'
+      run: |
+        echo 'put -r openwrt/bin/* /www/openwrt/snapshots' > upload
+        echo '${{ secrets.SFTP_PRIVATE_KEY }}' > ssh_key
+        chmod 600 ssh_key
+        ssh -o StrictHostKeyChecking=no -p 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }} mkdir -p /www/openwrt/snapshots
+        sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
+        echo 'deploy finished'
 
     - name: Organize files
       id: organize
