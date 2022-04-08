@@ -43,11 +43,10 @@ jobs:
         #TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
     - name: Upload-Files-Action
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
-      with:
-        username: 'root'
-        server: '${{ secrets.SFTP_SERVER_IP }}'
-        port: 2222
-        ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-        local_path: 'dir/*'
-        remote_path: '/www/openwrt/snapshots'
+      run: |
+        echo 'put -r ./* /www/openwrt/snapshots' > upload
+        echo '${{ secrets.SFTP_PRIVATE_KEY }}' > ssh_key
+        chmod 600 ssh_key
+        ssh -o StrictHostKeyChecking=no -p 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }} mkdir -p /www/openwrt/snapshots
+        sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
+        echo 'upload finished'
