@@ -131,7 +131,7 @@ jobs:
         path: openwrt/bin
 
     - name: List directory file
-      run: ls -l && ls -l openwrt
+      run: ls -l && ls -l openwrt && ls -l openwrt/bin/*
 
     - name: Deploy packags to server
       if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -142,6 +142,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no -p 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }} mkdir -p /www/openwrt/snapshots
         sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
         echo 'deploy finished'
+        rm -rf ssh_key
 
     - name: Organize files
       id: organize
