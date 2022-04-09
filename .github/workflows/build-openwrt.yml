@@ -53,11 +53,10 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        date=$(date +%Y%m%d%H%M%S)
+        echo "DATE=$date" >> $GITHUB_ENV
 
     - name: Clone source code
-      #working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
@@ -130,19 +129,39 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
-    - name: List directory file
-      run: ls -l && ls -l openwrt && ls -l openwrt/bin/*
-
-    - name: Deploy packags to server
+    - name: Push openwrt
+      uses: s0/git-publish-subdir-action@develop
       if: steps.compile.outputs.status == 'success' && !cancelled()
-      run: |
-        echo 'put -r openwrt/bin/* /www/openwrt/snapshots' > upload
-        echo '${{ secrets.SFTP_PRIVATE_KEY }}' > ssh_key
-        chmod 600 ssh_key
-        ssh -o StrictHostKeyChecking=no -p 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }} mkdir -p /www/openwrt/snapshots
-        sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
-        echo 'deploy finished'
-        rm -rf ssh_key
+      env:
+          REPO: self
+          BRANCH: openwrt_stable
+          FOLDER: openwrt/bin
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
+
+    - name: Update version
+      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
+      
+    - name: Push self      
+      uses: s0/git-publish-subdir-action@develop
+      env:
+          REPO: self
+          BRANCH: main
+          FOLDER: _ver
+          CLEAR_GLOBS_FILE: ".clear-target-files"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
+
+#     - name: Deploy packags to server
+#       if: steps.compile.outputs.status == 'success' && !cancelled()
+#       run: |
+#         echo 'put -r openwrt/bin/* /www/openwrt/snapshots' > upload
+#         echo '${{ secrets.SFTP_PRIVATE_KEY }}' > ssh_key
+#         chmod 600 ssh_key
+#         ssh -o StrictHostKeyChecking=no -p 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }} mkdir -p /www/openwrt/snapshots
+#         sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
+#         echo 'deploy finished'
+#         rm -rf ssh_key
 
     - name: Organize files
       id: organize
