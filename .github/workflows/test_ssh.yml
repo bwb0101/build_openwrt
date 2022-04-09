@@ -46,7 +46,7 @@ jobs:
           MESSAGE: "Build: ({sha}) {msg}"
 
     - name: Update version
-      run: mkdir _ver && echo "${env.DATE}" > _ver/version
+      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
     
     - name: Push self      
       uses: stefanzweifel/git-auto-commit-action@v4
