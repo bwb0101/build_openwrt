@@ -142,7 +142,7 @@ jobs:
     - name: Update version
       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
       
-    - name: Push self      
+    - name: Push self update info
       uses: s0/git-publish-subdir-action@develop
       env:
           REPO: self
