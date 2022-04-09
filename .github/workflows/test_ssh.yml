@@ -33,10 +33,10 @@ jobs:
     - name: Set Date
       run: |
         sudo timedatectl set-timezone 'Asia/Shanghai'
-        date=$(date +%Y%m%d)
+        date=$(date +%Y%m%d%H%M%S)
         echo "DATE=$date" >> $GITHUB_ENV
         
-    - name: Push
+    - name: Push openwrt
       uses: s0/git-publish-subdir-action@develop
       env:
           REPO: self
@@ -44,6 +44,15 @@ jobs:
           FOLDER: user
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: "Build: ({sha}) {msg}"
+
+    - name: Update version
+      run: mkdir _ver && echo "${env.DATE}" > _ver/version
+    
+    - name: Push self      
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: build
+        repository: _ver
 
     #- name: SSH connection to Actions
      # uses: P3TERX/ssh2actions@v1.0.0
