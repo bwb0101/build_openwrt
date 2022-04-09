@@ -62,13 +62,12 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf $GITHUB_WORKSPACE/openwrt /workdir/openwrt
-        
-    - name: Cache
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        prefix: ${{ github.workspace }}/openwrt
+        ln -sf $GITHUB_WORKSPACE/openwrt /workdir/openwrt  
+#     - name: Cache
+#       uses: klever1988/cachewrtbuild@main
+#       with:
+#         ccache: 'true'
+#         prefix: ${{ github.workspace }}/openwrt
         
     - name: Load custom feeds
       run: |
