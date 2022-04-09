@@ -37,11 +37,14 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         date=$(date +%Y%m%d%H%M%S)
         echo "DATE=$date" >> $GITHUB_ENV
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
 
     - name: Clone source code
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf $GITHUB_WORKSPACE/openwrt /workdir/openwrt
     - name: Cache
       uses: klever1988/cachewrtbuild@main
       with:
