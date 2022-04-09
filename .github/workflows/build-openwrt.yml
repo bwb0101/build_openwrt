@@ -28,8 +28,8 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   FEED_DIY_SH: feed_diy.sh
-  UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: false
+#   UPLOAD_BIN_DIR: false
+  UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
@@ -126,36 +126,12 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
-      uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
-
-    - name: Push openwrt
-      uses: s0/git-publish-subdir-action@develop
-      if: steps.compile.outputs.status == 'success' && !cancelled()
-      env:
-          REPO: self
-          BRANCH: openwrt_stable
-          FOLDER: openwrt/bin
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
-
-    - name: Update version
-      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
-      
-    - name: Push self update info
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: main
-          FOLDER: _ver
-          CLEAR_GLOBS_FILE: ".clear-target-files"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
-
+#     - name: Upload bin directory
+#       uses: actions/upload-artifact@main
+#       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+#       with:
+#         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+#         path: openwrt/bin
 #     - name: Deploy packags to server
 #       if: steps.compile.outputs.status == 'success' && !cancelled()
 #       run: |
@@ -166,13 +142,12 @@ jobs:
 #         sftp -o StrictHostKeyChecking=no -b upload -P 2222 -i ssh_key root@${{ secrets.SFTP_SERVER_IP }}
 #         echo 'deploy finished'
 #         rm -rf ssh_key
-
     - name: Organize files
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
-        rm -rf packages
+        mv packages $GITHUB_WORKSPACE
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -229,7 +204,38 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
+    # targets下的固件超过100m上限，不能上传需要删除
+    - name: Move packages to src path
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      run: |
+        cd openwrt/bin/targets/*/*
+        rm -rf *
+        mv $GITHUB_WORKSPACE/packages .
+
+    - name: Push openwrt
+      uses: s0/git-publish-subdir-action@develop
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+          REPO: self
+          BRANCH: openwrt_stable
+          FOLDER: openwrt/bin
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
+
+    - name: Update version
+      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
+      
+    - name: Push self update info
+      uses: s0/git-publish-subdir-action@develop
+      env:
+          REPO: self
+          BRANCH: main
+          FOLDER: _ver
+          CLEAR_GLOBS_FILE: ".clear-target-files"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
+
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
