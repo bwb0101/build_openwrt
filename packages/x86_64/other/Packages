@@ -6,21 +6,9 @@ Section: multimedia
 Architecture: x86_64
 Installed-Size: 2487844
 Filename: UnblockNeteaseMusic-Go_0.2.13-1_x86_64.ipk
-Size: 2483293
-SHA256sum: 9f82e9a0e4a9aab5a791865ddf6f7242c68fbddd4a138c0ebbdfc02f5caee694
+Size: 2483337
+SHA256sum: 8c495e69dc21d2b5d02b7dcfcf8960d24aa92db74edbbb0ec2875aca8829377c
 Description:  Revive Netease Cloud Music (Golang)
-
-Package: UnblockNeteaseMusic
-Version: 0.27.0-rc.4-2021-12-21-54b7a60b-1
-Depends: libc, node
-License: LGPL-3.0-only
-Section: multimedia
-Architecture: all
-Installed-Size: 345184
-Filename: UnblockNeteaseMusic_0.27.0-rc.4-2021-12-21-54b7a60b-1_all.ipk
-Size: 346076
-SHA256sum: 4ede9bfd56365942af3d9b9780caa3f9d4c4034619259b343cbeb683cec733fb
-Description:  Revive Netease Cloud Music (NodeJS)
 
 Package: adbyby
 Version: 2.7-20200315
@@ -91,18 +79,6 @@ Size: 3889
 SHA256sum: 3acf896d7eda82f2b929ad3b4951f46b45dd6d53d11c45e7a81678d701029ac1
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
-Package: ipv6helper
-Version: 1.0-2
-Depends: libc, luci-proto-ipv6, wget-ssl, ip6tables, libip6tc2, kmod-ipt-nat6, odhcpd-ipv6only, odhcp6c, 6in4
-License: GPLv3
-Section: ipv6
-Architecture: all
-Installed-Size: 411
-Filename: ipv6helper_1.0-2_all.ipk
-Size: 1321
-SHA256sum: 58c9fa4882bafced2632b28b672245c056b7ddfb4b8fc35401d86c7869a4d418
-Description:  IPv6 Helper and Dynamic Update he.net of ip
-
 Package: luci-app-adbyby-plus
 Version: 2.0
 Depends: libc, adbyby, uclient-fetch, ipset, dnsmasq-full
@@ -124,6 +100,17 @@ Filename: luci-app-adguardhome_15_all.ipk
 Size: 91744
 SHA256sum: bf135e4ca27b2a5fcb4159596f758e7e35e4b39b9ac116175c37718cd8b32631
 Description:  LuCI support for adguardhome
+
+Package: luci-app-autoreboot
+Version: 1.0
+Depends: libc
+Section: luci
+Architecture: all
+Installed-Size: 1514
+Filename: luci-app-autoreboot_1.0_all.ipk
+Size: 2349
+SHA256sum: 49a3b1485bd920662047ae8f4ea41c8e0506fe56967d5886b883bb421ac104ea
+Description:  LuCI support for Scheduled Reboot
 
 Package: luci-app-baidupcs-web
 Version: 1.0
@@ -195,14 +182,14 @@ Description:  LuCI support for Flow Offload / Shortcut-FE
 
 Package: luci-app-unblockmusic
 Version: 2.3.5
-Depends: libc, dnsmasq-full, ipset, uclient-fetch, UnblockNeteaseMusic-Go, UnblockNeteaseMusic
+Depends: libc, dnsmasq-full, ipset, uclient-fetch, UnblockNeteaseMusic-Go
 License: Apache-2.0
 Section: luci
 Architecture: all
 Installed-Size: 7373
 Filename: luci-app-unblockmusic_2.3.5_all.ipk
-Size: 8321
-SHA256sum: fa6fb6baf0daaa0f3cf4224b14cbc569b8b9ca77749d82e12d129f434ac72b1c
+Size: 8320
+SHA256sum: f265fbfd2977f2180447b08071275402bdca99dc70752150685dedf0717a7a04
 Description:  LuCI support for Unblock NeteaseCloudMusic
 
 Package: luci-app-usb-printer
@@ -270,6 +257,17 @@ Filename: luci-i18n-adbyby-plus-zh-cn_git-2b61072_all.ipk
 Size: 3167
 SHA256sum: 8baff6b4a24bdda5e34836896c0d85e0ba5494534f4e8cb05bfaa0b8e1606688
 Description:  Translation for luci-app-adbyby-plus - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-autoreboot-zh-cn
+Version: git-2b61072
+Depends: libc, luci-app-autoreboot
+Section: luci
+Architecture: all
+Installed-Size: 533
+Filename: luci-i18n-autoreboot-zh-cn_git-2b61072_all.ipk
+Size: 1375
+SHA256sum: c86b554adedf0dd68e1ce34fc3f18db49a5d71115d8a7e8353df71500acdcfa8
+Description:  Translation for luci-app-autoreboot - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-filetransfer-zh-cn
 Version: git-2b61072
@@ -411,10 +409,10 @@ Depends: libc, libpthread
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 22722
+Installed-Size: 22723
 Filename: vlmcsd_svn1113-3_x86_64.ipk
-Size: 23444
-SHA256sum: 0e9bc6ddcebc21c843c2786ef71f43605ebc95fab9aca5d921aa196c67533c9c
+Size: 23443
+SHA256sum: 5834e8ac149edf306e5428f05fc6312d2bc6694e089fbe79babae36ea6c313a0
 Description:  vlmcsd is a KMS Emulator in C.
 
 Package: vsftpd-alt

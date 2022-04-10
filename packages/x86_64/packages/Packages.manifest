@@ -1,22 +1,3 @@
-Package: adblock
-Version: 4.1.3-7
-Depends: libc, jshn, jsonfilter, coreutils, coreutils-sort, ca-bundle, opkg
-Source: feeds/packages/net/adblock
-SourceName: adblock
-License: GPL-3.0-or-later
-Section: net
-SourceDateEpoch: 1649343409
-Maintainer: Dirk Brenken <dev@brenken.org>
-Architecture: all
-Installed-Size: 20033
-Filename: adblock_4.1.3-7_all.ipk
-Size: 21040
-SHA256sum: 27eb2df459c48ebbc916de33f99af9c39b8ab904711302fbb1ed87aed1b46663
-Description:  Powerful adblock script to block ad/abuse domains via dnsmasq, unbound, named or kresd.
- The script supports many domain blacklist sites plus manual black- and whitelist overrides.
- Please see https://github.com/openwrt/packages/blob/master/net/adblock/files/README.md for further information.
- 
-
 Package: alsa-lib
 Version: 1.2.6.1-1
 Depends: libc, kmod-sound-core, libpthread, librt
@@ -149,6 +130,24 @@ Size: 36704
 SHA256sum: d2da7c2d1c912b938200a583509fc67dbd9ba82e55bf37ae8624f933ea16031d
 Description:  bc is a language that supports arbitrary precision numbers with
  interactive execution of statements.
+
+Package: boost-date_time
+Version: 1.78.0-1
+Depends: libc, libstdcpp6, libpthread, librt
+Source: feeds/packages/libs/boost
+SourceName: boost-date_time
+License: BSL-1.0
+LicenseFiles: LICENSE_1_0.txt
+Section: libs
+SourceDateEpoch: 1649343409
+CPE-ID: cpe:/a:boost:boost
+Maintainer: Carlos M. Ferreira <carlosmf.pt@gmail.com>
+Architecture: x86_64
+Installed-Size: 998
+Filename: boost-date_time_1.78.0-1_x86_64.ipk
+Size: 1811
+SHA256sum: 236a184e759ae27bde858d82d414586c133e4a8cddc82a852878d91f381f7d02
+Description:  This package contains the Boost date_time library.
 
 Package: boost-program_options
 Version: 1.78.0-1
@@ -465,25 +464,6 @@ Size: 22947
 SHA256sum: 5bcf6bc0a20a87a309c007ea5db63fb47319f0d4424a585dcdd742818b6573ca
 Description:  Full version of standard GNU nohup utility.
 
-Package: coreutils-sort
-Version: 9.0-2
-Depends: libc, coreutils, libpthread
-Alternatives: 300:/usr/bin/sort:/usr/libexec/sort-coreutils
-Source: feeds/packages/utils/coreutils
-SourceName: coreutils-sort
-License: GPL-3.0-or-later
-LicenseFiles: COPYING
-Section: utils
-SourceDateEpoch: 1649343409
-CPE-ID: cpe:/a:gnu:coreutils
-Maintainer: Jo-Philipp Wich <jo@mein.io>
-Architecture: x86_64
-Installed-Size: 53683
-Filename: coreutils-sort_9.0-2_x86_64.ipk
-Size: 54608
-SHA256sum: b5c2ab3548e636ed43f05d12201aac90f5c3cf239f9b4bba3f6222d2edee3cff
-Description:  Full version of standard GNU sort utility.
-
 Package: coreutils
 Version: 9.0-2
 Depends: libc
@@ -592,6 +572,23 @@ Description:  Dynamic DNS Client scripts (with IPv6 support)
  - support to run once
  Version: 2.8.2-23
  Info   : https://openwrt.org/docs/guide-user/services/ddns/client
+
+Package: docker
+Version: 20.10.12-1
+Depends: libc
+Source: feeds/packages/utils/docker
+SourceName: docker
+License: Apache-2.0
+LicenseFiles: LICENSE
+Section: utils
+SourceDateEpoch: 1649343409
+Maintainer: Gerard Ryan <G.M0N3Y.2503@gmail.com>
+Architecture: x86_64
+Installed-Size: 12440347
+Filename: docker_20.10.12-1_x86_64.ipk
+Size: 12369249
+SHA256sum: c86238d2d63a37c241db4da0bcfe872aa5e0f5f9bacfbc34dc0e48291cfc4ece
+Description:  The CLI used in the Docker CE and Docker EE products.
 
 Package: eoip
 Version: 0.5-1
@@ -703,6 +700,24 @@ SHA256sum: 6e93b8692eed5188d12ccb5fad69053a57fcff91d7d52f6f8872122d3ab05f81
 Description:  Htop is an ncursed-based process viewer similar to top, but
  it allows to scroll the list vertically and horizontally to
  see all processes and their full command lines.
+
+Package: kcptun-client
+Version: 20210922-1
+Depends: libc
+Source: feeds/packages/net/kcptun
+SourceName: kcptun-client
+License: MIT
+LicenseFiles: LICENSE.md
+Section: net
+SourceDateEpoch: 1649343409
+Maintainer: Dengfeng Liu <liudf0716@gmail.com>, Chao Liu <expiron18@gmail.com>
+Architecture: x86_64
+Installed-Size: 2419979
+Filename: kcptun-client_20210922-1_x86_64.ipk
+Size: 2413117
+SHA256sum: a4ff5877a4e3325794c94deb854a076751fbd18609602bc5942ca68fd77c7ef1
+Description:  kcptun is a Stable & Secure Tunnel Based On KCP with N:M Multiplexing.
+ This package only contains kcptun client.
 
 Package: libattr
 Version: 2.5.1-1
@@ -992,25 +1007,6 @@ Size: 213095
 SHA256sum: 93cf418872573e8f5e9eb14503dd16ab6e8f035e235abd3628b6e73f5e3fcc54
 Description:  Free Lossless Audio Codec library
 
-Package: libgd
-Version: 2.3.2-1
-Depends: libc, libjpeg, libpng, libwebp
-Source: feeds/packages/libs/libgd
-SourceName: libgd
-License: MIT
-LicenseFiles: COPYING
-Section: libs
-SourceDateEpoch: 1649343409
-CPE-ID: cpe:/a:libgd:libgd
-Maintainer: Jo-Philipp Wich <jo@mein.io>
-Architecture: x86_64
-Installed-Size: 91379
-Filename: libgd_2.3.2-1_x86_64.ipk
-Size: 91853
-SHA256sum: 50671870bc729252b7b6064a1484aa6a27d28b2346ed8873b2757c9f3395f79e
-Description:  GD is an open source code library for the dynamic creation of images by
- programmers. GD creates PNG, JPEG and GIF images, among other formats.
-
 Package: libgnutls
 Version: 3.7.1-2
 Depends: libc, libnettle8, libgmp10, libatomic1
@@ -1209,23 +1205,6 @@ Filename: libparted_3.4-1_x86_64.ipk
 Size: 190964
 SHA256sum: 91b4ee82a93682135a28dddb8dd570d916050aec42c0c7adfbeb164ce71ac5df
 Description:  GNU Parted shared library
-
-Package: libpng
-Version: 1.6.37-11
-Depends: libc, zlib
-Source: feeds/packages/libs/libpng
-SourceName: libpng
-License: Libpng GPL-2.0-or-later BSD-3-Clause
-Section: libs
-SourceDateEpoch: 1649343409
-CPE-ID: cpe:/a:libpng:libpng
-Maintainer: Jo-Philipp Wich <jo@mein.io>
-Architecture: x86_64
-Installed-Size: 93049
-Filename: libpng_1.6.37-11_x86_64.ipk
-Size: 93909
-SHA256sum: 44fe3439a6f05f73fc146204624a088b1a745a4737826b001901bd8334c29f1e
-Description:  A PNG format files handling library
 
 Package: libprotobuf-c
 Version: 1.4.0-1
@@ -1454,22 +1433,23 @@ Description:  Vorbis is a general purpose audio and music encoding format
  software entity may make full use of the format without license
  fee, royalty or patent concerns.
 
-Package: libwebp
-Version: 1.2.1-1
-Depends: libc
-Source: feeds/packages/libs/libwebp
-SourceName: libwebp
-License: BSD-3-Clause
-LicenseFiles: COPYING
+Package: libwebsockets-full
+Version: 4.2.1-2
+Depends: libc, zlib, libcap, libopenssl1.1, libuv1
+Provides: libwebsockets
+Source: feeds/packages/libs/libwebsockets
+SourceName: libwebsockets-full
+License: MIT
+LicenseFiles: LICENSE
 Section: libs
 SourceDateEpoch: 1649343409
-Maintainer: Alexandru Ardelean <ardeleanalex@gmail.com>
+Maintainer: Karl Palsson <karlp@etactica.com>
 Architecture: x86_64
-Installed-Size: 273997
-Filename: libwebp_1.2.1-1_x86_64.ipk
-Size: 274873
-SHA256sum: 04780e467ff4a131d1d0b2036fbe1f0834f9cc9d9c4789cb307c180ccb86ff53
-Description:  The libwebp package contains a library for the WebP format.
+Installed-Size: 173498
+Filename: libwebsockets-full_4.2.1-2_x86_64.ipk
+Size: 174280
+SHA256sum: 588988f82543c026cc1f92e3dedf11ef50b77b4a0a9e524bd41b1736d392a7f5
+Description:  libwebsockets (Full - OpenSSL, libuv, plugins, CGI)
 
 Package: lm-sensors
 Version: 3.6.0-1
@@ -1564,47 +1544,6 @@ Description:  netdata is a highly optimized Linux daemon providing real-time per
  
  If you want to use Python plugins install python3, python3-yaml and
  python3-urllib3
-
-Package: node
-Version: v14.18.3-1
-Depends: libc, libstdcpp6, libopenssl1.1, zlib, libnghttp2-14, libuv1, libcares, libatomic1
-Source: feeds/packages/lang/node
-SourceName: node
-License: MIT
-LicenseFiles: LICENSE
-Section: lang
-SourceDateEpoch: 1649343409
-CPE-ID: cpe:/a:nodejs:node.js
-Maintainer: Hirokazu MORIKAWA <morikw2@gmail.com>, Adrian Panella <ianchi74@outlook.com>
-Architecture: x86_64
-Installed-Size: 10727137
-Filename: node_v14.18.3-1_x86_64.ipk
-Size: 10641787
-SHA256sum: f5c273d75856f9fd6f86fb042f0432a46c31e7a49ae6641a38489d048dd4fab6
-Description:  Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
- an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
- package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
- *** The following preparations must be made on the host side. ***
- 1. gcc 6.3 or higher is required.
- 2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
- 3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
- ex) sudo apt-get install gcc-multilib g++-multilib
-
-Package: ntpclient
-Version: 2015_365-4
-Depends: libc, librt
-Source: feeds/packages/net/ntpclient
-SourceName: ntpclient
-License: GPL-2.0
-Section: net
-SourceDateEpoch: 1649343409
-Maintainer: Ted Hess <thess@kitschensync.net>
-Architecture: x86_64
-Installed-Size: 11266
-Filename: ntpclient_2015_365-4_x86_64.ipk
-Size: 12061
-SHA256sum: 6094ee43bd13e86962512c21ff39e12871654b7f3e7578a82575e7c1fa949d73
-Description:  NTP client for setting system time from NTP servers.
 
 Package: ocserv
 Version: 1.1.6-1
@@ -1710,10 +1649,10 @@ SourceDateEpoch: 1649343409
 CPE-ID: cpe:/a:samba:samba
 Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
 Architecture: x86_64
-Installed-Size: 8192043
+Installed-Size: 8192448
 Filename: samba4-libs_4.14.12-1_x86_64.ipk
-Size: 8145796
-SHA256sum: 5dddcdc1b42fecad46d5c5c56f2e5dfa3838b88c273abc900610947cc12d4193
+Size: 8150686
+SHA256sum: bce01968f2aef134abe4a0b0b703e182ba5fd5fb878360d1882d94a176e6db0f
 Description:  Samba 4.14.12 libs
 
 Package: samba4-server
@@ -1729,10 +1668,10 @@ SourceDateEpoch: 1649343409
 CPE-ID: cpe:/a:samba:samba
 Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
 Architecture: x86_64
-Installed-Size: 242335
+Installed-Size: 242207
 Filename: samba4-server_4.14.12-1_x86_64.ipk
-Size: 243520
-SHA256sum: 379e3601ef07dfa632809ecc7bebdd3cc8e70045ac064a399a7423ce51e69fe2
+Size: 243358
+SHA256sum: 0cda6f7ae89f6232fd3bae86a33d38c1f764b8ee9b4969dce53caa509b0ac2c5
 Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
  (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
  
@@ -1873,6 +1812,45 @@ Description:  SoftEther VPN ("SoftEther" means "Software Ethernet") is one of th
  IPsec and MS-SSTP), but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls. Ultra-optimized SSL-VPN Protocol of SoftEther VPN
  has very fast throughput, low latency and firewall resistance.
 
+Package: softethervpn5-client
+Version: 5.02.5180-1
+Depends: libc, softethervpn5-libs
+Source: feeds/packages/net/softethervpn5
+SourceName: softethervpn5-client
+License: GPL-2.0
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1649343409
+Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
+Architecture: x86_64
+Installed-Size: 1835
+Filename: softethervpn5-client_5.02.5180-1_x86_64.ipk
+Size: 2870
+SHA256sum: 989fb2b5b2c66d00bb0290cfd694bb4ee21f22ad7ae6edb67d9b99faab930dc6
+Description:  SoftEther VPN supports SSL-VPN, OpenVPN, L2TP, EtherIP, L2TPv3 and IPsec as a single VPN software.
+ SoftEther VPN is not only an alternative VPN server to existing VPN products (OpenVPN, IPsec and MS-SSTP),
+ but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls.
+ Guide: https://wordpress.tirlins.com/2015/03/setting-up-softether-vpn-on-openwrt/
+ 
+ Provides the vpnclient.
+
+Package: softethervpn5-libs
+Version: 5.02.5180-1
+Depends: libc, libsodium, libpthread, librt, libreadline8, libopenssl1.1, libncurses6, kmod-tun, zlib
+Source: feeds/packages/net/softethervpn5
+SourceName: softethervpn5-libs
+License: GPL-2.0
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1649343409
+Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
+Architecture: x86_64
+Installed-Size: 3728575
+Filename: softethervpn5-libs_5.02.5180-1_x86_64.ipk
+Size: 3723987
+SHA256sum: 49ba29f60241e7fe293ce434b53dd6d5d71c9ced43902f9a3d068fc7205b0c06
+Description:  softethervpn5 v5.02.5180 libs
+
 Package: squid
 Version: 4.16-1
 Depends: libc, libpthread, librt, libltdl7, libstdcpp6, libatomic1, libopenssl1.1
@@ -1906,14 +1884,31 @@ SourceDateEpoch: 1649343409
 CPE-ID: cpe:/a:syncthing:syncthing
 Maintainer: Paul Spooren <mail@aparcar.org>
 Architecture: x86_64
-Installed-Size: 8788307
+Installed-Size: 8788120
 Filename: syncthing_1.18.2-1_x86_64.ipk
-Size: 8771582
-SHA256sum: b3f23e2e09577d3c45fb31109ea67902293da5fbe946cdf38757ac097c050f6d
+Size: 8771698
+SHA256sum: 9b3d10150b336b2ac91e28073c5382c022811c35ad0cba877fe2cb1bd1cc9e87
 Description:  Syncthing replaces proprietary sync and cloud services with something
  open, trustworthy and decentralized. Your data is your data alone and
  you deserve to choose where it is stored, if it is shared with some
  third party and how it's transmitted over the Internet.
+
+Package: ttyd
+Version: 1.6.3-3
+Depends: libc, libopenssl1.1, libjson-c5, libuv1, zlib, libwebsockets-full
+Source: feeds/packages/utils/ttyd
+SourceName: ttyd
+License: MIT
+LicenseFiles: LICENSE
+Section: utils
+SourceDateEpoch: 1649343409
+Maintainer: Shuanglei Tao <tsl0922@gmail.com>
+Architecture: x86_64
+Installed-Size: 258157
+Filename: ttyd_1.6.3-3_x86_64.ipk
+Size: 259128
+SHA256sum: 92236c9f55dae5756196732fef26291a7b292d0675d59e7b99e622a59e1315f7
+Description:  ttyd is a command-line tool for sharing terminal over the web.
 
 Package: unzip
 Version: 6.0-8
@@ -1935,49 +1930,6 @@ Description:  InfoZIP's unzip program. With the exception of multi-volume archiv
  (ie, .ZIP files that are split across several disks using PKZIP's /& option),
  this can handle any file produced either by PKZIP, or the corresponding
  InfoZIP zip program.
-
-Package: vnstat2
-Version: 2.9-1
-Depends: libc, libsqlite3-0
-Conflicts: vnstat
-Source: feeds/packages/net/vnstat2
-SourceName: vnstat2
-License: GPL-2.0-only
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1649343409
-Maintainer: Jan Hoffmann <jan@3e8.eu>
-Architecture: x86_64
-Installed-Size: 91501
-Filename: vnstat2_2.9-1_x86_64.ipk
-Size: 92582
-SHA256sum: 332b5fcca48852302157bebad548ff003067ff6394098aec05161fe09b349b9c
-Description:  vnStat is a network traffic monitor for Linux that keeps a log of daily
- network traffic for the selected interface(s). vnStat isn't a packet
- sniffer. The traffic information is analyzed from the /proc -filesystem,
- so vnStat can be used without root permissions.
-
-Package: vnstati2
-Version: 2.9-1
-Depends: libc, libsqlite3-0, vnstat2, libgd
-Conflicts: vnstat
-Source: feeds/packages/net/vnstat2
-SourceName: vnstati2
-License: GPL-2.0-only
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1649343409
-Maintainer: Jan Hoffmann <jan@3e8.eu>
-Architecture: x86_64
-Installed-Size: 40858
-Filename: vnstati2_2.9-1_x86_64.ipk
-Size: 41892
-SHA256sum: 9a39c398edf85df265580bdde6da7a5923a0345cd8d8f8ade8b423f315128608
-Description:  The purpose of vnstati is to provide image output support for statistics
- collected using vnstat. However, the image file format is limited to
- png. All basic outputs of vnStat are supported excluding live traffic
- features. The image can be outputted either to a file or to standard
- output.
 
 Package: vpnbypass
 Version: 1.3.2-1

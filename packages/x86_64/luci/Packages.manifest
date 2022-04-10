@@ -34,22 +34,6 @@ Size: 8567
 SHA256sum: 8e323f4b19e37e9435fe11bfa5896aaf7405946adc07cd8dfb8ddaf1b3eccb7f
 Description:  LuCI HTTP utility library
 
-Package: luci-app-adblock
-Version: git-e477373
-Depends: libc, adblock, luci-lib-jsonc
-Source: feeds/luci/applications/luci-app-adblock
-SourceName: luci-app-adblock
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1649343287
-Maintainer: OpenWrt LuCI community
-Architecture: all
-Installed-Size: 9544
-Filename: luci-app-adblock_git-e477373_all.ipk
-Size: 10406
-SHA256sum: ecb204459984119c26cc2ca698150426f2b547370c9dc74e56bacf61fc9cab80
-Description:  LuCI support for Adblock
-
 Package: luci-app-advanced-reboot
 Version: 1.0.1-3
 Depends: libc, luci-mod-admin-full, jshn
@@ -81,6 +65,22 @@ Filename: luci-app-ddns_git-e477373_all.ipk
 Size: 13331
 SHA256sum: 33b53d0c351c61dbd9c541fbfe54c7f33646657bd3a1737ba3c102f782e6e8f9
 Description:  LuCI Support for Dynamic DNS Client (ddns-scripts)
+
+Package: luci-app-dockerman
+Version: v0.5.13
+Depends: libc, luci-compat, luci-lib-docker, docker, ttyd
+Source: feeds/luci/applications/luci-app-dockerman
+SourceName: luci-app-dockerman
+License: AGPL-3.0
+Section: luci
+SourceDateEpoch: 1649343287
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 35780
+Filename: luci-app-dockerman_v0.5.13_all.ipk
+Size: 36716
+SHA256sum: 87c99eba9d7b4234f5baeda2cf55229d00e2287ba64b2e70921965777b42d451
+Description:  LuCI Support for docker
 
 Package: luci-app-eoip
 Version: git-e477373
@@ -177,21 +177,6 @@ Size: 9443
 SHA256sum: 08c2c18cd79114f4e3b94dabe8406e0955613cd66a5806ab988f3255dc97c08e
 Description:  LuCI support for the MWAN3 MultiWAN Manager
 
-Package: luci-app-ntpc
-Version: git-e477373
-Depends: libc, luci-compat, ntpclient
-Source: feeds/luci/applications/luci-app-ntpc
-SourceName: luci-app-ntpc
-Section: luci
-SourceDateEpoch: 1649343287
-Maintainer: OpenWrt LuCI community
-Architecture: all
-Installed-Size: 1198
-Filename: luci-app-ntpc_git-e477373_all.ipk
-Size: 2059
-SHA256sum: 2918b78c1df275cf0b2788477dd5f71916e28b5d71b392132363a8e24a3490a6
-Description:  NTP time synchronisation configuration module
-
 Package: luci-app-ocserv
 Version: git-e477373
 Depends: libc, luci-compat, ocserv, certtool
@@ -269,6 +254,21 @@ Size: 4852
 SHA256sum: da6a5e7870da0f17670a6d087b482fad63820e3d8d34e295a44158079c36fbf1
 Description:  Provides Luci for smartdns
 
+Package: luci-app-softether
+Version: git-e477373
+Depends: libc, softethervpn5-client
+Source: feeds/luci/applications/luci-app-softether
+SourceName: luci-app-softether
+Section: luci
+SourceDateEpoch: 1649343287
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 1951
+Filename: luci-app-softether_git-e477373_all.ipk
+Size: 2801
+SHA256sum: 830dad8a4500088142324de21346dacd7333d2fbd52035852332203800d586a5
+Description:  Softether management application
+
 Package: luci-app-squid
 Version: git-e477373
 Depends: libc, luci-compat, luci-mod-admin-full, squid
@@ -314,22 +314,6 @@ Filename: luci-app-upnp_git-e477373_all.ipk
 Size: 4976
 SHA256sum: 4f5765c12e2954860b601166fae5f5f3b8cae1b2678064287923b7c0e17593a2
 Description:  Universal Plug & Play configuration module
-
-Package: luci-app-vnstat2
-Version: git-e477373
-Depends: libc, luci-lib-jsonc, vnstat2, vnstati2
-Source: feeds/luci/applications/luci-app-vnstat2
-SourceName: luci-app-vnstat2
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1649343287
-Maintainer: OpenWrt LuCI community
-Architecture: all
-Installed-Size: 2566
-Filename: luci-app-vnstat2_git-e477373_all.ipk
-Size: 3432
-SHA256sum: 9dfdf380cb2b1549626faf227561a1cf556d07027a73314f18fd70e28ebe1a1d
-Description:  LuCI Support for vnStat 2
 
 Package: luci-app-vpnbypass
 Version: 1.3.1-9
@@ -393,21 +377,6 @@ Size: 46267
 SHA256sum: 4fe5740a832168367f7d1871d1eac0bea2580d298fbbd0d6d3773b6fd0d6d90f
 Description:  LuCI compatibility libraries
 
-Package: luci-i18n-adblock-zh-cn
-Version: git-e477373
-Depends: libc, luci-app-adblock
-Source: feeds/luci/applications/luci-app-adblock
-SourceName: luci-i18n-adblock-zh-cn
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1649343287
-Architecture: all
-Installed-Size: 5333
-Filename: luci-i18n-adblock-zh-cn_git-e477373_all.ipk
-Size: 6170
-SHA256sum: bfa69f3231d527cb7304d1e2fb10c2097bedd7e465332a71dba9c4055c5cf632
-Description:  Translation for luci-app-adblock - 简体中文 (Chinese Simplified)
-
 Package: luci-i18n-advanced-reboot-zh-cn
 Version: git-e477373
 Depends: libc, luci-app-advanced-reboot
@@ -454,6 +423,22 @@ Filename: luci-i18n-ddns-zh-cn_git-e477373_all.ipk
 Size: 6010
 SHA256sum: 98e92d8a1131d498450d2ca9b7345448c68cc4dc30d90b04ce8a399b87bf421e
 Description:  Translation for luci-app-ddns - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-dockerman-zh-cn
+Version: git-e477373
+Depends: libc, luci-app-dockerman
+Source: feeds/luci/applications/luci-app-dockerman
+SourceName: luci-i18n-dockerman-zh-cn
+License: AGPL-3.0
+Section: luci
+SourceDateEpoch: 1649343287
+Maintainer: lisaac <lisaac.cn@gmail.com> Florian Eckert <fe@dev.tdt.de>
+Architecture: all
+Installed-Size: 4609
+Filename: luci-i18n-dockerman-zh-cn_git-e477373_all.ipk
+Size: 5489
+SHA256sum: 19e3fc3f96d130cf592adaaacaf4cc5d1a62b747a3492d856cda0f120bcf2d57
+Description:  Translation for luci-app-dockerman - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-firewall-zh-cn
 Version: git-e477373
@@ -531,20 +516,6 @@ Filename: luci-i18n-mwan3-zh-cn_git-e477373_all.ipk
 Size: 5519
 SHA256sum: 36d5c0dc77c0d57cb24779d0dc61288a92adbd9083023f6dd53af5f923619957
 Description:  Translation for luci-app-mwan3 - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-ntpc-zh-cn
-Version: git-e477373
-Depends: libc, luci-app-ntpc
-Source: feeds/luci/applications/luci-app-ntpc
-SourceName: luci-i18n-ntpc-zh-cn
-Section: luci
-SourceDateEpoch: 1649343287
-Architecture: all
-Installed-Size: 748
-Filename: luci-i18n-ntpc-zh-cn_git-e477373_all.ipk
-Size: 1592
-SHA256sum: 6fe9d46c51e468dcddcfc5cbb65ad8ff9a733a8265c284cc1fb64e996eebe508
-Description:  Translation for luci-app-ntpc - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-ocserv-zh-cn
 Version: git-e477373
@@ -663,22 +634,6 @@ Size: 2408
 SHA256sum: 06f404b7b9726103563ff9d0ccc37370811bf18d6efc9b99506ebe06272eb19f
 Description:  Translation for luci-app-upnp - 简体中文 (Chinese Simplified)
 
-Package: luci-i18n-vnstat2-zh-cn
-Version: git-e477373
-Depends: libc, luci-app-vnstat2
-Source: feeds/luci/applications/luci-app-vnstat2
-SourceName: luci-i18n-vnstat2-zh-cn
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1649343287
-Maintainer: Jan Hoffmann <jan@3e8.eu>
-Architecture: all
-Installed-Size: 1180
-Filename: luci-i18n-vnstat2-zh-cn_git-e477373_all.ipk
-Size: 2065
-SHA256sum: dc1f7e3557f48681a1b89a239325b7085c8896052730ad7c6ca857f35fa00000
-Description:  Translation for luci-app-vnstat2 - 简体中文 (Chinese Simplified)
-
 Package: luci-i18n-vpnbypass-zh-cn
 Version: git-e477373
 Depends: libc, luci-app-vpnbypass
@@ -723,6 +678,22 @@ Filename: luci-lib-base_git-e477373_all.ipk
 Size: 13357
 SHA256sum: 48556cbfd57f0957d5101e381ccf623f97f0714e4e5eb5d62869336a55e7a362
 Description:  basic libraries for luci
+
+Package: luci-lib-docker
+Version: git-e477373
+Depends: libc, luci-lib-jsonc
+Source: feeds/luci/collections/luci-lib-docker
+SourceName: luci-lib-docker
+License: AGPL-3.0
+Section: luci
+SourceDateEpoch: 1649343287
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 3810
+Filename: luci-lib-docker_git-e477373_all.ipk
+Size: 4676
+SHA256sum: 79491662841b8b3bd0094dab3fdbd932b14fdc71ff2b504a925c9e754b977fef
+Description:  Docker Engine API for LuCI
 
 Package: luci-lib-ip
 Version: git-e477373
