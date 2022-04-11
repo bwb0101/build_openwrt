@@ -43,7 +43,7 @@ jobs:
     - name: Generate release tag
       id: tag
       run: |
-        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M"+[REPO_$REPO_BRANCH])"
+        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M[REPO_$REPO_BRANCH]")"
 
     - name: Print release tag
       run: |
