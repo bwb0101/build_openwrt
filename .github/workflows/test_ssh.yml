@@ -40,38 +40,47 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: Clone source code
+    - name: Generate release tag
+      id: tag
       run: |
-        df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf $GITHUB_WORKSPACE/openwrt /workdir/openwrt
-    - name: Cache
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        prefix: ${{ github.workspace }}/openwrt
-        
-    - name: Push openwrt
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: build
-          FOLDER: openwrt/include
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M"+[REPO_$REPO_BRANCH])"
 
-    - name: Update version
-      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
+    - name: Print release tag
+      run: |
+        echo ${{ steps.tag.outputs.release_tag }}
+
+#     - name: Clone source code
+#       run: |
+#         df -hT $PWD
+#         git clone $REPO_URL -b $REPO_BRANCH openwrt
+#         ln -sf $GITHUB_WORKSPACE/openwrt /workdir/openwrt
+#     - name: Cache
+#       uses: klever1988/cachewrtbuild@main
+#       with:
+#         ccache: 'true'
+#         prefix: ${{ github.workspace }}/openwrt
+        
+#     - name: Push openwrt
+#       uses: s0/git-publish-subdir-action@develop
+#       env:
+#           REPO: self
+#           BRANCH: build
+#           FOLDER: openwrt/include
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           MESSAGE: "Build: ({sha}) {msg}"
+
+#     - name: Update version
+#       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
     
-    - name: Push self      
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: main
-          FOLDER: _ver
-          CLEAR_GLOBS_FILE: ".clear-target-files"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+#     - name: Push self      
+#       uses: s0/git-publish-subdir-action@develop
+#       env:
+#           REPO: self
+#           BRANCH: main
+#           FOLDER: _ver
+#           CLEAR_GLOBS_FILE: ".clear-target-files"
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           MESSAGE: "Build: ({sha}) {msg}"
 
     #- name: SSH connection to Actions
      # uses: P3TERX/ssh2actions@v1.0.0
