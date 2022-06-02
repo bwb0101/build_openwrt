@@ -6,8 +6,8 @@ Section: net
 Architecture: x86_64
 Installed-Size: 18547
 Filename: chinadns-ng_1.0-beta.25-1_x86_64.ipk
-Size: 19324
-SHA256sum: b5326fecc18b7bf5f3640751971702e059effe7d68816017995cc31c5ec52cf6
+Size: 19323
+SHA256sum: 3b3546f3f6375e8593d85d54841393ec315f5ff18f800487a858f4d6af139081
 Description:  ChinaDNS next generation, refactoring with epoll and ipset.
 
 Package: dns2socks
@@ -16,23 +16,35 @@ Depends: libc, libpthread
 License: BSD-3-Clause
 Section: net
 Architecture: x86_64
-Installed-Size: 10521
+Installed-Size: 10522
 Filename: dns2socks_2.1-2_x86_64.ipk
-Size: 11291
-SHA256sum: c64eb8f0bd0e5435a3164c3fc58ccd01acb26a9e0c23b10febb6fc4857860191
+Size: 11294
+SHA256sum: b1b5c54754b9454495c8367411916e89b75fac775c66b6fc7b83ff0d2069b253
 Description:  This is a command line utility to resolve DNS requests via
  a SOCKS tunnel like Tor or a HTTP proxy.
 
+Package: dns2tcp
+Version: 1.1.0-1
+Depends: libc
+License: AGPL-3.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 11755
+Filename: dns2tcp_1.1.0-1_x86_64.ipk
+Size: 12546
+SHA256sum: 1557d02521e7e5074303e981e9e746a6afe8f6eb45145153920d05f4fed85ed5
+Description:  utility to convert dns query from udp to tcp
+
 Package: ipt2socks
-Version: 1.1.3-2
-Depends: libc, libpthread, libuv1
+Version: 1.1.3-3
+Depends: libc, libpthread
 License: AGPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 35938
-Filename: ipt2socks_1.1.3-2_x86_64.ipk
-Size: 36756
-SHA256sum: 815054e6ce7850e4909def192f0ee4a90474dc3344078cfcf609c70361eba90a
+Installed-Size: 27598
+Filename: ipt2socks_1.1.3-3_x86_64.ipk
+Size: 28362
+SHA256sum: cfd13e86ead000ab081b7fb4c42d5bff7ff59c4d8491eec79496be93d706534d
 Description:  Utility for converting iptables (redirect/tproxy) to socks5.
 
 Package: microsocks
@@ -41,10 +53,10 @@ Depends: libc, libpthread
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 5490
+Installed-Size: 5488
 Filename: microsocks_1.0.3-1_x86_64.ipk
-Size: 6307
-SHA256sum: e4b957b2390ed436a991bf46955775dd67b84b8d56d5e740703bd6ba32e3aba0
+Size: 6306
+SHA256sum: 83b764a9bf28d03b06ae8a41ba0137111bcb83292ace5c6766f087d49ca1aacf
 Description:  A SOCKS5 service that you can run on your remote boxes to tunnel connections
  through them, if for some reason SSH doesn't cut it for you.
 
@@ -53,10 +65,10 @@ Version: 1.2.9b-par-3
 Depends: libc, libpthread
 Section: net
 Architecture: x86_64
-Installed-Size: 91066
+Installed-Size: 91062
 Filename: pdnsd-alt_1.2.9b-par-3_x86_64.ipk
-Size: 92111
-SHA256sum: 886934a21c82d1048ef8ac7d17a4559c154b0ac0fd761f96d1de6331c3b89402
+Size: 92098
+SHA256sum: e776f1652f41b0b722cd86ec6768f892650e05ecb5b251394076ee6fcdfb95cf
 Description:  pdnsd, is an IPv6 capable proxy DNS server with permanent caching (the cache
  contents are written to hard disk on exit) that is designed to cope with
  unreachable or down DNS servers (for example in dial-in networking).
@@ -71,9 +83,9 @@ Depends: libc, libpthread, libstdcpp6, libopenssl1.1, boost, boost-system, boost
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 409158
+Installed-Size: 409163
 Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 410095
-SHA256sum: 60675454b89ae47e3345ad25304de37c07b907695beadd545caa4f68f279d16e
+Size: 410089
+SHA256sum: 59aa65c5584f56e564a46cc89a9e0da4073748bacf3807a7b75a6dde6081b3bb
 Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
 
