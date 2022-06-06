@@ -1,23 +1,35 @@
+Package: dns2tcp
+Version: 1.1.0-1
+Depends: libc
+License: AGPL-3.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 11755
+Filename: dns2tcp_1.1.0-1_x86_64.ipk
+Size: 12545
+SHA256sum: f3e797aacf73a70adbbd722d840811e8752b943d6766775993316441437e86b8
+Description:  utility to convert dns query from udp to tcp
+
 Package: luci-app-ssr-plus
 Version: 185
-Depends: libc, coreutils, coreutils-base64, dns2socks, dnsmasq-full, ipset, kmod-ipt-nat, ip-full, iptables, iptables-mod-tproxy, lua, libuci-lua, microsocks, pdnsd-alt, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, kcptun-client, ipt2socks, shadowsocks-libev-ss-local, shadowsocks-libev-ss-redir, shadowsocks-libev-ss-server, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, simple-obfs, trojan, curl, xray-core
+Depends: libc, coreutils, coreutils-base64, dns2socks, dns2tcp, dnsmasq-full, ipset, kmod-ipt-nat, ip-full, iptables, iptables-mod-tproxy, lua, libuci-lua, microsocks, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, kcptun-client, ipt2socks, shadowsocks-libev-ss-local, shadowsocks-libev-ss-redir, shadowsocks-libev-ss-server, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, simple-obfs, trojan, curl, xray-core
 Section: luci
 Architecture: all
-Installed-Size: 194492
+Installed-Size: 194621
 Filename: luci-app-ssr-plus_185_all.ipk
-Size: 194705
-SHA256sum: 59e38c9a63274826bbfaeb812e7edbcc5f5d9b0b2bf29015c9bdf95806605362
+Size: 194849
+SHA256sum: 940ab9977697673af84ebde894423ae269ed7194e35a886215e76e3fcf47d50e
 Description:  SS/SSR/V2Ray/Trojan/NaiveProxy/Socks5/Tun LuCI interface
 
 Package: luci-i18n-ssr-plus-zh-cn
-Version: git-9bd3057
+Version: git-b4ede27
 Depends: libc, luci-app-ssr-plus
 Section: luci
 Architecture: all
-Installed-Size: 5470
-Filename: luci-i18n-ssr-plus-zh-cn_git-9bd3057_all.ipk
-Size: 6293
-SHA256sum: 92fb09c03c15ff6986e0932336a7de3866e10f3cc2ac3503028d2576657f4a56
+Installed-Size: 5483
+Filename: luci-i18n-ssr-plus-zh-cn_git-b4ede27_all.ipk
+Size: 6307
+SHA256sum: ac29e3ded67b7f7414b1b9e94a30299d190b7c6523eaf94a3ff003e66a94acf4
 Description:  Translation for luci-app-ssr-plus - 简体中文 (Chinese Simplified)
 
 Package: shadowsocksr-libev-ssr-check
@@ -26,10 +38,10 @@ Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zl
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 2357
+Installed-Size: 2359
 Filename: shadowsocksr-libev-ssr-check_2.5.6-9_x86_64.ipk
-Size: 3108
-SHA256sum: 0c88d82183f6dd5d86d5cb8653fa37ddcdec4d9bfa8768ba8cd502cf4ab9e0c8
+Size: 3105
+SHA256sum: 37343e5546b277c053c4c8ee209f0ae08f44074aee8bf7df4bddda5e4ff43260
 Description:  shadowsocksr-libev ssr-check
 
 Package: shadowsocksr-libev-ssr-local
@@ -38,10 +50,10 @@ Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zl
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 61698
+Installed-Size: 61700
 Filename: shadowsocksr-libev-ssr-local_2.5.6-9_x86_64.ipk
-Size: 62576
-SHA256sum: 7ff70ded261c1f6092d8be680d8497aeb6573c1044382c70f63036aab3a3bc36
+Size: 62572
+SHA256sum: bae438d875e8967f265e0f4785874aea725aa9dcacf9b778fa307df0318f8db6
 Description:  shadowsocksr-libev ssr-local
 
 Package: shadowsocksr-libev-ssr-redir
@@ -50,10 +62,10 @@ Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zl
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 55640
+Installed-Size: 55642
 Filename: shadowsocksr-libev-ssr-redir_2.5.6-9_x86_64.ipk
-Size: 56463
-SHA256sum: 2a35d0b3f3c38341d9b09b1e08ec18fcb507343eb062102b209ba6c15a8a8d0b
+Size: 56472
+SHA256sum: 37ca8e1f48e8b35e2242e876efdb6ed53650d9f9cc5f98bbbd42546ddccf3026
 Description:  shadowsocksr-libev ssr-redir
 
 Package: shadowsocksr-libev-ssr-server
@@ -62,10 +74,10 @@ Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zl
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 65321
+Installed-Size: 65322
 Filename: shadowsocksr-libev-ssr-server_2.5.6-9_x86_64.ipk
-Size: 66173
-SHA256sum: 76718ba32ca431d89ae561ceedf8a121f98c33d2d3bccc22a2cc49c8230c337b
+Size: 66161
+SHA256sum: ecf2e9d97f510199e6da4a6cc7700371216b4eaca618dc1fc644afde61ea090f
 Description:  shadowsocksr-libev ssr-server
 
 Package: simple-obfs-client
@@ -75,10 +87,10 @@ Provides: simple-obfs
 License: GPL-3.0-or-later
 Section: net
 Architecture: x86_64
-Installed-Size: 30253
+Installed-Size: 30258
 Filename: simple-obfs-client_0.0.5-1_x86_64.ipk
-Size: 31054
-SHA256sum: 9388fcc46265870888140deae1ca7bd022929401d73cf8960c1b4186b8dde97d
+Size: 31060
+SHA256sum: 80df2902a19fd37f16ffb9abefdc1c3fc8ddc3c025b086c3d9673b1c0083917e
 Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 
 Package: tcping
@@ -87,10 +99,10 @@ Depends: libc
 License: GPL-2.0-only
 Section: net
 Architecture: x86_64
-Installed-Size: 3607
+Installed-Size: 3610
 Filename: tcping_0.3-1_x86_64.ipk
-Size: 4323
-SHA256sum: 7f2eb682258b2e3d9cac09a3a58ca38fb1ce02bdccae940244ecb9079c344030
+Size: 4330
+SHA256sum: 04f3d162b7e34aa89b8ec95fc81a886c620e7d28738d83fa738514e48dbab1e2
 Description:  tcping measures the latency of a tcp-connection
 
 Package: trojan
@@ -99,10 +111,10 @@ Depends: libc, libpthread, libstdcpp6, libopenssl1.1, boost, boost-system, boost
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 304188
+Installed-Size: 304189
 Filename: trojan_1.16.0-2_x86_64.ipk
-Size: 305043
-SHA256sum: 2ff2e48c69529d8cd34750c208058bc736b9c4b297a7c7790eb14f0cda190bb7
+Size: 305050
+SHA256sum: c9458cbb478542eed79816df528a3a3c7d077bc538083b42cc847319ba86a258
 Description:  An unidentifiable mechanism that helps you bypass GFW
 
 Package: v2ray-core
@@ -111,10 +123,10 @@ Depends: libc, ca-bundle
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 8420308
+Installed-Size: 8420302
 Filename: v2ray-core_5.0.6-1_x86_64.ipk
-Size: 8400692
-SHA256sum: 83f6509b05bb1a6e25489f5cc8b5841fb7befaa96cd994d19454987566cb7b16
+Size: 8400274
+SHA256sum: b685a7e9bef5291e62838cd017370aa1587aa19a6003a9c5a8c3777c742da196
 Description:  Project V is a set of network tools that help you to build your own computer network.
  It secures your network connections and thus protects your privacy.
 
@@ -124,9 +136,9 @@ Depends: libc, ca-bundle
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 4988413
+Installed-Size: 4988414
 Filename: v2ray-plugin_5.0.6-1_x86_64.ipk
-Size: 4979041
-SHA256sum: 9426e94a9c2a065dfc98af74df73e94495fd365b7688d4c281e031d7d066bc4f
+Size: 4978848
+SHA256sum: aaf69ef2218f75c119351f8e774093708ec7d458c4fe6e1a2c6e5fb9810a5eaa
 Description:  SIP003 plugin for shadowsocks, based on v2ray
 
