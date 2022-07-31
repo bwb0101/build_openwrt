@@ -211,7 +211,7 @@ jobs:
           BRANCH: openwrt_stable
           FOLDER: openwrt/bin
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+          MESSAGE: "Build: ${{ env.DATE }}({sha})"
 
     - name: Update version
       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
@@ -224,7 +224,7 @@ jobs:
           FOLDER: _ver
           CLEAR_GLOBS_FILE: ".clear-target-files"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+          MESSAGE: "Build: ${{ env.DATE }}({sha})"
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
