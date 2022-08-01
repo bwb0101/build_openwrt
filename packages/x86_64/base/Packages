@@ -120,10 +120,10 @@ Section: base
 CPE-ID: cpe:/a:busybox:busybox
 Essential: yes
 Architecture: x86_64
-Installed-Size: 230139
+Installed-Size: 230140
 Filename: busybox_1.35.0-3_x86_64.ipk
-Size: 231064
-SHA256sum: 9f967cacb469e22c5213535b10f194e53b5b6c4b670baf07b94a6d87cfe260b9
+Size: 231067
+SHA256sum: 38d5fb201aa2709fc586e0e99ac32d00ebd4b9f9aea55e69ee1075aae56fc534
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -165,16 +165,16 @@ Description:  Language Support Packages.
 
 Package: dnsmasq-full
 Version: 2.86-19
-Depends: libc, libubus20220228, libnettle8, kmod-ipt-ipset, libnetfilter-conntrack3
+Depends: libc, libubus20220601, libnettle8, kmod-ipt-ipset, libnetfilter-conntrack3
 Provides: dnsmasq
 License: GPL-2.0
 Section: net
 CPE-ID: cpe:/a:thekelleys:dnsmasq
 Architecture: x86_64
-Installed-Size: 192204
+Installed-Size: 192205
 Filename: dnsmasq-full_2.86-19_x86_64.ipk
-Size: 193092
-SHA256sum: 2c005e4698ef9054e0b9abff6909674a7870fec27898d142658df8f2fbcb0e1e
+Size: 193096
+SHA256sum: 03c36191c565b88653ec86bfb1afaef0f095107c84c1a70fe58b5a9ac786f3db
 Description:  It is intended to provide coupled DNS and DHCP service to a LAN.
  
  This is a fully configurable variant with DHCPv4, DHCPv6, DNSSEC, Authoritative DNS
@@ -223,7 +223,7 @@ Description:  a menu-driven program for creation and manipulation of partition t
 
 Package: firewall
 Version: 2022-01-10-0f16ea5f-3
-Depends: libc, libubox20211120, libubus20220228, libuci20130104, libip4tc2, libip6tc2, libiptext0, libiptext6-0, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
+Depends: libc, libubox20220515, libubus20220601, libuci20130104, libip4tc2, libip6tc2, libiptext0, libiptext6-0, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
 Conflicts: firewall4
 Provides: uci-firewall
 License: ISC
@@ -231,8 +231,8 @@ Section: net
 Architecture: x86_64
 Installed-Size: 50954
 Filename: firewall_2022-01-10-0f16ea5f-3_x86_64.ipk
-Size: 51936
-SHA256sum: f6d270ae7058d768f3cfb9ffc2f11b950a26281e80133c7ff7a5a2885a9377dd
+Size: 51933
+SHA256sum: 51abf96652421eaf5fbbd6e8d8986ed732be2ab40a247351b988df06f3f9f9a4
 Description:  This package provides a config-compatible C implementation of the UCI firewall.
 
 Package: getrandom
@@ -248,16 +248,16 @@ SHA256sum: 1884547d40eae2f8b36b0b86bb709da43fee5949ead40030fc4e57df42389b57
 Description:  OpenWrt getrandom system helper
 
 Package: hostapd-common
-Version: 2022-01-16-cff80b4f-10
+Version: 2022-01-16-cff80b4f-12
 Depends: libc
 License: BSD-3-Clause
 Section: net
 CPE-ID: cpe:/a:w1.fi:hostapd
 Architecture: x86_64
-Installed-Size: 12342
-Filename: hostapd-common_2022-01-16-cff80b4f-10_x86_64.ipk
-Size: 13127
-SHA256sum: 594afe2df199735abf046ad0586d38e40c9968fff86394051e522b33bab9b693
+Installed-Size: 12365
+Filename: hostapd-common_2022-01-16-cff80b4f-12_x86_64.ipk
+Size: 13146
+SHA256sum: 126f8b341515a3c338fc02bcc93b2a2c98821cecd41255edf0fd548934ef8c60
 Description:  hostapd/wpa_supplicant common support files
 
 Package: ip-full
@@ -317,34 +317,34 @@ Depends: libc, libiwinfo20210430
 License: GPL-2.0
 Section: utils
 Architecture: x86_64
-Installed-Size: 6813
+Installed-Size: 6816
 Filename: iwinfo_2022-04-26-dc6847eb-1_x86_64.ipk
-Size: 7609
-SHA256sum: c94dbfb11c6601cff126c80c7bfd6b03c304ab0b5b846aeb319f3c7700d4aeac
+Size: 7613
+SHA256sum: 91c8f7c3b0fc9fd91dc9dfd7b0276c556c4b170db6cd07ecb7c80dcbdc91c928
 Description:  Command line frontend for the wireless information library.
 
 Package: jshn
-Version: 2021-11-20-cce5e351-1
-Depends: libc, libjson-c5, libubox20211120, libblobmsg-json20211120
+Version: 2022-05-15-d2223ef9-1
+Depends: libc, libjson-c5, libubox20220515, libblobmsg-json20220515
 License: ISC
 Section: utils
 Architecture: x86_64
-Installed-Size: 6374
-Filename: jshn_2021-11-20-cce5e351-1_x86_64.ipk
-Size: 7192
-SHA256sum: ae99e727e9865402788cd5543fdd389ef7e18c237699f22d4f3232a60e9bffc3
+Installed-Size: 6372
+Filename: jshn_2022-05-15-d2223ef9-1_x86_64.ipk
+Size: 7191
+SHA256sum: 0c7c0d6a0167512625941c8d28b48685bba6e5569dbb342829c687e72fdd6530
 Description:  Library for parsing and generating JSON from shell scripts
 
 Package: jsonfilter
 Version: 2018-02-04-c7e938d6-1
-Depends: libc, libubox20211120, libjson-c5
+Depends: libc, libubox20220515, libjson-c5
 License: ISC
 Section: base
 Architecture: x86_64
 Installed-Size: 9786
 Filename: jsonfilter_2018-02-04-c7e938d6-1_x86_64.ipk
-Size: 10571
-SHA256sum: ce7168ad8b27cbbc20c27a7d4164033097b1fe123732e44b2d2e9addb0cbe9bf
+Size: 10568
+SHA256sum: 6ef6e77891e30e9bcd1cb74369281bc1bfa1edf7edfd3645bc714acd3933c59c
 Description:  OpenWrt JSON filter utility
 
 Package: libblkid1
@@ -365,18 +365,18 @@ Description:  The libblkid library is used to identify block devices (disks) as 
  information such as filesystem labels/volume names, partitions, unique
  identifiers/serial numbers...
 
-Package: libblobmsg-json20211120
-Version: 2021-11-20-cce5e351-1
-Depends: libc, libjson-c5, libubox20211120
+Package: libblobmsg-json20220515
+Version: 2022-05-15-d2223ef9-1
+Depends: libc, libjson-c5, libubox20220515
 Provides: libblobmsg-json
 License: ISC
 Section: libs
-ABIVersion: 20211120
+ABIVersion: 20220515
 Architecture: x86_64
-Installed-Size: 3806
-Filename: libblobmsg-json20211120_2021-11-20-cce5e351-1_x86_64.ipk
-Size: 4580
-SHA256sum: f8d8d113cd1b439738cdacf7c5bddd1d348b25ec29589e9b43a70e169b21f751
+Installed-Size: 3805
+Filename: libblobmsg-json20220515_2022-05-15-d2223ef9-1_x86_64.ipk
+Size: 4585
+SHA256sum: 70833ed21ca5aab98868bd8d6dba207921d31354c9282bd5003d54bb3e381a41
 Description:  blobmsg <-> json conversion library
 
 Package: libbpf20220308
@@ -446,10 +446,10 @@ Section: libs
 ABIVersion: 1
 CPE-ID: cpe:/a:elfutils_project:elfutils
 Architecture: x86_64
-Installed-Size: 39944
+Installed-Size: 39945
 Filename: libelf1_0.186-1_x86_64.ipk
-Size: 40807
-SHA256sum: a3fa3ca371ed1ff52243de5803187338edcf86daf7411eb11282344b4177893a
+Size: 40814
+SHA256sum: edf267f87996834ef4009ef45dc9dc1abe912490f81664d7a888bb77fe29f5c1
 Description:  ELF manipulation libraries (libelf)
 
 Package: libext2fs2
@@ -558,16 +558,16 @@ Depends: libc, libiwinfo20210430, liblua5.1.5
 License: GPL-2.0
 Section: lang
 Architecture: x86_64
-Installed-Size: 7617
+Installed-Size: 7619
 Filename: libiwinfo-lua_2022-04-26-dc6847eb-1_x86_64.ipk
 Size: 8392
-SHA256sum: 7762ac123d41240d186fc7f564a07bd07ab7a9cfb24c13e400fd05ccf78860bf
+SHA256sum: be9ae9855e1fba1b04d707c6a05b0714c9cb8ac838a1d85e7c1c324fd0f1e160
 Description:  This is the Lua binding for the iwinfo library. It provides access to all enabled
  backends.
 
 Package: libiwinfo20210430
 Version: 2022-04-26-dc6847eb-1
-Depends: libc, libnl-tiny1, libuci20130104, libubus20220228, libiwinfo-data
+Depends: libc, libnl-tiny1, libuci20130104, libubus20220601, libiwinfo-data
 Provides: libiwinfo
 License: GPL-2.0
 Section: libs
@@ -575,8 +575,8 @@ ABIVersion: 20210430
 Architecture: x86_64
 Installed-Size: 28495
 Filename: libiwinfo20210430_2022-04-26-dc6847eb-1_x86_64.ipk
-Size: 29305
-SHA256sum: bd34a290af784a311567ee735dabc476f832dcf0c6e29d9ec080700330967ecf
+Size: 29304
+SHA256sum: 4e275315dcc07c105969dd06d122b9e2586b65e5a193633dd2fa92a9de7a1363
 Description:  Wireless information library with simplified API for nl80211
  and wext driver interfaces.
 
@@ -595,18 +595,18 @@ Size: 28266
 SHA256sum: efc27fee1ef0659c9a8ff47c7b12ebfa690d2ae80a03733d8174e092525d4f08
 Description:  This package contains a library for javascript object notation backends.
 
-Package: libjson-script20211120
-Version: 2021-11-20-cce5e351-1
-Depends: libc, libubox20211120
+Package: libjson-script20220515
+Version: 2022-05-15-d2223ef9-1
+Depends: libc, libubox20220515
 Provides: libjson-script
 License: ISC
 Section: utils
-ABIVersion: 20211120
+ABIVersion: 20220515
 Architecture: x86_64
-Installed-Size: 5330
-Filename: libjson-script20211120_2021-11-20-cce5e351-1_x86_64.ipk
-Size: 6091
-SHA256sum: 18c70c84897c592c0c68193f8f5d81338d0a09c59d952e1454c0a5da518a7ee8
+Installed-Size: 5322
+Filename: libjson-script20220515_2022-05-15-d2223ef9-1_x86_64.ipk
+Size: 6087
+SHA256sum: 16b9f4c2d5f63c7411c812d403985491bf26ba7e9640907d15923618335599a3
 Description:  Minimalistic JSON based scripting engine
 
 Package: libltdl7
@@ -816,16 +816,16 @@ SHA256sum: ce55b26202e9aadfe1ae411ccfd6a9d02986a59ed21abbb8bb110dabd7b07a0e
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 1.1.1n-1
+Version: 1.1.1o-1
 Depends: libc, libopenssl1.1
 License: OpenSSL
 Section: libs
 CPE-ID: cpe:/a:openssl:openssl
 Architecture: x86_64
-Installed-Size: 4476
-Filename: libopenssl-conf_1.1.1n-1_x86_64.ipk
-Size: 5479
-SHA256sum: b9bfc034fe996026dfc15224885a239d8c14f5275e83923ea3684f87955be133
+Installed-Size: 4477
+Filename: libopenssl-conf_1.1.1o-1_x86_64.ipk
+Size: 5490
+SHA256sum: 2358e44e6a7f80431258941c7e9b951a42b36173844b2f78dc3b8ad9beaabe9a
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -833,7 +833,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl1.1
-Version: 1.1.1n-1
+Version: 1.1.1o-1
 Depends: libc
 Provides: libopenssl
 License: OpenSSL
@@ -841,10 +841,10 @@ Section: libs
 ABIVersion: 1.1
 CPE-ID: cpe:/a:openssl:openssl
 Architecture: x86_64
-Installed-Size: 1526750
-Filename: libopenssl1.1_1.1.1n-1_x86_64.ipk
-Size: 1520069
-SHA256sum: 42eaa7a27138d5bb8862f85e30f1b84311ac81a55f6079457dc541e13a7ecdf5
+Installed-Size: 1526891
+Filename: libopenssl1.1_1.1.1o-1_x86_64.ipk
+Size: 1520078
+SHA256sum: 70cfee9aa89c4dcb3b9090a24e32ed545e60a5f5e3126c196fe3e64d3c07975e
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -944,44 +944,44 @@ SHA256sum: 5d72bab0b96b112a96e851951b61d35cdc66480ca56c0c89d9fd8b60017632bd
 Description:  The library's purpose is to provide a consistant and stable interface for
  querying system device information exposed through sysfs.
 
-Package: libubox20211120
-Version: 2021-11-20-cce5e351-1
+Package: libubox20220515
+Version: 2022-05-15-d2223ef9-1
 Depends: libc
 Provides: libubox
 License: ISC
 Section: libs
-ABIVersion: 20211120
+ABIVersion: 20220515
 Architecture: x86_64
 Installed-Size: 21993
-Filename: libubox20211120_2021-11-20-cce5e351-1_x86_64.ipk
-Size: 22695
-SHA256sum: 15a54c21408de863c4565913c091d2a2f1d0e6cc731a97afd9046ebc7eb4e9b5
+Filename: libubox20220515_2022-05-15-d2223ef9-1_x86_64.ipk
+Size: 22709
+SHA256sum: 933ed4869b4c62f613e4374d398c4a713a33f9d6b4c0d37f064cdbde84644e14
 Description:  Basic utility library
 
 Package: libubus-lua
-Version: 2022-02-28-584f56a2-2
-Depends: libc, libubus20220228, liblua5.1.5
+Version: 2022-06-01-2bebf93c-1
+Depends: libc, libubus20220601, liblua5.1.5
 License: LGPL-2.1
 Section: libs
 Architecture: x86_64
-Installed-Size: 7051
-Filename: libubus-lua_2022-02-28-584f56a2-2_x86_64.ipk
-Size: 7843
-SHA256sum: 5bd2d8fe79e194bb7899dd14b666dec3a5688de7726ead4900637cd07440f63f
+Installed-Size: 7072
+Filename: libubus-lua_2022-06-01-2bebf93c-1_x86_64.ipk
+Size: 7875
+SHA256sum: e012904b1884ff91b95732931011ef871b592b2ad48ff07bdbcab1715e40a239
 Description:  Lua binding for the OpenWrt RPC client
 
-Package: libubus20220228
-Version: 2022-02-28-584f56a2-2
-Depends: libc, libubox20211120
+Package: libubus20220601
+Version: 2022-06-01-2bebf93c-1
+Depends: libc, libubox20220515
 Provides: libubus
 License: LGPL-2.1
 Section: libs
-ABIVersion: 20220228
+ABIVersion: 20220601
 Architecture: x86_64
-Installed-Size: 10831
-Filename: libubus20220228_2022-02-28-584f56a2-2_x86_64.ipk
-Size: 11596
-SHA256sum: 17f0ade0eca363151de1f4262b82a455bfbc485bc9598ae94b22fdc72b43da73
+Installed-Size: 10836
+Filename: libubus20220601_2022-06-01-2bebf93c-1_x86_64.ipk
+Size: 11594
+SHA256sum: cdb40d3bf9353e3f9e06a85fc7c783738040861d3580fcede45f03ec182a2b52
 Description:  OpenWrt RPC client library
 
 Package: libuci-lua
@@ -993,12 +993,12 @@ Architecture: x86_64
 Installed-Size: 6870
 Filename: libuci-lua_2021-10-22-f84f49f0-6_x86_64.ipk
 Size: 7652
-SHA256sum: 80e7c0ffefa9181e7284e7ffa7f505afcac571ad0d35f7561f0b6f6273affbbf
+SHA256sum: 131cd20da01f381a4d42ca7ff5f4060ba725d3112a02159a8e0aef634053ac35
 Description:  Lua plugin for UCI
 
 Package: libuci20130104
 Version: 2021-10-22-f84f49f0-6
-Depends: libc, libubox20211120
+Depends: libc, libubox20220515
 Provides: libuci
 License: LGPL-2.1
 Section: libs
@@ -1006,37 +1006,37 @@ ABIVersion: 20130104
 Architecture: x86_64
 Installed-Size: 17076
 Filename: libuci20130104_2021-10-22-f84f49f0-6_x86_64.ipk
-Size: 17887
-SHA256sum: c962f5cdf1b2fa14eec00c00985f61f4e1ce56ed1d80cfe6e4c07d35d295701f
+Size: 17895
+SHA256sum: 21cea2a55142309b3c28864586b95cf722b1c10f1a0fa64f116d2ce25ac8b53f
 Description:  C library for the Unified Configuration Interface (UCI)
 
 Package: libuclient20201210
 Version: 2021-05-14-6a6011df-1
-Depends: libc, libubox20211120
+Depends: libc, libubox20220515
 Provides: libuclient
 License: ISC
 Section: libs
 ABIVersion: 20201210
 Architecture: x86_64
-Installed-Size: 10629
+Installed-Size: 10630
 Filename: libuclient20201210_2021-05-14-6a6011df-1_x86_64.ipk
-Size: 11374
-SHA256sum: 4968dccfbff2079495f48ae758ab621c9c3dff3d0ad6a2c539dc2e0ede61f2bb
+Size: 11376
+SHA256sum: 85ba81248c998f98af724b8b3b6db51e74c794b14d47da5cf8e86e67e4eb2c4e
 Description:  HTTP/1.1 client library
 
 Package: libustream-wolfssl20201210
 Version: 2022-01-16-868fd881-1
-Depends: libc, libubox20211120, libwolfssl5.2.0.31258522
+Depends: libc, libubox20220515, libwolfssl5.3.0.19fa215e
 Conflicts: libustream-openssl
 Provides: libustream-wolfssl
 License: ISC
 Section: libs
 ABIVersion: 20201210
 Architecture: x86_64
-Installed-Size: 4268
+Installed-Size: 4215
 Filename: libustream-wolfssl20201210_2022-01-16-868fd881-1_x86_64.ipk
-Size: 5084
-SHA256sum: 5e6b91d3297707e7a645bca44a9c559cacbe396522926acc20ee02d075f36a0e
+Size: 5028
+SHA256sum: dd6741b7f6278ec6a06f9fc7a0260cf725e266c47b1b86955d75357ea8b793c4
 Description:  ustream SSL Library (wolfssl)
 
 Package: libuuid1
@@ -1057,32 +1057,16 @@ Description:  The UUID library is used to generate unique identifiers for object
  generates UUIDs compatible with those created by the Open Software
  Foundation (OSF) Distributed Computing Environment (DCE) utility.
 
-Package: libwolfssl5.2.0.31258522
-Version: 5.2.0-stable-2
-Depends: libc
-Provides: libcyassl, libwolfssl, libcyassl5.2.0.31258522
-License: GPL-2.0-or-later
-Section: libs
-ABIVersion: 5.2.0.31258522
-CPE-ID: cpe:/a:wolfssl:wolfssl
-Architecture: x86_64
-Installed-Size: 509599
-Filename: libwolfssl5.2.0.31258522_5.2.0-stable-2_x86_64.ipk
-Size: 509209
-SHA256sum: 31adb78f8e8a876ae571fc001beba20adffe167ce53e11e95ac1440f605f92dd
-Description:  wolfSSL (formerly CyaSSL) is an SSL library optimized for small
- footprint, both on disk and for memory use.
-
 Package: logd
 Version: 2021-08-03-205defb5-2
-Depends: libc, libubox20211120, libubus20220228, libblobmsg-json20211120
+Depends: libc, libubox20220515, libubus20220601, libblobmsg-json20220515
 License: GPL-2.0
 Section: base
 Architecture: x86_64
-Installed-Size: 10579
+Installed-Size: 10578
 Filename: logd_2021-08-03-205defb5-2_x86_64.ipk
 Size: 11231
-SHA256sum: 66d1c801f2a67c70493faaa425163d8af4f1560403055d638bcbd2d5de8c3bfa
+SHA256sum: 2e177a569cadaa28fb700a5b3476f0165e597db4f5a8f99902e8cdf74ae0b543
 Description:  OpenWrt system log implementation
 
 Package: lsblk
@@ -1127,39 +1111,39 @@ SHA256sum: 9293b964b3da67cfdf812eea8a3e0284405a0a76c1a9430c4cbdb502e467a267
 Description:  Utility for creating a Flash-Friendly File System (F2FS)
 
 Package: netifd
-Version: 2022-02-20-136006b8-1
-Depends: libc, libuci20130104, libnl-tiny1, libubus20220228, ubus, ubusd, jshn, libubox20211120
+Version: 2022-06-01-39ef9fe1-1
+Depends: libc, libuci20130104, libnl-tiny1, libubus20220601, ubus, ubusd, jshn, libubox20220515
 License: GPL-2.0
 Section: base
 Architecture: x86_64
-Installed-Size: 100768
-Filename: netifd_2022-02-20-136006b8-1_x86_64.ipk
-Size: 101697
-SHA256sum: 5fb0f4043cf205d69c49b9afb62a036fde6765c55781f3b533c10d05c1514a2f
+Installed-Size: 100944
+Filename: netifd_2022-06-01-39ef9fe1-1_x86_64.ipk
+Size: 101880
+SHA256sum: a9156eb40a39d4c1ebbec0bb09314d5aa6719f6ee639c5e6fa4adc4e9327f6ee
 Description:  OpenWrt Network Interface Configuration Daemon
 
 Package: odhcp6c
 Version: 2021-12-05-39b584bc-18
-Depends: libc, libubox20211120
+Depends: libc, libubox20220515
 License: GPL-2.0
 Section: net
 Architecture: x86_64
 Installed-Size: 26898
 Filename: odhcp6c_2021-12-05-39b584bc-18_x86_64.ipk
-Size: 27747
-SHA256sum: 85a8bec0d104dbdbaf58a2770b81b9698820430ff6bc0bf644155b84f95375bd
+Size: 27749
+SHA256sum: d01715443165603f0dd2d5d0911e175582a3553aa0beed38d2245d7f5cfe038a
 Description:  Embedded DHCPv6-client for OpenWrt
 
 Package: odhcpd-ipv6only
 Version: 2021-08-11-01b4e604-1
-Depends: libc, libubox20211120, libuci20130104, libubus20220228, libnl-tiny1
+Depends: libc, libubox20220515, libuci20130104, libubus20220601, libnl-tiny1
 License: GPL-2.0
 Section: net
 Architecture: x86_64
 Installed-Size: 39252
 Filename: odhcpd-ipv6only_2021-08-11-01b4e604-1_x86_64.ipk
-Size: 40385
-SHA256sum: c48e92fdb1c99edc42361b1600fe496e7f646f93893a5cf038fc8192ffbfb07f
+Size: 40389
+SHA256sum: b9253743b0be9149ad8dfd7e1a93beb85338989fb57d4ed47dd28c3a79a7ac00
 Description:  odhcpd is a daemon for serving and relaying IP management protocols to
  configure clients and downstream routers. It tries to follow the RFC 6204
  requirements for IPv6 home routers.
@@ -1169,16 +1153,16 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 1.1.1n-1
+Version: 1.1.1o-1
 Depends: libc, libopenssl1.1, libopenssl-conf
 License: OpenSSL
 Section: utils
 CPE-ID: cpe:/a:openssl:openssl
 Architecture: x86_64
-Installed-Size: 269237
-Filename: openssl-util_1.1.1n-1_x86_64.ipk
-Size: 268583
-SHA256sum: bb5a48e00562a9e1e291e7be4eeca9864cd454539893477b3e25449ec524bc73
+Installed-Size: 269286
+Filename: openssl-util_1.1.1o-1_x86_64.ipk
+Size: 268660
+SHA256sum: 78904029d052396842b0cf8d93e0fdc480bb86bea30471515d6492ef6e387138
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1200,15 +1184,15 @@ Description:  The keyring of with the developer using and gpg public keys.
 
 Package: opkg
 Version: 2022-01-09-2edcfad1-1
-Depends: libc, uclient-fetch, libpthread, libubox20211120
+Depends: libc, uclient-fetch, libpthread, libubox20220515
 License: GPL-2.0
 Section: base
 Essential: yes
 Architecture: x86_64
 Installed-Size: 73666
 Filename: opkg_2022-01-09-2edcfad1-1_x86_64.ipk
-Size: 74758
-SHA256sum: 8e7f6698bc53cbbde6fe85d796cc9d392527b7864c6353dffb8b1882512d72a8
+Size: 74761
+SHA256sum: 465baeee569aa647c532dedb673aed5ba78013fb96efedc58505b7065fe9e3c1
 Description:  Lightweight package management system
  opkg is the opkg Package Management System, for handling
  installation and removal of packages on a system. It can
@@ -1257,28 +1241,28 @@ SHA256sum: 149974cc490260fed10920ff0aa8f54b517e623bdf2c447500f254c5bd5aac9b
 Description:  This package contains the PPP (Point-to-Point Protocol) daemon.
 
 Package: procd-seccomp
-Version: 2022-05-03-652e6df0-4
-Depends: libc, libubox20211120, libblobmsg-json20211120
+Version: 2022-06-01-7a009685-5
+Depends: libc, libubox20220515, libblobmsg-json20220515
 License: GPL-2.0
 Section: base
 Architecture: x86_64
-Installed-Size: 18811
-Filename: procd-seccomp_2022-05-03-652e6df0-4_x86_64.ipk
-Size: 19470
-SHA256sum: 17286dc7bd1ca3abda7d30b06e9ffd4f14c078afc30e0bdfce9ccf517d422fb9
+Installed-Size: 18810
+Filename: procd-seccomp_2022-06-01-7a009685-5_x86_64.ipk
+Size: 19453
+SHA256sum: 08efe3b85e049e3b3a2c5706e9084c59d8e78a6f1d62261961c10001a1ede4a4
 Description:  OpenWrt process seccomp helper + utrace
 
 Package: procd
-Version: 2022-05-03-652e6df0-4
-Depends: libc, ubusd, ubus, libjson-script20211120, ubox, libubox20211120, libubus20220228, libblobmsg-json20211120, libjson-c5, jshn
+Version: 2022-06-01-7a009685-5
+Depends: libc, ubusd, ubus, libjson-script20220515, ubox, libubox20220515, libubus20220601, libblobmsg-json20220515, libjson-c5, jshn
 Conflicts: procd-selinux
 License: GPL-2.0
 Section: base
 Architecture: x86_64
-Installed-Size: 56202
-Filename: procd_2022-05-03-652e6df0-4_x86_64.ipk
+Installed-Size: 56207
+Filename: procd_2022-06-01-7a009685-5_x86_64.ipk
 Size: 56975
-SHA256sum: 7fe0c7b1ca460af8fd0ad0d15b10e6eaef6f03b3247dd23ec94caa96acad8e4b
+SHA256sum: 9327ad03e873aa573e28747d2e02c57eeb12e968795e006374033afd5fa5348e
 Description:  OpenWrt system process manager
 
 Package: r8152-firmware
@@ -1321,38 +1305,38 @@ Description:  This package contains the small resolveip utility which
 
 Package: rpcd-mod-file
 Version: 2022-02-07-909f2a04-1
-Depends: libc, libubus20220228, libubox20211120, rpcd
+Depends: libc, libubus20220601, libubox20220515, rpcd
 License: ISC
 Section: utils
 Architecture: x86_64
-Installed-Size: 7089
+Installed-Size: 7088
 Filename: rpcd-mod-file_2022-02-07-909f2a04-1_x86_64.ipk
-Size: 7940
-SHA256sum: c43bcefa0467318f28e5b17b4f555d1ef4d0c759ce0c8a8a816bf86fb492546d
+Size: 7945
+SHA256sum: 42159c7929c89a8e17792266d4b7e4c71449d9fceb6440cdc4d9b9b6087316e1
 Description:  Provides ubus calls for file and directory operations.
 
 Package: rpcd-mod-iwinfo
 Version: 2022-02-07-909f2a04-1
-Depends: libc, libubus20220228, libubox20211120, rpcd, libiwinfo20210430
+Depends: libc, libubus20220601, libubox20220515, rpcd, libiwinfo20210430
 License: ISC
 Section: utils
 Architecture: x86_64
-Installed-Size: 7209
+Installed-Size: 7211
 Filename: rpcd-mod-iwinfo_2022-02-07-909f2a04-1_x86_64.ipk
-Size: 8102
-SHA256sum: 7ed18f1ae8bb0b7e66ffb27bf74ee9bf5749daabfde98a9d06bca337c6a7af29
+Size: 8105
+SHA256sum: 4b294e094909e7262ef09f9c60e027edcc1ee95c22850011a9dfbd61ef75a941
 Description:  Provides ubus calls for accessing iwinfo data.
 
 Package: rpcd
 Version: 2022-02-07-909f2a04-1
-Depends: libc, libubus20220228, libubox20211120, libuci20130104, libblobmsg-json20211120, libjson-c5
+Depends: libc, libubus20220601, libubox20220515, libuci20130104, libblobmsg-json20220515, libjson-c5
 License: ISC
 Section: utils
 Architecture: x86_64
-Installed-Size: 24937
+Installed-Size: 24936
 Filename: rpcd_2022-02-07-909f2a04-1_x86_64.ipk
 Size: 25743
-SHA256sum: c06e4dc2e59c4afb5521654c45695735e2cb6e0bab395ce921b0072922e146e4
+SHA256sum: bdcf090227112028ae173c055c6a533e59f09eb295a99178cf0ac7c6ef275437
 Description:  This package provides the UBUS RPC backend server to expose various
  functionality to frontend programs via JSON-RPC.
 
@@ -1404,39 +1388,39 @@ Description:  Terminal Info Database (ncurses)
 
 Package: ubox
 Version: 2021-08-03-205defb5-2
-Depends: libc, libubox20211120, ubusd, ubus, libubus20220228, libuci20130104
+Depends: libc, libubox20220515, ubusd, ubus, libubus20220601, libuci20130104
 Alternatives: 100:/sbin/rmmod:/sbin/kmodloader, 100:/sbin/insmod:/sbin/kmodloader, 100:/sbin/lsmod:/sbin/kmodloader, 100:/sbin/modinfo:/sbin/kmodloader, 100:/sbin/modprobe:/sbin/kmodloader
 License: GPL-2.0
 Section: base
 Architecture: x86_64
 Installed-Size: 16009
 Filename: ubox_2021-08-03-205defb5-2_x86_64.ipk
-Size: 16787
-SHA256sum: e4a43f6c86f557b09f1c06e43ab9766147dc96f5650bef3015b889217715adfe
+Size: 16782
+SHA256sum: 97fb59bf9d6320c718233d5696926e5f8ad5447a4897396d36df4536965f2bde
 Description:  OpenWrt system helper toolbox
 
 Package: ubus
-Version: 2022-02-28-584f56a2-2
-Depends: libc, libubus20220228, libblobmsg-json20211120, ubusd
+Version: 2022-06-01-2bebf93c-1
+Depends: libc, libubus20220601, libblobmsg-json20220515, ubusd
 License: LGPL-2.1
 Section: base
 Architecture: x86_64
 Installed-Size: 6181
-Filename: ubus_2022-02-28-584f56a2-2_x86_64.ipk
+Filename: ubus_2022-06-01-2bebf93c-1_x86_64.ipk
 Size: 6994
-SHA256sum: 3094527853fd4514bf735fbbf0b73f22fdf4032660a23a13c1b10c41c6a5cf6b
+SHA256sum: 9456059aa21b69f3479f733b8c684b08df77def78fad1c8b577ac6f259781aa1
 Description:  OpenWrt RPC client utility
 
 Package: ubusd
-Version: 2022-02-28-584f56a2-2
-Depends: libc, libubox20211120, libblobmsg-json20211120
+Version: 2022-06-01-2bebf93c-1
+Depends: libc, libubox20220515, libblobmsg-json20220515
 License: LGPL-2.1
 Section: base
 Architecture: x86_64
-Installed-Size: 12386
-Filename: ubusd_2022-02-28-584f56a2-2_x86_64.ipk
-Size: 13158
-SHA256sum: d1977e618ebc49966a722888fb100f1dc603529ce5dafb31c8243a5503fccebb
+Installed-Size: 12391
+Filename: ubusd_2022-06-01-2bebf93c-1_x86_64.ipk
+Size: 13162
+SHA256sum: 768ab59e78f03cf19c6a417a55ad12872dcb8034c917d8385aa3501665f43250
 Description:  OpenWrt RPC daemon
 
 Package: uci
@@ -1445,10 +1429,10 @@ Depends: libc, libuci20130104
 License: LGPL-2.1
 Section: base
 Architecture: x86_64
-Installed-Size: 7135
+Installed-Size: 7137
 Filename: uci_2021-10-22-f84f49f0-6_x86_64.ipk
-Size: 7952
-SHA256sum: 447fbc301809da507ef9c0811f2b83c97269b9ef8bd3056b534f651c211f27b7
+Size: 7950
+SHA256sum: cc0bb5e3b724012e907b457566efb9e543f9ac80c29948647a3c14a46a8e2ef1
 Description:  Utility for the Unified Configuration Interface (UCI)
 
 Package: uclient-fetch
@@ -1461,33 +1445,33 @@ Section: net
 Architecture: x86_64
 Installed-Size: 7181
 Filename: uclient-fetch_2021-05-14-6a6011df-1_x86_64.ipk
-Size: 7995
-SHA256sum: 53431b6678818c32e975a63c65cf0dbe89b1734e180df51b71845ca1fc4c58a4
+Size: 7994
+SHA256sum: b33336eefd23706c02ac7db8549fd1ca4e6cec88e1219aa4aa4d6949d7a1223f
 Description:  Tiny wget replacement using libuclient
 
 Package: uhttpd-mod-ubus
 Version: 2022-02-07-2f8b1360-1
-Depends: libc, uhttpd, libubus20220228, libblobmsg-json20211120
+Depends: libc, uhttpd, libubus20220601, libblobmsg-json20220515
 License: ISC
 Section: net
 Architecture: x86_64
-Installed-Size: 8151
+Installed-Size: 8150
 Filename: uhttpd-mod-ubus_2022-02-07-2f8b1360-1_x86_64.ipk
-Size: 9019
-SHA256sum: 9abdb7103f36b1d1d1af754b81ce045ee486b6290eac8ae8857b411d8d1ba67c
+Size: 9018
+SHA256sum: 9c13898785862ec7b8027cd2f3055ee3420f2f300ce8f62ad291dd7ac96db68e
 Description:  The ubus plugin adds a HTTP/JSON RPC proxy for ubus and publishes the
  session.* namespace and procedures.
 
 Package: uhttpd
 Version: 2022-02-07-2f8b1360-1
-Depends: libc, libubox20211120, libblobmsg-json20211120, libjson-script20211120, libjson-c5
+Depends: libc, libubox20220515, libblobmsg-json20220515, libjson-script20220515, libjson-c5
 License: ISC
 Section: net
 Architecture: x86_64
-Installed-Size: 29044
+Installed-Size: 29043
 Filename: uhttpd_2022-02-07-2f8b1360-1_x86_64.ipk
-Size: 29939
-SHA256sum: f78b2fdf610259d722fd265fa37e5596ca77fa0f46b272a952133cf15f71257d
+Size: 29943
+SHA256sum: 135a78e007f75ce2308374e04cc34f2bd0b46bc3f5dc216174def57276c28061
 Description:  uHTTPd is a tiny single threaded HTTP server with TLS, CGI and Lua
  support. It is intended as a drop-in replacement for the Busybox
  HTTP daemon.
@@ -1506,14 +1490,14 @@ Description:  /etc/urandom.seed handling for OpenWrt
 
 Package: urngd
 Version: 2020-01-21-c7f7b6b6-1
-Depends: libc, libubox20211120
+Depends: libc, libubox20220515
 License: GPL-2.0 BSD-3-Clause
 Section: utils
 Architecture: x86_64
 Installed-Size: 4782
 Filename: urngd_2020-01-21-c7f7b6b6-1_x86_64.ipk
-Size: 5738
-SHA256sum: 29198634edd557a0581abf836efa90fa214f1f08806a25ed3528c4c4d701ed52
+Size: 5740
+SHA256sum: 7c36b1790225ef25b2b8f35ff658107df6ceb62d93ac2c3969cc3ef53ca49c1f
 Description:  urngd is OpenWrt's micro non-physical true random number generator based on
  timing jitter.
  
@@ -1528,14 +1512,14 @@ Description:  urngd is OpenWrt's micro non-physical true random number generator
 
 Package: usign
 Version: 2020-05-23-f1f65026-1
-Depends: libc, libubox20211120
+Depends: libc, libubox20220515
 License: ISC
 Section: base
 Architecture: x86_64
-Installed-Size: 11400
+Installed-Size: 11398
 Filename: usign_2020-05-23-f1f65026-1_x86_64.ipk
-Size: 12158
-SHA256sum: c6fc2e7068f172d8874424cdd8a6b00ffe78997e3f0a4c857a374326cd004f68
+Size: 12148
+SHA256sum: 79e1de5885196e1aee37aaa0e969d6975ad2301d96e49d43bcdbe4b56b0f2f78
 Description:  OpenWrt signature verification utility
 
 Package: wireless-regdb
