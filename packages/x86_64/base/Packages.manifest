@@ -1,3 +1,21 @@
+Package: 6in4
+Version: 28
+Depends: libc, kmod-sit, uclient-fetch
+Source: package/network/ipv6/6in4
+SourceName: 6in4
+License: GPL-2.0
+Section: net
+SourceDateEpoch: 1635621318
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: all
+Installed-Size: 1706
+Filename: 6in4_28_all.ipk
+Size: 2533
+SHA256sum: 29a3c1fdbfffef27cdd7c0aa471eded8fae9a137998c162eb080bc22ad486b4e
+Description:  Provides support for 6in4 tunnels in /etc/config/network.
+ Refer to http://wiki.openwrt.org/doc/uci/network for
+ configuration details.
+
 Package: ath10k-board-qca9888
 Version: 20220411-1
 Depends: libc
@@ -540,6 +558,25 @@ Size: 25016
 SHA256sum: 459535926911b1615f889ea6232b544c44857e99d894e78ff1bfaaf7a5c45957
 Description:  bzip2 is a freely available, patent free, high-quality
  data compressor. This packages provides libbz2 library.
+
+Package: libcap-bin
+Version: 2.63-1
+Depends: libc, libcap
+Source: package/libs/libcap
+SourceName: libcap-bin
+License: GPL-2.0-only
+LicenseFiles: License
+Section: libs
+SourceDateEpoch: 1643747102
+Maintainer: Paul Wassi <p.wassi@gmx.at>
+Architecture: x86_64
+Installed-Size: 20180
+Filename: libcap-bin_2.63-1_x86_64.ipk
+Size: 20899
+SHA256sum: 7db88fbfed14c9095c4dbafd5df7389629bc9a399756313b4664c00ca1e19228
+Description:  Linux capabilities
+ .
+ This package contains the libcap utilities.
 
 Package: libcap
 Version: 2.63-1

@@ -86,6 +86,21 @@ Description:  Avahi is an mDNS/DNS-SD (aka RendezVous/Bonjour/ZeroConf)
  .
  This package contains an mDNS/DNS-SD daemon.
 
+Package: bash
+Version: 5.1.16-1
+Depends: libc, libncurses6, libreadline8
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:bash
+Architecture: x86_64
+Installed-Size: 466898
+Filename: bash_5.1.16-1_x86_64.ipk
+Size: 467751
+SHA256sum: 3e38fdd63aeb0c5ada752b5123800ac5cd50fb4a681854c8131c77fb466ec19e
+Description:  Bash is an sh-compatible command language interpreter that executes
+ commands read from the standard input or from a file. Bash also
+ incorporates useful features from the Korn and C shells (ksh and csh).
+
 Package: bc
 Version: 1.06.95-1
 Depends: libc, libreadline8, libncurses6
@@ -450,10 +465,10 @@ Depends: libc
 License: Apache-2.0
 Section: utils
 Architecture: x86_64
-Installed-Size: 12727293
+Installed-Size: 12727294
 Filename: docker_20.10.16-1_x86_64.ipk
-Size: 12658846
-SHA256sum: 1acb638887f0fe55a6c7d791b3da9d609280734e9d1e413bc2e1f7d07759adde
+Size: 12658889
+SHA256sum: cae8873053738dbb9e275abb4b72ba03463fe539e0ede00150b8a6c4e72c9875
 Description:  The CLI used in the Docker CE and Docker EE products.
 
 Package: eoip
@@ -691,6 +706,19 @@ Description:  libdaemon is a lightweight C library that eases the writing of UNI
  
  APIs like these are used in most daemon software available. It is not that
  simple to get it done right and code duplication is not a goal.
+
+Package: libdb47
+Version: 4.7.25.4.NC-7
+Depends: libc
+Provides: libdb47-full
+License: Sleepycat
+Section: libs
+Architecture: x86_64
+Installed-Size: 525067
+Filename: libdb47_4.7.25.4.NC-7_x86_64.ipk
+Size: 525381
+SHA256sum: ec3822de8a0d900f82b131c1248003d7e30f5ee521b384cc0a38e9ea95af9847
+Description:  Berkeley DB library (4.7).
 
 Package: libdbus
 Version: 1.13.18-1
@@ -970,6 +998,21 @@ Description:  RRD is the Acronym for Round Robin Database. RRD is a system to st
  separate dynamic linked libraries.
  This package contains a shared library, used by other programs.
 
+Package: libruby3.0
+Version: 3.0.4-1
+Depends: libc, libpthread, librt, libgmp10, zlib
+Provides: libruby
+License: BSD-2-Clause
+Section: libs
+ABIVersion: 3.0
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 1113122
+Filename: libruby3.0_3.0.4-1_x86_64.ipk
+Size: 1108744
+SHA256sum: eeb67409b33d68037306fb45b5dec38a4818e5f06243dfaf895f806f52466bd6
+Description:  Ruby scripting language (shared library)
+
 Package: libsensors5
 Version: 3.6.0-1
 Depends: libc, sysfsutils
@@ -1124,6 +1167,19 @@ Size: 174282
 SHA256sum: 8430beadb82656f637e51dc8013f36b4aa48d1f9219a068d6efc10e9fcd5393f
 Description:  libwebsockets (Full - OpenSSL, libuv, plugins, CGI)
 
+Package: libyaml
+Version: 0.2.5-1
+Depends: libc
+License: MIT
+Section: libs
+CPE-ID: cpe:/a:pyyaml_project:pyyaml
+Architecture: x86_64
+Installed-Size: 41136
+Filename: libyaml_0.2.5-1_x86_64.ipk
+Size: 42014
+SHA256sum: 72f38db8c5d0ad145025ed8ded410926772acf1f37cd6e26883123f5123087fa
+Description:  Fast YAML 1.1 parser and emitter library
+
 Package: lm-sensors
 Version: 3.6.0-1
 Depends: libc, sysfsutils, libsensors5
@@ -1267,6 +1323,249 @@ Description:  RRD is the Acronym for Round Robin Database. RRD is a system to st
  separate dynamic linked libraries.
  This package contains command line tools used to manage RRDs.
 
+Package: ruby-bigdecimal
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 33130
+Filename: ruby-bigdecimal_3.0.4-1_x86_64.ipk
+Size: 34067
+SHA256sum: 35ffe6e1de536056cbd986931374e10985e8b2797d693e4f1f9af65605653223
+Description:  This package contains the ruby Arbitrary-precision decimal floating-point library.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/*/bigdecimal.so 
+ - /usr/lib/ruby/3.0/bigdecimal/ 
+ - /usr/lib/ruby/3.0/bigdecimal.rb 
+ - /usr/lib/ruby/gems/3.0/specifications/default/bigdecimal-*.gemspec
+ 
+
+Package: ruby-date
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 63046
+Filename: ruby-date_3.0.4-1_x86_64.ipk
+Size: 63997
+SHA256sum: b79e9c22571403e4ebf1b3e7fef043d69823614bde0189439254c30d27e919a9
+Description:  This package contains the ruby Comparable module for handling dates.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/date.rb 
+ - /usr/lib/ruby/3.0/*/date_core.so 
+ - /usr/lib/ruby/gems/3.0/specifications/default/date-*.gemspec
+ 
+
+Package: ruby-dbm
+Version: 3.0.4-1
+Depends: libc, ruby, libdb47
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 8197
+Filename: ruby-dbm_3.0.4-1_x86_64.ipk
+Size: 9140
+SHA256sum: b7addf753a0f7ebd30de3c0ddad4b80bfeebfbd937f0bf7ddb9077587144b8e9
+Description:  The DBM class provides a wrapper to a Unix-style dbm or Database Manager library.
+ This package provides dbm.so file.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/*/dbm.so 
+ - /usr/lib/ruby/gems/3.0/specifications/default/dbm-*.gemspec
+ 
+
+Package: ruby-digest
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 25038
+Filename: ruby-digest_3.0.4-1_x86_64.ipk
+Size: 25869
+SHA256sum: 63c52a041246366ee01824253c3e8cdd02233495dcee70fb5b54dad2cd66f4dc
+Description:  Provides digest* files. Can be configured to use OpenSSL or
+ bundled hash functions.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/digest 
+ - /usr/lib/ruby/3.0/digest.rb 
+ - /usr/lib/ruby/3.0/*/digest.so 
+ - /usr/lib/ruby/3.0/*/digest/* 
+ - /usr/lib/ruby/gems/3.0/specifications/default/digest-*.gemspec
+ 
+
+Package: ruby-enc
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 9803
+Filename: ruby-enc_3.0.4-1_x86_64.ipk
+Size: 10620
+SHA256sum: ab5edd843eda661cb8df4e6eccf50d9ee4e5d0da5f8a079ea51dabce32500b80
+Description:  This package contains the ruby character re-coding library charset (small subset).
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/*/enc/encdb.so 
+ - /usr/lib/ruby/3.0/*/enc/iso_8859_1.so 
+ - /usr/lib/ruby/3.0/*/enc/utf_*.so 
+ - /usr/lib/ruby/3.0/*/enc/euc_jp.so
+ 
+
+Package: ruby-forwardable
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 3788
+Filename: ruby-forwardable_3.0.4-1_x86_64.ipk
+Size: 4670
+SHA256sum: 50894d91b4fa374c875eb8f41436e02f61e397c86ffcef2d4a65dcc74ca702ca
+Description:  This package contains the ruby delegation of methods to a object.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/forwardable.rb 
+ - /usr/lib/ruby/3.0/forwardable 
+ - /usr/lib/ruby/gems/3.0/specifications/default/forwardable-*.gemspec
+ 
+
+Package: ruby-pstore
+Version: 3.0.4-1
+Depends: libc, ruby, ruby-digest, ruby-enc
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 5463
+Filename: ruby-pstore_3.0.4-1_x86_64.ipk
+Size: 6339
+SHA256sum: 55ff65d7ed5b9da82efd4651279bddef07cb8a38b3f24c909e8878d4f435a468
+Description:  This package contains the ruby file based persistence.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/pstore.rb 
+ - /usr/lib/ruby/3.0/pstore/ 
+ - /usr/lib/ruby/gems/3.0/gems/pstore-*/ 
+ - /usr/lib/ruby/gems/3.0/specifications/default/pstore-*.gemspec
+ 
+
+Package: ruby-psych
+Version: 3.0.4-1
+Depends: libc, ruby, ruby-bigdecimal, ruby-date, ruby-enc, ruby-forwardable, ruby-stringio, ruby-strscan, libyaml
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 33875
+Filename: ruby-psych_3.0.4-1_x86_64.ipk
+Size: 34838
+SHA256sum: 5e5ccefd5dd007d3bf20b253c2a6493ee4e793d3c2b6070e292048b63d544368
+Description:  This package contains the ruby YAML parser and emitter.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/psych 
+ - /usr/lib/ruby/3.0/psych.rb 
+ - /usr/lib/ruby/3.0/*/psych.so 
+ - /usr/lib/ruby/gems/3.0/specifications/default/psych-*.gemspec
+ 
+
+Package: ruby-stringio
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 12225
+Filename: ruby-stringio_3.0.4-1_x86_64.ipk
+Size: 13076
+SHA256sum: fb13e7e1e28e392d3d9af4e52fa21af3efde57b8beb721e16f7d90a8f4ca7199
+Description:  This package contains the ruby Pseudo `IO` class from/to `String`.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/*/stringio.so 
+ - /usr/lib/ruby/gems/3.0/specifications/default/stringio-*.gemspec
+ 
+
+Package: ruby-strscan
+Version: 3.0.4-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 8964
+Filename: ruby-strscan_3.0.4-1_x86_64.ipk
+Size: 9838
+SHA256sum: ce4e660905018db6d811c01d64db49beea55defac7644017059b31b03df798e9
+Description:  This package contains the ruby Lexical scanning operations on a String.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/*/strscan.so 
+ - /usr/lib/ruby/gems/3.0/specifications/default/strscan-*.gemspec
+ 
+
+Package: ruby-yaml
+Version: 3.0.4-1
+Depends: libc, ruby, ruby-dbm, ruby-pstore, ruby-psych
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 4355
+Filename: ruby-yaml_3.0.4-1_x86_64.ipk
+Size: 5215
+SHA256sum: 7c5ab47d06259b76483195790996adbb51680ef6d99549a12981dac3f69c40c5
+Description:  This package contains the ruby YAML toolkit.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.0/yaml 
+ - /usr/lib/ruby/3.0/yaml.rb 
+ - /usr/lib/ruby/gems/3.0/gems/yaml-*/ 
+ - /usr/lib/ruby/gems/3.0/specifications/default/yaml-*.gemspec
+ 
+
+Package: ruby
+Version: 3.0.4-1
+Depends: libc, libruby3.0
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 1679
+Filename: ruby_3.0.4-1_x86_64.ipk
+Size: 2587
+SHA256sum: ad4f63c742cd8c618ea3c5fd5fc421bb7f830498f3ae62b674fef5ffeef2e971
+Description:  Ruby is the interpreted scripting language for quick and easy
+ object-oriented programming.  It has many features to process text files
+ and to do system management tasks (as in perl).  It is simple,
+ straight-forward, and extensible.
+ 
+
 Package: samba4-libs
 Version: 4.14.12-1
 Depends: libc, libtirpc, libreadline8, libpopt0, libcap, zlib, libgnutls, libtasn1, libuuid1, libopenssl1.1, libpthread, liburing, attr, libavahi-client
@@ -1274,10 +1573,10 @@ License: GPL-3.0-only
 Section: net
 CPE-ID: cpe:/a:samba:samba
 Architecture: x86_64
-Installed-Size: 8192353
+Installed-Size: 8190610
 Filename: samba4-libs_4.14.12-1_x86_64.ipk
-Size: 8147921
-SHA256sum: 65f7368cad7502a741fb76346f3f1644a25d91b060ab64ab00f7c0a60e67a190
+Size: 8143025
+SHA256sum: 84600e885a6b926d776dc0135932449c03bfbee5408d9dadab7dcd55b70bdec4
 Description:  Samba 4.14.12 libs
 
 Package: samba4-server
@@ -1288,10 +1587,10 @@ License: GPL-3.0-only
 Section: net
 CPE-ID: cpe:/a:samba:samba
 Architecture: x86_64
-Installed-Size: 242251
+Installed-Size: 242217
 Filename: samba4-server_4.14.12-1_x86_64.ipk
-Size: 243390
-SHA256sum: 32a6c9281cc777f64df33da9996b3d7f8402bb177a6ec398d60c29a790aebbca
+Size: 243372
+SHA256sum: ee21d279539f4d45d688235f43c7b7ec48fe2dc3f2197eaa1d13e5be36302b8f
 Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
  (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
  
