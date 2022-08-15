@@ -59,7 +59,7 @@ jobs:
         date=$(date +%Y%m%d%H%M%S)
         echo "DATE=$date" >> $GITHUB_ENV
 
-    - name: Sync my pkgs
+    - name: Sync my packages
       run: |
         mkdir mypkg
         git clone https://github.com/Lienol/openwrt-packages.git -b 22.03 mypkg/pkg
