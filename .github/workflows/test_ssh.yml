@@ -55,8 +55,8 @@ jobs:
         git clone https://github.com/Lienol/openwrt-packages.git -b 22.03 mypkg/pkg
         git clone https://github.com/Lienol/openwrt-luci.git -b 22.03 mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
-        rm -rf mypkg/pkg/.*
-        rm -rf mypkg/luci/.*
+        rm -rf mypkg/pkg/.git*
+        rm -rf mypkg/luci/.git*
         rm -rf mypkg/pkg/net/smartdns
         rm -rf mypkg/luci/applications/luci-app-smartdns
         cp -r kenzok8/smartdns mypkg/pkg/net
