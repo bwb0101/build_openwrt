@@ -24,6 +24,18 @@ Size: 8571
 SHA256sum: 1a1a581186c1cd384fb636b909481362cacca4ee63f48a666bf8234fb55b24df
 Description:  LuCI HTTP utility library
 
+Package: luci-app-acme
+Version: git-0c8c742
+Depends: libc, luci-mod-admin-full, acme
+License: GPL-3.0-or-later
+Section: luci
+Architecture: all
+Installed-Size: 2589
+Filename: luci-app-acme_git-0c8c742_all.ipk
+Size: 3464
+SHA256sum: ad24e5bbd94301da287bb16b37d2d7f990c6fda593448e847747e527d5d40433
+Description:  ACME package - LuCI interface
+
 Package: luci-app-advanced-reboot
 Version: 1.0.1-3
 Depends: libc, luci-mod-admin-full, jshn
@@ -47,18 +59,6 @@ Filename: luci-app-ddns_git-0c8c742_all.ipk
 Size: 13338
 SHA256sum: 21553e5584705c860976b5d8c6d3dee8d66f181546b4d004633330a2550f8f8f
 Description:  LuCI Support for Dynamic DNS Client (ddns-scripts)
-
-Package: luci-app-dockerman
-Version: v0.5.13
-Depends: libc, luci-compat, luci-lib-docker, docker, ttyd
-License: AGPL-3.0
-Section: luci
-Architecture: all
-Installed-Size: 35779
-Filename: luci-app-dockerman_v0.5.13_all.ipk
-Size: 36723
-SHA256sum: df7ab326e1e9f1c378efef625b7ccb3d9f0dfddd3759bb2ecd251280ebb3f906
-Description:  LuCI Support for docker
 
 Package: luci-app-eoip
 Version: git-0c8c742
@@ -119,40 +119,16 @@ Size: 3607
 SHA256sum: 534b68b80809353c40ed6441f025a49e358ef3830c2834d6b2b272a37091a36d
 Description:  LuCI Support for miniDLNA
 
-Package: luci-app-mwan3
+Package: luci-app-ntpc
 Version: git-0c8c742
-Depends: libc, mwan3
-License: GPLv2
+Depends: libc, luci-compat, ntpclient
 Section: luci
 Architecture: all
-Installed-Size: 8572
-Filename: luci-app-mwan3_git-0c8c742_all.ipk
-Size: 9445
-SHA256sum: 40f1eb443a4a9d182bdd12d526f644672794a2e090df644e8e70b354f4195067
-Description:  LuCI support for the MWAN3 MultiWAN Manager
-
-Package: luci-app-ocserv
-Version: git-0c8c742
-Depends: libc, luci-compat, ocserv, certtool
-Section: luci
-Architecture: all
-Installed-Size: 4652
-Filename: luci-app-ocserv_git-0c8c742_all.ipk
-Size: 5488
-SHA256sum: f52e6f2a4210649e3eca4ff84499685d8b66b0e7a290ade433d9dd8feded317e
-Description:  LuCI Support for OpenConnect VPN
-
-Package: luci-app-openvpn
-Version: git-0c8c742
-Depends: libc, luci-compat
-License: Apache-2.0
-Section: luci
-Architecture: all
-Installed-Size: 11923
-Filename: luci-app-openvpn_git-0c8c742_all.ipk
-Size: 12807
-SHA256sum: f03ff9d9817547581e58b2981ea1bae935f7d947b822e5fa6090e5f4bf1856c3
-Description:  LuCI Support for OpenVPN
+Installed-Size: 1197
+Filename: luci-app-ntpc_git-0c8c742_all.ipk
+Size: 2059
+SHA256sum: af2a50ec145d9bb8a09a90704f024440d0074a10a4f0d629ff1f1b039959fcb4
+Description:  NTP time synchronisation configuration module
 
 Package: luci-app-opkg
 Version: git-0c8c742
@@ -188,17 +164,6 @@ Size: 4856
 SHA256sum: 97be93c1ae939860ee6869ae1a70ddbdba1058d8364439754f1be4c9e7f58abc
 Description:  Provides Luci for smartdns
 
-Package: luci-app-softether
-Version: git-0c8c742
-Depends: libc, softethervpn5-client
-Section: luci
-Architecture: all
-Installed-Size: 1954
-Filename: luci-app-softether_git-0c8c742_all.ipk
-Size: 2811
-SHA256sum: 2ab0d44b9f0942b3e688f1cda97ec9477e533d00e25b161a3938cd9979c5b659
-Description:  Softether management application
-
 Package: luci-app-squid
 Version: git-0c8c742
 Depends: libc, luci-compat, luci-mod-admin-full, squid
@@ -211,17 +176,6 @@ Size: 2237
 SHA256sum: dff2f9aac87312307ee073a28b8a861af55e7342d82bdc03e984d5a2651ff62b
 Description:  Squid LuCI Interface
 
-Package: luci-app-statistics
-Version: git-0c8c742
-Depends: libc, luci-base, luci-lib-jsonc, collectd, rrdtool1, collectd-mod-rrdtool, collectd-mod-iwinfo, collectd-mod-cpu, collectd-mod-memory, collectd-mod-interface, collectd-mod-load, collectd-mod-network
-Section: luci
-Architecture: all
-Installed-Size: 31078
-Filename: luci-app-statistics_git-0c8c742_all.ipk
-Size: 31998
-SHA256sum: 97c89388b30c3384ad3b88bb075fe5de212dfe5c4d68438de352893e825e4888
-Description:  LuCI Statistics Application
-
 Package: luci-app-upnp
 Version: git-0c8c742
 Depends: libc, miniupnpd
@@ -232,18 +186,6 @@ Filename: luci-app-upnp_git-0c8c742_all.ipk
 Size: 4979
 SHA256sum: a65a22706bd19cba3d78dcffa6bb6d61dbcc420dc280b5c24cc58424918a113a
 Description:  Universal Plug & Play configuration module
-
-Package: luci-app-vpnbypass
-Version: 1.3.1-9
-Depends: libc, luci-mod-admin-full, vpnbypass
-License: GPL-3.0-or-later
-Section: luci
-Architecture: all
-Installed-Size: 3266
-Filename: luci-app-vpnbypass_1.3.1-9_all.ipk
-Size: 4147
-SHA256sum: 51d4d5471d6e365cbf1109a83c2b2da1d4460c6b2b123c617faca2471254ae60
-Description:  Provides Web UI for VPNBypass service.
 
 Package: luci-app-wol
 Version: git-0c8c742
@@ -278,6 +220,18 @@ Filename: luci-compat_git-0c8c742_all.ipk
 Size: 46258
 SHA256sum: 7a7eaf4841d6e9ca8d0ffd7024aad420d9e6a17b9b67291df0f758b71e2a9ffe
 Description:  LuCI compatibility libraries
+
+Package: luci-i18n-acme-zh-cn
+Version: git-0c8c742
+Depends: libc, luci-app-acme
+License: GPL-3.0-or-later
+Section: luci
+Architecture: all
+Installed-Size: 2460
+Filename: luci-i18n-acme-zh-cn_git-0c8c742_all.ipk
+Size: 3333
+SHA256sum: f1ddf076fda28ef9afed2d2482286378a1e201fee3115b424bc1d4c93b1c04ba
+Description:  Translation for luci-app-acme - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-advanced-reboot-zh-cn
 Version: git-0c8c742
@@ -314,18 +268,6 @@ Filename: luci-i18n-ddns-zh-cn_git-0c8c742_all.ipk
 Size: 6013
 SHA256sum: 0959c78e0e731dbffef201a283d1f8a65ccdc0aa39d4badb0d1a7b5e37f5025c
 Description:  Translation for luci-app-ddns - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-dockerman-zh-cn
-Version: git-0c8c742
-Depends: libc, luci-app-dockerman
-License: AGPL-3.0
-Section: luci
-Architecture: all
-Installed-Size: 4615
-Filename: luci-i18n-dockerman-zh-cn_git-0c8c742_all.ipk
-Size: 5498
-SHA256sum: f5509d7192c9afa0a7b95f041ace20253ecf06049b849c099e9e5f8414dfc609
-Description:  Translation for luci-app-dockerman - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-firewall-zh-cn
 Version: git-0c8c742
@@ -374,40 +316,16 @@ Size: 2758
 SHA256sum: 63d8442d07fe79575cb819062f1d494461b645c894801eb4a874848dd000ba1a
 Description:  Translation for luci-app-minidlna - 简体中文 (Chinese Simplified)
 
-Package: luci-i18n-mwan3-zh-cn
+Package: luci-i18n-ntpc-zh-cn
 Version: git-0c8c742
-Depends: libc, luci-app-mwan3
-License: GPLv2
+Depends: libc, luci-app-ntpc
 Section: luci
 Architecture: all
-Installed-Size: 4747
-Filename: luci-i18n-mwan3-zh-cn_git-0c8c742_all.ipk
-Size: 5608
-SHA256sum: a998bf70a26c866df00d982339dcfca191df0c15b43bc9c7d35184d05ed5e8a3
-Description:  Translation for luci-app-mwan3 - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-ocserv-zh-cn
-Version: git-0c8c742
-Depends: libc, luci-app-ocserv
-Section: luci
-Architecture: all
-Installed-Size: 2343
-Filename: luci-i18n-ocserv-zh-cn_git-0c8c742_all.ipk
-Size: 3201
-SHA256sum: ba34dfac6e041165f84cd9f97aa53afa4409f59ef9d0bc01c4c27803da76a742
-Description:  Translation for luci-app-ocserv - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-openvpn-zh-cn
-Version: git-0c8c742
-Depends: libc, luci-app-openvpn
-License: Apache-2.0
-Section: luci
-Architecture: all
-Installed-Size: 5238
-Filename: luci-i18n-openvpn-zh-cn_git-0c8c742_all.ipk
-Size: 6077
-SHA256sum: ab3158e0f3fb18d44b9086efa87ed0d98d3ad26383c5dadd01b76a4924c78a2c
-Description:  Translation for luci-app-openvpn - 简体中文 (Chinese Simplified)
+Installed-Size: 749
+Filename: luci-i18n-ntpc-zh-cn_git-0c8c742_all.ipk
+Size: 1593
+SHA256sum: 0d639a319c3d117dd038a443c32cecb8e858e9ef03d1d866541ebd2e2d62a07e
+Description:  Translation for luci-app-ntpc - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-opkg-zh-cn
 Version: git-0c8c742
@@ -455,17 +373,6 @@ Size: 1494
 SHA256sum: 51a10f91c4ba24573a1e1c6af96fb7852a746ecdf927aa2cc429100662188b47
 Description:  Translation for luci-app-squid - 简体中文 (Chinese Simplified)
 
-Package: luci-i18n-statistics-zh-cn
-Version: git-0c8c742
-Depends: libc, luci-app-statistics
-Section: luci
-Architecture: all
-Installed-Size: 8129
-Filename: luci-i18n-statistics-zh-cn_git-0c8c742_all.ipk
-Size: 8982
-SHA256sum: bcc92cc2df7f7e1d2aee3226a9d5db220c6e03754df1cef4d3c7c0d12e947c1e
-Description:  Translation for luci-app-statistics - 简体中文 (Chinese Simplified)
-
 Package: luci-i18n-upnp-zh-cn
 Version: git-0c8c742
 Depends: libc, luci-app-upnp
@@ -476,18 +383,6 @@ Filename: luci-i18n-upnp-zh-cn_git-0c8c742_all.ipk
 Size: 2411
 SHA256sum: dfca278553c9270deff674c577b074c53e12379755c43303a3da3c23b06ce2ba
 Description:  Translation for luci-app-upnp - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-vpnbypass-zh-cn
-Version: git-0c8c742
-Depends: libc, luci-app-vpnbypass
-License: GPL-3.0-or-later
-Section: luci
-Architecture: all
-Installed-Size: 1086
-Filename: luci-i18n-vpnbypass-zh-cn_git-0c8c742_all.ipk
-Size: 1988
-SHA256sum: 1edddc39cdb6c1105c763e9353d5459de5934e9370771b4aaffcce280e2d35e7
-Description:  Translation for luci-app-vpnbypass - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-wol-zh-cn
 Version: git-0c8c742
@@ -510,18 +405,6 @@ Filename: luci-lib-base_git-0c8c742_all.ipk
 Size: 13363
 SHA256sum: 86e23cf49d289db04036799c04755e5bd4e28135671f2d8f5827eb35be86457c
 Description:  basic libraries for luci
-
-Package: luci-lib-docker
-Version: git-0c8c742
-Depends: libc, luci-lib-jsonc
-License: AGPL-3.0
-Section: luci
-Architecture: all
-Installed-Size: 3811
-Filename: luci-lib-docker_git-0c8c742_all.ipk
-Size: 4678
-SHA256sum: c99197e1e5dcfc86769bd6230988443e0cf549c02846eccdcde267b307b0ff8b
-Description:  Docker Engine API for LuCI
 
 Package: luci-lib-ip
 Version: git-0c8c742
@@ -652,6 +535,17 @@ Size: 1180569
 SHA256sum: 1c894e1133306493bb32c8fe856be6db4f9211363eda84e6c42e56b01f547218
 Description:  Argon Theme
 
+Package: luci-theme-bootstrap-mod
+Version: 20220102
+Depends: libc
+Section: luci
+Architecture: all
+Installed-Size: 8971
+Filename: luci-theme-bootstrap-mod_20220102_all.ipk
+Size: 9810
+SHA256sum: 2af740a96cf97e73d0b01998d92b457f6945da12318f2ed6238a5d0decfeac1c
+Description:  Bootstrap Mod Theme By Lienol
+
 Package: luci-theme-bootstrap
 Version: git-0c8c742
 Depends: libc
@@ -685,6 +579,17 @@ Filename: luci-theme-openwrt-2020_git-0c8c742_all.ipk
 Size: 42147
 SHA256sum: 8561d162a78f6d0915dcf70af1a7c5edef32a66d677947bd206e74f4301fec2b
 Description:  LuCI modern OpenWrt theme
+
+Package: luci-theme-openwrt
+Version: git-0c8c742
+Depends: libc
+Section: luci
+Architecture: all
+Installed-Size: 10305
+Filename: luci-theme-openwrt_git-0c8c742_all.ipk
+Size: 11158
+SHA256sum: 7bdbbd13d08709b5ba43a96678ed4ecd8b1f08535fb37ff962c2b0824eb14823
+Description:  LuCI OpenWrt.org theme
 
 Package: luci
 Version: git-0c8c742

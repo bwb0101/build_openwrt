@@ -4,22 +4,11 @@ Depends: libc
 License: GPL-3.0
 Section: multimedia
 Architecture: x86_64
-Installed-Size: 2584351
+Installed-Size: 2584357
 Filename: UnblockNeteaseMusic-Go_0.2.13-1_x86_64.ipk
-Size: 2579962
-SHA256sum: 46da885e48e9cbdded12091c547b00f2aa2af0fd25ff64c38d338c8737fdfb80
+Size: 2580008
+SHA256sum: ea1b1e9619365df356d751d4e165b780914e0f084db67846829bb79fbc51a104
 Description:  Revive Netease Cloud Music (Golang)
-
-Package: adbyby
-Version: 2.7-20200315
-Depends: libc
-Section: net
-Architecture: x86_64
-Installed-Size: 401267
-Filename: adbyby_2.7-20200315_x86_64.ipk
-Size: 402068
-SHA256sum: 73e49b6607f3b65aa4feb6cb14ed0bb757d49639fc25e03662eeb189326ea9e8
-Description:  Adbyby is a powerful adblock module to block ad,just like adblock.
 
 Package: autocore-x86
 Version: 1-43
@@ -79,17 +68,6 @@ Size: 1321
 SHA256sum: 58c9fa4882bafced2632b28b672245c056b7ddfb4b8fc35401d86c7869a4d418
 Description:  IPv6 Helper and Dynamic Update he.net of ip
 
-Package: luci-app-adbyby-plus
-Version: 2.0
-Depends: libc, adbyby, uclient-fetch, ipset, dnsmasq-full
-Section: luci
-Architecture: all
-Installed-Size: 9845
-Filename: luci-app-adbyby-plus_2.0_all.ipk
-Size: 10717
-SHA256sum: 69cb57fd0bd266f2e061cb7ea11a85420c5906dd487223ee4a0cf9eaeac53933
-Description:  LuCI support for Adbyby
-
 Package: luci-app-adguardhome
 Version: 15
 Depends: libc, wget-ssl
@@ -100,17 +78,6 @@ Filename: luci-app-adguardhome_15_all.ipk
 Size: 91744
 SHA256sum: bf135e4ca27b2a5fcb4159596f758e7e35e4b39b9ac116175c37718cd8b32631
 Description:  LuCI support for adguardhome
-
-Package: luci-app-autoreboot
-Version: 1.0
-Depends: libc
-Section: luci
-Architecture: all
-Installed-Size: 1514
-Filename: luci-app-autoreboot_1.0_all.ipk
-Size: 2349
-SHA256sum: 49a3b1485bd920662047ae8f4ea41c8e0506fe56967d5886b883bb421ac104ea
-Description:  LuCI support for Scheduled Reboot
 
 Package: luci-app-diskman
 Version: v0.2.11-beta
@@ -134,17 +101,6 @@ Filename: luci-app-filetransfer_1_all.ipk
 Size: 3539
 SHA256sum: 3f65685e837780bf3ee0e6d1c66fe91814278e9870851bbd14fc819fa16fdea9
 Description:  LuCI page for IPK upload
-
-Package: luci-app-mwan3helper
-Version: 1
-Depends: libc, luci-app-mwan3, pdnsd-alt, dnsmasq-full, ipset
-Section: luci
-Architecture: all
-Installed-Size: 93554
-Filename: luci-app-mwan3helper_1_all.ipk
-Size: 92803
-SHA256sum: aed4b6c5b6a42baa7c5846c03d43854898e5ae964f0e2e32a8d9e275ee27d86b
-Description:  LuCI support for MWAN3 Helper
 
 Package: luci-app-netdata
 Version: 1.0
@@ -192,17 +148,6 @@ Size: 4144
 SHA256sum: e154c85f4a148f2e624b2ad7263b894a9ff752c810c2641a1839bb56f11201af
 Description:  USB Printer Share via TCP/IP
 
-Package: luci-app-uugamebooster
-Version: 1.0
-Depends: libc, uugamebooster
-Section: luci
-Architecture: all
-Installed-Size: 250740
-Filename: luci-app-uugamebooster_1.0_all.ipk
-Size: 251715
-SHA256sum: 65597e904ff44b81eec5bc929a3b940176f5d203488208c3ec2c1154aa354996
-Description:  LuCI support for UUgamebooster
-
 Package: luci-app-vlmcsd
 Version: 1.0
 Depends: libc, vlmcsd
@@ -225,39 +170,6 @@ Size: 3882
 SHA256sum: 40410d9439787fbfe7b34969b52753b406d7122d94add19423171249dff58967
 Description:  LuCI support for VSFTPD
 
-Package: luci-app-zerotier
-Version: 1.0
-Depends: libc, zerotier
-Section: luci
-Architecture: all
-Installed-Size: 3452
-Filename: luci-app-zerotier_1.0_all.ipk
-Size: 4262
-SHA256sum: 7b729e2a692c3b910dd00700417d78680fae46e6ec1a65e4cd421a8b4e0f1e87
-Description:  LuCI for Zerotier
-
-Package: luci-i18n-adbyby-plus-zh-cn
-Version: git-2b61072
-Depends: libc, luci-app-adbyby-plus
-Section: luci
-Architecture: all
-Installed-Size: 2309
-Filename: luci-i18n-adbyby-plus-zh-cn_git-2b61072_all.ipk
-Size: 3167
-SHA256sum: 8baff6b4a24bdda5e34836896c0d85e0ba5494534f4e8cb05bfaa0b8e1606688
-Description:  Translation for luci-app-adbyby-plus - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-autoreboot-zh-cn
-Version: git-2b61072
-Depends: libc, luci-app-autoreboot
-Section: luci
-Architecture: all
-Installed-Size: 533
-Filename: luci-i18n-autoreboot-zh-cn_git-2b61072_all.ipk
-Size: 1375
-SHA256sum: c86b554adedf0dd68e1ce34fc3f18db49a5d71115d8a7e8353df71500acdcfa8
-Description:  Translation for luci-app-autoreboot - 简体中文 (Chinese Simplified)
-
 Package: luci-i18n-filetransfer-zh-cn
 Version: git-2b61072
 Depends: libc, luci-app-filetransfer
@@ -268,17 +180,6 @@ Filename: luci-i18n-filetransfer-zh-cn_git-2b61072_all.ipk
 Size: 1640
 SHA256sum: 507f41f3ad99e3c426b0fa5fef552ccfaa07d7fccc459563ebc1d002e5d67f76
 Description:  Translation for luci-app-filetransfer - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-mwan3helper-zh-cn
-Version: git-2b61072
-Depends: libc, luci-app-mwan3helper
-Section: luci
-Architecture: all
-Installed-Size: 663
-Filename: luci-i18n-mwan3helper-zh-cn_git-2b61072_all.ipk
-Size: 1503
-SHA256sum: de0fe1b930427863ce3e9a221c5f8f2bdf673f2fe66bd6fa8b5f5e6c1aac88ba
-Description:  Translation for luci-app-mwan3helper - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-netdata-zh-cn
 Version: git-2b61072
@@ -326,17 +227,6 @@ Size: 1709
 SHA256sum: b088e35e66af920104b52c8c14cc3e42e5a869f07f86161ccadce65b330d07d3
 Description:  Translation for luci-app-usb-printer - 简体中文 (Chinese Simplified)
 
-Package: luci-i18n-uugamebooster-zh-cn
-Version: git-2b61072
-Depends: libc, luci-app-uugamebooster
-Section: luci
-Architecture: all
-Installed-Size: 582
-Filename: luci-i18n-uugamebooster-zh-cn_git-2b61072_all.ipk
-Size: 1427
-SHA256sum: 32e1c204f11d404e6a9e9623e2383d45da2406b62df40d4531c8b780ecb1cccd
-Description:  Translation for luci-app-uugamebooster - 简体中文 (Chinese Simplified)
-
 Package: luci-i18n-vlmcsd-zh-cn
 Version: git-2b61072
 Depends: libc, luci-app-vlmcsd
@@ -359,17 +249,6 @@ Size: 2774
 SHA256sum: 2827ee1ccf4f42f805b0c3a66937b8d5fd5ad9eadf057621305645e2b107e48b
 Description:  Translation for luci-app-vsftpd - 简体中文 (Chinese Simplified)
 
-Package: luci-i18n-zerotier-zh-cn
-Version: git-2b61072
-Depends: libc, luci-app-zerotier
-Section: luci
-Architecture: all
-Installed-Size: 823
-Filename: luci-i18n-zerotier-zh-cn_git-2b61072_all.ipk
-Size: 1669
-SHA256sum: 290fd46cb4d3002c7a8aa0197bf7db7c955b86fc26e6d0596f0769c7edfc990d
-Description:  Translation for luci-app-zerotier - 简体中文 (Chinese Simplified)
-
 Package: luci-lib-fs
 Version: 1.0-1
 Depends: libc, luci-lib-nixio
@@ -381,17 +260,6 @@ Size: 3013
 SHA256sum: e6735fb3b6d937a8af21afcac927708b98055ca9d9cb7f07ca3538fd6452a108
 Description:  luci-lib-fs
 
-Package: uugamebooster
-Version: v2.21.12-1
-Depends: libc, kmod-tun
-Section: net
-Architecture: x86_64
-Installed-Size: 1382274
-Filename: uugamebooster_v2.21.12-1_x86_64.ipk
-Size: 1382066
-SHA256sum: 73ba48a82e8c23f5228a047951efd88bc588452c54fae312d1f31a28c1cc0fa9
-Description:  NetEase's UU Game Booster Accelerates Triple-A Gameplay and Market
-
 Package: vlmcsd
 Version: svn1113-3
 Depends: libc, libpthread
@@ -400,8 +268,8 @@ Section: net
 Architecture: x86_64
 Installed-Size: 22722
 Filename: vlmcsd_svn1113-3_x86_64.ipk
-Size: 23444
-SHA256sum: a2b123801020f63b82e60b1d8d9edfd6ca7ff60f95f706f50c7e24af67fe9a7f
+Size: 23443
+SHA256sum: 2f077befbb89f45cde5a8119253076e7b6e9a99013f428cc540b285eed2bfdf7
 Description:  vlmcsd is a KMS Emulator in C.
 
 Package: vsftpd-alt

@@ -6,42 +6,59 @@ SourceName: dns2tcp
 License: AGPL-3.0-only
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
 Installed-Size: 11756
 Filename: dns2tcp_1.1.0-1_x86_64.ipk
-Size: 12542
-SHA256sum: 17c66374f34a1db27d91ff3d25e0e2ab53d7ce0b05b0f6ff96a549aa1d97d284
+Size: 12546
+SHA256sum: 62c61f2afba15ea7bf0d01ea3a0edee7c66e271da87b814fd9461e75cf594198
 Description:  utility to convert dns query from udp to tcp
+
+Package: lua-neturl
+Version: 1.1-1-1
+Depends: libc, lua
+Source: feeds/helloworld/lua-neturl
+SourceName: lua-neturl
+License: MIT
+Section: lang
+SourceDateEpoch: 1660558983
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 4536
+Filename: lua-neturl_1.1-1-1_all.ipk
+Size: 5342
+SHA256sum: 98231af1586cf9325404e753e4b486d8fa4ae1d23f594ada890722c69d34f094
+Description:  This small Lua library provides a few functions to parse URL with
+ querystring and build new URL easily.
 
 Package: luci-app-ssr-plus
 Version: 186
-Depends: libc, coreutils, coreutils-base64, dns2socks, dns2tcp, dnsmasq-full, ipset, kmod-ipt-nat, ip-full, iptables, iptables-mod-tproxy, lua, libuci-lua, microsocks, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, curl, xray-core, kcptun-client, ipt2socks, shadowsocks-libev-ss-local, shadowsocks-libev-ss-redir, shadowsocks-libev-ss-server, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, simple-obfs, trojan
+Depends: libc, coreutils, coreutils-base64, dns2socks, dns2tcp, dnsmasq-full, ipset, kmod-ipt-nat, ip-full, iptables, iptables-mod-tproxy, lua, lua-neturl, libuci-lua, microsocks, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, curl, xray-core, shadowsocks-libev-ss-server, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, simple-obfs
 Source: feeds/helloworld/luci-app-ssr-plus
 SourceName: luci-app-ssr-plus
 Section: luci
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: OpenWrt LuCI community
 Architecture: all
-Installed-Size: 196430
+Installed-Size: 196579
 Filename: luci-app-ssr-plus_186_all.ipk
-Size: 196624
-SHA256sum: 2ed10fd0635b6f5b19ab5aef0dd25db79fafdaa4e0c4746bbf654a4dcaa47b29
+Size: 196756
+SHA256sum: 34c691acd4d0a956d4ffaf73c58aef73d6ccde19a303771f896804f1381cbc2c
 Description:  SS/SSR/V2Ray/Trojan/NaiveProxy/Socks5/Tun LuCI interface
 
 Package: luci-i18n-ssr-plus-zh-cn
-Version: git-cc64df6
+Version: git-b28110c
 Depends: libc, luci-app-ssr-plus
 Source: feeds/helloworld/luci-app-ssr-plus
 SourceName: luci-i18n-ssr-plus-zh-cn
 Section: luci
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: all
-Installed-Size: 5985
-Filename: luci-i18n-ssr-plus-zh-cn_git-cc64df6_all.ipk
-Size: 6817
-SHA256sum: 627b5524cf65ba04e717442025ded9291be2f0461a65619ef51e5cf6c83c09a8
+Installed-Size: 5986
+Filename: luci-i18n-ssr-plus-zh-cn_git-b28110c_all.ipk
+Size: 6822
+SHA256sum: 899d9be44f4cb4f1d33673546a2ce5a6f97a96e6f9cd80e4cfd67e09f1facb2f
 Description:  Translation for luci-app-ssr-plus - 简体中文 (Chinese Simplified)
 
 Package: shadowsocksr-libev-ssr-check
@@ -52,12 +69,12 @@ SourceName: shadowsocksr-libev-ssr-check
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: x86_64
 Installed-Size: 2359
 Filename: shadowsocksr-libev-ssr-check_2.5.6-9_x86_64.ipk
 Size: 3106
-SHA256sum: 0a4d2c4270a2d05eb51271a1f351854fe0cb700b07011de90b756974c8b32d41
+SHA256sum: 9dfdb9cf86079c06bd92c1b3d02a3edfe51e50ec7f44064edadd66158c8c66cd
 Description:  shadowsocksr-libev ssr-check
 
 Package: shadowsocksr-libev-ssr-local
@@ -68,12 +85,12 @@ SourceName: shadowsocksr-libev-ssr-local
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: x86_64
 Installed-Size: 61702
 Filename: shadowsocksr-libev-ssr-local_2.5.6-9_x86_64.ipk
-Size: 62578
-SHA256sum: 0d7d5cf3dab7bb3238a1abcafc76afcb9b1cd03dfe82a567dd7cf6f95caf327c
+Size: 62587
+SHA256sum: 30358e9b752ca34b5dddd8dbf00070b25e0c54d238df1ea50c2c085720c763f2
 Description:  shadowsocksr-libev ssr-local
 
 Package: shadowsocksr-libev-ssr-redir
@@ -84,12 +101,12 @@ SourceName: shadowsocksr-libev-ssr-redir
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: x86_64
 Installed-Size: 55644
 Filename: shadowsocksr-libev-ssr-redir_2.5.6-9_x86_64.ipk
-Size: 56473
-SHA256sum: 59fa80bf6aac0cfe7a04ca18202ecf21ad1affeeb5fe21657f63e1a107da3393
+Size: 56460
+SHA256sum: 816cdc27cedf38b7af93253e9bc061fedee470265cff0582360ac55b3e80c68a
 Description:  shadowsocksr-libev ssr-redir
 
 Package: shadowsocksr-libev-ssr-server
@@ -100,12 +117,12 @@ SourceName: shadowsocksr-libev-ssr-server
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: x86_64
-Installed-Size: 65308
+Installed-Size: 65307
 Filename: shadowsocksr-libev-ssr-server_2.5.6-9_x86_64.ipk
-Size: 66169
-SHA256sum: 759c4d574dbb4d92969e212192983eae92dbdcc62b318163c7280801520f5720
+Size: 66158
+SHA256sum: 5dbcf97571de77e0aedc75bfa6a6ca8a3834df8ad22c522ed99b322883fed993
 Description:  shadowsocksr-libev ssr-server
 
 Package: simple-obfs-client
@@ -117,13 +134,13 @@ SourceName: simple-obfs-client
 License: GPL-3.0-or-later
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: Jian Chang <aa65535@live.com>
 Architecture: x86_64
-Installed-Size: 30257
+Installed-Size: 30258
 Filename: simple-obfs-client_0.0.5-1_x86_64.ipk
-Size: 31056
-SHA256sum: f81a60d4669d5778d5f1fc84d30e40475aff7c2a0db3d8f07e13cbd27f4543d0
+Size: 31062
+SHA256sum: ca540a6e22a0d880df23260826bffda50c4a8beecfb75d81e53619408fa98114
 Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 
 Package: tcping
@@ -133,29 +150,13 @@ Source: feeds/helloworld/tcping
 SourceName: tcping
 License: GPL-2.0-only
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Architecture: x86_64
 Installed-Size: 3609
 Filename: tcping_0.3-1_x86_64.ipk
-Size: 4326
-SHA256sum: 1043ddeaccf98edd7afc269ef7391a4386c3332ab9603583ce30bff55cdac8e1
+Size: 4321
+SHA256sum: 83013f321233dc6227a04b08dbe3e92596232014908b8bf42717947038ddfe0f
 Description:  tcping measures the latency of a tcp-connection
-
-Package: trojan
-Version: 1.16.0-2
-Depends: libc, libpthread, libstdcpp6, libopenssl1.1, boost, boost-system, boost-program_options, boost-date_time
-Source: feeds/helloworld/trojan
-SourceName: trojan
-License: GPL-3.0
-Section: net
-SourceDateEpoch: 1660238004
-Maintainer: GreaterFire
-Architecture: x86_64
-Installed-Size: 304185
-Filename: trojan_1.16.0-2_x86_64.ipk
-Size: 305049
-SHA256sum: 3ea596cbc73a93ce29081c4a8c4ace1f9028271e1b8a6076f00dc605e327012c
-Description:  An unidentifiable mechanism that helps you bypass GFW
 
 Package: v2ray-core
 Version: 5.0.7-1
@@ -165,13 +166,13 @@ SourceName: v2ray-core
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 8423982
+Installed-Size: 8423984
 Filename: v2ray-core_5.0.7-1_x86_64.ipk
-Size: 8403838
-SHA256sum: b9a9d81486e51328fd209c347b71716ec57149aa47369252aad1033b52df361f
+Size: 8403842
+SHA256sum: 3893663c4b839aa478cd60125786b295ad5d127cd58a8c96dc568ba8a564b8d4
 Description:  Project V is a set of network tools that help you to build your own computer network.
  It secures your network connections and thus protects your privacy.
 
@@ -183,13 +184,13 @@ SourceName: v2ray-geoip
 License: CC-BY-SA-4.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: all
-Installed-Size: 2168029
+Installed-Size: 2168025
 Filename: v2ray-geoip_202207140057-1_all.ipk
-Size: 1892663
-SHA256sum: 7d03a0f5cf00e4dc061fcafe9a024599a95e62093b49f7677da1cccf56ba6563
+Size: 1892790
+SHA256sum: e034fb70d9f26bd2e43f822bf3ed232d4899979b012e6d6922a05c52e7ded47b
 Description:  GeoIP List for V2Ray
 
 Package: v2ray-geosite
@@ -200,13 +201,13 @@ SourceName: v2ray-geosite
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: all
-Installed-Size: 340581
+Installed-Size: 340580
 Filename: v2ray-geosite_20220717025946-1_all.ipk
-Size: 340371
-SHA256sum: b91163b22f11a7b4cebff8cf35f71c9eacb488137379f23eff0c5b930d785343
+Size: 340362
+SHA256sum: b27dce5370e42fa4b8405427e09fd2e78ee6dd8b9d030a662602ef118cc0eae6
 Description:  Geosite List for V2Ray
 
 Package: v2ray-plugin
@@ -217,12 +218,12 @@ SourceName: v2ray-plugin
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1660238004
+SourceDateEpoch: 1660558983
 Maintainer: madeye <max.c.lv@gmail.com>
 Architecture: x86_64
-Installed-Size: 4989957
+Installed-Size: 4989958
 Filename: v2ray-plugin_5.0.7-1_x86_64.ipk
-Size: 4980388
-SHA256sum: 46620700954e1b60a0c63acc3705e9bed11bdf1ee0ebd65e2fc15a8809f0b80a
+Size: 4980380
+SHA256sum: e4a2e54a5b65f1600330cf817b92311f9f88f16edcbab61db937b79e6dda65e7
 Description:  SIP003 plugin for shadowsocks, based on v2ray
 

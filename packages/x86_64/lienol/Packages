@@ -31,6 +31,28 @@ Size: 4219
 SHA256sum: e6c01a9c8a71c2b2794c2704ea590faebdeaa50b3f75acf74fc2e1c2f9ea267a
 Description:  LuCI support for Weburl From Koolshare
 
+Package: luci-app-filebrowser
+Version: 1.1
+Depends: libc
+Section: luci
+Architecture: all
+Installed-Size: 7251
+Filename: luci-app-filebrowser_1.1_all.ipk
+Size: 8121
+SHA256sum: 1d1c1a715676995f63a4de778e2815208996f88c60aef034993b687a0bd0669b
+Description:  LuCI support for FileBrowser
+
+Package: luci-app-kodexplorer
+Version: 20220109
+Depends: libc, nginx-ssl, unzip, zoneinfo-asia, php8, php8-fastcgi, php8-fpm, php8-mod-curl, php8-mod-dom, php8-mod-gd, php8-mod-iconv, php8-mod-mbstring, php8-mod-opcache, php8-mod-session, php8-mod-zip, php8-mod-sqlite3, php8-mod-pdo, php8-mod-pdo-sqlite, php8-mod-pdo-mysql, php8-mod-xml, php8-mod-xmlreader, php8-mod-xmlwriter
+Section: luci
+Architecture: all
+Installed-Size: 8202
+Filename: luci-app-kodexplorer_20220109_all.ipk
+Size: 9169
+SHA256sum: 97f8fed34de797fe732aadb6137f0e24cefee3ac15d6f6d574beeefcff637de8
+Description:  LuCI support for KodExplorer
+
 Package: luci-app-ramfree
 Version: 1.0
 Depends: libc
@@ -41,17 +63,6 @@ Filename: luci-app-ramfree_1.0_all.ipk
 Size: 1235
 SHA256sum: 9c26baab24bbfdab30b7020af77ca3235c7e73926eaf96eeebda9ac3a826ea30
 Description:  Add Release RAM Button
-
-Package: luci-app-softethervpn
-Version: 20220102
-Depends: libc, zlib, libpthread, librt, libreadline8, libncurses6, libiconv-full2, kmod-tun, libopenssl1.1, softethervpn-server
-Section: luci
-Architecture: all
-Installed-Size: 3240
-Filename: luci-app-softethervpn_20220102_all.ipk
-Size: 4121
-SHA256sum: f9c1d230033c3357cf7deabb10e2d059c9b9a172f10b7fd744a81f9b92e858cc
-Description:  LuCI support for SoftEtherVPN
 
 Package: luci-app-syncthing
 Version: 1.0
@@ -74,17 +85,6 @@ Filename: luci-app-timecontrol_1.1_all.ipk
 Size: 3543
 SHA256sum: 8953bb12bcd761bdcf776d0068f9a3d8dbaeea76a9a0d3c26bd33fe43a2dac6c
 Description:  LuCI support for Time Control
-
-Package: luci-app-verysync
-Version: 1.0
-Depends: libc, verysync
-Section: luci
-Architecture: all
-Installed-Size: 2258
-Filename: luci-app-verysync_1.0_all.ipk
-Size: 3084
-SHA256sum: c44b5e6d620b5d231f4b5eaae27a98116bb4fd97cd15ec35a5d0a4a3ad09451e
-Description:  LuCI support for Verysync
 
 Package: luci-i18n-control-timewol-zh-cn
 Version: git-9d7c178
@@ -119,6 +119,28 @@ Size: 1314
 SHA256sum: 588f45519fceb47df98911c3d18ebac0b2f6abdaefda0e2fc58e08f370c46494
 Description:  Translation for luci-app-control-weburl - 简体中文 (Chinese Simplified)
 
+Package: luci-i18n-filebrowser-zh-cn
+Version: git-9d7c178
+Depends: libc, luci-app-filebrowser
+Section: luci
+Architecture: all
+Installed-Size: 1557
+Filename: luci-i18n-filebrowser-zh-cn_git-9d7c178_all.ipk
+Size: 2407
+SHA256sum: 0197b694f434059a3fd7ec84892faf074131e2fdd4eac7f447d05529ed78b39f
+Description:  Translation for luci-app-filebrowser - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-kodexplorer-zh-cn
+Version: git-9d7c178
+Depends: libc, luci-app-kodexplorer
+Section: luci
+Architecture: all
+Installed-Size: 1767
+Filename: luci-i18n-kodexplorer-zh-cn_git-9d7c178_all.ipk
+Size: 2616
+SHA256sum: 02e18dfcc4a9b6c3f37ea49c29a99b88f8253970b555d2d50be05e10c069c511
+Description:  Translation for luci-app-kodexplorer - 简体中文 (Chinese Simplified)
+
 Package: luci-i18n-ramfree-zh-cn
 Version: git-9d7c178
 Depends: libc, luci-app-ramfree
@@ -129,17 +151,6 @@ Filename: luci-i18n-ramfree-zh-cn_git-9d7c178_all.ipk
 Size: 1255
 SHA256sum: 7f7b6d7d98da7239cc0d0076cbd30e611f8147558a756d7de2874d0b4b31414d
 Description:  Translation for luci-app-ramfree - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-softethervpn-zh-cn
-Version: git-9d7c178
-Depends: libc, luci-app-softethervpn
-Section: luci
-Architecture: all
-Installed-Size: 762
-Filename: luci-i18n-softethervpn-zh-cn_git-9d7c178_all.ipk
-Size: 1606
-SHA256sum: 494a9d998feb771bfff521ccbf1c8687c5d83fe2792ca75571eb5f89b789bac3
-Description:  Translation for luci-app-softethervpn - 简体中文 (Chinese Simplified)
 
 Package: luci-i18n-syncthing-zh-cn
 Version: git-9d7c178
@@ -162,26 +173,4 @@ Filename: luci-i18n-timecontrol-zh-cn_git-9d7c178_all.ipk
 Size: 1534
 SHA256sum: 8b9bca2dc93fcece3be315d0de27f2da28daac4fa186e76f9511a5efd257af7d
 Description:  Translation for luci-app-timecontrol - 简体中文 (Chinese Simplified)
-
-Package: luci-i18n-verysync-zh-cn
-Version: git-9d7c178
-Depends: libc, luci-app-verysync
-Section: luci
-Architecture: all
-Installed-Size: 670
-Filename: luci-i18n-verysync-zh-cn_git-9d7c178_all.ipk
-Size: 1502
-SHA256sum: dac8e25d572c964b9a25207dbf98f6f11e7bf788f9e3c2c0b00caff8c656c98d
-Description:  Translation for luci-app-verysync - 简体中文 (Chinese Simplified)
-
-Package: verysync
-Version: v2.13.2-1
-Depends: libc
-Section: net
-Architecture: x86_64
-Installed-Size: 14047589
-Filename: verysync_v2.13.2-1_x86_64.ipk
-Size: 14024625
-SHA256sum: 9efd69e09d4cb3f7085d956d6f43a176c75f5c1ae9f22d65a354423430d28345
-Description:  Verysync is a efficient data transmission tool.
 

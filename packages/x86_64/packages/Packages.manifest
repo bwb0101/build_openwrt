@@ -1,3 +1,20 @@
+Package: acme
+Version: 3.0.1-1
+Depends: libc, wget-ssl, ca-bundle, openssl-util, socat
+Source: feeds/packages/net/acme
+SourceName: acme
+License: GPL-3.0-only
+LicenseFiles: LICENSE.md
+Section: net
+SourceDateEpoch: 1655623696
+Maintainer: Toke Høiland-Jørgensen <toke@toke.dk>
+Architecture: all
+Installed-Size: 51303
+Filename: acme_3.0.1-1_all.ipk
+Size: 52302
+SHA256sum: 7f84ebfd3221aefd061adaa9142cdf4967ef329f89b579ca54316c28f043eda3
+Description:  A client for issuing Letsencrypt certificates.
+
 Package: alsa-lib
 Version: 1.2.6.1-1
 Depends: libc, kmod-sound-core, libpthread, librt
@@ -151,24 +168,6 @@ SHA256sum: 3e6bdd3e81b38b30d418fc5bd07b8444cfd61f8fec47c344508d4af284ce0a95
 Description:  bc is a language that supports arbitrary precision numbers with
  interactive execution of statements.
 
-Package: boost-date_time
-Version: 1.78.0-1
-Depends: libc, libstdcpp6, libpthread, librt
-Source: feeds/packages/libs/boost
-SourceName: boost-date_time
-License: BSL-1.0
-LicenseFiles: LICENSE_1_0.txt
-Section: libs
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:boost:boost
-Maintainer: Carlos M. Ferreira <carlosmf.pt@gmail.com>
-Architecture: x86_64
-Installed-Size: 998
-Filename: boost-date_time_1.78.0-1_x86_64.ipk
-Size: 1819
-SHA256sum: 9241992138fecd21320b79c218b7ccb0e1c035cdfc51475166e7cbc35644c3fb
-Description:  This package contains the Boost date_time library.
-
 Package: boost-program_options
 Version: 1.78.0-1
 Depends: libc, libstdcpp6, libpthread, librt
@@ -278,29 +277,6 @@ Description:  Btrfs is a new copy on write filesystem for Linux aimed at impleme
  administration. Initially developed by Oracle, Btrfs is licensed under the
  GPL and open for contribution from anyone.
 
-Package: certtool
-Version: 3.7.1-2
-Depends: libc, libgnutls
-Source: feeds/packages/libs/gnutls
-SourceName: certtool
-License: LGPL-2.1-or-later
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:gnu:gnutls
-Maintainer: Nikos Mavrogiannopoulos <nmav@gnutls.org>
-Architecture: x86_64
-Installed-Size: 131321
-Filename: certtool_3.7.1-2_x86_64.ipk
-Size: 132448
-SHA256sum: 7afad06cc8a14475352631e306cd2018161590ae12e63cf92374afd2a1b02812
-Description:  GnuTLS is a secure communications library implementing the SSL, TLS
- and DTLS protocols and technologies around them. It provides a simple
- C language application programming interface (API) to access the secure
- communications protocols as well as APIs to parse and write X.509, PKCS12,
- OpenPGP and other required structures. It is aimed to be portable and
- efficient with focus on security and interoperability.
- This package contains the GnuTLS certtool utility.
-
 Package: cgi-io
 Version: 2021-09-08-98cef9dd-20
 Depends: libc, libubox20220515, libubus20220601
@@ -316,135 +292,6 @@ Filename: cgi-io_2021-09-08-98cef9dd-20_x86_64.ipk
 Size: 9677
 SHA256sum: a3907955c697ca3ff09e0014fd811c0110feafd212adfecc8b957bb488758c2a
 Description:  This package contains an cgi utility that is useful for up/downloading files
-
-Package: collectd-mod-cpu
-Version: 5.12.0-1
-Depends: libc, collectd
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-cpu
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 4192
-Filename: collectd-mod-cpu_5.12.0-1_x86_64.ipk
-Size: 4951
-SHA256sum: 862151ba1f800c5345433235000a2d40c2416f8a656fadcc9903f3ae8a0416dc
-Description:  CPU input plugin
-
-Package: collectd-mod-interface
-Version: 5.12.0-1
-Depends: libc, collectd
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-interface
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 3783
-Filename: collectd-mod-interface_5.12.0-1_x86_64.ipk
-Size: 4581
-SHA256sum: d7e97ca1fcd808e17289849ed9999063d4cd3742f9abd3dc0469af3be1ec8fb9
-Description:  network interfaces input plugin
-
-Package: collectd-mod-iwinfo
-Version: 5.12.0-1
-Depends: libc, collectd, libiwinfo20210430
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-iwinfo
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 3828
-Filename: collectd-mod-iwinfo_5.12.0-1_x86_64.ipk
-Size: 4632
-SHA256sum: 74907f2c28d209cd5aa685f68d1b4b26746706d0335e4efcd52739c34bc1eb6f
-Description:  libiwinfo wireless statistics plugin
-
-Package: collectd-mod-load
-Version: 5.12.0-1
-Depends: libc, collectd
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-load
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 2030
-Filename: collectd-mod-load_5.12.0-1_x86_64.ipk
-Size: 2800
-SHA256sum: bd58f457e80fbe5c51495e63a2f7eec67f30979d94bd3836125f2df32bfd8382
-Description:  system load input plugin
-
-Package: collectd-mod-memory
-Version: 5.12.0-1
-Depends: libc, collectd
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-memory
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 2701
-Filename: collectd-mod-memory_5.12.0-1_x86_64.ipk
-Size: 3497
-SHA256sum: ff6b183b92803e2424121ae823002e5e3b26f1ff8a849042569087b5764cc177
-Description:  physical memory usage input plugin
-
-Package: collectd-mod-network
-Version: 5.12.0-1
-Depends: libc, collectd
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-network
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 14891
-Filename: collectd-mod-network_5.12.0-1_x86_64.ipk
-Size: 15626
-SHA256sum: 7faca9e1a37a7a25f475eada5c3f7db21edc735c2ed641e90ed5e992bc359709
-Description:  network input/output plugin
-
-Package: collectd-mod-rrdtool
-Version: 5.12.0-1
-Depends: libc, collectd, librrd1
-Source: feeds/packages/utils/collectd
-SourceName: collectd-mod-rrdtool
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 11120
-Filename: collectd-mod-rrdtool_5.12.0-1_x86_64.ipk
-Size: 11917
-SHA256sum: 75077ef3b0b0af14abaac4ed748daa74f78c31c698be0917edb2bfe407a26ec0
-Description:  RRDtool output plugin
-
-Package: collectd
-Version: 5.12.0-1
-Depends: libc, libpthread, zlib, libltdl7, jshn
-Source: feeds/packages/utils/collectd
-SourceName: collectd
-Section: utils
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:collectd:collectd
-Maintainer: Jo-Philipp Wich <jo@mein.io>, Hannu Nyman <hannu.nyman@iki.fi>
-Architecture: x86_64
-Installed-Size: 92113
-Filename: collectd_5.12.0-1_x86_64.ipk
-Size: 93032
-SHA256sum: 94128ec4ce1254966a570b8014c65df4eff6ee0e791e2e6b8f4ad816c43cbeec
-Description:  collectd is a small daemon which collects system information periodically
- and provides mechanismns to store the values in a variety of ways.
 
 Package: coreutils-base64
 Version: 9.0-2
@@ -519,7 +366,7 @@ Architecture: x86_64
 Installed-Size: 56898
 Filename: curl_7.82.0-1_x86_64.ipk
 Size: 57709
-SHA256sum: c078eb8cb384e3612f02e0b3d5d4b9365b5ec5824e2c9713210f992d1c4be54f
+SHA256sum: 21dc27eadb200945866e9d175b9ef17d347b340f96bc96fbb437057b74010067
 Description:  A client-side URL transfer utility
 
 Package: dbus
@@ -592,23 +439,6 @@ Description:  Dynamic DNS Client scripts (with IPv6 support)
  - support to run once
  Version: 2.8.2-23
  Info   : https://openwrt.org/docs/guide-user/services/ddns/client
-
-Package: docker
-Version: 20.10.16-1
-Depends: libc
-Source: feeds/packages/utils/docker
-SourceName: docker
-License: Apache-2.0
-LicenseFiles: LICENSE
-Section: utils
-SourceDateEpoch: 1655623696
-Maintainer: Gerard Ryan <G.M0N3Y.2503@gmail.com>
-Architecture: x86_64
-Installed-Size: 12727293
-Filename: docker_20.10.16-1_x86_64.ipk
-Size: 12658702
-SHA256sum: a45f6f15e5c04b1ee7eeb5e6bc1e1e65dd67a386ae45a81f33a2eeb78d3a0f70
-Description:  The CLI used in the Docker CE and Docker EE products.
 
 Package: eoip
 Version: 0.5-1
@@ -720,24 +550,6 @@ SHA256sum: a7bd0a3cf9260a673e54f6097a985b99d28b7f5d2602d74eeace0608d1329c8e
 Description:  Htop is an ncursed-based process viewer similar to top, but
  it allows to scroll the list vertically and horizontally to
  see all processes and their full command lines.
-
-Package: kcptun-client
-Version: 20210922-1
-Depends: libc
-Source: feeds/packages/net/kcptun
-SourceName: kcptun-client
-License: MIT
-LicenseFiles: LICENSE.md
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Dengfeng Liu <liudf0716@gmail.com>, Chao Liu <expiron18@gmail.com>
-Architecture: x86_64
-Installed-Size: 2566674
-Filename: kcptun-client_20210922-1_x86_64.ipk
-Size: 2560426
-SHA256sum: 2624d430f9aba8111497b79cc75e595619b6fc6ba20d49c63ec01c62acaff8ed
-Description:  kcptun is a Stable & Secure Tunnel Based On KCP with N:M Multiplexing.
- This package only contains kcptun client.
 
 Package: libattr
 Version: 2.5.1-1
@@ -871,7 +683,7 @@ Description:  c-ares is a C library for asynchronous DNS requests (including nam
 
 Package: libcurl4
 Version: 7.82.0-1
-Depends: libc, libwolfssl5.3.0.19fa215e, libnghttp2-14, ca-bundle
+Depends: libc, libwolfssl5.3.0.ee39414e, libnghttp2-14, ca-bundle
 Provides: libcurl
 Source: feeds/packages/net/curl
 SourceName: libcurl
@@ -885,8 +697,8 @@ Maintainer: Stan Grishin <stangri@melmac.ca>
 Architecture: x86_64
 Installed-Size: 159509
 Filename: libcurl4_7.82.0-1_x86_64.ipk
-Size: 160340
-SHA256sum: cc7b780ca91f1dc70f25ceb75856bae0367efcd7f5addc01ae063c078657ea45
+Size: 160355
+SHA256sum: 0581bbfb00d8d6ce770cc787876a6b9a047f48d2f3a42c8ef4db5d5b609e9bfb
 Description:  A client-side URL transfer library
 
 Package: libdaemon
@@ -1045,6 +857,48 @@ Size: 213085
 SHA256sum: 894a0937700047b12dffde367d617234b304a1861755dea30063245a00cb85e7
 Description:  Free Lossless Audio Codec library
 
+Package: libfreetype
+Version: 2.11.1-1
+Depends: libc, zlib, libpng
+Source: feeds/packages/libs/freetype
+SourceName: libfreetype
+License: FTL GPL-2.0-only MIT ZLIB GPL-3.0-or-later
+LicenseFiles: docs/LICENSE.TXT docs/FTL.TXT docs/GPLv2.TXT src/bdf/README src/pcf/README src/gzip/zlib.h builds/unix/config.sub builds/unix/config.guess builds/unix/libtool 
+Section: libs
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:freetype:freetype2
+Maintainer: Val Kulkov <val.kulkov@gmail.com>
+Architecture: x86_64
+Installed-Size: 310279
+Filename: libfreetype_2.11.1-1_x86_64.ipk
+Size: 311122
+SHA256sum: e890ff45aaf9ccca67c18591defa968b4a8c6fc5fe38907058c677ab14c5e987
+Description:  The FreeType project is a team of volunteers who develop free,
+ portable and high-quality software solutions for digital typography.
+ They specifically target embedded systems and focus on bringing small,
+ efficient and ubiquitous products.
+
+Package: libgd-full
+Version: 2.3.2-1
+Depends: libc, libjpeg, libpng, libwebp, libtiff5, libfreetype
+Source: feeds/packages/libs/libgd
+SourceName: libgd-full
+License: MIT
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:libgd:libgd
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: x86_64
+Installed-Size: 106820
+Filename: libgd-full_2.3.2-1_x86_64.ipk
+Size: 107101
+SHA256sum: 08eca1a4cb4b17ea894de275d907b5f7836d001c2e40a16962320f4b9521c793
+Description:  GD is an open source code library for the dynamic creation of images by
+ programmers. GD creates PNG, JPEG and GIF images, among other formats.
+ .
+ This variant of the libgd package is compiled will all features enabled.
+
 Package: libgnutls
 Version: 3.7.1-2
 Depends: libc, libnettle8, libgmp10, libatomic1
@@ -1067,28 +921,6 @@ Description:  GnuTLS is a secure communications library implementing the SSL, TL
  OpenPGP and other required structures. It is aimed to be portable and
  efficient with focus on security and interoperability.
  This package contains the GnuTLS shared library, needed by other programs.
-
-Package: libhttp-parser
-Version: 2.9.4-1
-Depends: libc
-Source: feeds/packages/libs/libhttp-parser
-SourceName: libhttp-parser
-License: MIT
-LicenseFiles: LICENSE-MIT
-Section: libs
-SourceDateEpoch: 1655623696
-Maintainer: Ramanathan Sivagurunathan <ramzthecoder@gmail.com>, Hirokazu MORIKAWA <morikw2@gmail.com>
-Architecture: x86_64
-Installed-Size: 14132
-Filename: libhttp-parser_2.9.4-1_x86_64.ipk
-Size: 15103
-SHA256sum: 9fa8232a912ebfa0f98a080dce28c2c8d0d6ab7df4348d59e838e0b0749952a2
-Description:  A parser for HTTP messages written in C. It parses both requests and responses.
- The parser is designed to be used in performance HTTP applications.
- It does not make any syscalls nor allocations, it does not buffer data,
- it can be interrupted at anytime. Depending on your architecture,
- it only requires about 40 bytes of data per message stream
- (in a web server that is per connection).
 
 Package: libid3tag
 Version: 0.15.1b-4
@@ -1145,45 +977,6 @@ Size: 38141
 SHA256sum: 9daf9e572f985dc7422c1a1ace6a1d472acb43c255c1321f38422f2aec8a5322
 Description:  LZO is a data compression library which is suitable for data de-/compression
  in real-time. This means it favours speed over compression ratio.
-
-Package: libminiupnpc
-Version: 2.2.3-1
-Depends: libc
-Source: feeds/packages/net/miniupnpc
-SourceName: libminiupnpc
-License: BSD-3-Clause
-LicenseFiles: LICENSE
-Section: libs
-SourceDateEpoch: 1655623696
-CPE-ID: cpe:/a:miniupnp_project:miniupnp
-Architecture: x86_64
-Installed-Size: 20436
-Filename: libminiupnpc_2.2.3-1_x86_64.ipk
-Size: 21169
-SHA256sum: 8d0ab3e7c8e8c51d455505855c07cc5772ae135867c05ca909d4e840356a7d08
-Description:  Lightweight UPnP library
-
-Package: libnatpmp1
-Version: 20150609-3
-Depends: libc
-Provides: libnatpmp
-Source: feeds/packages/libs/libnatpmp
-SourceName: libnatpmp
-License: BSD-3-Clause
-LicenseFiles: LICENSE
-Section: libs
-SourceDateEpoch: 1655623696
-ABIVersion: 1
-Architecture: x86_64
-Installed-Size: 3364
-Filename: libnatpmp1_20150609-3_x86_64.ipk
-Size: 4271
-SHA256sum: 3fa6a16f03719affcca725fc15a4f81c6f2bebeb8f79f3104709d4a622c32d72
-Description:  libnatpmp is an attempt to make a portable and fully compliant implementation
- of the protocol for the client side. It is based on non blocking sockets and
- all calls of the API are asynchronous. It is therefore very easy to integrate
- the NAT-PMP code to any event driven code.
- This package contains the shared library.
 
 Package: libnghttp2-14
 Version: 1.44.0-1
@@ -1244,50 +1037,40 @@ Size: 190980
 SHA256sum: a5cb1258e27a8fc143f629d62f2e0038963594931d6c50b2f51ad06c07b7bf4b
 Description:  GNU Parted shared library
 
-Package: libprotobuf-c
-Version: 1.4.0-1
+Package: libpcre2
+Version: 10.37-1
 Depends: libc
-Source: feeds/packages/libs/protobuf-c
-SourceName: libprotobuf-c
-License: BSD-2-Clause
-LicenseFiles: LICENSE
+Source: feeds/packages/libs/pcre2
+SourceName: libpcre2
+License: BSD-3-Clause
+LicenseFiles: LICENCE
 Section: libs
 SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:pcre:pcre
+Maintainer: Shane Peelar <lookatyouhacker@gmail.com>
 Architecture: x86_64
-Installed-Size: 9888
-Filename: libprotobuf-c_1.4.0-1_x86_64.ipk
-Size: 10744
-SHA256sum: 8857115bf13923802af53b8f640c6fe895da416fbda339c48a89bc87691ed598
-Description:  Runtime library to use Google Protocol Buffers from C applications.
- Protocol Buffers are a way of encoding structured data in an efficient yet
- extensible format. Google uses Protocol Buffers for almost all of its
- internal RPC protocols and file formats.
+Installed-Size: 181946
+Filename: libpcre2_10.37-1_x86_64.ipk
+Size: 182741
+SHA256sum: 4b8bb2f4080fe10928c629892c574b02ba1d3ac4361cf400a3d5100996ebbafa
+Description:  A Perl Compatible Regular Expression library
 
-Package: librrd1
-Version: 1.0.50-5
+Package: libpng
+Version: 1.6.37-11
 Depends: libc, zlib
-Source: feeds/packages/utils/rrdtool1
-SourceName: librrd1
+Source: feeds/packages/libs/libpng
+SourceName: libpng
+License: Libpng GPL-2.0-or-later BSD-3-Clause
 Section: libs
 SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:libpng:libpng
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 139457
-Filename: librrd1_1.0.50-5_x86_64.ipk
-Size: 140447
-SHA256sum: 5c107c4b98ef09dc1be74f471f91ba905df7d8b748d7e3fbd7897e707065c399
-Description:  RRD is the Acronym for Round Robin Database. RRD is a system to store and
- display time-series data (i.e. network bandwidth, machine-room temperature,
- server load average). It stores the data in a very compact way that will
- not expand over time, and it presents useful graphs by processing the data
- to enforce a certain data density. It can be used either via simple wrapper
- scripts (from shell or Perl) or via frontends that poll network devices and
- put friendly user interface on it.
- 
- This is version 1.0.x with cgilib-0.4, gd1.3 and libpng-1.0.9 linked into
- librrd.so. The library is much smaller compared to the 1.2.x version with
- separate dynamic linked libraries.
- This package contains a shared library, used by other programs.
+Installed-Size: 93046
+Filename: libpng_1.6.37-11_x86_64.ipk
+Size: 93900
+SHA256sum: f1df5bc4d21831208ff53b08ae295096a8655cd05f534257f25ee4cde2635a28
+Description:  A PNG format files handling library
 
 Package: libruby3.0
 Version: 3.0.4-1
@@ -1390,6 +1173,26 @@ SHA256sum: 4c17eb7a6e6be3e3b750bb9436b70860733680cc6be12edf87f220e4fa3ecfd9
 Description:  This is a library for Abstract Syntax Notation One (ASN.1) and
  Distinguish Encoding Rules (DER) manipulation.
 
+Package: libtiff5
+Version: 4.3.0-1
+Depends: libc, zlib, libjpeg
+Provides: libtiff
+Source: feeds/packages/libs/tiff
+SourceName: libtiff
+License: BSD-3-Clause
+LicenseFiles: COPYRIGHT
+Section: libs
+SourceDateEpoch: 1655623696
+ABIVersion: 5
+CPE-ID: cpe:/a:libtiff:libtiff
+Maintainer: Jiri Slachta <jiri@slachta.eu>
+Architecture: x86_64
+Installed-Size: 135779
+Filename: libtiff5_4.3.0-1_x86_64.ipk
+Size: 136258
+SHA256sum: dda49e2aaea7e15c848dd55976258dd403badd169b91a21905ea1b3190b40d15
+Description:  TIFF library
+
 Package: libtirpc
 Version: 1.3.2-1
 Depends: libc, libpthread
@@ -1491,23 +1294,40 @@ Description:  Vorbis is a general purpose audio and music encoding format
  software entity may make full use of the format without license
  fee, royalty or patent concerns.
 
-Package: libwebsockets-full
-Version: 4.2.1-2
-Depends: libc, zlib, libcap, libopenssl1.1, libuv1
-Provides: libwebsockets
-Source: feeds/packages/libs/libwebsockets
-SourceName: libwebsockets-full
-License: MIT
-LicenseFiles: LICENSE
+Package: libwebp
+Version: 1.2.1-1
+Depends: libc
+Source: feeds/packages/libs/libwebp
+SourceName: libwebp
+License: BSD-3-Clause
+LicenseFiles: COPYING
 Section: libs
 SourceDateEpoch: 1655623696
-Maintainer: Karl Palsson <karlp@etactica.com>
+Maintainer: Alexandru Ardelean <ardeleanalex@gmail.com>
 Architecture: x86_64
-Installed-Size: 173499
-Filename: libwebsockets-full_4.2.1-2_x86_64.ipk
-Size: 174282
-SHA256sum: 8430beadb82656f637e51dc8013f36b4aa48d1f9219a068d6efc10e9fcd5393f
-Description:  libwebsockets (Full - OpenSSL, libuv, plugins, CGI)
+Installed-Size: 273991
+Filename: libwebp_1.2.1-1_x86_64.ipk
+Size: 274868
+SHA256sum: 8dcea6fc29c5f85801f48ab22297c62281b0cfb7658dc1ced97d1cdc27fdb3b0
+Description:  The libwebp package contains a library for the WebP format.
+
+Package: libxml2
+Version: 2.9.14-1
+Depends: libc, libpthread, zlib
+Source: feeds/packages/libs/libxml2
+SourceName: libxml2
+License: MIT
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:xmlsoft:libxml2
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 505441
+Filename: libxml2_2.9.14-1_x86_64.ipk
+Size: 504404
+SHA256sum: 99d1246f461bce8cde4504658b5d1a4bb4bba5b2599ce7a8b7099cddaff04962
+Description:  A library for manipulating XML and HTML resources.
 
 Package: libyaml
 Version: 0.2.5-1
@@ -1525,6 +1345,24 @@ Filename: libyaml_0.2.5-1_x86_64.ipk
 Size: 42014
 SHA256sum: 72f38db8c5d0ad145025ed8ded410926772acf1f37cd6e26883123f5123087fa
 Description:  Fast YAML 1.1 parser and emitter library
+
+Package: libzip-gnutls
+Version: 1.8.0-4
+Depends: libc, zlib, libgnutls
+Provides: libzip
+Source: feeds/packages/libs/libzip
+SourceName: libzip-gnutls
+License: BSD-3-Clause
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1655623696
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 44669
+Filename: libzip-gnutls_1.8.0-4_x86_64.ipk
+Size: 45495
+SHA256sum: d137541d78e5949449903f3a4b68a9e85b2d43064ca8aaddf3660d3de9e6f53d
+Description:  A C library for reading, creating, and modifying zip archives.
 
 Package: lm-sensors
 Version: 3.6.0-1
@@ -1580,24 +1418,6 @@ Size: 82860
 SHA256sum: 667baf536fa042e9e3537b41efed150b730c22325d967797f88c43dad2a65538
 Description:  Lightweight UPnP IGD, NAT-PMP & PCP daemon (nftables)
 
-Package: mwan3
-Version: 2.11.1-1
-Depends: libc, ip, ipset, iptables, ip6tables, iptables-mod-conntrack-extra, iptables-mod-ipopt, jshn
-Source: feeds/packages/net/mwan3
-SourceName: mwan3
-License: GPL-2.0
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Florian Eckert <fe@dev.tdt.de>
-Architecture: all
-Installed-Size: 21694
-Filename: mwan3_2.11.1-1_all.ipk
-Size: 22708
-SHA256sum: 5e1491c98b54a05d6322d12c657b9d02bc98fe06cc9e7dcb1d0197867f25626c
-Description:  Hotplug script which makes configuration of multiple WAN interfaces simple
- and manageable. With loadbalancing/failover support for up to 250 wan
- interfaces, connection tracking and an easy to manage traffic ruleset.
-
 Package: netdata
 Version: 1.33.1-1
 Depends: libc, zlib, libuuid1, libuv1, libmnl0, libjson-c5
@@ -1620,28 +1440,96 @@ Description:  netdata is a highly optimized Linux daemon providing real-time per
  If you want to use Python plugins install python3, python3-yaml and
  python3-urllib3
 
-Package: ocserv
-Version: 1.1.6-1
-Depends: libc, libhttp-parser, libgnutls, certtool, libncurses6, libreadline8, libprotobuf-c, libev, kmod-tun
-Source: feeds/packages/net/ocserv
-SourceName: ocserv
-License: GPL-2.0-or-later
-LicenseFiles: COPYING
+Package: nginx-ssl-util
+Version: 1.6-1
+Depends: nginx-util (>=1.4-2), libc, libstdcpp6, libuci20130104, libubus20220601, libubox20220515, libpthread, libopenssl1.1, nginx-util, libpcre
+Conflicts: nginx-ssl-util-nopcre
+Source: feeds/packages/net/nginx-util
+SourceName: nginx-ssl-util
 Section: net
-Require-User: ocserv=72:ocserv=72
 SourceDateEpoch: 1655623696
-Maintainer: Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com>
+Maintainer: Peter Stadler <peter.stadler@student.uibk.ac.at>
 Architecture: x86_64
-Installed-Size: 260768
-Filename: ocserv_1.1.6-1_x86_64.ipk
-Size: 261777
-SHA256sum: 5f9da39e5de23885768a18e4b57e69ecdb2fad191cb8947a7832119dd2044b0e
-Description:  OpenConnect server (ocserv) is an SSL VPN server. Its purpose is to be
- a secure, small, fast and configurable VPN server. It implements the
- OpenConnect SSL VPN protocol, and has also (currently experimental)
- compatibility with clients using the AnyConnect SSL VPN protocol. The
- OpenConnect VPN protocol uses the standard IETF security protocols such
- as TLS 1.2, and Datagram TLS to provide the secure VPN service.
+Installed-Size: 62173
+Filename: nginx-ssl-util_1.6-1_x86_64.ipk
+Size: 63419
+SHA256sum: 36ce6054bc005db100855f8e09af128ea027c4dd21fc77b4c7816dd32a21b583
+Description:  Utility that builds dynamically LAN listen directives for Nginx.
+ Furthermore, it manages SSL directives for its server parts and can create
+ corresponding (self-signed) certificates. It uses the PCRE library for performance.
+
+Package: nginx-ssl
+Version: 1.21.3-1
+Depends: nginx-ssl-util (>=1.5-1) (<2), libc, libopenssl1.1, libpthread, libpcre, nginx-ssl-util, zlib, libubus20220601, libblobmsg-json20220515, libjson-c5
+Conflicts: nginx-all-module
+Source: feeds/packages/net/nginx
+SourceName: nginx-ssl
+License: 2-clause BSD-like license
+Section: net
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:nginx:nginx
+Maintainer: Thomas Heil <heil@terminal-consulting.de> Ansuel Smith <ansuelsmth@gmail.com>
+Architecture: x86_64
+Installed-Size: 448223
+Filename: nginx-ssl_1.21.3-1_x86_64.ipk
+Size: 431961
+SHA256sum: 26e5bc6ee3ca43e154c4883ebbb8ee2f26e9fc9bc12ffe34ca05ed8870f9fa1a
+Description:  nginx is an HTTP and reverse proxy server, as well as a mail proxy server, written by Igor Sysoev. This variant is compiled with SSL support enabled. To enable additional module select them in the nginx default configuration menu.
+
+Package: nginx-util
+Version: 1.6-1
+Depends: libc, libstdcpp6, libubus20220601, libubox20220515, libpthread
+Source: feeds/packages/net/nginx-util
+SourceName: nginx-util
+Section: opt
+SourceDateEpoch: 1655623696
+Maintainer: Peter Stadler <peter.stadler@student.uibk.ac.at>
+Architecture: all
+Installed-Size: 137
+Filename: nginx-util_1.6-1_all.ipk
+Size: 900
+SHA256sum: 0f8beedc1fe67796972a650b1c417380229d5a27de54ea7bd1d459e829c33c40
+Description:  Dummy package for removing nginx-util when upgrading.
+
+Package: ntpclient
+Version: 2015_365-4
+Depends: libc, librt
+Source: feeds/packages/net/ntpclient
+SourceName: ntpclient
+License: GPL-2.0
+Section: net
+SourceDateEpoch: 1655623696
+Maintainer: Ted Hess <thess@kitschensync.net>
+Architecture: x86_64
+Installed-Size: 11264
+Filename: ntpclient_2015_365-4_x86_64.ipk
+Size: 12051
+SHA256sum: 6728db891a8e00d81b5a321c3e4933adf7dd05bc6ef5e3f61294d132494b691c
+Description:  NTP client for setting system time from NTP servers.
+
+Package: oniguruma5
+Version: 6.9.7.1-1
+Depends: libc
+Provides: oniguruma
+Source: feeds/packages/libs/oniguruma
+SourceName: oniguruma
+License: BSD-2-Clause
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1655623696
+ABIVersion: 5
+CPE-ID: cpe:/a:oniguruma_project:oniguruma
+Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
+Architecture: x86_64
+Installed-Size: 184714
+Filename: oniguruma5_6.9.7.1-1_x86_64.ipk
+Size: 182195
+SHA256sum: 7d52b1642c0b7b3d8e753bc52239df4c74c5bf120026c5d294feba8eea5ff936
+Description:  Oniguruma is a modern and flexible regular expressions library.
+ It encompasses features from different regular expression implementations that
+ traditionally exist in different languages.
+ 
+ Character encoding can be specified per regular expression object.
 
 Package: p910nd
 Version: 0.97-9
@@ -1686,31 +1574,377 @@ Description:  GNU Parted manipulates partition tables. This is useful for
  creating space for new operating systems, reorganizing
  disk usage, copying data on hard disks and disk imaging.
 
-Package: rrdtool1
-Version: 1.0.50-5
-Depends: libc, librrd1
-Source: feeds/packages/utils/rrdtool1
-SourceName: rrdtool1
-Section: utils
+Package: php8-cgi
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-cgi
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
 SourceDateEpoch: 1655623696
-Maintainer: Jo-Philipp Wich <jo@mein.io>
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
 Architecture: x86_64
-Installed-Size: 10202
-Filename: rrdtool1_1.0.50-5_x86_64.ipk
-Size: 11340
-SHA256sum: 04161b40606877eb000d8dcd30f45b12391212a460a373b9315966201b8a3f76
-Description:  RRD is the Acronym for Round Robin Database. RRD is a system to store and
- display time-series data (i.e. network bandwidth, machine-room temperature,
- server load average). It stores the data in a very compact way that will
- not expand over time, and it presents useful graphs by processing the data
- to enforce a certain data density. It can be used either via simple wrapper
- scripts (from shell or Perl) or via frontends that poll network devices and
- put friendly user interface on it.
+Installed-Size: 1451729
+Filename: php8-cgi_8.1.6-1_x86_64.ipk
+Size: 1449917
+SHA256sum: de08268b1e3e6ebd392187692763c1d627fbfee65d947baa867d22a6a9f89e83
+Description:  PHP is a widely-used general-purpose scripting language that is especially
+ suited for Web development and can be embedded into HTML.
+ This package contains the CGI version of the PHP8 interpreter.
+
+Package: php8-fastcgi
+Version: 8.1.6-1
+Depends: libc, php8, php8-cgi
+Source: feeds/packages/lang/php8
+SourceName: php8-fastcgi
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 528
+Filename: php8-fastcgi_8.1.6-1_x86_64.ipk
+Size: 1402
+SHA256sum: d0607a4885b573ba71cd5db9330de6e5b3779be1e8634ecd01b40a19d3ca5107
+Description:  As FastCGI support is now a core feature the php8-fastcgi package now depends
+ on the php8-cgi package, containing just the startup script.
+
+Package: php8-fpm
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-fpm
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 1506064
+Filename: php8-fpm_8.1.6-1_x86_64.ipk
+Size: 1504483
+SHA256sum: 57b4f01ff247c4f3b6f96ac751781445597fd8b705deb79df4af6b99a09ec4e9
+Description:  PHP is a widely-used general-purpose scripting language that is especially
+ suited for Web development and can be embedded into HTML.
+ This package contains the FastCGI Process Manager of the PHP8 interpreter.
+
+Package: php8-mod-curl
+Version: 8.1.6-1
+Depends: libc, php8, libcurl4
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-curl
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 34191
+Filename: php8-mod-curl_8.1.6-1_x86_64.ipk
+Size: 35039
+SHA256sum: 96b2037ce555fad476e3ffef6670716d7039411cd230863e50716dabaa5efc5b
+Description:  cURL shared module
+
+Package: php8-mod-dom
+Version: 8.1.6-1
+Depends: libc, php8, libxml2
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-dom
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 55218
+Filename: php8-mod-dom_8.1.6-1_x86_64.ipk
+Size: 56043
+SHA256sum: d6f3e44ee7a0462c01236eaba76603688a81f7a1e1a6947862d525a49bdefe4f
+Description:  DOM shared module
+
+Package: php8-mod-gd
+Version: 8.1.6-1
+Depends: libc, php8, libgd-full
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-gd
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 28172
+Filename: php8-mod-gd_8.1.6-1_x86_64.ipk
+Size: 28841
+SHA256sum: 4a240b5d2d717a99af955368e8082672425a25be3949f278ea70a27954d1f653
+Description:  GD graphics shared module
+
+Package: php8-mod-iconv
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-iconv
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 17321
+Filename: php8-mod-iconv_8.1.6-1_x86_64.ipk
+Size: 18127
+SHA256sum: ccc1cb994e65828531db48a15c0d513104001073594a8ca5d3da47cacd7ca09f
+Description:  iConv shared module
+
+Package: php8-mod-mbstring
+Version: 8.1.6-1
+Depends: libc, php8, oniguruma5
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-mbstring
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 578274
+Filename: php8-mod-mbstring_8.1.6-1_x86_64.ipk
+Size: 577995
+SHA256sum: 8d9c28fd6b19740aa3763d385dc771228b30b259382d76d2f7b7e8cfee91c77d
+Description:  MBString shared module
+
+Package: php8-mod-mysqlnd
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-mysqlnd
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 72824
+Filename: php8-mod-mysqlnd_8.1.6-1_x86_64.ipk
+Size: 73261
+SHA256sum: 473a523505fe6fb1f440199e6ddda1b000492c821ed54cf49366a4e2d3ac3690
+Description:  MySQL Native Driver shared module
+
+Package: php8-mod-opcache
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-opcache
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 304077
+Filename: php8-mod-opcache_8.1.6-1_x86_64.ipk
+Size: 303185
+SHA256sum: 4f3d8df673138cc34f0b4bf36fe487a2d937eba37ca5e572c16cdd29ea662311
+Description:  OPcache shared module
+
+Package: php8-mod-pdo-mysql
+Version: 8.1.6-1
+Depends: libc, php8, php8-mod-pdo, php8-mod-mysqlnd
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-pdo-mysql
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 10274
+Filename: php8-mod-pdo-mysql_8.1.6-1_x86_64.ipk
+Size: 11070
+SHA256sum: 48ebdc3a448292368db475ddee5c7a61c880927b8d1b42e8a0e9eaa283174c88
+Description:  PDO driver for MySQL shared module
+
+Package: php8-mod-pdo-sqlite
+Version: 8.1.6-1
+Depends: libc, php8, php8-mod-pdo, libsqlite3-0, librt
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-pdo-sqlite
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 10305
+Filename: php8-mod-pdo-sqlite_8.1.6-1_x86_64.ipk
+Size: 11118
+SHA256sum: e91d016e69c1617fa1d5435daae99807f982b804acd559f1c02a10cbbb527d12
+Description:  PDO driver for SQLite 3.x shared module
+
+Package: php8-mod-pdo
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-pdo
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 38166
+Filename: php8-mod-pdo_8.1.6-1_x86_64.ipk
+Size: 38911
+SHA256sum: 88124b411202ddbb44b3986b91ac6726b80c1dc6ecb5c14a1690cc56e0b7ae5a
+Description:  PHP Data Objects shared module
+
+Package: php8-mod-session
+Version: 8.1.6-1
+Depends: libc, php8
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-session
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 32051
+Filename: php8-mod-session_8.1.6-1_x86_64.ipk
+Size: 32815
+SHA256sum: 8140728dd9d4bc2e9ee09a7b6f5b41885a4561fd9579d25f5138db81ce64be3a
+Description:  Session shared module
+
+Package: php8-mod-sqlite3
+Version: 8.1.6-1
+Depends: libc, php8, libsqlite3-0
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-sqlite3
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 18910
+Filename: php8-mod-sqlite3_8.1.6-1_x86_64.ipk
+Size: 19650
+SHA256sum: f336366508845a616987052623c1f67d6c79f68931a61c62d3da1e5a92123002
+Description:  SQLite3 shared module
+
+Package: php8-mod-xml
+Version: 8.1.6-1
+Depends: libc, php8, libxml2
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-xml
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 16368
+Filename: php8-mod-xml_8.1.6-1_x86_64.ipk
+Size: 17085
+SHA256sum: 8332e1b0fa631893efc0814f33d3a0fa6742dd1bf43935c1819a0e37677f33ce
+Description:  XML shared module
+
+Package: php8-mod-xmlreader
+Version: 8.1.6-1
+Depends: libc, php8, php8-mod-dom, libxml2
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-xmlreader
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 10633
+Filename: php8-mod-xmlreader_8.1.6-1_x86_64.ipk
+Size: 11431
+SHA256sum: ce5bd495fb9f50d3fc3316ce839dfbd6bc0c142365cdc4f027d8ebc421efa4e1
+Description:  XMLReader shared module
+
+Package: php8-mod-xmlwriter
+Version: 8.1.6-1
+Depends: libc, php8, libxml2
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-xmlwriter
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 10173
+Filename: php8-mod-xmlwriter_8.1.6-1_x86_64.ipk
+Size: 10852
+SHA256sum: 85c3112a04a148a132f53881ffa2df8e41203b6046d4d254e89431d5cd741d55
+Description:  XMLWriter shared module
+
+Package: php8-mod-zip
+Version: 8.1.6-1
+Depends: libc, php8, libzip
+Source: feeds/packages/lang/php8
+SourceName: php8-mod-zip
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 23070
+Filename: php8-mod-zip_8.1.6-1_x86_64.ipk
+Size: 23793
+SHA256sum: 838159cc0e444767c971229557a5f7752501b6e8298edb50822c547c06c9948b
+Description:  ZIP shared module
+
+Package: php8
+Version: 8.1.6-1
+Depends: libc, libpcre2, zlib, libxml2, zoneinfo-core
+Conflicts: php7
+Source: feeds/packages/lang/php8
+SourceName: php8
+License: PHP-3.01
+LicenseFiles: LICENSE
+Section: lang
+SourceDateEpoch: 1655623696
+CPE-ID: cpe:/a:php:php
+Maintainer: Michael Heimpold <mhei@heimpold.de>
+Architecture: x86_64
+Installed-Size: 1456
+Filename: php8_8.1.6-1_x86_64.ipk
+Size: 2524
+SHA256sum: 3642310206919dddd34a7e26e9de6e1bccc96a6d8e79e710dda9f5a6903beae3
+Description:  PHP is a widely-used general-purpose scripting language that is especially
+ suited for Web development and can be embedded into HTML.
+ This package contains only the PHP config file. You must actually choose
+ your PHP flavour (cli, cgi or fastcgi).
  
- This is version 1.0.x with cgilib-0.4, gd1.3 and libpng-1.0.9 linked into
- librrd.so. The library is much smaller compared to the 1.2.x version with
- separate dynamic linked libraries.
- This package contains command line tools used to manage RRDs.
+ Please note, that installing php5 and php8 in parallel on the same target
+ is not supported in OpenWrt/LEDE.
 
 Package: ruby-bigdecimal
 Version: 3.0.4-1
@@ -2027,10 +2261,10 @@ SourceDateEpoch: 1655623696
 CPE-ID: cpe:/a:samba:samba
 Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
 Architecture: x86_64
-Installed-Size: 8190351
+Installed-Size: 8191047
 Filename: samba4-libs_4.14.12-1_x86_64.ipk
-Size: 8145596
-SHA256sum: 69b564eba087c8a07700e465f38d8802ae6715d10f37630c8ab6ae8efdf994bd
+Size: 8149498
+SHA256sum: 4a0a02ac50909ba955e0af90534b5759140ab131b37cd5c2fb97f0bb3dfdc7bb
 Description:  Samba 4.14.12 libs
 
 Package: samba4-server
@@ -2046,10 +2280,10 @@ SourceDateEpoch: 1655623696
 CPE-ID: cpe:/a:samba:samba
 Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
 Architecture: x86_64
-Installed-Size: 242219
+Installed-Size: 242212
 Filename: samba4-server_4.14.12-1_x86_64.ipk
-Size: 243372
-SHA256sum: 1591096c8c211455585c8105a943a15540f5f118e73912f6c44c76329de8603c
+Size: 243359
+SHA256sum: 5be446c01d5e03975ce7b22309b6ef60391a6f630f454869d3fa8a61bfc7c617
 Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
  (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
  
@@ -2146,88 +2380,28 @@ Description:  smartmontools contains utility programs (smartctl) to
  and Reporting Technology System (S.M.A.R.T.) built into most modern
  ATA and SCSI disks. It is derived from smartsuite.
 
-Package: softethervpn-base
-Version: 4.38-9760-2
-Depends: libc, libpthread, librt, libreadline8, libopenssl1.1, libncurses6, kmod-tun, zlib
-Source: feeds/packages/net/softethervpn
-SourceName: softethervpn-base
-License: GPL-2.0-or-later
-LicenseFiles: COPYING
+Package: socat
+Version: 1.7.4.1-1
+Depends: libc, libpthread, librt, libopenssl1.1
+Source: feeds/packages/net/socat
+SourceName: socat
+License: GPL-2.0-or-later OpenSSL
+LicenseFiles: COPYING COPYING.OpenSSL
 Section: net
 SourceDateEpoch: 1655623696
-Maintainer: Federico Di Marco <fededim@gmail.com>
+CPE-ID: cpe:/a:dest-unreach:socat
+Maintainer: Ted Hess <thess@kitschensync.net>
 Architecture: x86_64
-Installed-Size: 2899654
-Filename: softethervpn-base_4.38-9760-2_x86_64.ipk
-Size: 2900969
-SHA256sum: b808bc89c883db0bd5cbcc08a8216358b388b76631729f6f15cadb68e36507a5
-Description:  SoftEther VPN ("SoftEther" means "Software Ethernet") is one of the world's most powerful and easy-to-use multi-protocol VPN software developed as an academic
- project from University of Tsukuba, Japan. SoftEther VPN has strong compatibility to today's most popular VPN products among the world. It has the interoperability
- with OpenVPN, L2TP, IPsec, EtherIP, L2TPv3, Cisco VPN Routers and MS-SSTP VPN Clients. SoftEther VPN is the world's only VPN software which supports SSL-VPN,
- OpenVPN, L2TP, EtherIP, L2TPv3 and IPsec as a single VPN software. SoftEther VPN is not only an alternative VPN server to existing VPN products (OpenVPN,
- IPsec and MS-SSTP), but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls. Ultra-optimized SSL-VPN Protocol of SoftEther VPN
- has very fast throughput, low latency and firewall resistance.
-
-Package: softethervpn-server
-Version: 4.38-9760-2
-Depends: libc, softethervpn-base
-Source: feeds/packages/net/softethervpn
-SourceName: softethervpn-server
-License: GPL-2.0-or-later
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Federico Di Marco <fededim@gmail.com>
-Architecture: x86_64
-Installed-Size: 895818
-Filename: softethervpn-server_4.38-9760-2_x86_64.ipk
-Size: 896814
-SHA256sum: 077df1aa641398ce68c4b37c3042154ecbfa4c289911613469a1b814c8e918c3
-Description:  SoftEther VPN ("SoftEther" means "Software Ethernet") is one of the world's most powerful and easy-to-use multi-protocol VPN software developed as an academic
- project from University of Tsukuba, Japan. SoftEther VPN has strong compatibility to today's most popular VPN products among the world. It has the interoperability
- with OpenVPN, L2TP, IPsec, EtherIP, L2TPv3, Cisco VPN Routers and MS-SSTP VPN Clients. SoftEther VPN is the world's only VPN software which supports SSL-VPN,
- OpenVPN, L2TP, EtherIP, L2TPv3 and IPsec as a single VPN software. SoftEther VPN is not only an alternative VPN server to existing VPN products (OpenVPN,
- IPsec and MS-SSTP), but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls. Ultra-optimized SSL-VPN Protocol of SoftEther VPN
- has very fast throughput, low latency and firewall resistance.
-
-Package: softethervpn5-client
-Version: 5.02.5180-1
-Depends: libc, softethervpn5-libs
-Source: feeds/packages/net/softethervpn5
-SourceName: softethervpn5-client
-License: GPL-2.0
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
-Architecture: x86_64
-Installed-Size: 1837
-Filename: softethervpn5-client_5.02.5180-1_x86_64.ipk
-Size: 2876
-SHA256sum: e2562916f288c9844410678129635821e24d519070fd2a9f78ca923d9056b46d
-Description:  SoftEther VPN supports SSL-VPN, OpenVPN, L2TP, EtherIP, L2TPv3 and IPsec as a single VPN software.
- SoftEther VPN is not only an alternative VPN server to existing VPN products (OpenVPN, IPsec and MS-SSTP),
- but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls.
- Guide: https://wordpress.tirlins.com/2015/03/setting-up-softether-vpn-on-openwrt/
- 
- Provides the vpnclient.
-
-Package: softethervpn5-libs
-Version: 5.02.5180-1
-Depends: libc, libsodium, libpthread, librt, libreadline8, libopenssl1.1, libncurses6, kmod-tun, zlib
-Source: feeds/packages/net/softethervpn5
-SourceName: softethervpn5-libs
-License: GPL-2.0
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Andy Walsh <andy.walsh44+github@gmail.com>
-Architecture: x86_64
-Installed-Size: 3728575
-Filename: softethervpn5-libs_5.02.5180-1_x86_64.ipk
-Size: 3723984
-SHA256sum: b3bd84124fbe2e4f58dc74a2f0ff2da3c1c4beb59e306fbd02c4d982be8e0467
-Description:  softethervpn5 v5.02.5180 libs
+Installed-Size: 117102
+Filename: socat_1.7.4.1-1_x86_64.ipk
+Size: 118154
+SHA256sum: 84f9d956c054d69533e452c9b00cbe077c6dffb095bed431f75924cff772ffac
+Description:  SoCat (for SOcket CAT) establishes two bidirectional byte streams and
+ transfers data between them.
+ Data channels may be files, pipes, devices (terminal or modem, etc.), or
+ sockets (Unix, IPv4, IPv6, raw, UDP, TCP, SSL). It provides forking,
+ logging and tracing, different modes for interprocess communication and
+ many more options.
 
 Package: squid
 Version: 4.16-1
@@ -2262,31 +2436,14 @@ SourceDateEpoch: 1655623696
 CPE-ID: cpe:/a:syncthing:syncthing
 Maintainer: Paul Spooren <mail@aparcar.org>
 Architecture: x86_64
-Installed-Size: 9066632
+Installed-Size: 9066388
 Filename: syncthing_1.19.2-1_x86_64.ipk
-Size: 9053223
-SHA256sum: d3bc581424018be1fa792353c9f21f453b70715e770ca4925cf7dace0e2d804a
+Size: 9053185
+SHA256sum: 5d63bc9838d62cda43949b8fce52b32909b4062c8f04b3f91272584f4f49a672
 Description:  Syncthing replaces proprietary sync and cloud services with something
  open, trustworthy and decentralized. Your data is your data alone and
  you deserve to choose where it is stored, if it is shared with some
  third party and how it's transmitted over the Internet.
-
-Package: ttyd
-Version: 1.6.3-3
-Depends: libc, libopenssl1.1, libjson-c5, libuv1, zlib, libwebsockets-full
-Source: feeds/packages/utils/ttyd
-SourceName: ttyd
-License: MIT
-LicenseFiles: LICENSE
-Section: utils
-SourceDateEpoch: 1655623696
-Maintainer: Shuanglei Tao <tsl0922@gmail.com>
-Architecture: x86_64
-Installed-Size: 258157
-Filename: ttyd_1.6.3-3_x86_64.ipk
-Size: 259134
-SHA256sum: a582701ae7f95c69734e13668b26f3158c8845b9610a21578d1c442ec9bd9938
-Description:  ttyd is a command-line tool for sharing terminal over the web.
 
 Package: unzip
 Version: 6.0-8
@@ -2308,26 +2465,6 @@ Description:  InfoZIP's unzip program. With the exception of multi-volume archiv
  (ie, .ZIP files that are split across several disks using PKZIP's /& option),
  this can handle any file produced either by PKZIP, or the corresponding
  InfoZIP zip program.
-
-Package: vpnbypass
-Version: 1.3.2-1
-Depends: libc, ipset, iptables
-Source: feeds/packages/net/vpnbypass
-SourceName: vpnbypass
-License: GPL-3.0-or-later
-Section: net
-SourceDateEpoch: 1655623696
-Maintainer: Stan Grishin <stangri@melmac.net>
-Architecture: all
-Installed-Size: 2472
-Filename: vpnbypass_1.3.2-1_all.ipk
-Size: 3573
-SHA256sum: 117772464af6cf5dc62c64995d5dfc61ae3d63ecc429228b2ad0f901a07c185b
-Description:  This service can be used to enable simple VPN split tunnelling.
- Supports accessing domains, IP ranges outside of your VPN tunnel.
- Also supports dedicating local ports/IP ranges for direct
- internet access (outside of your VPN tunnel).
- Please see the README for further information.
 
 Package: wget-ssl
 Version: 1.21.2-1
@@ -2395,20 +2532,35 @@ SHA256sum: 8d11788770be6fce69a9e7be422b8d089317ddddf72a37a4beeadd0c940404bf
 Description:  Xray, Penetrates Everything. It helps you to build your own computer network.
  It secures your network connections and thus protects your privacy.
 
-Package: zerotier
-Version: 1.8.6-1
-Depends: libc, libpthread, libstdcpp6, kmod-tun, ip, libminiupnpc, libnatpmp1
-Source: feeds/packages/net/zerotier
-SourceName: zerotier
-License: BSL 1.1
-LicenseFiles: LICENSE.txt
-Section: net
+Package: zoneinfo-asia
+Version: 2022a-1
+Depends: libc
+Source: feeds/packages/utils/zoneinfo
+SourceName: zoneinfo-asia
+License: Public Domain
+Section: utils
 SourceDateEpoch: 1655623696
-Maintainer: Moritz Warning <moritzwarning@web.de>
+Maintainer: Vladimir Ulrich <admin@evl.su>
 Architecture: x86_64
-Installed-Size: 507324
-Filename: zerotier_1.8.6-1_x86_64.ipk
-Size: 508170
-SHA256sum: a537ba3b00308027bec0cc63c00c0be24a1be27d24c22086999a8416ac67cc0c
-Description:  ZeroTier creates a global provider-independent virtual private cloud network.
+Installed-Size: 31072
+Filename: zoneinfo-asia_2022a-1_x86_64.ipk
+Size: 31454
+SHA256sum: 5247fff7b6c035160ebe531e56911c68806b8429853530d3927b3c27e2d9627f
+Description:  Zone Information (Asia)
+
+Package: zoneinfo-core
+Version: 2022a-1
+Depends: libc
+Source: feeds/packages/utils/zoneinfo
+SourceName: zoneinfo-core
+License: Public Domain
+Section: utils
+SourceDateEpoch: 1655623696
+Maintainer: Vladimir Ulrich <admin@evl.su>
+Architecture: x86_64
+Installed-Size: 20650
+Filename: zoneinfo-core_2022a-1_x86_64.ipk
+Size: 21108
+SHA256sum: e6d6b00c7c88b4a684d8a64547b31ec008d40da9aa4828fee35dbcafc47117e8
+Description:  Zone Information (core)
 
