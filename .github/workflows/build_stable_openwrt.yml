@@ -19,7 +19,7 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 0 0 */5 * *
+    - cron: 0 0 */7 * *
 
 env:
   REPO_URL: https://github.com/jkingben/openwrt
@@ -58,39 +58,6 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         date=$(date +%Y%m%d%H%M%S)
         echo "DATE=$date" >> $GITHUB_ENV
-
-    - name: Sync my packages
-      run: |
-        mkdir mypkg
-        git clone https://github.com/Lienol/openwrt-packages.git -b 22.03 mypkg/pkg
-        git clone https://github.com/Lienol/openwrt-luci.git -b 22.03 mypkg/luci
-        git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
-        rm -rf mypkg/pkg/.git*
-        rm -rf mypkg/luci/.git*
-        rm -rf mypkg/pkg/net/smartdns
-        rm -rf mypkg/luci/applications/luci-app-smartdns
-        cp -r kenzok8/smartdns mypkg/pkg/net
-        cp -r kenzok8/mosdns mypkg/pkg/net
-        cp -r kenzok8/luci-app-smartdns mypkg/luci/applications
-        cp -r kenzok8/luci-app-mosdns mypkg/luci/applications
-        cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
-        cp -r kenzok8/luci-theme-neobird mypkg/luci/themes
-    - name: Push my packages
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: packages
-          FOLDER: mypkg/pkg
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ${{ env.DATE }}({sha})"
-    - name: Push my luci
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: luci
-          FOLDER: mypkg/luci
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ${{ env.DATE }}({sha})"
 
     - name: Clone source code
       run: |
