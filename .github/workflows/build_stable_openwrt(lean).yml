@@ -292,7 +292,7 @@ jobs:
 
       - name: Load custom config before feeds update
         run: |
-          cp $FEEDS_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
+          cp $FEED_UPDATE_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
           cp $DIY_P1_SH $OPENWRT_ROOT_PATH/$DIY_P1_SH
           chmod +x $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
           chmod +x $OPENWRT_ROOT_PATH/$DIY_P1_SH
