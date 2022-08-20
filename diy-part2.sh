@@ -14,8 +14,8 @@
 sed -i 's/192.168.1.1/192.168.28.1/g' package/base-files/files/bin/config_generate
 
 # repleace opkg url
-sed -i 's#https://downloads.openwrt.org#http://192.168.28.2:8184/openwrt#g' /etc/opkg/distfeeds.conf
-sed -i 's#https://downloads.openwrt.org/releases/22.03-SNAPSHOT#http://192.168.28.2:8184/openwrt/snapshots#g' /etc/opkg/distfeeds.conf
+#sed -i 's#https://downloads.openwrt.org#http://192.168.28.2:8184/openwrt#g' /etc/opkg/distfeeds.conf
+#sed -i 's#https://downloads.openwrt.org/releases/22.03-SNAPSHOT#http://192.168.28.2:8184/openwrt/snapshots#g' /etc/opkg/distfeeds.conf
 
 # fix versync version 2.10.5 bug
 #sed -i 's/2.10.5/2.13.2/g' feeds/lienol/verysync/Makefile
