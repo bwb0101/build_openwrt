@@ -43,12 +43,3 @@ jobs:
   Toolchain:
     runs-on: ubuntu-20.04
 
-    outputs:
-      OPENWRT_ROOT_PATH: ${{ steps.clone.outputs.OPENWRT_ROOT_PATH }}
-      CURRENT_BRANCH: ${{ steps.env.outputs.CURRENT_BRANCH }}
-      SOURCE_OWNER: ${{ steps.env.outputs.SOURCE_OWNER }}
-      SOURCE_REPO: ${{ steps.env.outputs.SOURCE_REPO }}
-      DEVICE_PLATFORM: ${{ steps.env.outputs.DEVICE_PLATFORM }}
-      DEVICE_TARGET: ${{ steps.env.outputs.DEVICE_TARGET }}
-      DEVICE_SUBTARGET: ${{ steps.env.outputs.DEVICE_SUBTARGET }}
-      TOOLCHAIN_IMAGE: ${{ steps.env.outputs.TOOLCHAIN_IMAGE }}
