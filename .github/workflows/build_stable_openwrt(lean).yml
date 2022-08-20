@@ -372,11 +372,11 @@ jobs:
           make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
           make checksum
-          echo "::set-output name=status::success"
-          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
-          echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
-          mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
           rm -rf bin/targets/*/*/packages
+          echo "::set-output name=status::success"
+          echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
+          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
+          mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
           
       - name: Print Sha256sums
         run: |
@@ -422,10 +422,6 @@ jobs:
           fail-if-no-assets: false
           fail-if-no-release: false
           assets: "*"
-      - name: Generate version
-        run: |
-          cd $OPENWRT_ROOT_PATH
-          echo "${{ steps.generate.outputs.release_tag }}" > _ver/version
       - name: Publish version
         uses: s0/git-publish-subdir-action@develop
         env:
