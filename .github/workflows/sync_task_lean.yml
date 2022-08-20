@@ -48,7 +48,7 @@ jobs:
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
-        cp -r kenzok8/mosdns mypkg/pkg/net
+        cp -r kenzok8/mosdns mypkg/luci/applications
         cp -r kenzok8/luci-app-mosdns mypkg/luci/applications
         cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
         cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
