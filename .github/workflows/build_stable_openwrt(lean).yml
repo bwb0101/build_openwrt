@@ -359,7 +359,7 @@ jobs:
             sudo mv usign /bin
             mkdir -p $OPENWRT_ROOT_PATH/files/etc/opkg/keys
             cd $OPENWRT_ROOT_PATH/files/etc/opkg/keys
-            cp $KEY_BUILD .
+            cp $GITHUB_WORKSPACE/$KEY_BUILD .
             mv key-build.pub $(usign -F -p key-build.pub)
           fi
           cd $OPENWRT_ROOT_PATH
