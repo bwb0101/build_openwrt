@@ -13,6 +13,22 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.28.1/g' package/base-files/files/bin/config_generate
 
+# replace default shell(ash) to bash
+#[ -e package/base-files/files/etc/passwd ] && sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
+
+# replace default banner
+rm -rf package/base-files/files/etc/banner
+cp $GITHUB_WORKSPACE/data/banner package/base-files/files/etc/banner
+
+# change model info
+cp $GITHUB_WORKSPACE/data/model.sh package/base-files/files/etc/
+chmod +x package/base-files/files/etc/model.sh
+
+# add IPv6 hotplug
+mkdir -p package/base-files/files/etc/hotplug.d/iface
+cp $GITHUB_WORKSPACE/data/99-ipv6 package/base-files/files/etc/hotplug.d/iface/99-ipv6
+chmod +x package/base-files/files/etc/hotplug.d/iface/99-ipv6
+
 # repleace opkg url
 #sed -i 's#https://downloads.openwrt.org#http://192.168.28.2:8184/openwrt#g' /etc/opkg/distfeeds.conf
 #sed -i 's#https://downloads.openwrt.org/releases/22.03-SNAPSHOT#http://192.168.28.2:8184/openwrt/snapshots#g' /etc/opkg/distfeeds.conf
