@@ -376,6 +376,7 @@ jobs:
           echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
           mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
+          rm -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/packages
           
       - name: Print Sha256sums
         run: |
@@ -411,7 +412,7 @@ jobs:
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
           body: "${{ env.DATE }}"
-          files: ${{ env.FIRMWARE }}/*
+          files: ${{ $OPENWRT_ROOT_PATH }}/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
       - name: Delete old openwrt
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: mknejp/delete-release-assets@v1
