@@ -254,38 +254,3 @@ jobs:
           git remote add origin https://github.com/$GITHUB_REPOSITORY
           git fetch
           git checkout -t origin/$CURRENT_BRANCH
-      - name: Download Toolchain Image Form Artifacts
-        if: env.UPLOAD_TOOLCHAIN != 'true'
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.TOOLCHAIN_IMAGE }}
-          path: workspace
-      - name: Prepare Toolchain Image Form Artifacts
-        if: env.UPLOAD_TOOLCHAIN != 'true'
-        run: |
-          cd workspace
-          for i in {1..9}
-          do
-            cat $TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img.00 && rm $TOOLCHAIN_IMAGE.img.0$i || break
-          done
-          mv $TOOLCHAIN_IMAGE.img.00 $TOOLCHAIN_IMAGE.img
-          mkdir openwrt-ro openwrt workdir overlay
-          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
-          sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
-          cd $OPENWRT_ROOT_PATH
-          git pull
-
-      - name: Prepare Toolchain Image Form Releases
-        if: env.UPLOAD_TOOLCHAIN == 'true'
-        run: |
-          mkdir -p workspace
-          cd workspace
-          for i in {0..9}
-          do
-            curl -fsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img || break
-          done
-          mkdir openwrt-ro openwrt workdir overlay
-          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
-          sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
-          cd $OPENWRT_ROOT_PATH
-          git pull
