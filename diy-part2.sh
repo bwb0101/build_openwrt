@@ -30,8 +30,6 @@ sed -i 's#https://downloads.openwrt.org/releases/22.03-SNAPSHOT#http://192.168.2
 #echo -e "\tipc = no" >> package/base-files/files/etc/netdata/netdata.conf
 
 # 添加新主题
-git clone https://github.com/kenzok8/openwrt-packages.git /tmp/kenzok8
-cp -r /tmp/kenzok8/luci-app-argonne-config ./package/luci-app-argonne-config
 #rm -rf ./feeds/luci/themes/luci-theme-argon
 #git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git ./feeds/luci/themes/luci-theme-argon
 #git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/lean/luci-app-argon-config
