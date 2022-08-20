@@ -216,3 +216,224 @@ jobs:
             git config --global init.defaultBranch main
             date=$(date +%Y%m%d%H%M%S)
             echo "DATE=$date" >> $GITHUB_ENV
+
+      - name: Combine Disks
+        if: env.COMBINE_DISK == 'true'
+        run: |
+          sudo swapoff -a
+          sudo rm -f /mnt/swapfile
+          export ROOT_FREE_KB=$(df --block-size=1024 --output=avail / | tail -1)
+          export ROOT_LOOP_KB=$(expr $ROOT_FREE_KB - 1048576)
+          export ROOT_LOOP_BYTES=$(expr $ROOT_LOOP_KB \* 1024)
+          sudo fallocate -l $ROOT_LOOP_BYTES /root.img
+          export ROOT_LOOP_DEVNAME=$(sudo losetup -Pf --show /root.img)
+          sudo pvcreate -f $ROOT_LOOP_DEVNAME
+          export MNT_FREE_KB=$(df --block-size=1024 --output=avail /mnt | tail -1)
+          export MNT_LOOP_KB=$(expr $MNT_FREE_KB - 102400)
+          export MNT_LOOP_BYTES=$(expr $MNT_LOOP_KB \* 1024)
+          sudo fallocate -l $MNT_LOOP_BYTES /mnt/mnt.img
+          export MNT_LOOP_DEVNAME=$(sudo losetup -Pf --show /mnt/mnt.img)
+          sudo pvcreate -f $MNT_LOOP_DEVNAME
+          sudo vgcreate vgstorage $ROOT_LOOP_DEVNAME $MNT_LOOP_DEVNAME
+          sudo lvcreate -n lvstorage -l 100%FREE vgstorage
+          export LV_DEVNAME=$(sudo lvscan | awk -F "'" '{print $2}')
+          sudo mkfs.btrfs -L combinedisk $LV_DEVNAME
+          sudo mount -o compress=zstd $LV_DEVNAME $GITHUB_WORKSPACE
+          sudo chown -R runner:runner $GITHUB_WORKSPACE
+          mkdir $GITHUB_WORKSPACE/tmp
+          chmod 777 $GITHUB_WORKSPACE/tmp
+          sudo cp -rp /tmp/* $GITHUB_WORKSPACE/tmp
+          sudo mount -B $GITHUB_WORKSPACE/tmp /tmp
+          df -hT $GITHUB_WORKSPACE
+          sudo btrfs filesystem usage $GITHUB_WORKSPACE
+
+      - name: Checkout
+        run: |
+          cd $GITHUB_WORKSPACE
+          git init
+          git remote add origin https://github.com/$GITHUB_REPOSITORY
+          git fetch
+          git checkout -t origin/$CURRENT_BRANCH
+      - name: Download Toolchain Image Form Artifacts
+        if: env.UPLOAD_TOOLCHAIN != 'true'
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.TOOLCHAIN_IMAGE }}
+          path: workspace
+      - name: Prepare Toolchain Image Form Artifacts
+        if: env.UPLOAD_TOOLCHAIN != 'true'
+        run: |
+          cd workspace
+          for i in {1..9}
+          do
+            cat $TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img.00 && rm $TOOLCHAIN_IMAGE.img.0$i || break
+          done
+          mv $TOOLCHAIN_IMAGE.img.00 $TOOLCHAIN_IMAGE.img
+          mkdir openwrt-ro openwrt workdir overlay
+          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
+          sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
+          cd $OPENWRT_ROOT_PATH
+          git pull
+
+      - name: Prepare Toolchain Image Form Releases
+        if: env.UPLOAD_TOOLCHAIN == 'true'
+        run: |
+          mkdir -p workspace
+          cd workspace
+          for i in {0..9}
+          do
+            curl -fsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img || break
+          done
+          mkdir openwrt-ro openwrt workdir overlay
+          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
+          sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
+          cd $OPENWRT_ROOT_PATH
+          git pull
+
+      - name: Load custom config before feeds update
+        run: |
+          cp $FEEDS_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
+          cp $DIY_P1_SH $OPENWRT_ROOT_PATH/$DIY_P1_SH
+          chmod +x $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
+          chmod +x $OPENWRT_ROOT_PATH/$DIY_P1_SH
+          cd $OPENWRT_ROOT_PATH
+          ./$FEED_UPDATE_SH
+          ./$DIY_P1_SH
+      - name: Install Feeds
+        run: |
+          cd $OPENWRT_ROOT_PATH
+          ./scripts/feeds clean
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a -f
+      - name: Load custom config after feeds install
+        run: |
+          cp $DIY_P2_SH $OPENWRT_ROOT_PATH/$DIY_P2_SH
+          cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
+          chmod +x $OPENWRT_ROOT_PATH/$DIY_P2_SH
+          cd $OPENWRT_ROOT_PATH
+          ./$DIY_P2_SH
+          make defconfig
+
+      - name: Free UP Disk Space
+        if: env.FREE_UP_DISK == 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo -E apt-get -q purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          docker image prune -a -f
+          df -h
+      - name: Download DL Package
+        id: download
+        run: |
+          cd $OPENWRT_ROOT_PATH
+          make download -j$(nproc) || make download -j1 V=s
+          df -h
+
+      - name: Compile Packages
+        run: |
+          cd $OPENWRT_ROOT_PATH
+          echo -e "$(nproc) thread compile"
+          make buildinfo
+          make diffconfig buildversion feedsversion
+          make target/compile -j$(nproc) IGNORE_ERRORS="m n" BUILD_LOG=1 || \
+          yes n | make target/compile -j1 V=s IGNORE_ERRORS=1
+          make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
+          make package/index
+      - name: Generate Firmware
+        id: generate
+        run: |
+          if grep -q $DEVICE_TARGET/$DEVICE_SUBTARGET $GITHUB_WORKSPACE/data/support-targets.txt; then
+            mkdir -p $OPENWRT_ROOT_PATH/files/etc/opkg
+            cd $OPENWRT_ROOT_PATH/files/etc/opkg
+            cp $GITHUB_WORKSPACE/$DIST_FEEDS .
+            sed -i "s#DEVICE_TARGET/DEVICE_SUBTARGET#$DEVICE_TARGET/$DEVICE_SUBTARGET#" distfeeds.conf
+            sed -i "s/DEVICE_PLATFORM/$DEVICE_PLATFORM/g" distfeeds.conf
+            cd $OPENWRT_ROOT_PATH
+            git clone https://git.openwrt.org/project/usign.git
+            cd usign
+            cmake .
+            make
+            sudo mv usign /bin
+            mkdir -p $OPENWRT_ROOT_PATH/files/etc/opkg/keys
+            cd $OPENWRT_ROOT_PATH/files/etc/opkg/keys
+            cp $GITHUB_WORKSPACE/$KEY_BUILD .
+            mv key-build.pub $(usign -F -p key-build.pub)
+          fi
+          cd $OPENWRT_ROOT_PATH
+          mkdir -p files/www/snapshots
+          cp -r bin/targets files/www/snapshots
+          cp -r bin/packages files/www/snapshots
+          ls -l files/www/snapshots/
+          ls -l files/www/snapshots/packages
+          make package/install -j$(nproc) || make package/install -j1 V=s
+          make target/install -j$(nproc) || make target/install -j1 V=s
+          make json_overview_image_info
+          make checksum
+          rm -rf bin/targets/*/*/packages
+          echo "::set-output name=status::success"
+          echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
+          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
+          mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
+          
+      - name: Print Sha256sums
+        run: |
+          cd $OPENWRT_ROOT_PATH/bin/targets/*/*
+          cat sha256sums
+      - name: Print Disk Usage
+        if: always()
+        run: |
+          echo 'lsblk -f'
+          lsblk -f
+          echo '-----'
+          echo 'df -h'
+          df -h
+          echo '-----'
+          echo 'btrfs filesystem usage'
+          sudo btrfs filesystem usage $GITHUB_WORKSPACE
+          echo '-----'
+
+      - name: Publish openwrt
+        uses: s0/git-publish-subdir-action@develop
+        if: steps.generate.outputs.status == 'success' && !cancelled()
+        env:
+            REPO: self
+            BRANCH: openwrt_stable
+            FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/www/snapshots
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            MESSAGE: "Build: ${{ env.DATE }}({sha})"
+      - name: Upload firmware to release
+        uses: softprops/action-gh-release@v1
+        if: steps.generate.outputs.status == 'success' && !cancelled()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          body: "${{ env.DATE }}"
+          files: ${{ $OPENWRT_ROOT_PATH }}/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+      - name: Delete old openwrt
+        if: steps.generate.outputs.status == 'success' && !cancelled()
+        uses: mknejp/delete-release-assets@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.generate.outputs.old_release_version }}
+          fail-if-no-assets: false
+          fail-if-no-release: false
+          assets: "*"
+      - name: Publish version
+        uses: s0/git-publish-subdir-action@develop
+        env:
+            REPO: self
+            BRANCH: main
+            FOLDER: _ver
+            CLEAR_GLOBS_FILE: ".clear-target-files"
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            MESSAGE: "Build: ${{ env.DATE }}({sha})"
+
+      - name: Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 3
