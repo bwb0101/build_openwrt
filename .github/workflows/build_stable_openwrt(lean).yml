@@ -376,7 +376,7 @@ jobs:
           echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
           mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
-          rm -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/packages
+          rm -rf bin/targets/*/*/packages
           
       - name: Print Sha256sums
         run: |
