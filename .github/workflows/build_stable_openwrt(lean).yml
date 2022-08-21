@@ -376,9 +376,10 @@ jobs:
           make json_overview_image_info
           make checksum
           rm -rf bin/targets/*/*/packages
+          ls -l bin/targets/*/*
           echo "::set-output name=status::success"
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
-          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
+          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")"
           mkdir $GITHUB_WORKSPACE/_ver && echo '${{ steps.generate.outputs.release_tag }}' > $GITHUB_WORKSPACE/_ver/version
           
       - name: Print Sha256sums
@@ -408,14 +409,16 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             MESSAGE: "Build: ${{ env.DATE }}({sha})"
       - name: Upload firmware to release
-        uses: softprops/action-gh-release@v1
-        if: steps.generate.outputs.status == 'success' && !cancelled()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.8.0
+        if: steps.generate.outputs.status == 'success'
         with:
-          tag_name: ${{ steps.generate.outputs.release_tag }}
-          body: "${{ env.DATE }}"
-          files: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
+          name: ${{ steps.generate.outputs.release_tag }}
+          #allowUpdates: true
+          #replacesArtifacts: true
+          tag: ${{ steps.generate.outputs.release_tag }}
+          body: ${{ env.DATE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: Delete old openwrt
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: mknejp/delete-release-assets@v1
