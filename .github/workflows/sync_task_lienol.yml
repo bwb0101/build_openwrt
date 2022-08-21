@@ -64,7 +64,9 @@ jobs:
         sed -i -e '/s\:tab/{is:tab("localdns_list", translate("Local DNS Lists"))' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         sed -i -e '/s\:taboption/{io = s:taboption("localdns_list", TextValue, "localdnslist", "", "<font color='red'>" .. translate("Forced to use domestic dns resolution") .. "</font>")\no.rows = 15\no.wrap = "off"\no.cfgvalue = function(self, section) return nixio.fs.readfile(localdns_list_file) or "" end\no.write = function(self, section, value) nixio.fs.writefile(localdns_list_file, value:gsub("\\r\\n", "\\n")) end\no.remove = function(self, section, value) nixio.fs.writefile(localdns_list_file, "") end\no.validate = function(self, value)\n    return value\nend\n' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         touch mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns/rule/localdns.txt
-        cp -f cfgs/mosdns_cus_config.yaml mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns/cus_config.yaml
+        cp -f cfgs/mosdns/cus_config.yaml mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns
+        cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
+        cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
 
     - name: Push my packages
       uses: s0/git-publish-subdir-action@develop
@@ -84,7 +86,7 @@ jobs:
           MESSAGE: "Build: ${{ env.DATE }}({sha})"
 
     - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
+      uses: Mattraks/delete-workflow-runs@v2
       with:
         retain_days: 1
         keep_minimum_runs: 3
