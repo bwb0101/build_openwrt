@@ -413,9 +413,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
+          tag_name: ${{ steps.generate.outputs.release_tag }}
           body: "${{ env.DATE }}"
-          files: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+          files: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: Delete old openwrt
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: mknejp/delete-release-assets@v1
