@@ -9,61 +9,144 @@ Section: net
 SourceDateEpoch: 1660497736
 Maintainer: pexcn <i@pexcn.me>
 Architecture: x86_64
-Installed-Size: 18546
+Installed-Size: 18502
 Filename: chinadns-ng_1.0-beta.25-1_x86_64.ipk
-Size: 19322
-SHA256sum: 9c32bad366b29d270b135e2c7ea57df302a03c4317553637d8b8c0a98c9088fd
+Size: 19286
+SHA256sum: cfa43580ab1a0d41cf71d98e8d7e5e90580468bf9b5601a72703b8e603006b85
 Description:  ChinaDNS next generation, refactoring with epoll and ipset.
 
-Package: dns2socks
-Version: 2.1-2
-Depends: libc, libpthread
-Source: feeds/passwall/dns2socks
-SourceName: dns2socks
-License: BSD-3-Clause
+Package: dns2tcp
+Version: 1.1.0-1
+Depends: libc
+Source: feeds/passwall/dns2tcp
+SourceName: dns2tcp
+License: AGPL-3.0-only
+LicenseFiles: LICENSE
 Section: net
 SourceDateEpoch: 1660497736
-Maintainer: ghostmaker
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 10519
-Filename: dns2socks_2.1-2_x86_64.ipk
-Size: 11291
-SHA256sum: 78b0253aa95111b530dce5ee547781c13e666fb7cb25fa14ee2bf298181cf342
-Description:  This is a command line utility to resolve DNS requests via
- a SOCKS tunnel like Tor or a HTTP proxy.
+Installed-Size: 11712
+Filename: dns2tcp_1.1.0-1_x86_64.ipk
+Size: 12501
+SHA256sum: a4bac6912a7b210860b4151525b7cb4ac722025b56bed91b7923544f003963f1
+Description:  utility to convert dns query from udp to tcp
 
-Package: ipt2socks
-Version: 1.1.3-3
-Depends: libc, libpthread
-Source: feeds/passwall/ipt2socks
-SourceName: ipt2socks
-License: AGPL-3.0
-Section: net
-SourceDateEpoch: 1660497736
-Architecture: x86_64
-Installed-Size: 27597
-Filename: ipt2socks_1.1.3-3_x86_64.ipk
-Size: 28355
-SHA256sum: 8d077e6ab9e550443dadc5cb08550c42bc7826f0edc4d8b0eaa0dc0340cffc89
-Description:  Utility for converting iptables (redirect/tproxy) to socks5.
-
-Package: microsocks
-Version: 1.0.3-1
-Depends: libc, libpthread
-Source: feeds/passwall/microsocks
-SourceName: microsocks
+Package: hysteria
+Version: 1.2.0-1
+Depends: libc, ca-bundle
+Source: feeds/passwall/hysteria
+SourceName: hysteria
 License: MIT
-LicenseFiles: COPYING
 Section: net
 SourceDateEpoch: 1660497736
-Maintainer: lean
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 5489
-Filename: microsocks_1.0.3-1_x86_64.ipk
-Size: 6312
-SHA256sum: b8e493eabff03caa84e912159667394c991a701e9e48c6412ed769ddb995704f
-Description:  A SOCKS5 service that you can run on your remote boxes to tunnel connections
- through them, if for some reason SSH doesn't cut it for you.
+Installed-Size: 6608005
+Filename: hysteria_1.2.0-1_x86_64.ipk
+Size: 6593101
+SHA256sum: 6ff56595bb9ca0c619d2ba88427b5af5609acd83e3c75e3c0fc3a82e3bad3347
+Description:  Hysteria is a feature-packed network utility optimized for networks
+ of poor quality (e.g. satellite connections, congested public Wi-Fi,
+ connecting from China to servers abroad) powered by a custom version
+ of QUIC protocol.
+
+Package: shadowsocksr-libev-ssr-check
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-check
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Architecture: x86_64
+Installed-Size: 2352
+Filename: shadowsocksr-libev-ssr-check_2.5.6-9_x86_64.ipk
+Size: 3093
+SHA256sum: 4d634a0548eec1c0cab165aa8e4091d9628ff768d8a8f7d62a0eae5817842009
+Description:  shadowsocksr-libev ssr-check
+
+Package: shadowsocksr-libev-ssr-local
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-local
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Architecture: x86_64
+Installed-Size: 61684
+Filename: shadowsocksr-libev-ssr-local_2.5.6-9_x86_64.ipk
+Size: 62567
+SHA256sum: 1f7e0411217c9fd48b83563cfa9df1bdc685bd6b735e90df4e940b33c1411593
+Description:  shadowsocksr-libev ssr-local
+
+Package: shadowsocksr-libev-ssr-redir
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-redir
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Architecture: x86_64
+Installed-Size: 55639
+Filename: shadowsocksr-libev-ssr-redir_2.5.6-9_x86_64.ipk
+Size: 56461
+SHA256sum: c618117cd8f492ec9675be44cc7cd9889d159ec539a5edbfa6d7b9d1ab4579c0
+Description:  shadowsocksr-libev ssr-redir
+
+Package: shadowsocksr-libev-ssr-server
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-server
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Architecture: x86_64
+Installed-Size: 65290
+Filename: shadowsocksr-libev-ssr-server_2.5.6-9_x86_64.ipk
+Size: 66130
+SHA256sum: a55e58d546629bef93319a5c6f951b94e65e78832ebad5a654236ddfec999256
+Description:  shadowsocksr-libev ssr-server
+
+Package: simple-obfs
+Version: 0.0.5-1
+Depends: libc, libpthread, libev
+Source: feeds/passwall/simple-obfs
+SourceName: simple-obfs
+License: GPL-3.0-or-later
+LicenseFiles: COPYING LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: Jian Chang <aa65535@live.com>
+Architecture: x86_64
+Installed-Size: 30209
+Filename: simple-obfs_0.0.5-1_x86_64.ipk
+Size: 30991
+SHA256sum: 71ff715b6d4e6fee0ccc065e564ff0a67b2bedaf2047045c63afe4156cb383ec
+Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
+
+Package: tcping
+Version: 0.3-1
+Depends: libc
+Source: feeds/passwall/tcping
+SourceName: tcping
+License: GPL-2.0-only
+LicenseFiles: license.txt
+Section: net
+SourceDateEpoch: 1660497736
+Architecture: x86_64
+Installed-Size: 3698
+Filename: tcping_0.3-1_x86_64.ipk
+Size: 4432
+SHA256sum: 97a256aa73294f4d9a661a5736706ae5c68d95b0d7e9c436d531b39729842f29
+Description:  tcping measures the latency of a tcp-connection
 
 Package: trojan-plus
 Version: 10.0.3-2
@@ -75,9 +158,112 @@ Section: net
 SourceDateEpoch: 1660497736
 Maintainer: Trojan-Plus-Group
 Architecture: x86_64
-Installed-Size: 409160
+Installed-Size: 405343
 Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 410078
-SHA256sum: 717343693d63df1346faa1bbe2916ddefbd3251a7cb95241027c1936a423bd9b
+Size: 406240
+SHA256sum: 67e8eb78ebce1bdc367d1cfe20ff9addb9ea16ad2cd999d019b5ef98d569796f
 Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
+
+Package: trojan
+Version: 1.16.0-2
+Depends: libc, libpthread, libstdcpp6, libopenssl1.1, boost, boost-system, boost-program_options, boost-date_time
+Source: feeds/passwall/trojan
+SourceName: trojan
+License: GPL-3.0
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: GreaterFire
+Architecture: x86_64
+Installed-Size: 295523
+Filename: trojan_1.16.0-2_x86_64.ipk
+Size: 296445
+SHA256sum: c6559738a28d84854cddbb070e9a0b1fd330e899cb564546282d8006510c44e6
+Description:  An unidentifiable mechanism that helps you bypass GFW
+
+Package: v2ray-core
+Version: 5.0.7-1
+Depends: libc, ca-bundle
+Source: feeds/passwall/v2ray-core
+SourceName: v2ray-core
+License: MIT
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: x86_64
+Installed-Size: 8428937
+Filename: v2ray-core_5.0.7-1_x86_64.ipk
+Size: 8409214
+SHA256sum: 2a0433d63d36939c9fb50c486da090dc39906f211b51fce1cb166eeb6ada2be0
+Description:  Project V is a set of network tools that help you to build your own computer network.
+ It secures your network connections and thus protects your privacy.
+
+Package: v2ray-geoip
+Version: 202206160052-1
+Depends: libc
+Source: feeds/passwall/v2ray-geodata
+SourceName: v2ray-geoip
+License: CC-BY-SA-4.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 2136062
+Filename: v2ray-geoip_202206160052-1_all.ipk
+Size: 1875867
+SHA256sum: b7366352bf3944a276e6d5d9d5356f2ee5e3d2096bca7113fcbc6bc24775b8ab
+Description:  GeoIP List for V2Ray
+
+Package: v2ray-geosite
+Version: 20220620091914-1
+Depends: libc
+Source: feeds/passwall/v2ray-geodata
+SourceName: v2ray-geosite
+License: MIT
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 337429
+Filename: v2ray-geosite_20220620091914-1_all.ipk
+Size: 337368
+SHA256sum: 3421d11eb3d8563fc444ece91a86101c92c828bc7b4d4114f4fd1a5d472bd49d
+Description:  Geosite List for V2Ray
+
+Package: v2ray-plugin
+Version: 5.0.7-1
+Depends: libc, ca-bundle
+Source: feeds/passwall/v2ray-plugin
+SourceName: v2ray-plugin
+License: MIT
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: madeye <max.c.lv@gmail.com>
+Architecture: x86_64
+Installed-Size: 4988244
+Filename: v2ray-plugin_5.0.7-1_x86_64.ipk
+Size: 4978831
+SHA256sum: 4768f813db6b25fa46f7699e848da216e3e3f5256dcb38724cddae9f35db9d0c
+Description:  SIP003 plugin for shadowsocks, based on v2ray
+
+Package: xray-core
+Version: 1.5.9-1
+Depends: libc, ca-bundle
+Source: feeds/passwall/xray-core
+SourceName: xray-core
+License: MPL-2.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1660497736
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: x86_64
+Installed-Size: 7842275
+Filename: xray-core_1.5.9-1_x86_64.ipk
+Size: 7825813
+SHA256sum: 2551bfb052365e3efa82ef1ea0a0632668b4adc64756a108efa9cb4bbf191286
+Description:  Xray, Penetrates Everything. It helps you to build your own computer network.
+ It secures your network connections and thus protects your privacy.
 
