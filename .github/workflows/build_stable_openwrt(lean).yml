@@ -379,7 +379,7 @@ jobs:
           echo "::set-output name=status::success"
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
           echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(V_$REPO_BRANCH)")"
-          mkdir _ver && echo '${{ steps.generate.outputs.release_tag }}' > _ver/version
+          mkdir $GITHUB_WORKSPACE/_ver && echo '${{ steps.generate.outputs.release_tag }}' > $GITHUB_WORKSPACE/_ver/version
           
       - name: Print Sha256sums
         run: |
