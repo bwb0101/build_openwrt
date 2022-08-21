@@ -77,6 +77,8 @@ jobs:
           df -hT $PWD
           git clone $REPO_URL -b $REPO_BRANCH workspace/openwrt
           cd workspace/openwrt
+          chmod +x $GITHUB_WORKSPACE/clean_clone_project.sh
+          $GITHUB_WORKSPACE/clean_clone_project.sh
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "::set-output name=OPENWRT_ROOT_PATH::$(echo $PWD)"
       - name: SSH connection to Actions
