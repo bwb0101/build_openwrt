@@ -423,13 +423,10 @@ jobs:
           artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: Delete old openwrt
         if: steps.generate.outputs.status == 'success' && !cancelled()
-        uses: mknejp/delete-release-assets@v1
+        uses: cb80/delrel@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.generate.outputs.old_release_version }}
-          fail-if-no-assets: false
-          fail-if-no-release: false
-          assets: "*"
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish version
         uses: s0/git-publish-subdir-action@develop
         env:
