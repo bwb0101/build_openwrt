@@ -379,8 +379,9 @@ jobs:
           ls -l bin/targets/*/*
           echo "::set-output name=status::success"
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
-          echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")"
-          mkdir $GITHUB_WORKSPACE/_ver && echo '${{ steps.generate.outputs.release_tag }}' > $GITHUB_WORKSPACE/_ver/version
+          reltag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
+          echo "::set-output name=release_tag::$reltag"
+          mkdir $GITHUB_WORKSPACE/_ver && echo '$reltag' > $GITHUB_WORKSPACE/_ver/version
           
       - name: Print Sha256sums
         run: |
