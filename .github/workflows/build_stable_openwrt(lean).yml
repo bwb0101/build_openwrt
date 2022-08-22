@@ -382,7 +382,7 @@ jobs:
           echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
           reltag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
           echo "::set-output name=release_tag::$reltag"
-          mkdir $GITHUB_WORKSPACE/_ver && echo '$reltag' > $GITHUB_WORKSPACE/_ver/version
+          mkdir $GITHUB_WORKSPACE/_ver && echo "$reltag" > $GITHUB_WORKSPACE/_ver/version
           
       - name: Print Sha256sums
         run: |
