@@ -354,6 +354,7 @@ jobs:
             cp $GITHUB_WORKSPACE/$DIST_FEEDS .
             sed -i "s#DEVICE_TARGET/DEVICE_SUBTARGET#$DEVICE_TARGET/$DEVICE_SUBTARGET#" distfeeds.conf
             sed -i "s/DEVICE_PLATFORM/$DEVICE_PLATFORM/g" distfeeds.conf
+            cat distfeeds.conf
             cd $OPENWRT_ROOT_PATH
             git clone https://git.openwrt.org/project/usign.git
             cd usign
