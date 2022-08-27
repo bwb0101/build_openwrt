@@ -19,7 +19,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 0 0 */3 * *
+    # local 0点
+    - cron: 0 16 */3 * *
 
 env:
   TZ: Asia/Shanghai
