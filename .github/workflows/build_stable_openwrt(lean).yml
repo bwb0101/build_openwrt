@@ -19,7 +19,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 0 3 */7 * *
+    # local 3点
+    - cron: 0 19 */7 * *
 
 env:
   REPO_URL: https://github.com/jkingben/lede
