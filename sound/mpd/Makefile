@@ -6,18 +6,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mpd
-PKG_VERSION:=0.23.5
+PKG_VERSION:=0.23.9
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://www.musicpd.org/download/mpd/0.23
-PKG_HASH:=f22c2c25093a05f4566f9cd7207cfbcd8405af67ed29a989bcf8905f80b7a299
+PKG_HASH:=2becaba980402e8dc7972ccc3476e493b7ae2eeb720d31fa6712472ed48e9f2d
 
 PKG_MAINTAINER:=
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
 PKG_CONFIG_DEPENDS:= \
+	CONFIG_AUDIO_SUPPORT \
 	CONFIG_BUILD_PATENTED \
 	CONFIG_IPV6 \
 
@@ -181,7 +182,7 @@ ifeq ($(BUILD_VARIANT),full)
 	-Dupnp=npupnp \
 	-Dmms=enabled \
 	-Dsoundcloud=enabled \
-	-Dffmpeg=$(if $(CONFIG_BUILD_PATENTED),en,dis)abled \
+	-Dffmpeg=enabled \
 	-Dmad=$(if $(CONFIG_BUILD_PATENTED),dis,en)abled \
 	-Dtremor=disabled \
 	-Dvorbis=enabled \
