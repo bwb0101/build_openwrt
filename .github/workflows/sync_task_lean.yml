@@ -73,6 +73,7 @@ jobs:
         cp -f cfgs/mosdns/cus_config.yaml mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns
         cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
+        #https://github.com/destan19/OpenAppFilter
 
     - name: Push my packages
       uses: s0/git-publish-subdir-action@develop
