@@ -147,6 +147,18 @@ Size: 27166
 SHA256sum: 60d428176d12a5b0701121138b4265fd3a227f77a684f753966faa98a0075e43
 Description:  LuCI Support for Dynamic DNS Client (ddns-scripts)
 
+Package: luci-app-diskman
+Version: v0.2.11-3
+Depends: libc, blkid, e2fsprogs, parted, smartmontools, lsblk
+License: AGPL-3.0
+Section: luci
+Architecture: all
+Installed-Size: 20441
+Filename: luci-app-diskman_v0.2.11-3_all.ipk
+Size: 21289
+SHA256sum: 9b4a3dc782469b026eb9292bfcb5cdd3f9dd1a6d4bba70ee9ba394574d41406c
+Description:  Disk Manager interface for LuCI
+
 Package: luci-app-filetransfer
 Version: 1-2
 Depends: libc, luci-lib-fs
@@ -634,6 +646,18 @@ Filename: luci-i18n-ddns-zh-cn_2.4.9-8_all.ipk
 Size: 7686
 SHA256sum: 0068591c9552adf782d4a345356a2b1b6e3e97d9bd2e71db01425841beb6546f
 Description:  Translation for luci-app-ddns - 简体中文 (Simplified Chinese)
+
+Package: luci-i18n-diskman-zh-cn
+Version: v0.2.11-3
+Depends: libc, luci-app-diskman
+License: AGPL-3.0
+Section: luci
+Architecture: all
+Installed-Size: 2223
+Filename: luci-i18n-diskman-zh-cn_v0.2.11-3_all.ipk
+Size: 3114
+SHA256sum: 132bda8a9dacae5a3a9e971f8f2575c73a7849b119c1ab9fde4d9e84978effe9
+Description:  Translation for luci-app-diskman - 简体中文 (Simplified Chinese)
 
 Package: luci-i18n-filetransfer-zh-cn
 Version: 1-2
