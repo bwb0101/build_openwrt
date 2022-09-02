@@ -412,7 +412,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             MESSAGE: "Build: ${{ env.DATE }}({sha})"
       - name: Upload firmware to release
-        uses: ncipollo/release-action@v1.8.0
+        uses: ncipollo/release-action@latest
         if: steps.generate.outputs.status == 'success'
         with:
           name: ${{ steps.generate.outputs.release_tag }}
