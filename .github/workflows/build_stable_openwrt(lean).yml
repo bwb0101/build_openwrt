@@ -368,11 +368,11 @@ jobs:
             mv key-build.pub $(usign -F -p key-build.pub)
           fi
           cd $OPENWRT_ROOT_PATH
-          mkdir -p files/www/snapshots
-          cp -r bin/targets files/www/snapshots
-          cp -r bin/packages files/www/snapshots
-          ls -l files/www/snapshots/
-          ls -l files/www/snapshots/packages
+          mkdir -p files/snapshots
+          cp -r bin/targets files/snapshots
+          cp -r bin/packages files/snapshots
+          ls -l files/snapshots/
+          ls -l files/snapshots/packages
           make package/install -j$(nproc) || make package/install -j1 V=s
           make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
@@ -408,7 +408,7 @@ jobs:
         env:
             REPO: self
             BRANCH: openwrt_stable
-            FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/www/snapshots
+            FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             MESSAGE: "Build: ${{ env.DATE }}({sha})"
       - name: Upload firmware to release
