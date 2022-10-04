@@ -3,9 +3,9 @@ sed -i "s/luci-app-adbyby-plus //g" `grep luci-app-adbyby-plus -rl --include="Ma
 sed -i "s/luci-app-wireguard //g" `grep luci-app-wireguard -rl --include="Makefile" ./target/linux/`
 sed -i "s/luci-app-xlnetacc //g" `grep luci-app-xlnetacc -rl --include="Makefile" ./target/linux/`
 sed -i "s/luci-app-zerotier //g" `grep luci-app-zerotier -rl --include="Makefile" ./target/linux/`
-sed -i "s/ddns-scripts_aliyun //g" `grep ddns-scripts_aliyun -rl --include="Makefile" ./target/linux/`
-sed -i "s/ddns-scripts_dnspod //g" `grep ddns-scripts_dnspod -rl --include="Makefile" ./target/linux/`
+#sed -i "s/ddns-scripts_aliyun //g" `grep ddns-scripts_aliyun -rl --include="Makefile" ./target/linux/`
+#sed -i "s/ddns-scripts_dnspod //g" `grep ddns-scripts_dnspod -rl --include="Makefile" ./target/linux/`
 sed -i "s/luci-app-nlbwmon //g" `grep luci-app-nlbwmon -rl ./include`
 sed -i "s/luci-app-ssr-plus //g" `grep luci-app-ssr-plus -rl ./include`
-sed -i "s/ddns-scripts_aliyun //g" `grep ddns-scripts_aliyun -rl ./include`
-sed -i "s/ddns-scripts_dnspod //g" `grep ddns-scripts_dnspod -rl ./include`
+#sed -i "s/ddns-scripts_aliyun //g" `grep ddns-scripts_aliyun -rl ./include`
+#sed -i "s/ddns-scripts_dnspod //g" `grep ddns-scripts_dnspod -rl ./include`
