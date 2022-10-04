@@ -7,4 +7,4 @@ echo "src-git passwall_luci https://github.com/xiaorouji/openwrt-passwall.git;lu
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> feeds.conf.default
 echo "src-git ssrp https://github.com/fw876/helloworld.git;master" >> feeds.conf.default
 echo "src-git openclash https://github.com/vernesong/OpenClash.git;master" >> feeds.conf.default
-echo "src-git bypass https://github.com/kiddin9/openwrt-bypass.git;main" >>  feeds.conf.default
+#echo "src-git bypass https://github.com/kiddin9/openwrt-bypass.git;main" >>  feeds.conf.default
