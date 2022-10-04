@@ -402,15 +402,6 @@ jobs:
           sudo btrfs filesystem usage $GITHUB_WORKSPACE
           echo '-----'
 
-      - name: Publish openwrt
-        uses: s0/git-publish-subdir-action@develop
-        if: steps.generate.outputs.status == 'success' && !cancelled()
-        env:
-           REPO: self
-           BRANCH: openwrt_stable
-           FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           MESSAGE: "Build: ${{ env.DATE }}({sha})"
       - name: Upload firmware to release
         uses: ncipollo/release-action@main
         if: steps.generate.outputs.status == 'success'
@@ -428,6 +419,16 @@ jobs:
         with:
           tag: ${{ steps.generate.outputs.old_release_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish openwrt
+        uses: s0/git-publish-subdir-action@develop
+        if: steps.generate.outputs.status == 'success' && !cancelled()
+        env:
+           REPO: self
+           BRANCH: openwrt_stable
+           FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           MESSAGE: "Build: ${{ env.DATE }}({sha})"
       - name: Publish version
         uses: s0/git-publish-subdir-action@develop
         env:
