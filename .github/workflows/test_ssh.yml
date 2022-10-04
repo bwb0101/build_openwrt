@@ -40,6 +40,12 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
     - name: Generate release tag
       id: tag
       run: |
@@ -69,22 +75,16 @@ jobs:
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #           MESSAGE: "Build: ({sha}) {msg}"
 
-    - name: Update version
-      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
+#     - name: Update version
+#       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
     
-    - name: Push self
-      uses: cedricbuild/gh-publish-branch@main
-      env:
-          github_repository: ${{ github.repository }}
-          branch: others
-          directory: _ver
-          commit_message: "Build: ${{ env.DATE }}({sha})"
-
-  #- name: SSH connection to Actions
-     # uses: P3TERX/ssh2actions@v1.0.0
-      #env:
-        #TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        #TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#     - name: Push self
+#       uses: cedricbuild/gh-publish-branch@main
+#       env:
+#           github_repository: ${{ github.repository }}
+#           branch: others
+#           directory: _ver
+#           commit_message: "Build: ${{ env.DATE }}({sha})"
         
     #- name: Upload-Files-Action
     #  run: |
