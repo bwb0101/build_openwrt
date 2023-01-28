@@ -777,7 +777,7 @@ var UISelect = UIElement.extend(/** @lends LuCI.ui.Select.prototype */ {
 		    keys = Object.keys(this.choices);
 
 		if (this.options.sort === true)
-			keys.sort();
+			keys.sort(L.naturalCompare);
 		else if (Array.isArray(this.options.sort))
 			keys = this.options.sort;
 
@@ -1056,7 +1056,7 @@ var UIDropdown = UIElement.extend(/** @lends LuCI.ui.Dropdown.prototype */ {
 		var keys = Object.keys(this.choices);
 
 		if (this.options.sort === true)
-			keys.sort();
+			keys.sort(L.naturalCompare);
 		else if (Array.isArray(this.options.sort))
 			keys = this.options.sort;
 
@@ -2208,7 +2208,7 @@ var UIDynamicList = UIElement.extend(/** @lends LuCI.ui.DynamicList.prototype */
 			'id': this.options.id,
 			'class': 'cbi-dynlist',
 			'disabled': this.options.disabled ? '' : null
-		}, E('div', { 'class': 'add-item' }));
+		}, E('div', { 'class': 'add-item control-group' }));
 
 		if (this.choices) {
 			if (this.options.placeholder != null)
@@ -2859,13 +2859,8 @@ var UIFileUpload = UIElement.extend(/** @lends LuCI.ui.FileUpload.prototype */ {
 		    rows = E('ul');
 
 		list.sort(function(a, b) {
-			var isDirA = (a.type == 'directory'),
-			    isDirB = (b.type == 'directory');
-
-			if (isDirA != isDirB)
-				return isDirA < isDirB;
-
-			return a.name > b.name;
+			return L.naturalCompare(a.type == 'directory', b.type == 'directory') ||
+			       L.naturalCompare(a.name, b.name);
 		});
 
 		for (var i = 0; i < list.length; i++) {
@@ -3125,7 +3120,24 @@ var UIMenu = baseclass.singleton(/** @lends LuCI.ui.menu.prototype */ {
 			if (!node.children[k].hasOwnProperty('title'))
 				continue;
 
-			children.push(Object.assign(node.children[k], { name: k }));
+			var subnode = Object.assign(node.children[k], { name: k });
+
+			if (L.isObject(subnode.action) && subnode.action.path != null &&
+			    (subnode.action.type == 'alias' || subnode.action.type == 'rewrite')) {
+				var root = this.menu,
+				    path = subnode.action.path.split('/');
+
+				for (var i = 0; root != null && i < path.length; i++)
+					root = L.isObject(root.children) ? root.children[path[i]] : null;
+
+				if (root)
+					subnode = Object.assign({}, subnode, {
+						children: root.children,
+						action: root.action
+					});
+			}
+
+			children.push(subnode);
 		}
 
 		return children.sort(function(a, b) {
@@ -3135,7 +3147,7 @@ var UIMenu = baseclass.singleton(/** @lends LuCI.ui.menu.prototype */ {
 			if (wA != wB)
 				return wA - wB;
 
-			return a.name > b.name;
+			return L.naturalCompare(a.name, b.name);
 		});
 	}
 });
@@ -3203,13 +3215,9 @@ var UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 			}, this));
 
 			list.sort(function(a, b) {
-				if (a[0] < b[0])
-					return sorting[1] ? 1 : -1;
-
-				if (a[0] > b[0])
-					return sorting[1] ? -1 : 1;
-
-				return 0;
+				return sorting[1]
+					? -L.naturalCompare(a[0], b[0])
+					: L.naturalCompare(a[0], b[0]);
 			});
 
 			data.length = 0;
@@ -3223,20 +3231,25 @@ var UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 		this.placeholder = placeholder;
 
 		var n = 0,
-		    rows = this.node.querySelectorAll('tr'),
+		    rows = this.node.querySelectorAll('tr, .tr'),
 		    trows = [],
-		    headings = [].slice.call(this.node.firstElementChild.querySelectorAll('th')),
-		    captionClasses = this.options.captionClasses;
+		    headings = [].slice.call(this.node.firstElementChild.querySelectorAll('th, .th')),
+		    captionClasses = this.options.captionClasses,
+		    trTag = (rows[0] && rows[0].nodeName == 'DIV') ? 'div' : 'tr',
+		    tdTag = (headings[0] && headings[0].nodeName == 'DIV') ? 'div' : 'td';
 
 		data.forEach(function(row) {
-			trows[n] = E('tr', { 'class': 'tr' });
+			trows[n] = E(trTag, { 'class': 'tr' });
 
 			for (var i = 0; i < headings.length; i++) {
 				var text = (headings[i].innerText || '').trim();
-				var td = trows[n].appendChild(E('td', {
+				var raw_val = Array.isArray(row[i]) ? row[i][0] : null;
+				var disp_val = Array.isArray(row[i]) ? row[i][1] : row[i];
+				var td = trows[n].appendChild(E(tdTag, {
 					'class': 'td',
-					'data-title': (text !== '') ? text : null
-				}, (row[i] != null) ? row[i] : ''));
+					'data-title': (text !== '') ? text : null,
+					'data-value': raw_val
+				}, (disp_val != null) ? ((disp_val instanceof DocumentFragment) ? disp_val.cloneNode(true) : disp_val) : ''));
 
 				if (typeof(captionClasses) == 'object')
 					DOMTokenList.prototype.add.apply(td.classList, L.toArray(captionClasses[i]));
@@ -3259,8 +3272,8 @@ var UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 			this.node.removeChild(rows[n]);
 
 		if (placeholder && this.node.firstElementChild === this.node.lastElementChild) {
-			var trow = this.node.appendChild(E('tr', { 'class': 'tr placeholder' })),
-			    td = trow.appendChild(E('td', { 'class': 'td' }, placeholder));
+			var trow = this.node.appendChild(E(trTag, { 'class': 'tr placeholder' })),
+			    td = trow.appendChild(E(tdTag, { 'class': 'td' }, placeholder));
 
 			if (typeof(captionClasses) == 'object')
 				DOMTokenList.prototype.add.apply(td.classList, L.toArray(captionClasses[0]));
@@ -3313,8 +3326,12 @@ var UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 		else if (typeof( opts.sortable) == 'object')
 			hint =  opts.sortable[index];
 
-		if (dom.elem(value))
-			value = value.innerText.trim();
+		if (dom.elem(value)) {
+			if (value.hasAttribute('data-value'))
+				value = value.getAttribute('data-value');
+			else
+				value = (value.innerText || '').trim();
+		}
 
 		switch (hint || 'auto') {
 		case true:
@@ -4654,7 +4671,7 @@ var UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 							E('button', {
 								'class': 'btn cbi-button-action important',
 								'click': resolveFn.bind(null, true)
-							}, [ _('Apply and revert on connectivity loss') ]), ' ',
+							}, [ _('Apply with revert after connectivity loss') ]), ' ',
 							E('button', {
 								'class': 'btn cbi-button-negative important',
 								'click': resolveFn.bind(null, false)
