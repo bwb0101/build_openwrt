@@ -25,9 +25,9 @@ cp $GITHUB_WORKSPACE/data/model.sh package/base-files/files/etc/
 chmod +x package/base-files/files/etc/model.sh
 
 # add IPv6 hotplug
-mkdir -p package/base-files/files/etc/hotplug.d/iface
-cp $GITHUB_WORKSPACE/data/99-ipv6 package/base-files/files/etc/hotplug.d/iface/99-ipv6
-chmod +x package/base-files/files/etc/hotplug.d/iface/99-ipv6
+#mkdir -p package/base-files/files/etc/hotplug.d/iface
+#cp $GITHUB_WORKSPACE/data/99-ipv6 package/base-files/files/etc/hotplug.d/iface/99-ipv6
+#chmod +x package/base-files/files/etc/hotplug.d/iface/99-ipv6
 
 # repleace opkg url
 #sed -i 's#https://downloads.openwrt.org#http://192.168.28.2:8184/openwrt#g' /etc/opkg/distfeeds.conf
