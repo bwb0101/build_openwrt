@@ -49,19 +49,34 @@ jobs:
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
+
         rm -rf mypkg/pkg/net/smartdns
-        rm -rf mypkg/pkg/net/mosdns
         rm -rf mypkg/luci/applications/luci-app-smartdns
-        rm -rf mypkg/luci/applications/luci-app-mosdns
         cp -r kenzok8/smartdns mypkg/pkg/net
-        cp -r kenzok8/mosdns mypkg/pkg/net
         cp -r kenzok8/luci-app-smartdns mypkg/luci/applications
+        rm -rf mypkg/pkg/net/mosdns
+        rm -rf mypkg/luci/applications/luci-app-mosdns
+        cp -r kenzok8/mosdns mypkg/pkg/net
         cp -r kenzok8/luci-app-mosdns mypkg/luci/applications
-        #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
+
+        #rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
+        #rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
+        #cp -r kenzok8/aliyundrive-fuse mypkg/pkg/multimedia
+        #cp -r kenzok8/luci-app-aliyundrive-fuse mypkg/luci/applications
+        rm -rf mypkg/pkg/multimedia/aliyundrive-webdav
+        rm -rf mypkg/luci/applications/luci-app-aliyundrive-webdav
+        cp -r kenzok8/aliyundrive-webdav mypkg/pkg/multimedia
+        cp -r kenzok8/luci-app-aliyundrive-webdav mypkg/luci/applications
+        
+        rm -rf mypkg/luci/applications/luci-app-xlnetacc
+              
+        cp -r kenzok8/luci-app-xlnetacc mypkg/luci/applications
         cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
+        #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
         cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
         cp -r kenzok8/luci-theme-neobird mypkg/luci/themes
         cp -r kenzok8/luci-theme-tomato mypkg/luci/themes
+        
         echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo -e '\nmsgid "Forced to use domestic dns resolution"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
