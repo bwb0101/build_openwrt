@@ -32,11 +32,8 @@ end
 o = s:taboption("white_list", TextValue, "whitelist", "", "<font color='red'>" .. translate("These domain names allow DNS resolution with the highest priority. Please input the domain names of websites, every line can input only one website domain. For example: hm.baidu.com.") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Default Config' profiles.") .. "</font>")
 o.rows = 15
 o.wrap = "off"
-local localdns_list_file = "/etc/mosdns/rule/localdns.txt"
 o.cfgvalue = function(self, section) return nixio.fs.readfile(white_list_file) or "" end
-local localdns_list_file = "/etc/mosdns/rule/localdns.txt"
 o.write = function(self, section, value) nixio.fs.writefile(white_list_file , value:gsub("\r\n", "\n")) end
-local localdns_list_file = "/etc/mosdns/rule/localdns.txt"
 o.remove = function(self, section, value) nixio.fs.writefile(white_list_file , "") end
 o.validate = function(self, value)
     return value
