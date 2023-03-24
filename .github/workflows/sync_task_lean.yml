@@ -77,6 +77,9 @@ jobs:
         cp -r kenzok8/luci-theme-neobird mypkg/luci/themes
         cp -r kenzok8/luci-theme-tomato mypkg/luci/themes
         
+        sed -i '/files\/adguardhome.*/d' mypkg/pkg/net/adguardhome/Makefile
+        sed -i '/$(INSTALL_DIR) $(1)\/etc/d' mypkg/pkg/net/adguardhome/Makefile
+        
         echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo -e '\nmsgid "Forced to use domestic dns resolution"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
