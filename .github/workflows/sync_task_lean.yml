@@ -66,7 +66,7 @@ jobs:
         echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo -e '\nmsgid "Forced to use domestic dns resolution"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo 'msgstr "强制用国内dns解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
-        sed -i '/white_list_file/ilocal localdns_list_file = "/etc/mosdns/rule/localdns.txt"' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
+        sed -i '/local white_list_file/ilocal localdns_list_file = "/etc/mosdns/rule/localdns.txt"' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         sed -i -e '/s\:tab/{is:tab("localdns_list", translate("Local DNS Lists"))' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         sed -i -e '/s\:taboption/{io = s:taboption("localdns_list", TextValue, "localdnslist", "", "<font color='red'>" .. translate("Forced to use domestic dns resolution") .. "</font>")\no.rows = 15\no.wrap = "off"\no.cfgvalue = function(self, section) return nixio.fs.readfile(localdns_list_file) or "" end\no.write = function(self, section, value) nixio.fs.writefile(localdns_list_file, value:gsub("\\r\\n", "\\n")) end\no.remove = function(self, section, value) nixio.fs.writefile(localdns_list_file, "") end\no.validate = function(self, value)\n    return value\nend\n' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         touch mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns/rule/localdns.txt
