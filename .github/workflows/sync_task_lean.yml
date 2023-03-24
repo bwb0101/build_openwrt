@@ -47,6 +47,7 @@ jobs:
         git clone https://github.com/coolsnowwolf/packages.git mypkg/pkg
         git clone https://github.com/coolsnowwolf/luci.git mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
+        git clone https://github.com/kenzok8/small-package.git kenzok8-new
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
 
@@ -59,10 +60,10 @@ jobs:
         cp -r kenzok8/mosdns mypkg/pkg/net
         cp -r kenzok8/luci-app-mosdns mypkg/luci/applications
 
-        #rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
-        #rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
-        #cp -r kenzok8/aliyundrive-fuse mypkg/pkg/multimedia
-        #cp -r kenzok8/luci-app-aliyundrive-fuse mypkg/luci/applications
+        rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
+        rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
+        cp -r kenzok8-new/aliyundrive-fuse mypkg/pkg/multimedia
+        cp -r kenzok8-new/luci-app-aliyundrive-fuse mypkg/luci/applications
         rm -rf mypkg/pkg/multimedia/aliyundrive-webdav
         rm -rf mypkg/luci/applications/luci-app-aliyundrive-webdav
         cp -r kenzok8/aliyundrive-webdav mypkg/pkg/multimedia
@@ -70,7 +71,7 @@ jobs:
         
         rm -rf mypkg/luci/applications/luci-app-xlnetacc
               
-        cp -r kenzok8/luci-app-xlnetacc mypkg/luci/applications
+        cp -r kenzok8-new/luci-app-xlnetacc mypkg/luci/applications
         cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
         #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
         cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
