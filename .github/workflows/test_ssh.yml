@@ -77,14 +77,22 @@ jobs:
 
     - name: Update version
       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
-    - name: Push openwrt
-      uses: s0/git-publish-subdir-action@develop
-      env:
-          REPO: self
-          BRANCH: others
-          FOLDER: _ver
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+
+    - name: 上传到分支
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      with:
+          branch: self
+          folder: _ver
+          tag: "Build: ({sha}) {msg}"
+
+#   - name: Push openwrt
+#       uses: s0/git-publish-subdir-action@develop
+#       env:
+#           REPO: self
+#           BRANCH: others
+#           FOLDER: _ver
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           MESSAGE: "Build: ({sha}) {msg}"
     
 #     - name: Push self
 #       uses: cedricbuild/gh-publish-branch@main
