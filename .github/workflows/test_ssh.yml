@@ -83,7 +83,7 @@ jobs:
       with:
           branch: main
           folder: _ver
-          tag: '${{ env.DATE }}'
+          commit-message: 'Build: ({sha}) {msg}'
           clean: false
 
 #   - name: Push openwrt
