@@ -28,6 +28,7 @@ env:
   CONFIG_FILE: cfgs/x86_config_lean
   KEY_BUILD: data/opkg/key-build.pub
   DIST_FEEDS: data/opkg/distfeeds.conf
+  OPKG_CFG: data/opkg/opkg.conf
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   FEED_DIY_SH: feed_diy.sh
@@ -55,7 +56,7 @@ jobs:
       TOOLCHAIN_IMAGE: ${{ steps.env.outputs.TOOLCHAIN_IMAGE }}
 
     steps:
-      - name: Initialize Environment
+      - name: 初始化系统环境
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -69,10 +70,10 @@ jobs:
           git config --global init.defaultBranch main
           mkdir -p workspace
 
-      - name: Checkout
+      - name: 自身检出
         uses: actions/checkout@main
 
-      - name: Clone Source Code
+      - name: 源码下载
         id: clone
         run: |
           df -hT $PWD
@@ -82,74 +83,72 @@ jobs:
           chmod +x del_default_packages.sh
           ./del_default_packages.sh
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
-          echo "::set-output name=OPENWRT_ROOT_PATH::$(echo $PWD)"
-      - name: SSH connection to Actions
+          echo "OPENWRT_ROOT_PATH=$(echo $PWD)" >> $GITHUB_OUTPUT
+      - name: SSH连接行为检测
         uses: P3TERX/ssh2actions@v1.0.0
         if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
         env:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      - name: Generate Toolchain Config
+      - name: 还原Openwrt配置
         run: |
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
           #echo -e "\nCONFIG_ALL=y" >> $OPENWRT_ROOT_PATH/.config
           #echo -e "\nCONFIG_ALL_NONSHARED=y" >> $OPENWRT_ROOT_PATH/.config
           cd $OPENWRT_ROOT_PATH
           make defconfig > /dev/null 2>&1
-
-      - name: Generate Variables
+      - name: 生成环境变量
         id: env
         run: |
           export CURRENT_BRANCH="$(git symbolic-ref --short HEAD)"
           echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_ENV
-          echo "::set-output name=CURRENT_BRANCH::$(echo $CURRENT_BRANCH)"
+          echo "CURRENT_BRANCH=$(echo $CURRENT_BRANCH)" >> $GITHUB_OUTPUT
           cd $OPENWRT_ROOT_PATH
           export SOURCE_OWNER="$(echo $REPO_URL | awk -F '/' '{print $(NF-1)}')"
           echo "SOURCE_OWNER=$SOURCE_OWNER" >> $GITHUB_ENV
-          echo "::set-output name=SOURCE_OWNER::$(echo $SOURCE_OWNER)"
+          echo "SOURCE_OWNER=$(echo $SOURCE_OWNER)" >> $GITHUB_OUTPUT
           export SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
           echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
-          echo "::set-output name=SOURCE_REPO::$(echo $SOURCE_REPO)"
+          echo "SOURCE_REPO=$(echo $SOURCE_REPO)" >> $GITHUB_OUTPUT
           export DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')
           echo "DEVICE_TARGET=$DEVICE_TARGET" >> $GITHUB_ENV
-          echo "::set-output name=DEVICE_TARGET::$(echo $DEVICE_TARGET)"
+          echo "DEVICE_TARGET=$(echo $DEVICE_TARGET)" >> $GITHUB_OUTPUT
           export DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
           echo "DEVICE_SUBTARGET=$DEVICE_SUBTARGET" >> $GITHUB_ENV
-          echo "::set-output name=DEVICE_SUBTARGET::$(echo $DEVICE_SUBTARGET)"
+          echo "DEVICE_SUBTARGET=$(echo $DEVICE_SUBTARGET)" >> $GITHUB_OUTPUT
           export DEVICE_PLATFORM=$(cat .config | grep CONFIG_TARGET_ARCH_PACKAGES | awk -F '"' '{print $2}')
           echo "DEVICE_PLATFORM=$DEVICE_PLATFORM" >> $GITHUB_ENV
-          echo "::set-output name=DEVICE_PLATFORM::$(echo $DEVICE_PLATFORM)"
+          echo "DEVICE_PLATFORM=$(echo $DEVICE_PLATFORM)" >> $GITHUB_OUTPUT
           export TOOLCHAIN_IMAGE="toolchain-$SOURCE_OWNER-$SOURCE_REPO-$REPO_BRANCH-$DEVICE_TARGET-$DEVICE_SUBTARGET"
           echo "TOOLCHAIN_IMAGE=$TOOLCHAIN_IMAGE" >> $GITHUB_ENV
-          echo "::set-output name=TOOLCHAIN_IMAGE::$(echo $TOOLCHAIN_IMAGE)"
-
-      - name: Compare Toolchain Hash
+          echo "TOOLCHAIN_IMAGE=$(echo $TOOLCHAIN_IMAGE)" >> $GITHUB_OUTPUT
+      - name: 检测Toolchain是否需要重新生成
         id: hash
         run: |
           cd $OPENWRT_ROOT_PATH
           export CURRENT_HASH=$(git log --pretty=tformat:"%H" -n1 tools toolchain)
           echo "CURRENT_HASH=$CURRENT_HASH" >> $GITHUB_ENV
-          echo "::set-output name=CURRENT_HASH::$(echo $CURRENT_HASH)"
+          echo "CURRENT_HASH=$(echo $CURRENT_HASH)" >> $GITHUB_OUTPUT
           echo "CURRENT_HASH is $CURRENT_HASH"
           export CACHE_HASH=$(curl -fSsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.hash)
           echo "CACHE_HASH is $CACHE_HASH"
           if [ -z "$CACHE_HASH" ] || [ "$CURRENT_HASH" != "$CACHE_HASH" ]; then
-            echo "::set-output name=REBUILD_TOOLCHAIN::true"
+            echo "REBUILD_TOOLCHAIN=true" >> $GITHUB_OUTPUT
           fi
-      - name: Compile Tools
+      - name: 编译Toolchain[1]
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
           cd $OPENWRT_ROOT_PATH
           echo -e "$(nproc) thread compile"
           make tools/compile -j$(nproc) || make tools/compile -j1 V=s
-      - name: Compile Toolchain
+      - name: 编译Toolchain[2]
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
           cd $OPENWRT_ROOT_PATH
           echo -e "$(nproc) thread compile"
           make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
           rm -rf .config* dl bin
-      - name: Generate Toolchain Image
+      - name: 生成Toolchain.img
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
           cd workspace
@@ -161,14 +160,7 @@ jobs:
           echo $CURRENT_HASH > $GITHUB_WORKSPACE/output/toolchain-$SOURCE_OWNER-$SOURCE_REPO-$REPO_BRANCH-$DEVICE_TARGET-$DEVICE_SUBTARGET.hash
           ls -lh $GITHUB_WORKSPACE/output
 
-      - name: Upload Toolchain Image To Artifact
-        if: env.UPLOAD_TOOLCHAIN != 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ env.TOOLCHAIN_IMAGE }}
-          path: output
-
-      - name: Delete Old Toolchain Assets From Release
+      - name: 从发布页删除旧版本Toolchain
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         uses: mknejp/delete-release-assets@v1
         with:
@@ -178,7 +170,7 @@ jobs:
           fail-if-no-assets: false
           fail-if-no-release: false
 
-      - name: Upload Toolchain Image To Release
+      - name: 上传Toolchain到发布页
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         uses: ncipollo/release-action@v1.8.0
         with:
@@ -195,7 +187,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Restore Variables
+      - name: 恢复变量
         run: |
           echo "CURRENT_BRANCH=$(echo '${{needs.Toolchain.outputs.CURRENT_BRANCH}}')" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$(echo '${{needs.Toolchain.outputs.OPENWRT_ROOT_PATH}}')" >> $GITHUB_ENV
@@ -205,8 +197,7 @@ jobs:
           echo "DEVICE_TARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_TARGET}}')" >> $GITHUB_ENV
           echo "DEVICE_SUBTARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_SUBTARGET}}')" >> $GITHUB_ENV
           echo "TOOLCHAIN_IMAGE=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_IMAGE}}')" >> $GITHUB_ENV
-
-      - name: Initialization environment
+      - name: 初始化系统环境
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -220,8 +211,7 @@ jobs:
             git config --global init.defaultBranch main
             date=$(date +%Y%m%d%H%M%S)
             echo "DATE=$date" >> $GITHUB_ENV
-
-      - name: Combine Disks
+      - name: 合并磁盘
         if: env.COMBINE_DISK == 'true'
         run: |
           sudo swapoff -a
@@ -250,36 +240,14 @@ jobs:
           sudo mount -B $GITHUB_WORKSPACE/tmp /tmp
           df -hT $GITHUB_WORKSPACE
           sudo btrfs filesystem usage $GITHUB_WORKSPACE
-
-      - name: Checkout
+      - name: 自身检测
         run: |
           cd $GITHUB_WORKSPACE
           git init
           git remote add origin https://github.com/$GITHUB_REPOSITORY
           git fetch
           git checkout -t origin/$CURRENT_BRANCH
-      - name: Download Toolchain Image Form Artifacts
-        if: env.UPLOAD_TOOLCHAIN != 'true'
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.TOOLCHAIN_IMAGE }}
-          path: workspace
-      - name: Prepare Toolchain Image Form Artifacts
-        if: env.UPLOAD_TOOLCHAIN != 'true'
-        run: |
-          cd workspace
-          for i in {1..9}
-          do
-            cat $TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img.00 && rm $TOOLCHAIN_IMAGE.img.0$i || break
-          done
-          mv $TOOLCHAIN_IMAGE.img.00 $TOOLCHAIN_IMAGE.img
-          mkdir openwrt-ro openwrt workdir overlay
-          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
-          sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
-          cd $OPENWRT_ROOT_PATH
-          git pull
-
-      - name: Prepare Toolchain Image Form Releases
+      - name: 从发布页下载Toolchain
         if: env.UPLOAD_TOOLCHAIN == 'true'
         run: |
           mkdir -p workspace
@@ -289,12 +257,11 @@ jobs:
             curl -fsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img || break
           done
           mkdir openwrt-ro openwrt workdir overlay
-          sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
+          sudo mount -o loop ${{ env.TOOLCHAIN_IMAGE }}.img openwrt-ro
           sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
           cd $OPENWRT_ROOT_PATH
           git pull
-
-      - name: Load custom config before feeds update
+      - name: 在feed更新前加载自定义配置
         run: |
           cp $FEED_UPDATE_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
           cp $DIY_P1_SH $OPENWRT_ROOT_PATH/$DIY_P1_SH
@@ -303,13 +270,13 @@ jobs:
           cd $OPENWRT_ROOT_PATH
           ./$FEED_UPDATE_SH
           ./$DIY_P1_SH
-      - name: Install Feeds
+      - name: 更新Feeds
         run: |
           cd $OPENWRT_ROOT_PATH
           ./scripts/feeds clean
           ./scripts/feeds update -a
           ./scripts/feeds install -a -f
-      - name: Load custom config after feeds install
+      - name: 在feed更新后加载自定义配置
         run: |
           cp $DIY_P2_SH $OPENWRT_ROOT_PATH/$DIY_P2_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
@@ -317,8 +284,7 @@ jobs:
           cd $OPENWRT_ROOT_PATH
           ./$DIY_P2_SH
           make defconfig
-
-      - name: Free UP Disk Space
+      - name: 释放磁盘空间
         if: env.FREE_UP_DISK == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -329,14 +295,13 @@ jobs:
           sudo -E apt-get -qq clean
           docker image prune -a -f
           df -h
-      - name: Download DL Package
+      - name: 下载Packages
         id: download
         run: |
           cd $OPENWRT_ROOT_PATH
           make download -j$(nproc) || make download -j1 V=s
           df -h
-
-      - name: Compile Packages
+      - name: 编译Packages
         run: |
           cd $OPENWRT_ROOT_PATH
           echo -e "$(nproc) thread compile"
@@ -346,16 +311,18 @@ jobs:
           yes n | make target/compile -j1 V=s IGNORE_ERRORS=1
           make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
           make package/index
-      - name: Generate Firmware
+      - name: 固件生成
         id: generate
         run: |
           if grep -q $DEVICE_TARGET/$DEVICE_SUBTARGET $GITHUB_WORKSPACE/data/support-targets.txt; then
             mkdir -p $OPENWRT_ROOT_PATH/files/etc/opkg
             cd $OPENWRT_ROOT_PATH/files/etc/opkg
             cp $GITHUB_WORKSPACE/$DIST_FEEDS .
-            sed -i "s#DEVICE_TARGET/DEVICE_SUBTARGET#$DEVICE_TARGET/$DEVICE_SUBTARGET#" distfeeds.conf
+            sed -i "s/DEVICE_TARGET\/DEVICE_SUBTARGET/$DEVICE_TARGET\/$DEVICE_SUBTARGET/" distfeeds.conf
             sed -i "s/DEVICE_PLATFORM/$DEVICE_PLATFORM/g" distfeeds.conf
             cat distfeeds.conf
+            cd ..
+            cp $GITHUB_WORKSPACE/$OPKG_CFG .
             cd $OPENWRT_ROOT_PATH
             git clone https://git.openwrt.org/project/usign.git
             cd usign
@@ -367,7 +334,7 @@ jobs:
             cp $GITHUB_WORKSPACE/$KEY_BUILD .
             mv key-build.pub $(usign -F -p key-build.pub)
           fi
-          cd $OPENWRT_ROOT_PATH
+          cd OPENWRT_ROOT_PATH
           mkdir -p files/snapshots
           cp -r bin/targets files/snapshots
           cp -r bin/packages files/snapshots
@@ -379,17 +346,12 @@ jobs:
           make checksum
           rm -rf bin/targets/*/*/packages
           ls -l bin/targets/*/*
-          echo "::set-output name=status::success"
-          echo "::set-output name=old_release_version::$(cat $GITHUB_WORKSPACE/version)"
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "old_release_version=$(cat $GITHUB_WORKSPACE/version)" >> $GITHUB_OUTPUT
           reltag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
-          echo "::set-output name=release_tag::$reltag"
+          echo "release_tag=$reltag" >> $GITHUB_OUTPUT
           mkdir $GITHUB_WORKSPACE/_ver && echo "$reltag" > $GITHUB_WORKSPACE/_ver/version
-          
-      - name: Print Sha256sums
-        run: |
-          cd $OPENWRT_ROOT_PATH/bin/targets/*/*
-          cat sha256sums
-      - name: Print Disk Usage
+      - name: 打印磁盘使用情况
         if: always()
         run: |
           echo 'lsblk -f'
@@ -401,8 +363,7 @@ jobs:
           echo 'btrfs filesystem usage'
           sudo btrfs filesystem usage $GITHUB_WORKSPACE
           echo '-----'
-
-      - name: Upload firmware to release
+      - name: 上传固件到发布页
         uses: ncipollo/release-action@main
         if: steps.generate.outputs.status == 'success'
         with:
@@ -412,34 +373,30 @@ jobs:
           tag: ${{ steps.generate.outputs.release_tag }}
           body: ${{ env.DATE }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
-      - name: Delete old openwrt
+          artifacts: $OPENWRT_ROOT_PATH/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+      - name: 删除发布页旧的固件
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: cb80/delrel@latest
         with:
           tag: ${{ steps.generate.outputs.old_release_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish openwrt
-        uses: s0/git-publish-subdir-action@develop
+      - name: 上传编译后ipk包到github分支
         if: steps.generate.outputs.status == 'success' && !cancelled()
-        env:
-           REPO: self
-           BRANCH: openwrt_stable
-           FOLDER: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           MESSAGE: "Build: ${{ env.DATE }}({sha})"
-      - name: Publish version
-        uses: s0/git-publish-subdir-action@develop
-        env:
-           REPO: self
-           BRANCH: main
-           FOLDER: _ver
-           CLEAR_GLOBS_FILE: ".clear-target-files"
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           MESSAGE: "Build: ${{ env.DATE }}({sha})"
-
-      - name: Delete workflow runs
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: openwrt_stable
+          folder: $OPENWRT_ROOT_PATH/files/snapshots
+          commit-message: "Build: ${{ env.DATE }}({sha})"
+          clean: true
+      - name: 上传version文件
+        if: steps.generate.outputs.status == 'success' && !cancelled()
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: main
+          folder: _ver
+          commit-message: "Build: ${{ env.DATE }})"
+          clean: false
+      - name: 删除多余的workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
           retain_days: 1
