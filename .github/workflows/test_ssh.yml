@@ -81,9 +81,9 @@ jobs:
     - name: 上传到分支
       uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
-          #branch: self
+          branch: main
           folder: _ver
-          tag: 'Build: ({sha}) {msg}'
+          tag: '${{ env.DATE }}'
 
 #   - name: Push openwrt
 #       uses: s0/git-publish-subdir-action@develop
