@@ -84,6 +84,7 @@ jobs:
           branch: main
           folder: _ver
           tag: '${{ env.DATE }}'
+          clean: false
 
 #   - name: Push openwrt
 #       uses: s0/git-publish-subdir-action@develop
