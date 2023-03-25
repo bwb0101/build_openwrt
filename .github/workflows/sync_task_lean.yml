@@ -80,7 +80,7 @@ jobs:
         
         #sed -i '/files\/adguardhome.*/d' mypkg/pkg/net/adguardhome/Makefile
         #sed -i '/$(INSTALL_DIR) $(1)\/etc/d' mypkg/pkg/net/adguardhome/Makefile
-        patch -p0 patches/lean/adguardhome.patch
+        patch -p1 patches/lean/adguardhome.patch
         
         echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
