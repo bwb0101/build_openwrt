@@ -159,7 +159,6 @@ jobs:
           cd $OPENWRT_ROOT_PATH
           echo $CURRENT_HASH > $GITHUB_WORKSPACE/output/toolchain-$SOURCE_OWNER-$SOURCE_REPO-$REPO_BRANCH-$DEVICE_TARGET-$DEVICE_SUBTARGET.hash
           ls -lh $GITHUB_WORKSPACE/output
-
       - name: 从发布页删除旧版本Toolchain
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         uses: mknejp/delete-release-assets@v1
@@ -169,7 +168,6 @@ jobs:
           assets: "toolchain-${{ env.TOOLCHAIN_IMAGE }}.*"
           fail-if-no-assets: false
           fail-if-no-release: false
-
       - name: 上传Toolchain到发布页
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         uses: ncipollo/release-action@v1.8.0
@@ -240,7 +238,7 @@ jobs:
           sudo mount -B $GITHUB_WORKSPACE/tmp /tmp
           df -hT $GITHUB_WORKSPACE
           sudo btrfs filesystem usage $GITHUB_WORKSPACE
-      - name: 自身检测
+      - name: 自身检出
         run: |
           cd $GITHUB_WORKSPACE
           git init
