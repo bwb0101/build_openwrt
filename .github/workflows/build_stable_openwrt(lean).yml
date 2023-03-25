@@ -332,7 +332,7 @@ jobs:
             cp $GITHUB_WORKSPACE/$KEY_BUILD .
             mv key-build.pub $(usign -F -p key-build.pub)
           fi
-          cd OPENWRT_ROOT_PATH
+          cd $OPENWRT_ROOT_PATH
           mkdir -p files/snapshots
           cp -r bin/targets files/snapshots
           cp -r bin/packages files/snapshots
