@@ -264,9 +264,9 @@ jobs:
         run: |
           cp $FEED_UPDATE_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
           cp $DIY_P1_SH $OPENWRT_ROOT_PATH/$DIY_P1_SH
-          chmod +x $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
-          chmod +x $OPENWRT_ROOT_PATH/$DIY_P1_SH
           cd $OPENWRT_ROOT_PATH
+          chmod +x $FEED_UPDATE_SH
+          chmod +x $DIY_P1_SH
           ./$FEED_UPDATE_SH
           ./$DIY_P1_SH
       - name: 更新Feeds
@@ -279,8 +279,8 @@ jobs:
         run: |
           cp $DIY_P2_SH $OPENWRT_ROOT_PATH/$DIY_P2_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
-          chmod +x $OPENWRT_ROOT_PATH/$DIY_P2_SH
           cd $OPENWRT_ROOT_PATH
+          chmod +x $DIY_P2_SH
           ./$DIY_P2_SH
           make defconfig
       - name: 释放磁盘空间
@@ -328,8 +328,8 @@ jobs:
             cmake .
             make
             sudo mv usign /bin
-            mkdir -p $OPENWRT_ROOT_PATH/files/etc/opkg/keys
-            cd $OPENWRT_ROOT_PATH/files/etc/opkg/keys
+            mkdir -p files/etc/opkg/keys
+            cd files/etc/opkg/keys
             cp $GITHUB_WORKSPACE/$KEY_BUILD .
             mv key-build.pub $(usign -F -p key-build.pub)
           fi
@@ -346,10 +346,7 @@ jobs:
           rm -rf bin/targets/*/*/packages
           ls -l bin/targets/*/*
           echo "status=success" >> $GITHUB_OUTPUT
-          echo "old_release_version=$(cat $GITHUB_WORKSPACE/version)" >> $GITHUB_OUTPUT
-          reltag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
-          echo "release_tag=$reltag" >> $GITHUB_OUTPUT
-          #mkdir $GITHUB_WORKSPACE/_ver && echo "$reltag" > $GITHUB_WORKSPACE/_ver/version
+          echo 'release_tag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")' >> $GITHUB_OUTPUT
       - name: 打印磁盘使用情况
         if: always()
         run: |
