@@ -81,9 +81,8 @@ jobs:
 
     - name: 上传固件到发布页
       uses: ncipollo/release-action@main
-      if: steps.generate.outputs.status == 'success'
       with:
-        name: ${{ steps.generate.outputs.release_tag }}
+        name: "test"
         #allowUpdates: true
         #replacesArtifacts: true
         tag: "${{ env.OPENWRT_TAG }}_${{ env.DATE }}"
