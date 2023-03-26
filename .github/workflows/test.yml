@@ -75,7 +75,9 @@ jobs:
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #           MESSAGE: "Build: ({sha}) {msg}"
 
-    - uses: dev-drprasad/delete-older-releases@v0.2
+
+    - name: Delete Older Releases
+      uses: dev-drprasad/delete-older-releases@v0.2.1
       with:
         #repo: <owner>/<repoName> # defaults to current repo
         keep_latest: 2
