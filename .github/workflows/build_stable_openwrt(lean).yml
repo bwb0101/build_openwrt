@@ -371,7 +371,7 @@ jobs:
           tag: ${{ steps.generate.outputs.release_tag }}
           body: ${{ env.DATE }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: $OPENWRT_ROOT_PATH/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+          artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: 删除发布页旧的固件
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: cb80/delrel@latest
@@ -383,8 +383,8 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: openwrt_stable
-          folder: $OPENWRT_ROOT_PATH/files/snapshots
-          commit-message: "Build: ${{ env.DATE }}({sha})"
+          folder: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
+          commit-message: "Build: ${{ env.DATE }}"
           clean: true
       - name: 上传version文件
         if: steps.generate.outputs.status == 'success' && !cancelled()
