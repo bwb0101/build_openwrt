@@ -22,6 +22,7 @@ on:
 env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 22.03
+  OPENWRT_TAG: openwrt
   TZ: Asia/Shanghai
 
 jobs:
@@ -75,6 +76,20 @@ jobs:
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #           MESSAGE: "Build: ({sha}) {msg}"
 
+    - name: Update version
+      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
+
+    - name: 上传固件到发布页
+      uses: ncipollo/release-action@main
+      if: steps.generate.outputs.status == 'success'
+      with:
+        name: ${{ steps.generate.outputs.release_tag }}
+        #allowUpdates: true
+        #replacesArtifacts: true
+        tag: "${{ env.OPENWRT_TAG }}_${{ env.DATE }}"
+        body: ${{ env.DATE }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: _ver/*
 
     - name: Delete Older Releases
       uses: dev-drprasad/delete-older-releases@v0.2.1
@@ -84,9 +99,6 @@ jobs:
         delete_tag_pattern: test1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Update version
-      run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
 
 #     - name: 上传到分支
 #       uses: JamesIves/github-pages-deploy-action@v4.4.1
