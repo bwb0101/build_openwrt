@@ -82,6 +82,8 @@ jobs:
         #repo: <owner>/<repoName> # defaults to current repo
         keep_latest: 2
         delete_tag_pattern: test1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update version
       run: mkdir _ver && echo "${{ env.DATE }}" > _ver/version
