@@ -8,10 +8,10 @@ Section: multimedia
 SourceDateEpoch: 1679760544
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 2648527
+Installed-Size: 2648539
 Filename: UnblockNeteaseMusic-Go_0.2.13-1_x86_64.ipk
-Size: 2644049
-SHA256sum: 5eb00606c9457aaa2b3b33307d3732ce973fa0a85a2d72457cd06c0299c66973
+Size: 2644019
+SHA256sum: db3e99a713bdfa4d4386dcf2ddce1101184e3f822e2bdef255739f1823065de9
 Description:  Revive Netease Cloud Music (Golang)
 
 Package: acme
@@ -523,10 +523,10 @@ Section: net
 SourceDateEpoch: 1679760544
 Maintainer: Xingwang Liao <kuoruan@gmail.com>
 Architecture: x86_64
-Installed-Size: 3813768
+Installed-Size: 3813767
 Filename: frpc_0.47.0-1_x86_64.ipk
-Size: 3815353
-SHA256sum: 6e847f0f3c033a1f73d9f4502726a944f2639b121434b2ef1bc94c9ee656d797
+Size: 3815346
+SHA256sum: 6d6e248c3e554ca11f22985e93c3755b081df5989cc27346b78b71c06d01382a
 Description:  frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall
  to the internet. As of now, it supports tcp & udp, as well as http and https protocols,
  where requests can be forwarded to internal services by domain name.
@@ -544,10 +544,10 @@ Section: net
 SourceDateEpoch: 1679760544
 Maintainer: Xingwang Liao <kuoruan@gmail.com>
 Architecture: x86_64
-Installed-Size: 4566662
+Installed-Size: 4566661
 Filename: frps_0.47.0-1_x86_64.ipk
-Size: 4568353
-SHA256sum: 56adac16e2064e99eb20694395285db6e586e7a9f2e6e5e7ba7cc7386ff76cce
+Size: 4568355
+SHA256sum: 8a8fc804b2f8d0bd54e30bae9e29f984e3d5690719f7305e72b54e49b2a6a2aa
 Description:  frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall
  to the internet. As of now, it supports tcp & udp, as well as http and https protocols,
  where requests can be forwarded to internal services by domain name.
@@ -586,10 +586,10 @@ SourceDateEpoch: 1679760544
 CPE-ID: cpe:/a:haproxy:haproxy
 Maintainer: Thomas Heil <heil@terminal-consulting.de>, Christian Lachner <gladiac@gmail.com>
 Architecture: x86_64
-Installed-Size: 1009492
+Installed-Size: 1009491
 Filename: haproxy_2.6.6-1_x86_64.ipk
-Size: 1009615
-SHA256sum: 0b9ba855662a20b89eda6181b1120abd1c83b1f39dfde24b361845a79003ca28
+Size: 1009605
+SHA256sum: a8377a7699efd2e797fd7b73a1d77a6609267bfc3da4a67138627b5263288df8
 Description:  Open source Reliable, High Performance TCP/HTTP Load Balancer.
  This package is built with SSL and LUA support.
 
@@ -999,7 +999,7 @@ Architecture: x86_64
 Installed-Size: 112083
 Filename: libjpeg-turbo_2.1.4-1_x86_64.ipk
 Size: 112151
-SHA256sum: 26ae126a231edae9e4c4f941a38b31e8c1bcac13b67f8e606880914f906d5919
+SHA256sum: a8b189a9ffa617a6f0dcae4b5c0084a0b995432db2afad0de364f4899704a790
 Description:  libjpeg-turbo is a speed focused fork of libjpeg.
 
 Package: libkmod
@@ -1111,6 +1111,24 @@ Filename: libpci_3.8.0-2_x86_64.ipk
 Size: 21542
 SHA256sum: 5aee02d6d4805eb9d3328832bd7ac07dc62579037688a8eaf63374665d6788f9
 Description:  Linux PCI Libraries
+
+Package: libpcre2
+Version: 10.37-1
+Depends: libc
+Source: feeds/packages/libs/pcre2
+SourceName: libpcre2
+License: BSD-3-Clause
+LicenseFiles: LICENCE
+Section: libs
+SourceDateEpoch: 1679760544
+CPE-ID: cpe:/a:pcre:pcre
+Maintainer: Shane Peelar <lookatyouhacker@gmail.com>
+Architecture: x86_64
+Installed-Size: 181975
+Filename: libpcre2_10.37-1_x86_64.ipk
+Size: 182765
+SHA256sum: 1184c8354e552db1f684e046193930f0135b477a9038029502bf1530ffd6ff94
+Description:  A Perl Compatible Regular Expression library
 
 Package: librrd1
 Version: 1.0.50-5
@@ -1353,9 +1371,29 @@ Maintainer: Karl Palsson <karlp@etactica.com>
 Architecture: x86_64
 Installed-Size: 191893
 Filename: libwebsockets-full_4.3.2-2_x86_64.ipk
-Size: 192671
-SHA256sum: 5f852f0f12c7036f46c2a16652fb69984feaf956de636f41fc3517f887580f7c
+Size: 192674
+SHA256sum: 40ec5e71262f47a8b6e52530c2310efa5ef53d505b5b10bd2949d77b47f47ab7
 Description:  libwebsockets (Full - OpenSSL, libuv, plugins, CGI)
+
+Package: libyaml-cpp0.7
+Version: 0.7.0-1
+Depends: libc, libstdcpp6
+Provides: libyaml-cpp
+Source: feeds/packages/libs/libyaml-cpp
+SourceName: libyaml-cpp
+License: MIT
+LicenseFiles: LICENSE
+Section: development
+SourceDateEpoch: 1679760544
+ABIVersion: 0.7
+CPE-ID: cpe:/a:yaml-cpp_project:yaml-cpp
+Maintainer: Steven Hessing <steven.hessing@gmail.com>
+Architecture: x86_64
+Installed-Size: 91634
+Filename: libyaml-cpp0.7_0.7.0-1_x86_64.ipk
+Size: 92478
+SHA256sum: d73714b86a559856d8fe7aa3acb1fdec200b2fbfd864b8cc25a438eb88512325
+Description:  yaml-cpp is a YAML parser and emitter in C++ matching the YAML 1.2 spec.
 
 Package: libyaml
 Version: 0.2.5-1
@@ -1421,8 +1459,8 @@ Maintainer: Markus Stenberg <fingon@iki.fi>
 Architecture: x86_64
 Installed-Size: 56891
 Filename: miniupnpd_2.0.20170421-3_x86_64.ipk
-Size: 57824
-SHA256sum: 5f5387bb5965bedf80588d58f8e1a541febfdc997036752eb53aceb0f505c7a5
+Size: 57825
+SHA256sum: dd5fdfcfb2ecf08294fbc2f3497382ad2dff3a9364817dc103025026f75bf326
 Description:  Lightweight UPnP IGD, NAT-PMP & PCP daemon
 
 Package: mosdns-v5
@@ -1435,10 +1473,10 @@ Section: net
 SourceDateEpoch: 1679760544
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 6335912
+Installed-Size: 6335825
 Filename: mosdns-v5_ac99eb1-1_x86_64.ipk
-Size: 6323423
-SHA256sum: 5ebef03d55e60396958842893f730183e183f17617eba6f20db865156b2ff1a2
+Size: 6323356
+SHA256sum: 1d8f8789ca92715a252319706954955fafc539495f7bde42aea415f1141914ff
 Description:  A plug-in DNS forwarder/splitter
 
 Package: netdata
@@ -1611,10 +1649,10 @@ Require-User: rclone:rclone
 SourceDateEpoch: 1679760544
 Maintainer: Elon Huang <elonhhuang@gmail.com> Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 16232777
+Installed-Size: 16232682
 Filename: rclone_1.61.1-1_x86_64.ipk
-Size: 16169104
-SHA256sum: 0f6bc7a7027910b0168ecb15b6b3d199d05917d5255d38cd9d3b3943a48adddd
+Size: 16169519
+SHA256sum: 1db85698adc68aa73ca0c028f44276c4689f4d2fc8054a3dd928b0c7aa795de0
 Description:  Rclone ("rsync for cloud storage") is a command line program to sync
  files and directories to and from different cloud storage providers.
 
@@ -1659,7 +1697,7 @@ Architecture: x86_64
 Installed-Size: 42546
 Filename: ruby-bigdecimal_3.1.3-1_x86_64.ipk
 Size: 43462
-SHA256sum: 2bb4386b1a853c37b088edc89e9b8e5ff61b50484b02a7ec9b1e37144325fcbe
+SHA256sum: e86e4ef19640da73a7c64fed080d5dde62f8b9da8ba068a5871527fe5e13883b
 Description:  This package contains the ruby Arbitrary-precision decimal floating-point library.
  
  Provides:
@@ -1684,8 +1722,8 @@ Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
 Installed-Size: 63216
 Filename: ruby-date_3.1.3-1_x86_64.ipk
-Size: 64150
-SHA256sum: 8cbf844f1910b6f74d244a1c4d094ce3fb01b324660ac8f3d30eea6a26635cb1
+Size: 64148
+SHA256sum: 369170bfbef2d00efe90b0f832c8286dcd6354eaf96ce516e1d381700789717b
 Description:  This package contains the ruby Comparable module for handling dates.
  
  Provides:
@@ -1710,7 +1748,7 @@ Architecture: x86_64
 Installed-Size: 24995
 Filename: ruby-digest_3.1.3-1_x86_64.ipk
 Size: 25769
-SHA256sum: 3f198e8b4cd677a8e1e534cdb3cd9e3db3a579dd203882846844bb7e4c51cb5c
+SHA256sum: 1d33ca4e9a24ed31919459c49c7cd6cbafa2ff8a2ef5ffe71628b05dcffa5215
 Description:  Provides digest* files. Can be configured to use OpenSSL or
  bundled hash functions.
  
@@ -1763,8 +1801,8 @@ Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
 Installed-Size: 3789
 Filename: ruby-forwardable_3.1.3-1_x86_64.ipk
-Size: 4656
-SHA256sum: 04ef6765a53f47ac0cde0b744951b6a3d5a999fac0c315478c4bcaef8027e712
+Size: 4658
+SHA256sum: 31e475f968513b4ce02910aa5d0447c65a8844ee0d10d2a77400bea28b85a21f
 Description:  This package contains the ruby delegation of methods to a object.
  
  Provides:
@@ -1789,7 +1827,7 @@ Architecture: x86_64
 Installed-Size: 5462
 Filename: ruby-pstore_3.1.3-1_x86_64.ipk
 Size: 6302
-SHA256sum: 702edb99827815aea1d5aba9a00ed34de4a75090d10da8df3a58fd3966f7e176
+SHA256sum: d435b39cff18d47a76f0221d70c4132b1bd4810d90d02b6e93e34df43e308fb8
 Description:  This package contains the ruby file based persistence.
  
  Provides:
@@ -1814,8 +1852,8 @@ Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
 Installed-Size: 34617
 Filename: ruby-psych_3.1.3-1_x86_64.ipk
-Size: 35518
-SHA256sum: f4faa82b65a8a602da6c84f692bf5419d54d8bb818d6766b79a6b65011f9c298
+Size: 35526
+SHA256sum: f746710297f0eadb0c1dd20eadf7d8739f80a9133e137a7fe548d652d0df4226
 Description:  This package contains the ruby YAML parser and emitter.
  
  Provides:
@@ -1840,8 +1878,8 @@ Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
 Installed-Size: 12073
 Filename: ruby-stringio_3.1.3-1_x86_64.ipk
-Size: 12906
-SHA256sum: 8488c674d03e6b32f54bf421f4c586afa16e324ed43520cc98b6b7456a8c6692
+Size: 12905
+SHA256sum: fcf8c9809db23ffb1fb105bd845773e344d118808357f1b6f96dbfa77597ba23
 Description:  This package contains the ruby Pseudo `IO` class from/to `String`.
  
  Provides:
@@ -1865,7 +1903,7 @@ Architecture: x86_64
 Installed-Size: 9059
 Filename: ruby-strscan_3.1.3-1_x86_64.ipk
 Size: 9920
-SHA256sum: 68b25e825f3e7b8e8ae783b55fce404dac49b4a07379e94ead0bab3199a42bd3
+SHA256sum: a1ad6733781b13217bfec91f16f509c0403b068c3091fa11cd5cf4c6c3171447
 Description:  This package contains the ruby Lexical scanning operations on a String.
  
  Provides:
@@ -1886,10 +1924,10 @@ SourceDateEpoch: 1679760544
 CPE-ID: cpe:/a:ruby-lang:ruby
 Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
-Installed-Size: 4354
+Installed-Size: 4355
 Filename: ruby-yaml_3.1.3-1_x86_64.ipk
-Size: 5194
-SHA256sum: 9d526dde6dfec7b52daca467e3f797626a1b6d0911f6f4f02670a9d3e286d824
+Size: 5191
+SHA256sum: d20ea2c741ee4a133edfac83c6315fc5e1587cf6a0c79e9565e360fefd0c98fa
 Description:  This package contains the ruby YAML toolkit.
  
  Provides:
@@ -1933,10 +1971,10 @@ Section: net
 SourceDateEpoch: 1679760544
 CPE-ID: cpe:/a:samba:samba
 Architecture: x86_64
-Installed-Size: 8138278
+Installed-Size: 8136305
 Filename: samba4-libs_4.14.14-1_x86_64.ipk
-Size: 8093735
-SHA256sum: 9f47e05840ec3dfd1feadb86bc1885d293bf3afba385ac320e05f4d93a70575a
+Size: 8094726
+SHA256sum: e4106b10b99037b8f9ea76bdeffd2883c42cefd16bba8b29df8b4b9e5587c58a
 Description:  Samba 4.14.14 libs
 
 Package: samba4-server
@@ -1951,10 +1989,10 @@ Section: net
 SourceDateEpoch: 1679760544
 CPE-ID: cpe:/a:samba:samba
 Architecture: x86_64
-Installed-Size: 237237
+Installed-Size: 237271
 Filename: samba4-server_4.14.14-1_x86_64.ipk
-Size: 238258
-SHA256sum: 64c01cf01930bdaabc87eea0adb7bd53ce1df7debdd23a5cbce5f190e7643538
+Size: 238297
+SHA256sum: de68db9f2759de02135b8ce9eb0c17bd4391707b430420da02170d7d5f0db779
 Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
  (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
  
@@ -2026,7 +2064,7 @@ Architecture: x86_64
 Installed-Size: 114268
 Filename: smartdns_Release41-1_x86_64.ipk
 Size: 115315
-SHA256sum: 268187be003c7879096cea81ba62ad9cd4bd6829e1f6060b2a92d9b369c43138
+SHA256sum: 3e89f41f2f1390fb9f6fe6c3b4875843c291371adb30b536fa69f8f597236634
 Description:  SmartDNS is a local DNS server which accepts DNS query requests from local network clients,
  gets DNS query results from multiple upstream DNS servers concurrently, and returns the fastest IP to clients.
  Unlike dnsmasq's all-servers, smartdns returns the fastest IP, and encrypt DNS queries with DoT or DoH. 
@@ -2045,7 +2083,7 @@ Architecture: x86_64
 Installed-Size: 228562
 Filename: smartmontools_7.3-1_x86_64.ipk
 Size: 229551
-SHA256sum: ac670dd05c740b933e0e07adf149d39289f5fe696dd0db5ff506096826b4ae19
+SHA256sum: 9f39e8b3b615b60e85a7926855885876e25c4663c6e6271dd89d3176ba34c17c
 Description:  smartmontools contains utility programs (smartctl) to
  control/monitor storage systems using the Self-Monitoring, Analysis
  and Reporting Technology System (S.M.A.R.T.) built into most modern
@@ -2063,10 +2101,10 @@ SourceDateEpoch: 1679760544
 CPE-ID: cpe:/a:dest-unreach:socat
 Maintainer: Ted Hess <thess@kitschensync.net>
 Architecture: x86_64
-Installed-Size: 107335
+Installed-Size: 107336
 Filename: socat_1.7.4.4-1_x86_64.ipk
-Size: 108335
-SHA256sum: ba8811b0f5447f96a6083aaf39c958095b5a632d5fb889b5cff322483be4cbdd
+Size: 108333
+SHA256sum: ee9dd6371078bd2b4231a53abb430700acc1797a4a139e9025d0e27b141c39fd
 Description:  SoCat (for SOcket CAT) establishes two bidirectional byte streams and
  transfers data between them.
  Data channels may be files, pipes, devices (terminal or modem, etc.), or
@@ -2414,8 +2452,8 @@ Maintainer: Shuanglei Tao <tsl0922@gmail.com>
 Architecture: x86_64
 Installed-Size: 272019
 Filename: ttyd_1.6.3-3_x86_64.ipk
-Size: 272939
-SHA256sum: ff92b1771e2dc668b59644f966d5a916a981a808cd669fbf528323f34ef04bcf
+Size: 272938
+SHA256sum: bd288b32c08978c3e9bc8539f09c10e94a47ba66b3bdabb2fecf2e4e7543cc63
 Description:  ttyd is a command-line tool for sharing terminal over the web.
 
 Package: unzip
@@ -2532,7 +2570,7 @@ Architecture: x86_64
 Installed-Size: 22784
 Filename: vlmcsd_svn1113-3_x86_64.ipk
 Size: 23506
-SHA256sum: 79c4668358a9c951eab7c54a7ebdb1ca4b2ac1603d02c02537f926718dda1123
+SHA256sum: 7e397755d58e8b71370b61175ccd45b6c402356e36f11fb3ecf5fa5a64dd9a5f
 Description:  vlmcsd is a KMS Emulator in C.
 
 Package: wget-ssl

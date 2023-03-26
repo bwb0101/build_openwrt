@@ -141,8 +141,8 @@ Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 232358
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233318
-SHA256sum: 811dede454c0040e97045f125f183b554a7e68d68d5bc97a5a3b458208ee1c04
+Size: 233312
+SHA256sum: 618e31a138da28a0c27004a7d33ed8089adcbf0df51864831313a0cb8f435ee6
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -624,6 +624,37 @@ Size: 58322
 SHA256sum: fabdf3ecdf9ea2cc4e1deae60548b63ca917b887e20f42f49514f0198c544736
 Description:  Dynamic device management subsystem
 
+Package: libevent2-7
+Version: 2.1.12-1
+Depends: libc
+Provides: libevent2
+Source: package/libs/libevent2
+SourceName: libevent2
+License: BSD-3-Clause
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1623666608
+ABIVersion: -7
+CPE-ID: cpe:/a:libevent_project:libevent
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: x86_64
+Installed-Size: 99169
+Filename: libevent2-7_2.1.12-1_x86_64.ipk
+Size: 100356
+SHA256sum: b2d5f4f29234989e37613ef67c5301098c6a0788dd522b278a7fbf4baad29232
+Description:  The libevent API provides a mechanism to execute a callback function
+ when a specific event occurs on a file descriptor or after a timeout
+ has been reached. Furthermore, libevent also support callbacks due
+ to signals or regular timeouts.
+ 
+ libevent is meant to replace the event loop found in event driven
+ network servers. An application just needs to call event_dispatch()
+ and then add or remove events dynamically without having to change
+ the event loop.
+ 
+ This package contains the libevent shared library historically
+ containing both the core & extra libraries.
+
 Package: libext2fs2
 Version: 1.46.5-2
 Depends: libc, libuuid1, libblkid1, libss2, libcomerr0
@@ -991,8 +1022,8 @@ Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
 Installed-Size: 1541079
 Filename: libopenssl1.1_1.1.1t-1_x86_64.ipk
-Size: 1533960
-SHA256sum: 0bd58e244563ce5da84209988470732576c241483ce5c2cd68d13b7adee42368
+Size: 1533959
+SHA256sum: 0c4a91ba51288db3e9431d2c3a8a27d1749014ccaf3c572a80187c85b0e057d0
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
