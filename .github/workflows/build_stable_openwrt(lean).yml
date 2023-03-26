@@ -34,6 +34,7 @@ env:
   FEED_DIY_SH: feed_diy.sh
   FEED_UPDATE_SH: feeds_lean.sh
   TOOLCHAIN_TAG: toolchain
+  OPENWRT_TAG: openwrt
   UPLOAD_TOOLCHAIN: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -348,7 +349,7 @@ jobs:
           echo "old_release_version=$(cat $GITHUB_WORKSPACE/version)" >> $GITHUB_OUTPUT
           reltag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
           echo "release_tag=$reltag" >> $GITHUB_OUTPUT
-          mkdir $GITHUB_WORKSPACE/_ver && echo "$reltag" > $GITHUB_WORKSPACE/_ver/version
+          #mkdir $GITHUB_WORKSPACE/_ver && echo "$reltag" > $GITHUB_WORKSPACE/_ver/version
       - name: 打印磁盘使用情况
         if: always()
         run: |
@@ -368,16 +369,19 @@ jobs:
           name: ${{ steps.generate.outputs.release_tag }}
           #allowUpdates: true
           #replacesArtifacts: true
-          tag: ${{ steps.generate.outputs.release_tag }}
+          tag: "${{ env.OPENWRT_TAG }}_${{ env.DATE }}"
           body: ${{ env.DATE }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: 删除发布页旧的固件
         if: steps.generate.outputs.status == 'success' && !cancelled()
-        uses: cb80/delrel@latest
+        uses: dev-drprasad/delete-older-releases@v0.2.1
         with:
-          tag: ${{ steps.generate.outputs.old_release_version }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          #repo: <owner>/<repoName> # defaults to current repo
+          keep_latest: 3
+          delete_tag_pattern: ${{ env.OPENWRT_TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 上传编译后ipk包到github分支
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: JamesIves/github-pages-deploy-action@v4.4.1
@@ -386,14 +390,14 @@ jobs:
           folder: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
           commit-message: "Build: ${{ env.DATE }}"
           clean: true
-      - name: 上传version文件
-        if: steps.generate.outputs.status == 'success' && !cancelled()
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          branch: main
-          folder: _ver
-          commit-message: "Build: ${{ env.DATE }})"
-          clean: false
+#       - name: 上传version文件
+#         if: steps.generate.outputs.status == 'success' && !cancelled()
+#         uses: JamesIves/github-pages-deploy-action@v4.4.1
+#         with:
+#           branch: main
+#           folder: _ver
+#           commit-message: "Build: ${{ env.DATE }})"
+#           clean: false
       - name: 删除多余的workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
