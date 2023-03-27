@@ -12,7 +12,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uugamebooster
-PKG_VERSION:=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)
+PKG_VERSION:=v3.9.2
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -31,22 +31,22 @@ endef
 
 ifeq ($(ARCH),arm)
 	UU_ARCH:=arm
-	PKG_MD5SUM:=ee720928879208091c509c685f21db05
+	PKG_MD5SUM:=9767e60f8dcdd8ded6144ab9aafe6b4f  uu_arm.tar.gz
 endif
 
 ifeq ($(ARCH),aarch64)
 	UU_ARCH:=aarch64
-	PKG_MD5SUM:=279ec2a24f2765669aee8f57cb47e30d
+	PKG_MD5SUM:=5e2df199cfd4ff4dc9065cc88e1fd380  uu_aarch64.tar.gz
 endif
 
 ifeq ($(ARCH),mipsel)
 	UU_ARCH:=mipsel
-	PKG_MD5SUM:=d2176e47a783e0be9bbecbceb606470b
+	PKG_MD5SUM:=913f17495f0c7a6e84241b0002c98205  uu_mipsel.tar.gz
 endif
 
 ifeq ($(ARCH),x86_64)
 	UU_ARCH:=x86_64
-	PKG_MD5SUM:=3656d9cedbe369be7adc059248a9d4bd
+	PKG_MD5SUM:=4db0785a91840a42cfcb64ff1a7804eb  uu_x86_64.tar.gz
 endif
 
 PKG_SOURCE_URL:=https://uu.gdl.netease.com/uuplugin/openwrt-$(UU_ARCH)/$(PKG_VERSION)/uu.tar.gz?
