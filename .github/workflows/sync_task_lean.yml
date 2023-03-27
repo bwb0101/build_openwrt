@@ -95,8 +95,8 @@ jobs:
         cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
         #https://github.com/destan19/OpenAppFilter
-        UUGAME='$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)'
-        sed -i '/.*PKG_VERSION:=*/c\PKG_VERSION:=${UUGAME}' mypkg/pkg/net/uugamebooster/Makefile
+        UUGAME=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)
+        sed -i "/.*PKG_VERSION:=*/c\PKG_VERSION:=$UUGAME" mypkg/pkg/net/uugamebooster/Makefile
         cat mypkg/pkg/net/uugamebooster/Makefile
 
 #     - name: Push my packages
