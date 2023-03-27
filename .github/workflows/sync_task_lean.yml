@@ -102,10 +102,10 @@ jobs:
         wget http://uu.gdl.netease.com/uuplugin/openwrt-aarch64/$UUGAME/uu.tar.gz -O uu_aarch64.tar.gz
         wget http://uu.gdl.netease.com/uuplugin/openwrt-mipsel/$UUGAME/uu.tar.gz -O uu_mipsel.tar.gz
         wget http://uu.gdl.netease.com/uuplugin/openwrt-x86_64/$UUGAME/uu.tar.gz -O uu_x86_64.tar.gz
-        uu_arm_md5=$(md5sum uu_arm.tar.gz)
-        uu_aarch64_md5=$(md5sum uu_aarch64.tar.gz)
-        uu_mipsel_md5=$(md5sum uu_mipsel.tar.gz)
-        uu_x86_64_md5=$(md5sum uu_x86_64.tar.gz)
+        uu_arm_md5=$(md5sum uu_arm.tar.gz | awk '{print $1}')
+        uu_aarch64_md5=$(md5sum uu_aarch64.tar.gz | awk '{print $1}')
+        uu_mipsel_md5=$(md5sum uu_mipsel.tar.gz | awk '{print $1}')
+        uu_x86_64_md5=$(md5sum uu_x86_64.tar.gz | awk '{print $1}')
         sed -i "/UU_ARCH:=arm/{n;s/.*/\tPKG_MD5SUM:=$uu_arm_md5/}" mypkg/pkg/net/uugamebooster/Makefile
         sed -i "/UU_ARCH:=aarch64/{n;s/.*/\tPKG_MD5SUM:=$uu_aarch64_md5/}" mypkg/pkg/net/uugamebooster/Makefile
         sed -i "/UU_ARCH:=mipsel/{n;s/.*/\tPKG_MD5SUM:=$uu_mipsel_md5/}" mypkg/pkg/net/uugamebooster/Makefile
