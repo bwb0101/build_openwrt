@@ -12,7 +12,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uugamebooster
-PKG_VERSION:=$uugame_ver
+PKG_VERSION:=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
