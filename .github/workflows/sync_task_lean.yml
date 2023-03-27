@@ -95,24 +95,36 @@ jobs:
         cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
         #https://github.com/destan19/OpenAppFilter
+        
         UUGAME=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$UUGAME/" mypkg/pkg/net/uugamebooster/Makefile
-        cat mypkg/pkg/net/uugamebooster/Makefile
-
-#     - name: Push my packages
-#       uses: JamesIves/github-pages-deploy-action@v4.4.1
-#       with:
-#         branch: packages_lean
-#         folder: mypkg/pkg
-#         commit-message: "Build: ${{ env.DATE }}({sha})"
-#         clean: true
-#     - name: Push my packages
-#       uses: JamesIves/github-pages-deploy-action@v4.4.1
-#       with:
-#         branch: luci_lean
-#         folder: mypkg/luci
-#         commit-message: "Build: ${{ env.DATE }}({sha})"
-#         clean: true
+        wget http://uu.gdl.netease.com/uuplugin/openwrt-arm/$UUGAME/uu.tar.gz -O uu_arm.tar.gz
+        wget http://uu.gdl.netease.com/uuplugin/openwrt-aarch64/$UUGAME/uu.tar.gz -O uu_aarch64.tar.gz
+        wget http://uu.gdl.netease.com/uuplugin/openwrt-mipsel/$UUGAME/uu.tar.gz -O uu_mipsel.tar.gz
+        wget http://uu.gdl.netease.com/uuplugin/openwrt-x86_64/$UUGAME/uu.tar.gz -O uu_x86_64.tar.gz
+        uu_arm_md5=$(md5sum uu_arm.tar.gz)
+        uu_aarch64_md5=$(md5sum uu_aarch64.tar.gz)
+        uu_mipsel_md5=$(md5sum uu_mipsel.tar.gz)
+        uu_x86_64_md5=$(md5sum uu_x86_64.tar.gz)
+        sed -i "/UU_ARCH:=arm/{n;s/.*/\tPKG_MD5SUM:=$uu_arm_md5/}" mypkg/pkg/net/uugamebooster/Makefile
+        sed -i "/UU_ARCH:=aarch64/{n;s/.*/\tPKG_MD5SUM:=$uu_aarch64_md5/}" mypkg/pkg/net/uugamebooster/Makefile
+        sed -i "/UU_ARCH:=mipsel/{n;s/.*/\tPKG_MD5SUM:=$uu_mipsel_md5/}" mypkg/pkg/net/uugamebooster/Makefile
+        sed -i "/UU_ARCH:=x86_64/{n;s/.*/\tPKG_MD5SUM:=$uu_x86_64_md5/}" mypkg/pkg/net/uugamebooster/Makefile
+        
+    - name: Push my packages
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      with:
+        branch: packages_lean
+        folder: mypkg/pkg
+        commit-message: "Build: ${{ env.DATE }}({sha})"
+        clean: true
+    - name: Push my packages
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      with:
+        branch: luci_lean
+        folder: mypkg/luci
+        commit-message: "Build: ${{ env.DATE }}({sha})"
+        clean: true
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
