@@ -40,6 +40,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         date=$(date +%Y%m%d%H%M%S)
         echo "DATE=$date" >> $GITHUB_ENV
+        sudo -E apt-get -qq install jq
 
     - name: Sync my packages
       run: |
@@ -94,7 +95,9 @@ jobs:
         cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
         #https://github.com/destan19/OpenAppFilter
-
+        uugame_ver = curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1
+        sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=$uugame_ver/' mypkg/pkg/net/uugamebooster/Makefile
+        
     - name: Push my packages
       uses: s0/git-publish-subdir-action@develop
       env:
