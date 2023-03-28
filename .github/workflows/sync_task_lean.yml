@@ -44,11 +44,11 @@ jobs:
 
     - name: Sync my packages
       run: |
-        mkdir mypkg
         git clone https://github.com/coolsnowwolf/packages.git mypkg/pkg
         git clone https://github.com/coolsnowwolf/luci.git mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
+        git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
 
@@ -57,9 +57,11 @@ jobs:
         cp -r kenzok8/smartdns mypkg/pkg/net
         cp -r kenzok8/luci-app-smartdns mypkg/luci/applications
         rm -rf mypkg/pkg/net/mosdns
+        rm -rf mypkg/pkg/utils/v2dat
         rm -rf mypkg/luci/applications/luci-app-mosdns
-        cp -r kenzok8/mosdns mypkg/pkg/net
-        cp -r kenzok8/luci-app-mosdns mypkg/luci/applications
+        cp -r myplugin/mosdns/mosdns mypkg/pkg/net
+        cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
+        cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
 
         rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
         rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
@@ -71,7 +73,6 @@ jobs:
         cp -r kenzok8/luci-app-aliyundrive-webdav mypkg/luci/applications
         
         rm -rf mypkg/luci/applications/luci-app-xlnetacc
-              
         cp -r kenzok8-new/luci-app-xlnetacc mypkg/luci/applications
         cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
         #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
@@ -83,15 +84,15 @@ jobs:
         #sed -i '/$(INSTALL_DIR) $(1)\/etc/d' mypkg/pkg/net/adguardhome/Makefile
         patch -p1 < patches/lean/adguardhome.patch
         
-        echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
-        echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
-        echo -e '\nmsgid "Forced to use domestic dns resolution"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
-        echo 'msgstr "强制用国内dns解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
-        sed -i '/local white_list_file/ilocal localdns_list_file = "/etc/mosdns/rule/localdns.txt"' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
-        sed -i -e '/s\:tab/{is:tab("localdns_list", translate("Local DNS Lists"))' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
-        sed -i -e '/s\:taboption/{io = s:taboption("localdns_list", TextValue, "localdnslist", "", "<font color='red'>" .. translate("Forced to use domestic dns resolution") .. "</font>")\no.rows = 15\no.wrap = "off"\no.cfgvalue = function(self, section) return nixio.fs.readfile(localdns_list_file) or "" end\no.write = function(self, section, value) nixio.fs.writefile(localdns_list_file, value:gsub("\\r\\n", "\\n")) end\no.remove = function(self, section, value) nixio.fs.writefile(localdns_list_file, "") end\no.validate = function(self, value)\n    return value\nend\n' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
+        #echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
+        #echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
+        #echo -e '\nmsgid "Forced to use domestic dns resolution"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
+        #echo 'msgstr "强制用国内dns解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
+        #sed -i '/local white_list_file/ilocal localdns_list_file = "/etc/mosdns/rule/localdns.txt"' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
+        #sed -i -e '/s\:tab/{is:tab("localdns_list", translate("Local DNS Lists"))' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
+        #sed -i -e '/s\:taboption/{io = s:taboption("localdns_list", TextValue, "localdnslist", "", "<font color='red'>" .. translate("Forced to use domestic dns resolution") .. "</font>")\no.rows = 15\no.wrap = "off"\no.cfgvalue = function(self, section) return nixio.fs.readfile(localdns_list_file) or "" end\no.write = function(self, section, value) nixio.fs.writefile(localdns_list_file, value:gsub("\\r\\n", "\\n")) end\no.remove = function(self, section, value) nixio.fs.writefile(localdns_list_file, "") end\no.validate = function(self, value)\n    return value\nend\n' -e ':a;n;ba}' mypkg/luci/applications/luci-app-mosdns/luasrc/model/cbi/mosdns/rule_list.lua
         touch mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns/rule/localdns.txt
-        cp -f cfgs/mosdns/cus_config.yaml mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns
+        cp -f cfgs/mosdns/cus_config.yaml mypkg/luci/applications/luci-app-mosdns/root/etc/mosdns/cus_config.yaml.my
         cp -f cfgs/smartdns/custom.conf mypkg/pkg/net/smartdns/conf
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
         #https://github.com/destan19/OpenAppFilter
