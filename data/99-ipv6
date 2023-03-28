@@ -19,8 +19,3 @@ done
 # /sbin/ifup lan
 
 echo $ula_prefix
-
-model="Default string Default string/Default string - "
-replace=""
-command=s@$model@$replace@
-sed -i "$command" /tmp/sysinfo/model
