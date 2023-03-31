@@ -89,8 +89,7 @@ o:depends("configfile", "/etc/mosdns/config.yaml")
 s:tab("advanced", translate("Advanced Options"))
 
 o = s:taboption("advanced", Value, "concurrent", translate("Concurrent"), translate("DNS query request concurrency, The number of upstream DNS servers that are allowed to initiate requests at the same time"))
-o.datatype = "and(uinteger,min(1))"
-o.datatype = "and(uinteger,max(3))"
+o.datatype = "and(uinteger,min(1),max(3))"
 o.default = "1"
 o:depends("configfile", "/etc/mosdns/config.yaml")
 
@@ -145,13 +144,12 @@ o.default = "600"
 o:depends("dump_file", "1")
 
 o = s:taboption("advanced", Value, "minimal_ttl", translate("Minimum TTL"), translate("Modify the Minimum TTL value (seconds) for DNS answer results, 0 indicating no modification"))
-o.datatype = "and(uinteger,min(0))"
-o.datatype = "and(uinteger,max(3600))"
+o.datatype = "and(uinteger,min(0),max(604800))"
 o.default = "0"
 o:depends("configfile", "/etc/mosdns/config.yaml")
 
 o = s:taboption("advanced", Value, "maximum_ttl", translate("Maximum TTL"), translate("Modify the Maximum TTL value (seconds) for DNS answer results, 0 indicating no modification"))
-o.datatype = "and(uinteger,min(0))"
+o.datatype = "and(uinteger,min(0),max(604800))"
 o.default = "0"
 o:depends("configfile", "/etc/mosdns/config.yaml")
 
@@ -189,11 +187,7 @@ function o.write(self, section, value)
     fs.writefile("/etc/mosdns/config_custom.yaml", value)
 end
 
-s:tab("api", translate("API Setting"))
-
-o = s:taboption("api", Flag, "enabled_api", translate("Enabled API"))
-o:depends("configfile", "/etc/mosdns/config.yaml")
-o.default = false
+s:tab("api", translate("API Options"))
 
 o = s:taboption("api", Value, "listen_port_api", translate("API Listen port"))
 o.datatype = "and(port,min(1))"
@@ -203,6 +197,14 @@ o:depends("configfile", "/etc/mosdns/config.yaml")
 o = s:taboption("api", Button, "flush_cache", translate("Flush Cache"), translate("Flushing Cache will clear any IP addresses or DNS records from MosDNS cache"))
 o.rawhtml = true
 o.template = "mosdns/mosdns_flush_cache"
-o:depends("enabled_api", "1")
+o:depends("configfile", "/etc/mosdns/config.yaml")
+
+s:tab("geodata", translate("GeoData Export"))
+
+o = s:taboption("geodata", DynamicList, "geosite_tags", translate("GeoSite Tags"), translate("Enter the GeoSite.dat category to be exported, Allow add multiple tags") .. '<br />' .. translate("Export directory: /var/mosdns"))
+o:depends("configfile", "/etc/mosdns/config_custom.yaml")
+
+o = s:taboption("geodata", DynamicList, "geoip_tags", translate("GeoIP Tags"), translate("Enter the GeoIP.dat category to be exported, Allow add multiple tags") .. '<br />' .. translate("Export directory: /var/mosdns"))
+o:depends("configfile", "/etc/mosdns/config_custom.yaml")
 
 return m
