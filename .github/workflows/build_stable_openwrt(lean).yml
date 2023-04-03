@@ -346,7 +346,8 @@ jobs:
           rm -rf bin/targets/*/*/packages
           ls -l bin/targets/*/*
           echo "status=success" >> $GITHUB_OUTPUT
-          echo 'release_tag=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")' >> $GITHUB_OUTPUT
+          td=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
+          echo "release_tag=$td" >> $GITHUB_OUTPUT
       - name: 打印磁盘使用情况
         if: always()
         run: |
@@ -387,14 +388,6 @@ jobs:
           folder: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
           commit-message: "Build: ${{ env.DATE }}"
           clean: true
-#       - name: 上传version文件
-#         if: steps.generate.outputs.status == 'success' && !cancelled()
-#         uses: JamesIves/github-pages-deploy-action@v4.4.1
-#         with:
-#           branch: main
-#           folder: _ver
-#           commit-message: "Build: ${{ env.DATE }})"
-#           clean: false
       - name: 删除多余的workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
