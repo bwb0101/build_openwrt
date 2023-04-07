@@ -3,9 +3,11 @@ local datatypes = require "luci.cbi.datatypes"
 local localdns_list_file = "/etc/mosdns/rule/localdns.txt"
 local white_list_file = "/etc/mosdns/rule/whitelist.txt"
 local block_list_file = "/etc/mosdns/rule/blocklist.txt"
+local grey_list_file = "/etc/mosdns/rule/greylist.txt"
 local hosts_list_file = "/etc/mosdns/rule/hosts.txt"
 local redirect_list_file = "/etc/mosdns/rule/redirect.txt"
-local cus_config_file = "/etc/mosdns/cus_config.yaml"
+local local_ptr_file = "/etc/mosdns/rule/local-ptr.txt"
+local ddns_list_file = "/etc/mosdns/rule/ddnslist.txt"
 
 m = Map("mosdns")
 
@@ -15,9 +17,11 @@ s.anonymous = true
 s:tab("localdns_list", translate("Local DNS Lists"))
 s:tab("white_list", translate("White Lists"))
 s:tab("block_list", translate("Block Lists"))
+s:tab("grey_list", translate("Grey Lists"))
+s:tab("ddns_list", translate("DDNS Lists"))
 s:tab("hosts_list", translate("Hosts"))
 s:tab("redirect_list", translate("Redirect"))
-s:tab("cus_config", translate("Cus Config"))
+s:tab("local_ptr_list", translate("Block PTR"))
 
 o = s:taboption("localdns_list", TextValue, "localdnslist", "", "<font color=red>" .. translate("Forced to use domestic dns resolution") .. "</font>")
 o.rows = 15
@@ -52,6 +56,26 @@ o.validate = function(self, value)
     return value
 end
 
+o = s:taboption("grey_list", TextValue, "greylist", "", "<font color='red'>" .. translate("These domains are always resolved using remote DNS. Please input the domain names of websites, every line can input only one website domain. For example: google.com.") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Default Config' profiles.") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return nixio.fs.readfile(grey_list_file) or "" end
+o.write = function(self, section, value) nixio.fs.writefile(grey_list_file, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) nixio.fs.writefile(grey_list_file, "") end
+o.validate = function(self, value)
+    return value
+end
+
+o = s:taboption("ddns_list", TextValue, "ddns", "", "<font color='red'>" .. translate("These domains are always resolved using local DNS. And force TTL 5 seconds, DNS resolution results will not enter the cache. For example: myddns.example.com.") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Default Config' profiles.") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return nixio.fs.readfile(ddns_list_file) or "" end
+o.write = function(self, section, value) nixio.fs.writefile(ddns_list_file, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) nixio.fs.writefile(ddns_list_file, "") end
+o.validate = function(self, value)
+    return value
+end
+
 o = s:taboption("hosts_list", TextValue, "hosts", "", "<font color='red'>" .. translate("Hosts For example: baidu.com 10.0.0.1") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Default Config' profiles.") .. "</font>")
 o.rows = 15
 o.wrap = "off"
@@ -72,12 +96,12 @@ o.validate = function(self, value)
     return value
 end
 
-o = s:taboption("cus_config", TextValue, "Cus Config", "", "<font color='red'>" .. translate("View the Custom YAML Configuration file used by this MosDNS. You can edit it as you own need.") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Custom Config' profiles.") .. "</font>")
-o.rows = 30
+o = s:taboption("local_ptr_list", TextValue, "local_ptr", "", "<font color='red'>" .. translate("These domains are blocked from PTR requests") .. "</font>" .. "<font color='#00bd3e'>" .. translate("<br>The list of rules only apply to 'Default Config' profiles.") .. "</font>")
+o.rows = 15
 o.wrap = "off"
-o.cfgvalue = function(self, section) return nixio.fs.readfile(cus_config_file) or "" end
-o.write = function(self, section, value) nixio.fs.writefile(cus_config_file, value:gsub("\r\n", "\n")) end
-o.remove = function(self, section, value) nixio.fs.writefile(cus_config_file, "") end
+o.cfgvalue = function(self, section) return nixio.fs.readfile(local_ptr_file) or "" end
+o.write = function(self, section, value) nixio.fs.writefile(local_ptr_file, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) nixio.fs.writefile(local_ptr_file, "") end
 o.validate = function(self, value)
     return value
 end
