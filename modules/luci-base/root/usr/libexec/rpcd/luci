@@ -247,7 +247,6 @@ local methods = {
 			rv.dropbear      = fs.access("/usr/sbin/dropbear")
 			rv.cabundle      = fs.access("/etc/ssl/certs/ca-certificates.crt")
 			rv.relayd        = fs.access("/usr/sbin/relayd")
-			rv.dsl           = fs.access("/sbin/dsl_cpe_control") or fs.access("/sbin/vdsl_cpe_control")
 
 			local wifi_features = { "eap", "11n", "11ac", "11r", "acs", "sae", "owe", "suiteb192", "wep", "wps" }
 
@@ -512,6 +511,30 @@ local methods = {
 				end
 
 				block:close()
+
+				local swaps = io.open("/proc/swaps", "r")
+				if swaps then
+					while true do
+						local ln = swaps:read("*l")
+						if not ln then
+							break
+						end
+
+						local dev, s = ln:match("^(/%S+)%s+%S+%s+(%d+)")
+						if dev and s then
+							rv["swap:" .. dev] = {
+								dev = dev:gsub("\\(%d%d%d)",
+									function(n)
+										return string.char(tonumber(n, 8))
+									end),
+								size = s * 1024,
+								type = "swap"
+							}
+						end
+					end
+
+					swaps:close()
+				end
 
 				return rv
 			else

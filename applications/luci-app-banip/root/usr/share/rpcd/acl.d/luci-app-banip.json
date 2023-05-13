@@ -2,12 +2,10 @@
 	"luci-app-banip": {
 		"description": "Grant access to LuCI app banIP",
 		"write": {
-			"uci": [
-				"banip"
-			],
 			"file": {
 				"/etc/banip/*": [
-					"read"
+					"read",
+					"write"
 				],
 				"/etc/banip/banip.allowlist": [
 					"write"
@@ -15,20 +13,21 @@
 				"/etc/banip/banip.blocklist": [
 					"write"
 				],
-				"/etc/banip/banip.feeds": [
+				"/etc/banip/banip.custom.feeds": [
+					"read",
 					"write"
 				]
-			}
+			},
+			"uci": [
+				"banip"
+			]
 		},
 		"read": {
 			"cgi-io": [
 				"exec"
 			],
 			"file": {
-				"/var/run/banip.pid": [
-					"read"
-				],
-				"/var/run/banip_runtime.json": [
+				"/var/run/banip.lock": [
 					"read"
 				],
 				"/sbin/logread -e banIP-": [
@@ -58,13 +57,16 @@
 				"/etc/init.d/banip report json": [
 					"exec"
 				],
-				"/etc/init.d/banip search *": [
+				"/etc/init.d/banip search [A-Za-z0-9:.]*": [
 					"exec"
 				],
-				"/etc/init.d/banip survey *": [
+				"/etc/init.d/banip survey [A-Za-z0-9]*": [
 					"exec"
 				],
-				"/etc/init.d/banip status *": [
+				"/etc/init.d/banip status": [
+					"exec"
+				],
+				"/etc/init.d/banip lookup": [
 					"exec"
 				]
 			},

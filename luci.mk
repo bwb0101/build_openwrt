@@ -118,6 +118,8 @@ PKG_SRC_VERSION?=$(if $(DUMP),x,$(strip $(call findrev,1)))
 PKG_GITBRANCH?=$(if $(DUMP),x,$(strip $(shell \
 	variant="LuCI"; \
 	if git log -1 >/dev/null 2>/dev/null; then \
+		branch=$$(git branch --format='%(refname:strip=3)' --remote --no-abbrev --contains 2>/dev/null | tail -n1); \
+		branch=$${branch:-$$(git branch --format='%(refname:strip=2)' --no-abbrev --contains 2>/dev/null | tail -n1)}; \
 		branch="22.03"; \
 		if [ "$$branch" != "master" ]; then \
 			variant="LuCI $$branch"; \
@@ -130,11 +132,11 @@ PKG_GITBRANCH?=$(if $(DUMP),x,$(strip $(shell \
 
 include $(INCLUDE_DIR)/package.mk
 
-# LUCI_SUBMENU: the submenu-item below the LuCI top-level menu inside OpoenWrt menuconfig
+# LUCI_SUBMENU: the submenu-item below the LuCI top-level menu inside OpenWrt menuconfig
 #               usually one of the LUCI_MENU.* definitions
 # LUCI_SUBMENU_DEFAULT: the regular SUBMENU defined by LUCI_TYPE or derrived from the packagename
 # LUCI_SUBMENU_FORCED: manually forced value SUBMENU to set to by explicit definiton
-#                      can be any string, "none" disables the creation of a submenu 
+#                      can be any string, "none" disables the creation of a submenu
 #                      most usefull in combination with LUCI_CATEGORY, to make the package appear
 #                      anywhere in the menu structure
 LUCI_SUBMENU_DEFAULT=$(if $(LUCI_MENU.$(LUCI_TYPE)),$(LUCI_MENU.$(LUCI_TYPE)),$(LUCI_MENU.app))
@@ -188,33 +190,34 @@ else
 endif
 
 define Package/$(PKG_NAME)/install
-	if [ -d $(PKG_BUILD_DIR)/luasrc ]; then \
-	  $(INSTALL_DIR) $(1)$(LUCI_LIBRARYDIR); \
-	  cp -pR $(PKG_BUILD_DIR)/luasrc/* $(1)$(LUCI_LIBRARYDIR)/; \
-	  $(FIND) $(1)$(LUCI_LIBRARYDIR)/ -type f -name '*.luadoc' | $(XARGS) rm; \
-	  $(if $(CONFIG_LUCI_SRCDIET),$(call SrcDiet,$(1)$(LUCI_LIBRARYDIR)/),true); \
-	  $(call SubstituteVersion,$(1)$(LUCI_LIBRARYDIR)/); \
-	else true; fi
-	if [ -d $(PKG_BUILD_DIR)/htdocs ]; then \
-	  $(INSTALL_DIR) $(1)$(HTDOCS); \
-	  cp -pR $(PKG_BUILD_DIR)/htdocs/* $(1)$(HTDOCS)/; \
-	  $(if $(CONFIG_LUCI_JSMIN),$(call JsMin,$(1)$(HTDOCS)/),true); \
-	  $(if $(CONFIG_LUCI_CSSTIDY),$(call CssTidy,$(1)$(HTDOCS)/),true); \
-	else true; fi
-	if [ -d $(PKG_BUILD_DIR)/root ]; then \
-	  $(INSTALL_DIR) $(1)/; \
-	  cp -pR $(PKG_BUILD_DIR)/root/* $(1)/; \
-	else true; fi
-	if [ -d $(PKG_BUILD_DIR)/src ]; then \
-	  $(call Build/Install/Default) \
-	  $(CP) $(PKG_INSTALL_DIR)/* $(1)/; \
-	else true; fi
+
+ ifneq ($(wildcard ${CURDIR}/luasrc),)
+	$(INSTALL_DIR) $(1)$(LUCI_LIBRARYDIR)
+	cp -pR $(PKG_BUILD_DIR)/luasrc/* $(1)$(LUCI_LIBRARYDIR)/
+	$(FIND) $(1)$(LUCI_LIBRARYDIR)/ -type f -name '*.luadoc' | $(XARGS) rm
+	$(if $(CONFIG_LUCI_SRCDIET),$(call SrcDiet,$(1)$(LUCI_LIBRARYDIR)/),true)
+	$(call SubstituteVersion,$(1)$(LUCI_LIBRARYDIR)/)
+ endif
+ ifneq ($(wildcard ${CURDIR}/htdocs),)
+	$(INSTALL_DIR) $(1)$(HTDOCS)
+	cp -pR $(PKG_BUILD_DIR)/htdocs/* $(1)$(HTDOCS)/
+	$(if $(CONFIG_LUCI_JSMIN),$(call JsMin,$(1)$(HTDOCS)/),true)
+	$(if $(CONFIG_LUCI_CSSTIDY),$(call CssTidy,$(1)$(HTDOCS)/),true)
+ endif
+ ifneq ($(wildcard ${CURDIR}/root),)
+	$(INSTALL_DIR) $(1)/
+	cp -pR $(PKG_BUILD_DIR)/root/* $(1)/
+ endif
+ ifneq ($(wildcard ${CURDIR}/src),)
+	$(call Build/Install/Default)
+	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
+ endif
 endef
 
 ifndef Package/$(PKG_NAME)/postinst
 define Package/$(PKG_NAME)/postinst
 [ -n "$${IPKG_INSTROOT}" ] || { \
-	rm -f /tmp/luci-indexcache
+	rm -f /tmp/luci-indexcache.*
 	rm -rf /tmp/luci-modulecache/
 	killall -HUP rpcd 2>/dev/null
 	exit 0
@@ -223,7 +226,7 @@ endef
 endif
 
 # some generic macros that can be used by all packages
-ifeq ($(LUCI_MINIFY_JS),1)
+ifeq ($(LUCI_MINIFY_LUA),1)
   define SrcDiet
 	$(FIND) $(1) -type f -name '*.lua' | while read src; do \
 		if LUA_PATH="$(STAGING_DIR_HOSTPKG)/lib/lua/5.1/?.lua" luasrcdiet --noopt-binequiv -o "$$$$src.o" "$$$$src"; \
@@ -282,8 +285,8 @@ ifeq ($(PKG_NAME),luci-base)
 	default y
 
    config LUCI_CSSTIDY
-        bool "Minify CSS files"
-        default y
+	bool "Minify CSS files"
+	default y
 
    menu "Translations"$(foreach lang,$(LUCI_LANGUAGES),$(if $(LUCI_LANG.$(lang)),
 
