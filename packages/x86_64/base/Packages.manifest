@@ -32,18 +32,18 @@ SHA256sum: a5e6a8a282f920dd9f328771c554e13082145a2d12d59c61bf1fb91c9c8b6c01
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
-Version: 62
+Version: 63
 Depends: libc, bc, lm-sensors, ethtool
 Source: package/lean/autocore
 SourceName: autocore-x86
 Section: opt
-SourceDateEpoch: 1680238470
+SourceDateEpoch: 1683647846
 Maintainer: Lean
 Architecture: x86_64
-Installed-Size: 8152
-Filename: autocore-x86_62_x86_64.ipk
-Size: 8896
-SHA256sum: 8c4cc656d33abafbfb5762be01fa9e595d8880750a1e0b6e6680ce4f254fb98b
+Installed-Size: 8153
+Filename: autocore-x86_63_x86_64.ipk
+Size: 8895
+SHA256sum: 717a76d9afea2b6eb6ce67d57f21209b508cb6c3835c8ed47525335396eb0742
 Description:  A usb autoconfig hotplug script.
 
 Package: automount
@@ -141,8 +141,8 @@ Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 232358
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233321
-SHA256sum: b9146245d19f738d7affb75b6a3cca51fde431b2b6bc3b854181b20d8998ad08
+Size: 233319
+SHA256sum: a2c6e83931e87619259b3fbabf744fe5f5ef6f2f1aa42e2eef3efe7fca4f0632
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -985,21 +985,21 @@ SHA256sum: 9b010cfaea36ce78fce0778c7055f24992f3c77d8bdd72e6fbcb66f185d431f7
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 1.1.1t-1
+Version: 1.1.1t-2
 Depends: libc, libopenssl1.1
 Source: package/libs/openssl
 SourceName: libopenssl-conf
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1676172485
+SourceDateEpoch: 1683261382
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 5174
-Filename: libopenssl-conf_1.1.1t-1_x86_64.ipk
-Size: 6146
-SHA256sum: 7cd8e9d345279eca3048aaa9e0ab49d70333b0298667c3f072dd76ef38a50e42
+Installed-Size: 5015
+Filename: libopenssl-conf_1.1.1t-2_x86_64.ipk
+Size: 6020
+SHA256sum: 41d6e8d4a5b7d5e25bbd3d6d1b48c55fbd01d6b0a02f14f613ebf06e6622b50b
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1007,7 +1007,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl1.1
-Version: 1.1.1t-1
+Version: 1.1.1t-2
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
@@ -1015,15 +1015,15 @@ SourceName: libopenssl
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1676172485
+SourceDateEpoch: 1683261382
 ABIVersion: 1.1
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
 Installed-Size: 1541079
-Filename: libopenssl1.1_1.1.1t-1_x86_64.ipk
-Size: 1533930
-SHA256sum: 5d08541ed033d50a1f32ebca4353f9c2669dc2691ec0ff77f819834ab94aa4fb
+Filename: libopenssl1.1_1.1.1t-2_x86_64.ipk
+Size: 1533869
+SHA256sum: e3229508004522a7aeda1ad2143acfd8dede0e8b4e2a22152170f1e8c80ee6b5
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1424,21 +1424,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 1.1.1t-1
+Version: 1.1.1t-2
 Depends: libc, libopenssl1.1, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1676172485
+SourceDateEpoch: 1683261382
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 266293
-Filename: openssl-util_1.1.1t-1_x86_64.ipk
-Size: 265538
-SHA256sum: f240cedb1bd95c53154d6a4770c51a8ccd32732c270f35a6a1ea65e165754fe9
+Installed-Size: 266890
+Filename: openssl-util_1.1.1t-2_x86_64.ipk
+Size: 266189
+SHA256sum: e92d87f8831a6cd3875e21c345d7faebb69bb0f2d4eb70ea3c79c47c6942e72f
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1608,19 +1608,19 @@ Description:  This package contains the small resolveip utility which
  runtime in case of slow or defunct DNS servers.
 
 Package: rpcd
-Version: 2022-09-21-8c852b65-1
+Version: 2023-01-21-c0df2a7a-1
 Depends: libc, libubus20220601, libubox20220927, libuci20130104, libblobmsg-json20220927, libjson-c5
 Source: package/system/rpcd
 SourceName: rpcd
 License: ISC
 Section: utils
-SourceDateEpoch: 1670480457
+SourceDateEpoch: 1683192219
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 25023
-Filename: rpcd_2022-09-21-8c852b65-1_x86_64.ipk
-Size: 25818
-SHA256sum: 8a0c4e84b90b6b7024e9d7ed80b09ac69ff1c8db63c21905e6b2ff208f8dc01e
+Installed-Size: 25035
+Filename: rpcd_2023-01-21-c0df2a7a-1_x86_64.ipk
+Size: 25831
+SHA256sum: 2f9ed584042a9b869db67d8220febd414a3f083687f2afadce8d493fde438c2c
 Description:  This package provides the UBUS RPC backend server to expose various
  functionality to frontend programs via JSON-RPC.
 
