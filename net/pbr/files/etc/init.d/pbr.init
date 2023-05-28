@@ -162,7 +162,7 @@ output_failn() { output 1 "$_FAIL_\\n"; output 2 "$__FAIL__\\n"; }
 # shellcheck disable=SC2317
 str_replace() { printf "%b" "$1" | sed -e "s/$(printf "%b" "$2")/$(printf "%b" "$3")/g"; }
 str_replace() { echo "${1//$2/$3}"; }
-str_contains() { [ -n "$1" ] &&[ -n "$2" ] && [ "${1//$2}" != "$1" ]; }
+str_contains() { [ -n "$1" ] && [ -n "$2" ] && [ "${1//$2}" != "$1" ]; }
 is_greater() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"; }
 is_greater_or_equal() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" = "$2"; }
 str_contains_word() { echo "$1" | grep -q -w "$2"; }
@@ -223,7 +223,7 @@ pbr_get_gateway6() {
 	local iface="$2" dev="$3" gw
 	network_get_gateway6 gw "$iface" true
 	if [ -z "$gw" ] || [ "$gw" = '::/0' ] || [ "$gw" = '::0/0' ] || [ "$gw" = '::' ]; then
-		gw="$($ip_bin -6 a list dev "$dev" 2>/dev/null | grep inet6 | awk '{print $2}')"
+		gw="$($ip_bin -6 a list dev "$dev" 2>/dev/null | grep inet6 | grep 'scope global' | awk '{print $2}')"
 	fi
 	eval "$1"='$gw'
 }
@@ -304,7 +304,7 @@ get_nft_sets() { [ -x "$nft" ] && "$nft" list table inet "$nftTable" 2>/dev/null
 is_ipset_type_supported() { ipset help hash:"$1" >/dev/null 2>&1; }
 ubus_get_status() { ubus call service list "{ 'name': '$packageName' }" | jsonfilter -e "@.${packageName}.instances.main.data.status.${1}"; }
 ubus_get_iface() { ubus call service list "{ 'name': '$packageName' }" | jsonfilter -e "@.${packageName}.instances.main.data.interfaces[@.name='${1}']${2:+.$2}"; }
-opkg_get_version() { grep -m1 -A1 "$1" '/usr/lib/opkg/status' | grep -m1 'Version: ' | sed 's|Version: \(.*\)|\1|'; }
+opkg_get_version() { grep -m1 -A1 "Package: $1$" '/usr/lib/opkg/status' | grep -m1 'Version: ' | sed 's|Version: \(.*\)|\1|'; }
 
 load_package_config() {
 	config_load "$packageName"
@@ -1748,12 +1748,13 @@ EOF
 					ipv6_error=0
 					if { [ -n "$gw6" ] && [ "$gw6" != "::/0" ]; } || [ "$strict_enforcement" -ne 0 ]; then
 						if [ -z "$gw6" ] || [ "$gw6" = "::/0" ]; then
-							$ip_bin -6 route add unreachable default table "$tid" || ipv6_error=1
+							$ip_bin -6 route add unreachable default table "$tid" >/dev/null 2>&1 || ipv6_error=1
 						elif $ip_bin -6 route list table main | grep -q " dev $dev6 "; then
 							while read -r i; do
 								i="$(echo "$i" | sed 's/ linkdown$//')"
 								i="$(echo "$i" | sed 's/ onlink$//')"
-								$ip_bin -6 route add "$i" table "$tid" >/dev/null 2>&1 || ipv6_error=1
+								# shellcheck disable=SC2086
+								$ip_bin -6 route add $i table "$tid" >/dev/null 2>&1 || ipv6_error=1
 							done << EOF
 							$($ip_bin -6 route list table main | grep " dev $dev6 ")
 EOF
@@ -1762,7 +1763,7 @@ EOF
 							$ip_bin -6 route add default dev "$dev6" table "$tid" >/dev/null 2>&1 || ipv6_error=1
 						fi
 					fi
-					$ip_bin -6 rule add fwmark "${mark}/${fw_mask}" table "$tid" priority "$priority" || ipv6_error=1
+					$ip_bin -6 rule add fwmark "${mark}/${fw_mask}" table "$tid" priority "$priority" >/dev/null 2>&1 || ipv6_error=1
 				fi
 			fi
 			if [ "$ipv4_error" -eq 0 ] || [ "$ipv6_error" -eq 0 ]; then
@@ -1832,7 +1833,8 @@ EOF
 						$ip_bin -6 route add unreachable default table "$tid" || ipv6_error=1
 					elif $ip_bin -6 route list table main | grep -q " dev $dev6 "; then
 						while read -r i; do
-							$ip_bin -6 route add "$i" table "$tid" >/dev/null 2>&1 || ipv6_error=1
+							# shellcheck disable=SC2086
+							$ip_bin -6 route add $i table "$tid" >/dev/null 2>&1 || ipv6_error=1
 						done << EOF
 						$($ip_bin -6 route list table main | grep " dev $dev6 ")
 EOF
@@ -2310,6 +2312,11 @@ status_service_nft() {
 		echo "IPv4 table $((wan_tid + i)) route: $($ip_bin -4 route show table $((wan_tid + i)) | grep default)"
 		echo "IPv4 table $((wan_tid + i)) rule(s):"
 		$ip_bin -4 rule list table "$((wan_tid + i))"
+		if [ -n "$ipv6_enabled" ]; then
+			echo "IPv6 table $((wan_tid + i)) route: $($ip_bin -6 route show table $((wan_tid + i)) | grep default)"
+			echo "IPv6 table $((wan_tid + i)) rule(s):"
+			$ip_bin -6 route show table $((wan_tid + i))
+		fi
 		i=$((i + 1))
 	done
 }
