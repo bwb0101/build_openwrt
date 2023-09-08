@@ -17,33 +17,33 @@ Description:  Provides support for 6in4 tunnels in /etc/config/network.
  configuration details.
 
 Package: amdgpu-firmware
-Version: 20230625-1
+Version: 20230804-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amdgpu-firmware
 Section: firmware
-SourceDateEpoch: 1689343695
+SourceDateEpoch: 1693733730
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 26105850
-Filename: amdgpu-firmware_20230625-1_x86_64.ipk
-Size: 25874393
-SHA256sum: 287d4261ac47e58229e62a9e4879b76d480a81b2730299df7d8e2cbae6b85cdf
+Installed-Size: 26756548
+Filename: amdgpu-firmware_20230804-1_x86_64.ipk
+Size: 26516195
+SHA256sum: 426c51eab6edc6e456e16a93450235af217b4639844974cf90e6a6164c5df193
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
-Version: 63
-Depends: libc, bc, lm-sensors, ethtool
+Version: 64
+Depends: libc, bc, lm-sensors, ethtool, pciutils
 Source: package/lean/autocore
 SourceName: autocore-x86
 Section: opt
-SourceDateEpoch: 1683647846
+SourceDateEpoch: 1690383439
 Maintainer: Lean
 Architecture: x86_64
-Installed-Size: 8153
-Filename: autocore-x86_63_x86_64.ipk
-Size: 8895
-SHA256sum: 717a76d9afea2b6eb6ce67d57f21209b508cb6c3835c8ed47525335396eb0742
+Installed-Size: 8296
+Filename: autocore-x86_64_x86_64.ipk
+Size: 9055
+SHA256sum: 78b3ed5f4528bac4041659614c4bd62b40855e2125bc97d7b7009e40423e2669
 Description:  A usb autoconfig hotplug script.
 
 Package: automount
@@ -95,33 +95,33 @@ Description:  The blkid program is the command-line interface to working with th
  library.
 
 Package: bnx2-firmware
-Version: 20230625-1
+Version: 20230804-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2-firmware
 Section: firmware
-SourceDateEpoch: 1689343695
+SourceDateEpoch: 1693733730
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 105167
-Filename: bnx2-firmware_20230625-1_x86_64.ipk
-Size: 105844
-SHA256sum: 0d0c2d8c36567e3fcf6b9dc4917c67a57b9f05fc7e765dc945a686abafdedea4
+Installed-Size: 105165
+Filename: bnx2-firmware_20230804-1_x86_64.ipk
+Size: 105832
+SHA256sum: 1960cd879ead9b8a034b07f14d0a1ade8474fb8cf4d0e4af8190337369dfba12
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
-Version: 20230625-1
+Version: 20230804-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2x-firmware
 Section: firmware
-SourceDateEpoch: 1689343695
+SourceDateEpoch: 1693733730
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 2421821
-Filename: bnx2x-firmware_20230625-1_x86_64.ipk
-Size: 2415497
-SHA256sum: de440e0fdde1e320d716d3ff5fafb51c5c04884f29a7f2764ca22af275286a4d
+Installed-Size: 2421818
+Filename: bnx2x-firmware_20230804-1_x86_64.ipk
+Size: 2415442
+SHA256sum: be27fc480ade37e63609b17fd4a77a9cd25c712ebea3ecf9d0165f99156eb8b8
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
@@ -142,7 +142,7 @@ Architecture: x86_64
 Installed-Size: 232335
 Filename: busybox_1.36.0-1_x86_64.ipk
 Size: 233281
-SHA256sum: 0403971df893f841e5692fc5e9edb8398368e82752fc5abdb7138a2b84e1a9e7
+SHA256sum: 43b886ab497cb7730151bf33a53cc9f26cbee481dabd5ba565f52c50c18cd50b
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -226,19 +226,19 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 3-2
+Version: 3-3
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1688660320
+SourceDateEpoch: 1692858592
 Architecture: all
-Installed-Size: 2022
-Filename: default-settings_3-2_all.ipk
-Size: 2748
-SHA256sum: 7603463b2dd99330959142a5bcbc2f993cf37b535d520466bd725b994aa76004
+Installed-Size: 2024
+Filename: default-settings_3-3_all.ipk
+Size: 2753
+SHA256sum: c1307518f07c037c3436f2f00d0278099cd3f3a4ca4007dd0609248249f7ccc9
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -334,18 +334,18 @@ SHA256sum: 375e24651d6511a0e92ef677c64580fac2c3024c0905294741643a53deaeb654
 Description:  OpenWrt getrandom system helper
 
 Package: i915-firmware
-Version: 20230625-1
+Version: 20230804-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: i915-firmware
 Section: firmware
-SourceDateEpoch: 1689343695
+SourceDateEpoch: 1693733730
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 7776103
-Filename: i915-firmware_20230625-1_x86_64.ipk
-Size: 7748932
-SHA256sum: 341af05d2eca38e4e0f9faf9498416cb343f380b070f5d2963cbe7506942891c
+Installed-Size: 7776009
+Filename: i915-firmware_20230804-1_x86_64.ipk
+Size: 7749169
+SHA256sum: 0164e90b4527ef8d19126326dc0ad0a7f1d14d9e71e2d7a854e42b6bd6c59155
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -985,21 +985,21 @@ SHA256sum: 9b010cfaea36ce78fce0778c7055f24992f3c77d8bdd72e6fbcb66f185d431f7
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 1.1.1u-2
+Version: 1.1.1v-1
 Depends: libc, libopenssl1.1
 Source: package/libs/openssl
 SourceName: libopenssl-conf
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1687966700
+SourceDateEpoch: 1692169981
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
 Installed-Size: 5016
-Filename: libopenssl-conf_1.1.1u-2_x86_64.ipk
-Size: 6025
-SHA256sum: bba9421ab6f0dc022eb12d519c2f30dd1031d6d792a41d0924cfe3ea090589e2
+Filename: libopenssl-conf_1.1.1v-1_x86_64.ipk
+Size: 6023
+SHA256sum: 2a76d4698333c7b58593b8eaf6b9e601b8bc66241ea8f6d0324423d39e73fc88
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1007,7 +1007,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl1.1
-Version: 1.1.1u-2
+Version: 1.1.1v-1
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
@@ -1015,15 +1015,15 @@ SourceName: libopenssl
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1687966700
+SourceDateEpoch: 1692169981
 ABIVersion: 1.1
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 1537585
-Filename: libopenssl1.1_1.1.1u-2_x86_64.ipk
-Size: 1531274
-SHA256sum: 58e7f66abf133fa5c2e92f601cda97055d19eadba11dc1d6a49fc4fe415caaf8
+Installed-Size: 1537668
+Filename: libopenssl1.1_1.1.1v-1_x86_64.ipk
+Size: 1531315
+SHA256sum: e8e745f5b23dcf74ff78beddb751dc9268a510b5b8b3c615f483896a07b3b542
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1424,21 +1424,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 1.1.1u-2
+Version: 1.1.1v-1
 Depends: libc, libopenssl1.1, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
 License: OpenSSL
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1687966700
+SourceDateEpoch: 1692169981
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
 Installed-Size: 266291
-Filename: openssl-util_1.1.1u-2_x86_64.ipk
-Size: 265525
-SHA256sum: eb1c6131f453a88e261c126a0f97b6ada528c6c1b1e74a7b3cb2af46669acb6f
+Filename: openssl-util_1.1.1v-1_x86_64.ipk
+Size: 265534
+SHA256sum: dad748df15551db9588b6e489b0d17855b8934543304f3b59772c7e8617cb4ea
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
