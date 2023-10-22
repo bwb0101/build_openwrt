@@ -289,7 +289,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /usr/share/dotnet
-          sudo -E apt-get -q purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -q purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mysql* php*
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           docker image prune -a -f
