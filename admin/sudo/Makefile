@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sudo
-PKG_VERSION:=1.9.10
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_VERSION:=1.9.14p3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.sudo.ws/dist
-PKG_HASH:=44a1461098e7c7b8e6ac597499c24fb2e43748c0c139a8b4944e57d1349a64f4
+PKG_HASH:=a08318b1c4bc8582c004d4cd9ae2903abc549e7e46ba815e41fe81d1c0782b62
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 
@@ -23,6 +23,7 @@ PKG_CPE_ID:=cpe:/a:todd_miller:sudo
 
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
