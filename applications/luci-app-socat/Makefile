@@ -6,8 +6,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-socat
-PKG_VERSION:=20200824
-PKG_RELEASE:=5
+PKG_VERSION:=20230129
+PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Lienol <lawlienol@gmail.com>
 
@@ -19,6 +19,6 @@ define Package/$(PKG_NAME)/conffiles
 /etc/config/socat
 endef
 
-include ../../luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
