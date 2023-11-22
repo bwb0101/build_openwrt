@@ -99,7 +99,7 @@ jobs:
         cp -f cfgs/smartdns/smartdns.conf mypkg/pkg/net/smartdns/conf
         #https://github.com/destan19/OpenAppFilter
         
-        UUGAME=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v3[^/]*" | head -n 1)
+        UUGAME=$(curl -s "http://router.uu.163.com/api/plugin?type=openwrt-x86_64" | jq .url | grep -o "v[^/]*" | head -n 1)
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$UUGAME/" mypkg/pkg/net/uugamebooster/Makefile
         wget http://uu.gdl.netease.com/uuplugin/openwrt-arm/$UUGAME/uu.tar.gz -O uu_arm.tar.gz
         wget http://uu.gdl.netease.com/uuplugin/openwrt-aarch64/$UUGAME/uu.tar.gz -O uu_aarch64.tar.gz
