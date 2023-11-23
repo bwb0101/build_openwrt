@@ -171,7 +171,7 @@ jobs:
           fail-if-no-release: false
       - name: 上传Toolchain到发布页
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: ncipollo/release-action@v1.8.0
+        uses: ncipollo/release-action@main
         with:
           name: toolchain-image
           allowUpdates: true
