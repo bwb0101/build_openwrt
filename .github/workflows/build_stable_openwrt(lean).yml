@@ -382,10 +382,11 @@ jobs:
           artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
       - name: 删除发布页旧的固件
         if: steps.generate.outputs.status == 'success' && !cancelled()
-        uses: dev-drprasad/delete-older-releases@v0.2.1
+        uses: dev-drprasad/delete-older-releases@v0.3.2
         with:
           #repo: <owner>/<repoName> # defaults to current repo
           keep_latest: 3
+          #delete_expired_data: 20
           delete_tag_pattern: ${{ env.OPENWRT_TAG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
