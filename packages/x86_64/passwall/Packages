@@ -1,197 +1,22 @@
-Package: chinadns-ng
-Version: 2023.06.01-1
-Depends: libc, ipset
-License: AGPL-3.0-only
-Section: net
-Architecture: x86_64
-Installed-Size: 29631
-Filename: chinadns-ng_2023.06.01-1_x86_64.ipk
-Size: 30368
-SHA256sum: 93210459527c0c72aa2e529dc5ca657c4d9ef00d9c3bcb0c25b5ad1cd28807f5
-Description:  ChinaDNS next generation, refactoring with epoll and ipset.
+Package: luci-app-passwall
+Version: 4.71-2
+Depends: libc, coreutils, coreutils-base64, coreutils-nohup, curl, chinadns-ng, dns2socks, dns2tcp, ip-full, libuci-lua, lua, luci-compat, luci-lib-jsonc, microsocks, resolveip, tcping, unzip, brook, haproxy, hysteria, shadowsocks-libev-ss-local, shadowsocks-libev-ss-redir, shadowsocks-libev-ss-server, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, simple-obfs, sing-box, trojan-go, trojan-plus, v2ray-plugin, xray-core
+Section: luci
+Architecture: all
+Installed-Size: 976457
+Filename: luci-app-passwall_4.71-2_all.ipk
+Size: 976594
+SHA256sum: 43df62e5be6317eb13195346fa6c6e1cec225d132702d80aac3ea2efa5b7e5f0
+Description:  LuCI support for PassWall
 
-Package: dns2socks
-Version: 2.1-2
-Depends: libc, libpthread
-License: BSD-3-Clause
-Section: net
-Architecture: x86_64
-Installed-Size: 10393
-Filename: dns2socks_2.1-2_x86_64.ipk
-Size: 11157
-SHA256sum: 1a2103fee22099db5e72aee2845991fe302d80ad1907e51f165000b55a3fb107
-Description:  This is a command line utility to resolve DNS requests via
- a SOCKS tunnel like Tor or a HTTP proxy.
-
-Package: dns2tcp
-Version: 1.1.0-1
-Depends: libc
-License: AGPL-3.0-only
-Section: net
-Architecture: x86_64
-Installed-Size: 11738
-Filename: dns2tcp_1.1.0-1_x86_64.ipk
-Size: 12514
-SHA256sum: e9c44ad969fcf9cbde981bcfa8b6602cd1ef6345d39c1386798601a88960ad57
-Description:  utility to convert dns query from udp to tcp
-
-Package: ipt2socks
-Version: 1.1.3-3
-Depends: libc, libpthread
-License: AGPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 27130
-Filename: ipt2socks_1.1.3-3_x86_64.ipk
-Size: 27822
-SHA256sum: 2c363241d748086130a70d366c8b2839cf4ddcadd256e8c010fd4f2a18bf6786
-Description:  Utility for converting iptables (redirect/tproxy) to socks5.
-
-Package: microsocks
-Version: 1.0.3-1
-Depends: libc, libpthread
-License: MIT
-Section: net
-Architecture: x86_64
-Installed-Size: 5480
-Filename: microsocks_1.0.3-1_x86_64.ipk
-Size: 6277
-SHA256sum: 0b62a23b4e5d64df5723bbbe108c053b93ad9c2d7550ba72dcb74af7116ba535
-Description:  A SOCKS5 service that you can run on your remote boxes to tunnel connections
- through them, if for some reason SSH doesn't cut it for you.
-
-Package: shadowsocksr-libev-ssr-check
-Version: 2.5.6-9
-Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
-License: GPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 2386
-Filename: shadowsocksr-libev-ssr-check_2.5.6-9_x86_64.ipk
-Size: 3116
-SHA256sum: 0c9495e442f1f6b640b3874c94a8957f84487a17d0f457fee4254d8091fc427c
-Description:  shadowsocksr-libev ssr-check
-
-Package: shadowsocksr-libev-ssr-local
-Version: 2.5.6-9
-Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
-License: GPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 63053
-Filename: shadowsocksr-libev-ssr-local_2.5.6-9_x86_64.ipk
-Size: 63899
-SHA256sum: 2d686cce09a465be44ed2be249e4b3b1c87291e7c8a12c791e249594117dec84
-Description:  shadowsocksr-libev ssr-local
-
-Package: shadowsocksr-libev-ssr-redir
-Version: 2.5.6-9
-Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
-License: GPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 56227
-Filename: shadowsocksr-libev-ssr-redir_2.5.6-9_x86_64.ipk
-Size: 57025
-SHA256sum: b0ae537cc7249c11c7e6dd4e8e65f924eb5b155b7e864e9d5476dfc655fa9d86
-Description:  shadowsocksr-libev ssr-redir
-
-Package: shadowsocksr-libev-ssr-server
-Version: 2.5.6-9
-Depends: libc, libev, libsodium, libopenssl1.1, libpthread, libpcre, libudns, zlib
-License: GPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 65994
-Filename: shadowsocksr-libev-ssr-server_2.5.6-9_x86_64.ipk
-Size: 66821
-SHA256sum: 247c4a45f33ddd2170d4fd89f91d57dfaca1774e80107f4b5034ae0f18cf5906
-Description:  shadowsocksr-libev ssr-server
-
-Package: simple-obfs
-Version: 0.0.5-1
-Depends: libc, libpthread, libev
-License: GPL-3.0-or-later
-Section: net
-Architecture: x86_64
-Installed-Size: 30580
-Filename: simple-obfs_0.0.5-1_x86_64.ipk
-Size: 31354
-SHA256sum: f87f1db4f46d3e480e4cf3818f4a34297958aa8d4dc64a05647ad4018269355b
-Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
-
-Package: sing-box
-Version: 1.5.0-beta.5-1
-Depends: libc, ca-bundle, kmod-inet-diag, kmod-netlink-diag, kmod-tun
-License: GPL-3.0-or-later
-Section: net
-Architecture: x86_64
-Installed-Size: 8690089
-Filename: sing-box_1.5.0-beta.5-1_x86_64.ipk
-Size: 8669939
-SHA256sum: 8ede254e495e6d5a0c1c7580389be1aae7488e460ceeb8efe201cb7a81c9a681
-Description:  Sing-box is a universal proxy platform which supports hysteria, SOCKS, Shadowsocks,
- ShadowsocksR, ShadowTLS, Tor, trojan, VLess, VMess, WireGuard and so on.
-
-Package: tcping
-Version: 0.3-1
-Depends: libc
-License: GPL-2.0-only
-Section: net
-Architecture: x86_64
-Installed-Size: 3771
-Filename: tcping_0.3-1_x86_64.ipk
-Size: 4481
-SHA256sum: a946a1232c535de233d28bee3f2f638af09efcee669ba3bcb16c6d4ecb683862
-Description:  tcping measures the latency of a tcp-connection
-
-Package: trojan-plus
-Version: 10.0.3-2
-Depends: libc, libpthread, libstdcpp6, libopenssl1.1, boost, boost-system, boost-program_options
-License: GPL-3.0
-Section: net
-Architecture: x86_64
-Installed-Size: 454812
-Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 455592
-SHA256sum: b38249a03326977be9f829210e5e10f94b374d4e4578223c32d4dca4625933d6
-Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
-
-Package: v2ray-core
-Version: 5.7.0-1
-Depends: libc, ca-bundle
-License: MIT
-Section: net
-Architecture: x86_64
-Installed-Size: 9332998
-Filename: v2ray-core_5.7.0-1_x86_64.ipk
-Size: 9306606
-SHA256sum: a4d878729c2db6fd0cc144fd39b909505cbfa16ee246db3f78c2652203768487
-Description:  Project V is a set of network tools that help you to build your own computer network.
- It secures your network connections and thus protects your privacy.
-
-Package: v2ray-plugin
-Version: 5.7.0-1
-Depends: libc, ca-bundle
-License: MIT
-Section: net
-Architecture: x86_64
-Installed-Size: 5247741
-Filename: v2ray-plugin_5.7.0-1_x86_64.ipk
-Size: 5236531
-SHA256sum: 37dfb2950eb9a6d4376bf90164fbf29c3082fb4231d08220992862b9cf847f90
-Description:  SIP003 plugin for shadowsocks, based on v2ray
-
-Package: xray-core
-Version: 1.8.4-1
-Depends: libc, ca-bundle
-License: MPL-2.0
-Section: net
-Architecture: x86_64
-Installed-Size: 9535224
-Filename: xray-core_1.8.4-1_x86_64.ipk
-Size: 9511252
-SHA256sum: 7f6119b895a2838962f35e76d0453a35010f0c4316350e0fdc1e6849cd7c55d7
-Description:  Xray, Penetrates Everything. It helps you to build your own computer network.
- It secures your network connections and thus protects your privacy.
+Package: luci-i18n-passwall-zh-cn
+Version: 4.71-2
+Depends: libc, luci-app-passwall
+Section: luci
+Architecture: all
+Installed-Size: 14583
+Filename: luci-i18n-passwall-zh-cn_4.71-2_all.ipk
+Size: 15365
+SHA256sum: 85a3ef43296de080f4ddd49ca7218e4ffa61428230c427b3e1c95a9d348ab166
+Description:  Translation for luci-app-passwall - 简体中文 (Simplified Chinese)
 

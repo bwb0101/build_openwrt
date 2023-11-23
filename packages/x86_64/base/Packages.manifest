@@ -32,18 +32,18 @@ SHA256sum: 426c51eab6edc6e456e16a93450235af217b4639844974cf90e6a6164c5df193
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
-Version: 64
+Version: 68
 Depends: libc, bc, lm-sensors, ethtool, pciutils
 Source: package/lean/autocore
 SourceName: autocore-x86
 Section: opt
-SourceDateEpoch: 1690383439
+SourceDateEpoch: 1700202510
 Maintainer: Lean
 Architecture: x86_64
-Installed-Size: 8296
-Filename: autocore-x86_64_x86_64.ipk
-Size: 9055
-SHA256sum: 78b3ed5f4528bac4041659614c4bd62b40855e2125bc97d7b7009e40423e2669
+Installed-Size: 8312
+Filename: autocore-x86_68_x86_64.ipk
+Size: 9066
+SHA256sum: 0ba0733887ef9dd3a89e4f31a24702111b4f82cb2b06bdb98e0b165d26534603
 Description:  A usb autoconfig hotplug script.
 
 Package: automount
@@ -141,8 +141,8 @@ Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 232335
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233281
-SHA256sum: 43b886ab497cb7730151bf33a53cc9f26cbee481dabd5ba565f52c50c18cd50b
+Size: 233287
+SHA256sum: fb866bc0ab3f0a2499cae6ada016b32264e575cfba1bc0e7b19a9ec07cf61195
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -226,23 +226,23 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 3-3
+Version: 3-8
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1692858592
+SourceDateEpoch: 1699079044
 Architecture: all
-Installed-Size: 2024
-Filename: default-settings_3-3_all.ipk
-Size: 2753
-SHA256sum: c1307518f07c037c3436f2f00d0278099cd3f3a4ca4007dd0609248249f7ccc9
+Installed-Size: 2042
+Filename: default-settings_3-8_all.ipk
+Size: 2771
+SHA256sum: 3ef402252c61e181e03453ace36f913602996d6a2df1e0f20933a0e714c54701
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
-Version: 2.88-1
+Version: 2.88-2
 Depends: libc, libubus20220601, kmod-ipt-ipset
 Provides: dnsmasq
 Source: package/network/services/dnsmasq
@@ -251,13 +251,13 @@ License: GPL-2.0
 LicenseFiles: COPYING
 Section: net
 Require-User: dnsmasq=453:dnsmasq=453
-SourceDateEpoch: 1672058431
+SourceDateEpoch: 1698143641
 CPE-ID: cpe:/a:thekelleys:dnsmasq
 Architecture: x86_64
-Installed-Size: 174553
-Filename: dnsmasq-full_2.88-1_x86_64.ipk
-Size: 175351
-SHA256sum: f6fdb477d23dda8c4a8770bd4ef9ef4119b3316cf0e8048b4fa0845ec067886f
+Installed-Size: 174598
+Filename: dnsmasq-full_2.88-2_x86_64.ipk
+Size: 175363
+SHA256sum: cf0424cdebfd6cfa2e7801b6a065bc75582320280dc821be1ddd10976cdb92e4
 Description:  It is intended to provide coupled DNS and DHCP service to a LAN.
  
  This is a fully configurable variant with DHCPv4, DHCPv6, DNSSEC, Authoritative DNS
@@ -361,10 +361,10 @@ SourceDateEpoch: 1678283784
 CPE-ID: cpe:/a:iproute2_project:iproute2
 Maintainer: Russell Senior <russell@personaltelco.net>
 Architecture: x86_64
-Installed-Size: 225055
+Installed-Size: 225032
 Filename: ip-full_6.2.0-1_x86_64.ipk
-Size: 225923
-SHA256sum: 834cd21bc06504dabe757503847fca6913d2a8416d17e85e02b35d08daae7c3c
+Size: 225909
+SHA256sum: b86ed2d5ffb328caae8423263db5e48fb56951ea652bfbf2608f28eea8648619
 Description:  Routing control utility (full)
 
 Package: ipset
@@ -501,10 +501,10 @@ SourceDateEpoch: 1663215105
 ABIVersion: 20220308
 Maintainer: Tony Ambardar <itugrok@yahoo.com>
 Architecture: x86_64
-Installed-Size: 132245
+Installed-Size: 132255
 Filename: libbpf20220308_2022-03-08-04c465fd-1_x86_64.ipk
-Size: 133166
-SHA256sum: f036cc1cd27ad25a156e15c52c0cf61aa497f20ae50b590b8545621f4cb8ff4d
+Size: 133183
+SHA256sum: ca34eef6cc1d5ad6649a2cd086f67b440f00eabf6c606a82b7ffda14a9663cd8
 Description:  libbpf is a library for loading eBPF programs and reading and manipulating eBPF objects from user-space.
 
 Package: libbz2-1.0
@@ -602,8 +602,8 @@ Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
 Installed-Size: 40459
 Filename: libelf1_0.188-1_x86_64.ipk
-Size: 41278
-SHA256sum: e37f36d7a724b742c4e1a0cc5b5b3735467f8992f1f7ee315fc2acc2e99afd41
+Size: 41284
+SHA256sum: 2b000cd80d09750aade1ab293e62c4f02c0029cfb306243298aa1acf33b6fb80
 Description:  ELF manipulation libraries (libelf)
 
 Package: libeudev
@@ -849,7 +849,7 @@ Description:
  This package contains the Lua shared libraries, needed by other programs.
 
 Package: libmbedtls12
-Version: 2.28.3-1
+Version: 2.28.5-1
 Depends: libc
 Provides: libmbedtls
 Source: package/libs/mbedtls
@@ -857,14 +857,14 @@ SourceName: libmbedtls
 License: GPL-2.0-or-later
 LicenseFiles: gpl-2.0.txt
 Section: libs
-SourceDateEpoch: 1681919798
+SourceDateEpoch: 1697383808
 ABIVersion: 12
 CPE-ID: cpe:/a:arm:mbed_tls
 Architecture: x86_64
-Installed-Size: 239724
-Filename: libmbedtls12_2.28.3-1_x86_64.ipk
-Size: 240574
-SHA256sum: 0d045130ee63bfd6b33aeb1c392c4a527a0ac0eef8191a34fde7c93c15e4b8cf
+Installed-Size: 240374
+Filename: libmbedtls12_2.28.5-1_x86_64.ipk
+Size: 241115
+SHA256sum: a009bc069c13256561f3a9259e0d6f3fa0d31b7ebfba40d81c4048083fc4807b
 Description:  The aim of the mbedtls project is to provide a quality, open-source
  cryptographic library written in C and targeted at embedded systems.
  This package contains the mbedtls library.
@@ -985,45 +985,45 @@ SHA256sum: 9b010cfaea36ce78fce0778c7055f24992f3c77d8bdd72e6fbcb66f185d431f7
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 1.1.1v-1
-Depends: libc, libopenssl1.1
+Version: 3.0.12-1
+Depends: libc, libopenssl3
 Source: package/libs/openssl
 SourceName: libopenssl-conf
-License: OpenSSL
+License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1692169981
+SourceDateEpoch: 1698334730
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 5016
-Filename: libopenssl-conf_1.1.1v-1_x86_64.ipk
-Size: 6023
-SHA256sum: 2a76d4698333c7b58593b8eaf6b9e601b8bc66241ea8f6d0324423d39e73fc88
+Installed-Size: 6266
+Filename: libopenssl-conf_3.0.12-1_x86_64.ipk
+Size: 7448
+SHA256sum: aa0b6417bbdfab4032f85d05779d5b446e8bed5b3e698e53dfe95c1aeabb2704
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
  general-purpose cryptography library.
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
-Package: libopenssl1.1
-Version: 1.1.1v-1
+Package: libopenssl3
+Version: 3.0.12-1
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
 SourceName: libopenssl
-License: OpenSSL
+License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1692169981
-ABIVersion: 1.1
+SourceDateEpoch: 1698334730
+ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 1537668
-Filename: libopenssl1.1_1.1.1v-1_x86_64.ipk
-Size: 1531315
-SHA256sum: e8e745f5b23dcf74ff78beddb751dc9268a510b5b8b3c615f483896a07b3b542
+Installed-Size: 2133702
+Filename: libopenssl3_3.0.12-1_x86_64.ipk
+Size: 2124560
+SHA256sum: 5c84b0d2204bec77c2059fece2e6abca0a37163caa616baebdbf18d2cedf7f06
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1275,7 +1275,7 @@ Description:  libusb is a C library that gives applications easy access to USB d
 
 Package: libustream-openssl20201210
 Version: 2022-12-08-9217ab46-1
-Depends: libc, libubox20220927, libopenssl1.1
+Depends: libc, libubox20220927, libopenssl3
 Provides: libustream-openssl
 Source: package/libs/ustream-ssl
 SourceName: libustream-openssl
@@ -1285,10 +1285,10 @@ SourceDateEpoch: 1670480457
 ABIVersion: 20201210
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 4762
+Installed-Size: 4743
 Filename: libustream-openssl20201210_2022-12-08-9217ab46-1_x86_64.ipk
-Size: 5524
-SHA256sum: cb24ad66514d2c63b9b16e68e3f5faadc76ec793fedd287914497e00996b4754
+Size: 5500
+SHA256sum: 8fbffc16795a29b714f0cb34e248f481eebaaa69dbb06054a744f533479ed0ee
 Description:  ustream SSL Library (openssl)
 
 Package: libuuid1
@@ -1424,21 +1424,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 1.1.1v-1
-Depends: libc, libopenssl1.1, libopenssl-conf
+Version: 3.0.12-1
+Depends: libc, libopenssl3, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
-License: OpenSSL
+License: Apache-2.0
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1692169981
+SourceDateEpoch: 1698334730
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 266291
-Filename: openssl-util_1.1.1v-1_x86_64.ipk
-Size: 265534
-SHA256sum: dad748df15551db9588b6e489b0d17855b8934543304f3b59772c7e8617cb4ea
+Installed-Size: 343274
+Filename: openssl-util_3.0.12-1_x86_64.ipk
+Size: 342416
+SHA256sum: 7c1617f28337a111b38bf8e19a189280cd0b4bb4065914f811ed62f7e2d2324d
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
