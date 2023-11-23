@@ -119,14 +119,14 @@ jobs:
       with:
         branch: packages_lean
         folder: mypkg/pkg
-        commit-message: "Build: ${{ env.DATE }}({sha})"
+        commit-message: "Build: ${{ env.DATE }}"
         clean: true
     - name: Push my packages
       uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
         branch: luci_lean
         folder: mypkg/luci
-        commit-message: "Build: ${{ env.DATE }}({sha})"
+        commit-message: "Build: ${{ env.DATE }}"
         clean: true
 
     - name: Delete workflow runs
