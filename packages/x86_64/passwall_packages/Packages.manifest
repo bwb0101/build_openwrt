@@ -6,13 +6,13 @@ SourceName: brook
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 7586929
+Installed-Size: 7586935
 Filename: brook_20230606-2_x86_64.ipk
-Size: 7496193
-SHA256sum: f76a7818d434715e4b370ab23170a924e60b2dcb5ec93f6005d7fa971aff8931
+Size: 7496320
+SHA256sum: 87134ed8677bacf1688fc8860090b8831c6cee3a55caee0ea01703c32b0d70a6
 Description:  Brook is a cross-platform strong encryption and not detectable proxy.
  Zero-Configuration.
 
@@ -24,13 +24,13 @@ SourceName: chinadns-ng
 License: AGPL-3.0-only
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: pexcn <i@pexcn.me>
 Architecture: x86_64
-Installed-Size: 29695
+Installed-Size: 29694
 Filename: chinadns-ng_2023.10.28-1_x86_64.ipk
-Size: 30444
-SHA256sum: a47198ec3c343ffacfeb26a60e9f8b6b5e22d48cdc8726a8d23c645182dc3b5d
+Size: 30467
+SHA256sum: cb06d91f9d4e86323c2b38e72e76a8272860a2e8fd08390ff84f12d48cb5ed91
 Description:  ChinaDNS next generation, refactoring with epoll and ipset.
 
 Package: dns2socks
@@ -40,13 +40,13 @@ Source: feeds/passwall_packages/dns2socks
 SourceName: dns2socks
 License: BSD-3-Clause
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: ghostmaker
 Architecture: x86_64
-Installed-Size: 10394
+Installed-Size: 10391
 Filename: dns2socks_2.1-2_x86_64.ipk
-Size: 11161
-SHA256sum: 1d4f302ffd86fc1b7b30b775a0b02a5d9e44f59e22118f2e1688f83b5058ad24
+Size: 11153
+SHA256sum: 27b93b5ea705b0d7164e6f44372f9b381366dd5bd5472b121033c956cdbddfbe
 Description:  This is a command line utility to resolve DNS requests via
  a SOCKS tunnel like Tor or a HTTP proxy.
 
@@ -58,13 +58,13 @@ SourceName: dns2tcp
 License: AGPL-3.0-only
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
 Installed-Size: 11740
 Filename: dns2tcp_1.1.0-1_x86_64.ipk
-Size: 12516
-SHA256sum: 339074df8df8c225b34947da8255c23ca5b68522983b039fcdc1aa862b11ff72
+Size: 12514
+SHA256sum: 7e6492b3f76b318c21f400cfe0e0606bfaa01dafd953834e5071e3689d7e72cf
 Description:  utility to convert dns query from udp to tcp
 
 Package: hysteria
@@ -74,13 +74,13 @@ Source: feeds/passwall_packages/hysteria
 SourceName: hysteria
 License: MIT
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
 Installed-Size: 5817953
 Filename: hysteria_2.2.2-1_x86_64.ipk
-Size: 5805928
-SHA256sum: cf6c1fd3ce215a7fdca11a3a4a33d1ee439f0ca4891439c4c7f3356beb779636
+Size: 5805935
+SHA256sum: 808e478a8ad6cb1e1a682e2284065f0f7b0d6e9c0f09b16aa0b6fee76eb26090
 Description:  Hysteria is a feature-packed network utility optimized for networks
  of poor quality (e.g. satellite connections, congested public Wi-Fi,
  connecting from China to servers abroad) powered by a custom version
@@ -93,12 +93,12 @@ Source: feeds/passwall_packages/ipt2socks
 SourceName: ipt2socks
 License: AGPL-3.0
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Architecture: x86_64
-Installed-Size: 27132
+Installed-Size: 27131
 Filename: ipt2socks_1.1.3-3_x86_64.ipk
-Size: 27895
-SHA256sum: 7b9411a352531900be9c91623a4cdbf3ceef34c09c56ecb02bba267d05ba7075
+Size: 27880
+SHA256sum: d50a743acb0f400700e5f6f7ad772c704d223c453b34f224e06874722bb93697
 Description:  Utility for converting iptables (redirect/tproxy) to socks5.
 
 Package: microsocks
@@ -109,15 +109,48 @@ SourceName: microsocks
 License: MIT
 LicenseFiles: COPYING
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: lean
 Architecture: x86_64
-Installed-Size: 5482
+Installed-Size: 5480
 Filename: microsocks_1.0.3-1_x86_64.ipk
-Size: 6288
-SHA256sum: 429397ea0a9cc640e66b3d36c646a5e41a6cb23c7f4108b7ed5b0233b80565b7
+Size: 6285
+SHA256sum: 3ec243ea82cb5ab310905a8112ca7e0ee5216a660d736928974710bb460074ed
 Description:  A SOCKS5 service that you can run on your remote boxes to tunnel connections
  through them, if for some reason SSH doesn't cut it for you.
+
+Package: shadowsocks-rust-sslocal
+Version: 1.17.1-1
+Depends: libc
+Source: feeds/passwall_packages/shadowsocks-rust
+SourceName: shadowsocks-rust-sslocal
+License: MIT
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1701314201
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: x86_64
+Installed-Size: 2972061
+Filename: shadowsocks-rust-sslocal_1.17.1-1_x86_64.ipk
+Size: 2949828
+SHA256sum: c903f41cb38789441811a64d90c87c215ccd75fa228d32a927dc4ea6e4a99523
+Description:  shadowsocks-rust sslocal
+
+Package: shadowsocksr-libev-ssr-check
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl3, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall_packages/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-check
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1701314201
+Architecture: x86_64
+Installed-Size: 2385
+Filename: shadowsocksr-libev-ssr-check_2.5.6-9_x86_64.ipk
+Size: 3124
+SHA256sum: 42b7abb030454c92af8ef853ffb2b59d3ca1ce167b73e11f2af3b4d018bd51dc
+Description:  shadowsocksr-libev ssr-check
 
 Package: shadowsocksr-libev-ssr-local
 Version: 2.5.6-9
@@ -127,12 +160,12 @@ SourceName: shadowsocksr-libev-ssr-local
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Architecture: x86_64
-Installed-Size: 63076
+Installed-Size: 63075
 Filename: shadowsocksr-libev-ssr-local_2.5.6-9_x86_64.ipk
-Size: 63923
-SHA256sum: 24224d260166c143aea9ff9213ec1fc60609be909ecb181aef9573bff25985b0
+Size: 63927
+SHA256sum: ccd44cbc7b811e907be3b5a3d8c8c4e5a169b7b7ca7f2905b0150e76b16d991d
 Description:  shadowsocksr-libev ssr-local
 
 Package: shadowsocksr-libev-ssr-redir
@@ -143,13 +176,29 @@ SourceName: shadowsocksr-libev-ssr-redir
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Architecture: x86_64
-Installed-Size: 56221
+Installed-Size: 56222
 Filename: shadowsocksr-libev-ssr-redir_2.5.6-9_x86_64.ipk
-Size: 57026
-SHA256sum: 2895f91a387686cb889d939394b4d9087d04e844584c3dfdc583d125ac7f7d62
+Size: 57015
+SHA256sum: 3a4268fa66a84ced940be01ee8779b93ce60b910a41aaa41096d3f4e29268562
 Description:  shadowsocksr-libev ssr-redir
+
+Package: shadowsocksr-libev-ssr-server
+Version: 2.5.6-9
+Depends: libc, libev, libsodium, libopenssl3, libpthread, libpcre, libudns, zlib
+Source: feeds/passwall_packages/shadowsocksr-libev
+SourceName: shadowsocksr-libev-ssr-server
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1701314201
+Architecture: x86_64
+Installed-Size: 66010
+Filename: shadowsocksr-libev-ssr-server_2.5.6-9_x86_64.ipk
+Size: 66821
+SHA256sum: 8f2f60b2e5af045b41772a57da6903cb401fd74f79ba047b2e58b6ea9cc1168c
+Description:  shadowsocksr-libev ssr-server
 
 Package: simple-obfs
 Version: 0.0.5-1
@@ -159,29 +208,29 @@ SourceName: simple-obfs
 License: GPL-3.0-or-later
 LicenseFiles: COPYING LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Jian Chang <aa65535@live.com>
 Architecture: x86_64
-Installed-Size: 30581
+Installed-Size: 30580
 Filename: simple-obfs_0.0.5-1_x86_64.ipk
-Size: 31362
-SHA256sum: cc6933f7dd84fe0f6f9e6459a3928243be9476d5736d460b39dd0b4fb30b5b3f
+Size: 31361
+SHA256sum: d803e6a6ba4ccf387d0f08574751342cb79485b8491696dcca9ddfecff5562c5
 Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 
 Package: sing-box
-Version: 1.6.7-1
+Version: 1.7.0-1
 Depends: libc, ca-bundle, kmod-inet-diag, kmod-netlink-diag, kmod-tun
 Source: feeds/passwall_packages/sing-box
 SourceName: sing-box
 License: GPL-3.0-or-later
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Architecture: x86_64
-Installed-Size: 8586294
-Filename: sing-box_1.6.7-1_x86_64.ipk
-Size: 8566241
-SHA256sum: c886d7240f051e882d10e1b805656d528aadff2bef0b316b32c2c35373ce8f3c
+Installed-Size: 8620006
+Filename: sing-box_1.7.0-1_x86_64.ipk
+Size: 8600132
+SHA256sum: 49befe3df49119c86f7c28483b35ad3445007869fb1724e94da2423f36dd1728
 Description:  Sing-box is a universal proxy platform which supports hysteria, SOCKS,
  Shadowsocks, ShadowTLS, Tor, trojan, VLess, VMess, WireGuard and so on.
 
@@ -193,12 +242,12 @@ SourceName: tcping
 License: GPL-2.0-only
 LicenseFiles: license.txt
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Architecture: x86_64
 Installed-Size: 3774
 Filename: tcping_0.3-1_x86_64.ipk
-Size: 4491
-SHA256sum: fdb8349dbadd75b71ecfb5de0d90c9caf5197b02b74b57e865e5dc01460e2c23
+Size: 4484
+SHA256sum: 2d6f9734da97b405d8c87e31cf7be87caab76ffa6ed5f7dbc9686c9b7df32441
 Description:  tcping measures the latency of a tcp-connection
 
 Package: trojan-go
@@ -209,13 +258,13 @@ SourceName: trojan-go
 License: GPL-3.0-only
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 5426696
+Installed-Size: 5426663
 Filename: trojan-go_0.10.6-1_x86_64.ipk
-Size: 5416267
-SHA256sum: 19948008449d9511eccc8eb734032fc64c8922612ec4cc842394d0512c869b33
+Size: 5416140
+SHA256sum: d8ccb29b3658083448886102715a67559d0a3548f623481d049f18144dda8c38
 Description:  Trojan features multiple protocols over TLS to avoid both
  active/passive detections and ISP QoS limitations.
 
@@ -226,13 +275,13 @@ Source: feeds/passwall_packages/trojan-plus
 SourceName: trojan-plus
 License: GPL-3.0
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Trojan-Plus-Group
 Architecture: x86_64
-Installed-Size: 454908
+Installed-Size: 454911
 Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 455710
-SHA256sum: e0e4b274e8c10061b36dc02a858c49d1a7e5258022d40714ad220eddcd16515a
+Size: 455672
+SHA256sum: 0116dd0115524ec04d9619bc89845782b344aa0db1ed395c309a28bddb02fc34
 Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
 
 Package: v2ray-core
@@ -243,13 +292,13 @@ SourceName: v2ray-core
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 11576004
+Installed-Size: 11575817
 Filename: v2ray-core_5.12.1-1_x86_64.ipk
-Size: 11533823
-SHA256sum: 2d0ef9af1cb1d11c4639bf0debc678ec7344c3470bc3d58d0bdcbb7ddcd7e864
+Size: 11533532
+SHA256sum: 62ad01162000a0d5dd2d57e70327fcb4700389881317a32c86b2849b7b314698
 Description:  Project V is a set of network tools that help you to build your own computer network.
  It secures your network connections and thus protects your privacy.
 
@@ -261,13 +310,13 @@ SourceName: v2ray-plugin
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: madeye <max.c.lv@gmail.com>
 Architecture: x86_64
-Installed-Size: 5152381
+Installed-Size: 5152361
 Filename: v2ray-plugin_5.12.0-1_x86_64.ipk
-Size: 5141349
-SHA256sum: 78ed8c6a96fc551e945e2e0a9ab91d108106b67cce0837ce95da095bbcef99b3
+Size: 5141298
+SHA256sum: 5665457fe50a87f1ef4174accecdaecd30d28beaf8333873fd4051591e53ba6d
 Description:  SIP003 plugin for shadowsocks, based on v2ray
 
 Package: xray-core
@@ -278,13 +327,13 @@ SourceName: xray-core
 License: MPL-2.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1701148427
+SourceDateEpoch: 1701314201
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 10111187
+Installed-Size: 10111183
 Filename: xray-core_1.8.6-1_x86_64.ipk
-Size: 10084585
-SHA256sum: 59bf60e0644bea760796590ad9b0d439116c1e651b756be9bc32951a98fae282
+Size: 10084845
+SHA256sum: ee22b72160b85b1d17ea6d9170fe96761e4dd1374ca44cb032e5ea2eb2ef2455
 Description:  Xray, Penetrates Everything. It helps you to build your own computer network.
  It secures your network connections and thus protects your privacy.
 
