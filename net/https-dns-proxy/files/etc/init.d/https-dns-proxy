@@ -30,10 +30,12 @@ readonly canaryDomainsiCloud='mask.icloud.com mask-h2.icloud.com'
 
 on_boot_trigger=
 
-str_contains() { [ -n "$1" ] &&[ -n "$2" ] && [ "${1//$2}" != "$1" ]; }
+dnsmasq_restart() { [ -x /etc/init.d/dnsmasq ] || return 1; /etc/init.d/dnsmasq restart >/dev/null 2>&1; }
+is_fw4_restart_needed() { [ "$(uci_get "$packageName" 'config' 'force_dns' '1')" = '1' ]; }
 is_mac_address() { expr "$1" : '[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]$' >/dev/null; }
 is_ipv4() { expr "$1" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; }
 is_ipv6() { ! is_mac_address "$1" && str_contains "$1" ":"; }
+is_resolver_working() { resolveip -t 3 one.one.one.one >/dev/null 2>&1; }
 output() {
 	local msg memmsg logmsg
 	local sharedMemoryOutput="/dev/shm/$packageName-output"
@@ -52,6 +54,7 @@ output_ok() { output "$_OK_"; }
 output_okn() { output "${_OK_}\\n"; }
 output_fail() { output "$_FAIL_"; }
 output_failn() { output "${_FAIL_}\\n"; }
+str_contains() { [ -n "$1" ] &&[ -n "$2" ] && [ "${1//$2}" != "$1" ]; }
 uci_add_list_if_new() {
 	local PACKAGE="$1"
 	local CONFIG="$2"
@@ -70,9 +73,6 @@ uci_changes() {
 	local OPTION="$3"
 	/sbin/uci ${UCI_CONFIG_DIR:+-c $UCI_CONFIG_DIR} changes "$PACKAGE${CONFIG:+.$CONFIG}${OPTION:+.$OPTION}"
 }
-
-dnsmasq_restart() { [ -x /etc/init.d/dnsmasq ] || return 1; /etc/init.d/dnsmasq restart >/dev/null 2>&1; }
-
 version() { echo "$PKG_VERSION"; }
 
 xappend() { PROG_param="$PROG_param $1"; }
@@ -131,13 +131,11 @@ append_bootstrap() {
 	[ "$ipv6_resolvers_only" -eq 0 ] && xappend '-4'
 }
 
-resolver_health_check() { resolveip -t 3 one.one.one.one >/dev/null 2>&1; }
-
 boot() {
 	ubus -t 30 wait_for network.interface 2>/dev/null
 	on_boot_trigger=1
-	rc_procd start_service 'on_boot' && rc_procd service_started 'on_boot'
-	resolver_health_check || rc_procd stop_service 'on_boot'
+	rc_procd start_service 'on_boot' && service_started 'on_boot'
+	is_resolver_working || { rc_procd stop_service 'on_boot' && service_stopped 'on_boot'; }
 }
 
 start_instance() {
@@ -171,7 +169,7 @@ start_instance() {
 	json_add_object mdns
 		procd_add_mdns_service "$packageName" 'udp' "$port" "DNS over HTTPS proxy"
 	json_close_object
-	if [ "$force_dns" -ne 0 ]; then
+	if [ "$force_dns" -ne '0' ]; then
 		json_add_array firewall
 		for iface in $procd_fw_src_interfaces; do
 			for p in $force_dns_port; do
@@ -203,7 +201,8 @@ start_instance() {
 	procd_close_data
 	procd_close_instance
 
-	if [ "$?" ]; then
+# shellcheck disable=SC2181
+	if [ "$?" -eq 0 ]; then
 		config_get listen_addr "$cfg" 'listen_addr' '127.0.0.1'
 		config_get listen_port "$cfg" 'listen_port' "$port"
 		if [ "$dnsmasq_config_update" = '*' ]; then
@@ -220,7 +219,7 @@ start_instance() {
 		fi
 		output_ok
 		port="$((port+1))"
-		force_dns=0
+		force_dns='0'
 	else
 		output_fail
 	fi
@@ -320,8 +319,8 @@ service_triggers() {
 	procd_add_config_trigger "config.change" "$packageName" "/etc/init.d/${packageName}" reload 'on_config_change'
 }
 
-service_started() { procd_set_config_changed firewall; }
-service_stopped() { procd_set_config_changed firewall; }
+service_started() { is_fw4_restart_needed && procd_set_config_changed firewall; }
+service_stopped() { is_fw4_restart_needed && procd_set_config_changed firewall; }
 restart() { procd_send_signal "$packageName"; rc_procd start_service "$*"; }
 
 dnsmasq_doh_server() {
@@ -341,7 +340,7 @@ dnsmasq_doh_server() {
 			uci_add_list_if_new 'dhcp' "$cfg" 'doh_server' "${address}#${port}"
 		;;
 		remove)
-			for i in $(uci -q get "dhcp.$cfg.doh_server"); do
+			for i in $(uci_get 'dhcp' "$cfg" 'doh_server'); do
 				uci_remove_list 'dhcp' "$cfg" 'server' "$i"
 				uci_remove_list 'dhcp' "$cfg" 'doh_server' "$i"
 			done
