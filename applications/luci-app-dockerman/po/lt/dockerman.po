@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-12-02 18:04+0000\n"
+"PO-Revision-Date: 2024-02-02 12:51+0000\n"
 "Last-Translator: Džiugas J <dziugas1959@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsdockerman/lt/>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:604
 msgid "A list of kernel capabilities to add to the container"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:483
 msgid "Always pull image first"
-msgstr "Visada traukti „image“ pirmą"
+msgstr "Visada traukti laikmeną pirmą"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:23
 msgid ""
@@ -46,7 +46,7 @@ msgstr ""
 "Bendra skiltis su reikama informacija yra rodomas čia su kurio „LuCI Docker“ "
 "yra prisijungęs."
 
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:27
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:29
 msgid "Api Version"
 msgstr "API Versija"
 
@@ -54,7 +54,7 @@ msgstr "API Versija"
 msgid "Auto create macvlan interface in Openwrt"
 msgstr "Automatiškai sukurti „macvlan“ išvaizdą į „Openwrt“"
 
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:64
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:66
 msgid "Available"
 msgstr "Pasiekiamas"
 
@@ -134,7 +134,7 @@ msgstr ""
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:565
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:611
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:28
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:30
 msgid "CPUs"
 msgstr "„CPUs“ – Procesoriai"
 
@@ -241,7 +241,7 @@ msgstr "„DNS“"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:56
 msgid "Debug"
-msgstr "Išsamus derinimas"
+msgstr "Derinimas/Trukdžių šalinimas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:41
 msgid "Default bridge"
@@ -302,11 +302,11 @@ msgid "Docker Image"
 msgstr "„Docker Image“"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:36
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:30
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:32
 msgid "Docker Root Dir"
 msgstr "„Docker Root Dir“"
 
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:26
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:28
 msgid "Docker Version"
 msgstr "„Docker“ Versija"
 
@@ -334,7 +334,7 @@ msgstr "Dublikuoti/Redaguoti"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:110
 msgid "Enable IPv6"
-msgstr "Įjungti „IPv6“"
+msgstr "Įjungti/Įgalinti IPv6"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:343
 msgid "Env"
@@ -363,7 +363,7 @@ msgstr "Pavyzdys: tcp://0.0.0.0:2375"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:106
 msgid "Exclude IPs"
-msgstr "Išskirti „IPs“"
+msgstr "Išskirti IP(dgs.)"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:570
 msgid "Exposed All Ports(-P)"
@@ -375,7 +375,7 @@ msgstr "Atviri prievadai"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:60
 msgid "Fatal"
-msgstr "Kritinė"
+msgstr "Kritinis"
 
 #: applications/luci-app-dockerman/luasrc/view/dockerman/container.htm:6
 msgid "File"
@@ -416,7 +416,9 @@ msgstr "Skleidėjo vardas/pavadinimas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:19
 msgid "Host or IP Address for the connection to a remote docker instance"
-msgstr "Skleidėjo arba „IP“ adresas sujungimui į nuotolinį „Docker“ įrengimą"
+msgstr ""
+"Skleidėjo/p.k –vedėjo arba IP adresas sujungimui į nuotolinį „Docker“ "
+"įrengimą"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:292
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/containers.lua:122
@@ -427,23 +429,23 @@ msgstr "ID"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:36
 msgid "IP VLAN"
-msgstr "„IP VLAN“"
+msgstr "IP „VLAN“"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:101
 msgid "IP range"
-msgstr "„IP“ atstumas"
+msgstr "IP diapazonas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:507
 msgid "IPv4 Address"
-msgstr "„IPv4“ adresas"
+msgstr "IPv4 adresas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:122
 msgid "IPv6 Gateway"
-msgstr "„IPv6“ šliuzas"
+msgstr "IPv6 šliuzas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:116
 msgid "IPv6 Subnet"
-msgstr "„IPv6 Subnet“"
+msgstr "IPv6 potinklis"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:296
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/containers.lua:139
@@ -468,13 +470,13 @@ msgstr "Importuoti"
 msgid "Import Image"
 msgstr "Importuoti „Image“"
 
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:31
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:33
 msgid "Index Server Address"
 msgstr "Indeksuoti serverio adresą"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:57
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:406
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:35
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:37
 #: applications/luci-app-dockerman/luasrc/view/dockerman/container.htm:3
 msgid "Info"
 msgstr "Informacija"
@@ -526,7 +528,7 @@ msgstr "„L3 bridge“"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:351
 msgid "Links"
-msgstr "Nuorodos"
+msgstr "Sujungimai/Nuorodos"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:512
 msgid "Links with other containers"
@@ -539,7 +541,7 @@ msgstr "Pajungti"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:54
 msgid "Log Level"
-msgstr "Žurnalų lygis"
+msgstr "Žurnalo lygis"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:646
 msgid "Log driver options"
@@ -701,7 +703,7 @@ msgstr "Prašome įvesti <docker create/run> komandinę eilutę:"
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:347
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/containers.lua:135
 msgid "Ports"
-msgstr "Prievadai („Port'ai“)"
+msgstr "Prievadai"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:52
 msgid "Private (Prevent communication between MAC VLANs)"
@@ -724,7 +726,7 @@ msgid "Pull Image"
 msgstr "Traukti „Image“"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:48
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:32
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:34
 msgid "Registry Mirrors"
 msgstr "Registro tarpininkai"
 
@@ -813,8 +815,8 @@ msgid ""
 "Specifies where the Docker daemon will listen for client connections "
 "(default: unix:///var/run/docker.sock)"
 msgstr ""
-"Nurodo kur „Docker daemon“ klausys kliento prisijungimus (numatyta: unix:///"
-"var/run/docker.sock)"
+"Nurodo kur „Docker daemon“ lauks prisijungimo/jungties ryšio kliento "
+"prisijungimams (numatyta: unix:///var/run/docker.sock)"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:218
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/containers.lua:193
@@ -823,7 +825,7 @@ msgstr "Pradėti"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:311
 msgid "Start Time"
-msgstr "Pradžios laikas"
+msgstr "Pradėti laiką"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:780
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:781
@@ -914,7 +916,7 @@ msgstr "„Tmpfs“"
 msgid "Tmpfs(--tmpfs)"
 msgstr "„Tmpfs(--tmpfs)“"
 
-#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:29
+#: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/overview.lua:31
 msgid "Total Memory"
 msgstr "Iš viso atminties:"
 
@@ -950,7 +952,7 @@ msgstr "Įkėlimas/Atsisiuntimas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/container.lua:331
 msgid "User"
-msgstr "Naudotojas/-ė"
+msgstr "Naudotojas/Vartotojas"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:524
 msgid "User(-u)"

@@ -129,7 +129,7 @@ return view.extend({
 				key = element[".name"];
 				description = element[".name"];
 			}
-			o.value(key, _("%s").format(description));
+			o.value(key, description);
 		});
 		o.depends("dnsmasq_config_update_option", "+");
 		o.retain = true;
@@ -297,8 +297,8 @@ return view.extend({
 						section_id,
 						"resolver_url"
 					);
-					if (_paramList.template !== template) return 0;
-					let resolver = pkg.templateToResolver(template, {
+					if (!formvalue && _paramList.template !== template) return 0;
+					let resolver = pkg.templateToResolver(_paramList.template, {
 						option: formvalue || "",
 					});
 					L.uci.set(pkg.Name, section_id, "resolver_url", resolver);
@@ -335,8 +335,8 @@ return view.extend({
 						section_id,
 						"resolver_url"
 					);
-					if (_paramText.template !== template) return 0;
-					let resolver = pkg.templateToResolver(template, {
+					if (!formvalue && _paramText.template !== template) return 0;
+					let resolver = pkg.templateToResolver(_paramText.template, {
 						option: formvalue || "",
 					});
 					L.uci.set(pkg.Name, section_id, "resolver_url", resolver);

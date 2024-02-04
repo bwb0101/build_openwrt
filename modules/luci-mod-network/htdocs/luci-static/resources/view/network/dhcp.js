@@ -89,6 +89,21 @@ function calculateNetwork(addr, mask) {
 	];
 }
 
+function generateDnsmasqInstanceEntry(data) {
+	const nameValueMap = new Map(Object.entries(data));
+	let formatString = nameValueMap.get('.index') + ' (' +  _('Name') + (nameValueMap.get('.anonymous') ? ': dnsmasq[' + nameValueMap.get('.index') + ']': ': ' + nameValueMap.get('.name'));
+
+	if (data.domain) {
+		formatString += ', ' +  _('Domain')  + ': ' + data.domain;
+	}
+	if (data.local) {
+		formatString += ', ' +  _('Local')  + ': ' + data.local;
+	}
+	formatString += ')';
+
+	return nameValueMap.get('.name'), formatString;
+}
+
 function getDHCPPools() {
 	return uci.load('dhcp').then(function() {
 		let sections = uci.sections('dhcp', 'dhcp'),
@@ -234,7 +249,7 @@ return view.extend({
 			callHostHints(),
 			callDUIDHints(),
 			getDHCPPools(),
-			network.getDevices()
+			network.getNetworks()
 		]);
 	},
 
@@ -243,32 +258,39 @@ return view.extend({
 		    hosts = hosts_duids_pools[0],
 		    duids = hosts_duids_pools[1],
 		    pools = hosts_duids_pools[2],
-		    ndevs = hosts_duids_pools[3],
+		    networks = hosts_duids_pools[3],
 		    m, s, o, ss, so;
 
 		m = new form.Map('dhcp', _('DHCP and DNS'),
 			_('Dnsmasq is a lightweight <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server and <abbr title="Domain Name System">DNS</abbr> forwarder.'));
 
 		s = m.section(form.TypedSection, 'dnsmasq');
-		s.anonymous = true;
-		s.addremove = false;
+		s.anonymous = false;
+		s.addremove = true;
 
-		s.tab('general', _('General Settings'));
-		s.tab('relay', _('Relay'));
-		s.tab('files', _('Resolv and Hosts Files'));
-		s.tab('pxe_tftp', _('PXE/TFTP Settings'));
-		s.tab('advanced', _('Advanced Settings'));
+
+
+		s.tab('general', _('General'));
+		s.tab('devices', _('Devices &amp; Ports'));
+		s.tab('dnssecopt', _('DNSSEC'));
+		s.tab('filteropts', _('Filter'));
+		s.tab('forward', _('Forwards'));
+		s.tab('limits', _('Limits'));
+		s.tab('logging', _('Log'));
+		s.tab('files', _('Resolv &amp; Hosts Files'));
 		s.tab('leases', _('Static Leases'));
 		s.tab('hosts', _('Hostnames'));
+		s.tab('ipsets', _('IP Sets'));
+		s.tab('relay', _('Relay'));
 		s.tab('srvhosts', _('SRV'));
 		s.tab('mxhosts', _('MX'));
-		s.tab('ipsets', _('IP Sets'));
+		s.tab('pxe_tftp', _('PXE/TFTP'));
 
 		s.taboption('general', form.Flag, 'dns_redirect',
 			_('DNS Redirect'),
 			_('Redirect client DNS to dnsmasq'));
 
-		s.taboption('general', form.Flag, 'domainneeded',
+		s.taboption('filteropts', form.Flag, 'domainneeded',
 			_('Domain required'),
 			_('Do not forward DNS queries without dots or domain parts.'));
 
@@ -284,12 +306,44 @@ return view.extend({
 			_('Local domain'),
 			_('Local domain suffix appended to DHCP names and hosts file entries.'));
 
-		o = s.taboption('general', form.Flag, 'logqueries',
+		s.taboption('general', form.Flag, 'expandhosts',
+			_('Expand hosts'),
+			_('Add local domain suffix to names served from hosts files.'));
+
+		o = s.taboption('logging', form.Flag, 'logqueries',
 			_('Log queries'),
 			_('Write received DNS queries to syslog.'));
 		o.optional = true;
 
-		o = s.taboption('general', form.DynamicList, 'server',
+		o = s.taboption('logging', form.Flag, 'logdhcp',
+			_('Extra DHCP logging'),
+			_('Log all options sent to DHCP clients and the tags used to determine them.'));
+		o.optional = true;
+
+		o = s.taboption('logging', form.Value, 'logfacility',
+			_('Log facility'),
+			_('Set log class/facility for syslog entries.'));
+		o.optional = true;
+		o.value('KERN');
+		o.value('USER');
+		o.value('MAIL');
+		o.value('DAEMON');
+		o.value('AUTH');
+		o.value('LPR');
+		o.value('NEWS');
+		o.value('UUCP');
+		o.value('CRON');
+		o.value('LOCAL0');
+		o.value('LOCAL1');
+		o.value('LOCAL2');
+		o.value('LOCAL3');
+		o.value('LOCAL4');
+		o.value('LOCAL5');
+		o.value('LOCAL6');
+		o.value('LOCAL7');
+		o.value('-', _('stderr'));
+
+		o = s.taboption('forward', form.DynamicList, 'server',
 			_('DNS forwardings'),
 			_('List of upstream resolvers to forward queries to.'));
 		o.optional = true;
@@ -311,18 +365,18 @@ return view.extend({
 		o.optional = true;
 		o.placeholder = '/example.org/ipset,ipset6';
 
-		o = s.taboption('general', form.Flag, 'rebind_protection',
+		o = s.taboption('filteropts', form.Flag, 'rebind_protection',
 			_('Rebind protection'),
 			_('Discard upstream responses containing <a href="%s">RFC1918</a> addresses.').format('https://www.rfc-editor.org/rfc/rfc1918') + '<br />' +
 			_('Discard also upstream responses containing <a href="%s">RFC4193</a>, Link-Local and private IPv4-Mapped <a href="%s">RFC4291</a> IPv6 Addresses.').format('https://www.rfc-editor.org/rfc/rfc4193', 'https://www.rfc-editor.org/rfc/rfc4291'));
 		o.rmempty = false;
 
-		o = s.taboption('general', form.Flag, 'rebind_localhost',
+		o = s.taboption('filteropts', form.Flag, 'rebind_localhost',
 			_('Allow localhost'),
 			_('Exempt <code>127.0.0.0/8</code> and <code>::1</code> from rebinding checks, e.g. for RBL services.'));
 		o.depends('rebind_protection', '1');
 
-		o = s.taboption('general', form.DynamicList, 'rebind_domain',
+		o = s.taboption('filteropts', form.DynamicList, 'rebind_domain',
 			_('Domain whitelist'),
 			_('List of domains to allow RFC1918 responses for.'));
 		o.depends('rebind_protection', '1');
@@ -330,26 +384,26 @@ return view.extend({
 		o.placeholder = 'ihost.netflix.com';
 		o.validate = validateAddressList;
 
-		o = s.taboption('general', form.Flag, 'localservice',
+		o = s.taboption('filteropts', form.Flag, 'localservice',
 			_('Local service only'),
 			_('Accept DNS queries only from hosts whose address is on a local subnet.'));
 		o.optional = false;
 		o.rmempty = false;
 
-		o = s.taboption('general', form.Flag, 'nonwildcard',
+		o = s.taboption('devices', form.Flag, 'nonwildcard',
 			_('Non-wildcard'),
 			_('Bind dynamically to interfaces rather than wildcard address.'));
 		o.default = o.enabled;
 		o.optional = false;
 		o.rmempty = true;
 
-		o = s.taboption('general', widgets.NetworkSelect, 'interface',
+		o = s.taboption('devices', widgets.NetworkSelect, 'interface',
 			_('Listen interfaces'),
 			_('Listen only on the specified interfaces, and loopback if not excluded explicitly.'));
 		o.multiple = true;
 		o.nocreate = true;
 
-		o = s.taboption('general', widgets.NetworkSelect, 'notinterface',
+		o = s.taboption('devices', widgets.NetworkSelect, 'notinterface',
 			_('Exclude interfaces'),
 			_('Do not listen on the specified interfaces.'));
 		o.loopback = true;
@@ -369,28 +423,27 @@ return view.extend({
 		ss.rowcolors = true;
 		ss.nodescriptions = true;
 
-		so = ss.option(form.Value, 'id', _('ID'));
-		so.rmempty = false;
-		so.optional = true;
-
-		so = ss.option(widgets.NetworkSelect, 'interface', _('Interface'));
-		so.optional = true;
-		so.rmempty = false;
-		so.placeholder = 'lan';
-
-		so = ss.option(form.Value, 'local_addr', _('Listen address'));
+		so = ss.option(form.Value, 'local_addr', _('Relay from'));
 		so.rmempty = false;
 		so.datatype = 'ipaddr';
 
 		for (var family = 4; family <= 6; family += 2) {
-			for (var i = 0; i < ndevs.length; i++) {
-				var addrs = (family == 6) ? ndevs[i].getIP6Addrs() : ndevs[i].getIPAddrs();
-				for (var j = 0; j < addrs.length; j++)
-					so.value(addrs[j].split('/')[0]);
+			for (var i = 0; i < networks.length; i++) {
+				if (networks[i].getName() != 'loopback') {
+					var addrs = (family == 6) ? networks[i].getIP6Addrs() : networks[i].getIPAddrs();
+					for (var j = 0; j < addrs.length; j++) {
+						var addr = addrs[j].split('/')[0];
+						so.value(addr, E([], [
+							addr, ' (',
+							widgets.NetworkSelect.prototype.renderIfaceBadge(networks[i]),
+							')'
+						]));
+					}
+				}
 			}
 		}
 
-		so = ss.option(form.Value, 'server_addr', _('Relay To address'));
+		so = ss.option(form.Value, 'server_addr', _('Relay to address'));
 		so.rmempty = false;
 		so.optional = false;
 		so.placeholder = '192.168.10.1#535';
@@ -399,22 +452,30 @@ return view.extend({
 			var m = this.section.formvalue(section, 'local_addr'),
 			    n = this.section.formvalue(section, 'server_addr'),
 			    p;
-			if (n != null && n != '')
-			    p = n.split('#');
+
+			if (!m || !n) {
+				return _('Both "Relay from" and "Relay to address" must be specified.');
+			}
+			else {
+				p = n.split('#');
 				if (p.length > 1 && !/^[0-9]+$/.test(p[1]))
 					return _('Expected port number.');
 				else
 					n = p[0];
 
-			if ((m == null || m == '') && (n == null || n == ''))
-				return _('Both Listen addr and Relay To must be specified.');
-
-			if ((validation.parseIPv6(m) && validation.parseIPv6(n)) ||
-				validation.parseIPv4(m) && validation.parseIPv4(n))
-				return true;
-			else
-				return _('Listen and Relay To IP family must be homogeneous.')
+				if ((validation.parseIPv6(m) && validation.parseIPv6(n)) ||
+					validation.parseIPv4(m) && validation.parseIPv4(n))
+					return true;
+				else
+					return _('Address families of "Relay from" and "Relay to address" must match.')
+			}
+			return true;
 		};
+
+		so = ss.option(widgets.NetworkSelect, 'interface', _('Only accept replies via'));
+		so.optional = true;
+		so.rmempty = false;
+		so.placeholder = 'lan';
 
 		s.taboption('files', form.Flag, 'readethers',
 			_('Use <code>/etc/ethers</code>'),
@@ -435,6 +496,11 @@ return view.extend({
 		o.placeholder = '/tmp/resolv.conf.d/resolv.conf.auto';
 		o.optional = true;
 
+		o = s.taboption('files', form.Flag, 'strictorder',
+			_('Strict order'),
+			_('Query upstream resolvers in the order they appear in the resolv file.'));
+		o.optional = true;
+
 		o = s.taboption('files', form.Flag, 'nohosts',
 			_('Ignore <code>/etc/hosts</code>'));
 		o.optional = true;
@@ -449,119 +515,127 @@ return view.extend({
 			_('Filter IPv6(AAAA) DNS Query Name Resolve'));
 		o.optional = true;
 
-		o = s.taboption('advanced', form.Flag, 'quietdhcp',
+		o = s.taboption('logging', form.Flag, 'quietdhcp',
 			_('Suppress logging'),
 			_('Suppress logging of the routine operation for the DHCP protocol.'));
 		o.optional = true;
+		o.depends('logdhcp', '0');
 
-		o = s.taboption('advanced', form.Flag, 'sequential_ip',
+		o = s.taboption('general', form.Flag, 'sequential_ip',
 			_('Allocate IPs sequentially'),
 			_('Allocate IP addresses sequentially, starting from the lowest available address.'));
 		o.optional = true;
 
-		o = s.taboption('advanced', form.Flag, 'boguspriv',
+		o = s.taboption('filteropts', form.Flag, 'boguspriv',
 			_('Filter private'),
 			_('Do not forward reverse lookups for local networks.'));
 		o.default = o.enabled;
 
-		s.taboption('advanced', form.Flag, 'filterwin2k',
+		s.taboption('filteropts', form.Flag, 'filterwin2k',
 			_('Filter SRV/SOA service discovery'),
 			_('Filters SRV/SOA service discovery, to avoid triggering dial-on-demand links.') + '<br />' +
 			_('May prevent VoIP or other services from working.'));
 
-		o = s.taboption('advanced', form.Flag, 'filter_aaaa',
+		o = s.taboption('filteropts', form.Flag, 'filter_aaaa',
 			_('Filter IPv6 AAAA records'),
 			_('Remove IPv6 addresses from the results and only return IPv4 addresses.') + '<br />' +
 			_('Can be useful if ISP has IPv6 nameservers but does not provide IPv6 routing.'));
 		o.optional = true;
 
-		o = s.taboption('advanced', form.Flag, 'filter_a',
+		o = s.taboption('filteropts', form.Flag, 'filter_a',
 			_('Filter IPv4 A records'),
 			_('Remove IPv4 addresses from the results and only return IPv6 addresses.'));
 		o.optional = true;
 
-		s.taboption('advanced', form.Flag, 'localise_queries',
+		s.taboption('filteropts', form.Flag, 'localise_queries',
 			_('Localise queries'),
 			_('Return answers to DNS queries matching the subnet from which the query was received if multiple IPs are available.'));
 
 		if (L.hasSystemFeature('dnsmasq', 'dnssec')) {
-			o = s.taboption('advanced', form.Flag, 'dnssec',
+			o = s.taboption('dnssecopt', form.Flag, 'dnssec',
 				_('DNSSEC'),
 				_('Validate DNS replies and cache DNSSEC data, requires upstream to support DNSSEC.'));
 			o.optional = true;
 
-			o = s.taboption('advanced', form.Flag, 'dnsseccheckunsigned',
+			o = s.taboption('dnssecopt', form.Flag, 'dnsseccheckunsigned',
 				_('DNSSEC check unsigned'),
 				_('Verify unsigned domain responses really come from unsigned domains.'));
 			o.default = o.enabled;
 			o.optional = true;
 		}
 
-		s.taboption('advanced', form.Flag, 'expandhosts',
-			_('Expand hosts'),
-			_('Add local domain suffix to names served from hosts files.'));
-
-		s.taboption('advanced', form.Flag, 'nonegcache',
+		s.taboption('filteropts', form.Flag, 'nonegcache',
 			_('No negative cache'),
 			_('Do not cache negative replies, e.g. for non-existent domains.'));
 
-		o = s.taboption('advanced', form.Value, 'serversfile',
+		o = s.taboption('forward', form.Value, 'serversfile',
 			_('Additional servers file'),
 			_('File listing upstream resolvers, optionally domain-specific, e.g. <code>server=1.2.3.4</code>, <code>server=/domain/1.2.3.4</code>.'));
 		o.placeholder = '/etc/dnsmasq.servers';
 
-		o = s.taboption('advanced', form.Flag, 'strictorder',
-			_('Strict order'),
-			_('Upstream resolvers will be queried in the order of the resolv file.'));
-		o.optional = true;
-
-		o = s.taboption('advanced', form.Flag, 'allservers',
+		o = s.taboption('general', form.Flag, 'allservers',
 			_('All servers'),
-			_('Query all available upstream resolvers.'));
+			_('Query all available upstream resolvers.') + ' ' + _('First answer wins.'));
 		o.optional = true;
 
-		o = s.taboption('advanced', form.DynamicList, 'bogusnxdomain',
+		o = s.taboption('filteropts', form.DynamicList, 'bogusnxdomain',
 			_('IPs to override with NXDOMAIN'),
 			_('List of IP addresses to convert into NXDOMAIN responses.'));
 		o.optional = true;
 		o.placeholder = '64.94.110.11';
 
-		o = s.taboption('advanced', form.Value, 'port',
+		o = s.taboption('devices', form.Value, 'port',
 			_('DNS server port'),
 			_('Listening port for inbound DNS queries.'));
 		o.optional = true;
 		o.datatype = 'port';
 		o.placeholder = 53;
 
-		o = s.taboption('advanced', form.Value, 'queryport',
+		o = s.taboption('devices', form.Value, 'queryport',
 			_('DNS query port'),
 			_('Fixed source port for outbound DNS queries.'));
 		o.optional = true;
 		o.datatype = 'port';
 		o.placeholder = _('any');
 
-		o = s.taboption('advanced', form.Value, 'dhcpleasemax',
+		o = s.taboption('devices', form.Value, 'minport',
+			_('Minimum source port #'),
+			_('Min valid value %s.').format('<code>1024</code>') + ' ' + _('Useful for systems behind firewalls.'));
+		o.optional = true;
+		o.datatype = 'port';
+		o.placeholder = 1024;
+		o.depends('queryport', '');
+
+		o = s.taboption('devices', form.Value, 'maxport',
+			_('Maximum source port #'),
+			_('Max valid value %s.').format('<code>65535</code>') + ' ' + _('Useful for systems behind firewalls.'));
+		o.optional = true;
+		o.datatype = 'port';
+		o.placeholder = 50000;
+		o.depends('queryport', '');
+
+		o = s.taboption('limits', form.Value, 'dhcpleasemax',
 			_('Max. DHCP leases'),
 			_('Maximum allowed number of active DHCP leases.'));
 		o.optional = true;
 		o.datatype = 'uinteger';
-		o.placeholder = _('unlimited');
+		o.placeholder = 150;
 
-		o = s.taboption('advanced', form.Value, 'ednspacket_max',
+		o = s.taboption('limits', form.Value, 'ednspacket_max',
 			_('Max. EDNS0 packet size'),
 			_('Maximum allowed size of EDNS0 UDP packets.'));
 		o.optional = true;
 		o.datatype = 'uinteger';
 		o.placeholder = 1280;
 
-		o = s.taboption('advanced', form.Value, 'dnsforwardmax',
+		o = s.taboption('limits', form.Value, 'dnsforwardmax',
 			_('Max. concurrent queries'),
 			_('Maximum allowed number of concurrent DNS queries.'));
 		o.optional = true;
 		o.datatype = 'uinteger';
 		o.placeholder = 150;
 
-		o = s.taboption('advanced', form.Value, 'cachesize',
+		o = s.taboption('limits', form.Value, 'cachesize',
 			_('Size of DNS query cache'),
 			_('Number of cached DNS entries, 10000 is maximum, 0 is no caching.'));
 		o.optional = true;
@@ -574,6 +648,19 @@ return view.extend({
 		o.optional = true;
 		o.datatype = 'range(0,86400)';
 		o.placeholder = 0;
+
+		o = s.taboption('limits', form.Value, 'min_cache_ttl',
+			_('Min cache TTL'),
+			_('Extend short TTL values to the seconds value given when caching them. Use with caution.') +
+			_(' (Max 1h == 3600)'));
+		o.optional = true;
+		o.placeholder = 60;
+
+		o = s.taboption('limits', form.Value, 'max_cache_ttl',
+			_('Max cache TTL'),
+			_('Set a maximum seconds TTL value for entries in the cache.'));
+		o.optional = true;
+		o.placeholder = 3600;
 
 		o = s.taboption('pxe_tftp', form.Flag, 'enable_tftp',
 			_('Enable TFTP server'),
@@ -600,6 +687,7 @@ return view.extend({
 		ss = o.subsection;
 		ss.addremove = true;
 		ss.anonymous = true;
+		ss.modaltitle = _('Edit PXE/TFTP/BOOTP Host');
 		ss.nodescriptions = true;
 
 		so = ss.option(form.Value, 'filename',
@@ -622,19 +710,20 @@ return view.extend({
 
 		so = ss.option(form.DynamicList, 'dhcp_option',
 			_('DHCP Options'),
-			_('Options for the Network-ID. (Note: needs also Network-ID.) E.g. "<code>42,192.168.1.4</code>" for NTP server, "<code>3,192.168.4.4</code>" for default route. <code>0.0.0.0</code> means "the address of the system running dnsmasq".'));
+			_('Additional options to send to the below match tags.') + '<br />' +
+			_('%s means "the address of the system running dnsmasq".').format('<code>0.0.0.0</code>'));
 		so.optional = true;
-		so.placeholder = '42,192.168.1.4';
+		so.placeholder = 'option:root-path,192.168.1.2:/data/netboot/root';
 
-		so = ss.option(widgets.DeviceSelect, 'networkid',
-			_('Network-ID'),
-			_('Apply DHCP Options to this net. (Empty = all clients).'));
+		so = ss.option(form.Value, 'networkid',
+			_('Match this Tag'),
+			_('Only DHCP Clients with this tag are sent this boot option.'));
 		so.optional = true;
 		so.noaliases = true;
 
 		so = ss.option(form.Flag, 'force',
 			_('Force'),
-			_('Always send DHCP Options. Sometimes needed, with e.g. PXELinux.'));
+			_('Always send the chosen DHCP options. Sometimes needed, with e.g. PXELinux.'));
 		so.optional = true;
 
 		so = ss.option(form.Value, 'instance',
@@ -643,7 +732,7 @@ return view.extend({
 		so.optional = true;
 
 		Object.values(L.uci.sections('dhcp', 'dnsmasq')).forEach(function(val, index) {
-			so.value(index, '%s (Domain: %s, Local: %s)'.format(index, val.domain || '?', val.local || '?'));
+			so.value(generateDnsmasqInstanceEntry(val));
 		});
 
 		o = s.taboption('srvhosts', form.SectionValue, '__srvhosts__', form.TableSection, 'srvhost', null,
@@ -743,21 +832,40 @@ return view.extend({
 		});
 
 		o = s.taboption('ipsets', form.SectionValue, '__ipsets__', form.GridSection, 'ipset', null,
-			_('List of IP sets to populate with the IPs of DNS lookup results of the FQDNs also specified here.'));
+			_('List of IP sets to populate with the IPs of DNS lookup results of the FQDNs also specified here.') + '<br />' +
+			_('The netfilter components below are only regarded when running fw4.'));
 
 		ss = o.subsection;
 
 		ss.addremove = true;
 		ss.anonymous = true;
 		ss.sortable  = true;
+		ss.rowcolors = true;
+		ss.nodescriptions = true;
+		ss.modaltitle = _('Edit IP set');
 
-		so = ss.option(form.DynamicList, 'name', _('IP set'));
+		so = ss.option(form.DynamicList, 'name', _('Name of the set'));
 		so.rmempty = false;
+		so.editable = true;
 		so.datatype = 'string';
 
-		so = ss.option(form.DynamicList, 'domain', _('Domain'));
+		so = ss.option(form.DynamicList, 'domain', _('FQDN'));
 		so.rmempty = false;
+		so.editable = true;
 		so.datatype = 'hostname';
+
+		so = ss.option(form.Value, 'table', _('Netfilter table name'), _('Defaults to fw4.'));
+		so.editable = true;
+		so.placeholder = 'fw4';
+		so.rmempty = true;
+
+		so = ss.option(form.ListValue, 'table_family', _('Table IP family'), _('Defaults to IPv4+6.') + ' ' + _('Can be hinted by adding 4 or 6 to the name.') + '<br />' +
+			_('Adding an IPv6 to an IPv4 set and vice-versa silently fails.'));
+		so.editable = true;
+		so.rmempty = true;
+		so.value('inet', _('IPv4+6'));
+		so.value('ip', _('IPv4'));
+		so.value('ip6', _('IPv6'));
 
 		o = s.taboption('leases', form.SectionValue, '__leases__', form.GridSection, 'host', null,
 			_('Static leases are used to assign fixed IP addresses and symbolic hostnames to DHCP clients. They are also required for non-dynamic interface configurations where only hosts with a corresponding lease are served.') + '<br />' +
@@ -833,10 +941,10 @@ return view.extend({
 			var m = this.section.formvalue(section, 'mac'),
 			    n = this.section.formvalue(section, 'name');
 
-			if ((m == null || m == '') && (n == null || n == ''))
+			if ((m && !m.length > 0) && !n)
 				return _('One of hostname or MAC address must be specified!');
 
-			if (value == null || value == '' || value == 'ignore')
+			if (!value || value == 'ignore')
 				return true;
 
 			var leases = uci.sections('dhcp', 'host');
@@ -869,6 +977,14 @@ return view.extend({
 		});
 
 		so = ss.option(form.Value, 'hostid', _('IPv6 suffix (hex)'));
+
+		so = ss.option(form.Value, 'instance',
+			_('Instance'));
+		so.optional = true;
+
+		Object.values(L.uci.sections('dhcp', 'dnsmasq')).forEach(function(val, index) {
+			so.value(generateDnsmasqInstanceEntry(val));
+		});
 
 		o = s.taboption('leases', CBILeaseStatus, '__status__');
 
