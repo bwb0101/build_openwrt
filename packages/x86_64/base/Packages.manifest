@@ -17,18 +17,18 @@ Description:  Provides support for 6in4 tunnels in /etc/config/network.
  configuration details.
 
 Package: amdgpu-firmware
-Version: 20230804-1
+Version: 20231211-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amdgpu-firmware
 Section: firmware
-SourceDateEpoch: 1701182422
+SourceDateEpoch: 1706675214
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 26755552
-Filename: amdgpu-firmware_20230804-1_x86_64.ipk
-Size: 26518897
-SHA256sum: 44c996c169a8287d1a17ca5754a2d098e02a3b23ed4edd849ac9f6a9d871f661
+Installed-Size: 26966464
+Filename: amdgpu-firmware_20231211-1_x86_64.ipk
+Size: 26729743
+SHA256sum: 157cc10fc2122655983fd8bdfa585a7c7470605151494be86dab52eee88513f5
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
@@ -76,52 +76,34 @@ Size: 1900
 SHA256sum: 503cd241a9a730895abc3d8225636a4a3a87808a791c7028112a255afc509514
 Description:  A hotplug script to config Samba share automatically.
 
-Package: blkid
-Version: 2.38.1-1
-Depends: libc, libblkid1, libuuid1
-Source: package/utils/util-linux
-SourceName: blkid
-License: GPL-2.0-only
-LicenseFiles: COPYING libblkid/COPYING libmount/COPYING Documentation/licenses/COPYING.GPLv2 Documentation/licenses/COPYING.LGPLv2.1 libuuid/COPYING Documentation/licenses/COPYING.BSD-3
-Section: utils
-SourceDateEpoch: 1674631835
-CPE-ID: cpe:/a:kernel:util-linux
-Architecture: x86_64
-Installed-Size: 43778
-Filename: blkid_2.38.1-1_x86_64.ipk
-Size: 44602
-SHA256sum: 9585b22f36038426410b8d1326fd4c1aaae9975781686d601c695b70b3656355
-Description:  The blkid program is the command-line interface to working with the libblkid
- library.
-
 Package: bnx2-firmware
-Version: 20230804-1
+Version: 20231211-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2-firmware
 Section: firmware
-SourceDateEpoch: 1701182422
+SourceDateEpoch: 1706675214
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 105168
-Filename: bnx2-firmware_20230804-1_x86_64.ipk
-Size: 105822
-SHA256sum: 5560ed0e4949deedbac7f016ba35da923cb0f4639f5afc91c38c3de0e29fb332
+Installed-Size: 105164
+Filename: bnx2-firmware_20231211-1_x86_64.ipk
+Size: 105821
+SHA256sum: cbb1584a89b1b547a0504e339761578fe4d83a78feb210e1d16f790253cc02ad
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
-Version: 20230804-1
+Version: 20231211-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2x-firmware
 Section: firmware
-SourceDateEpoch: 1701182422
+SourceDateEpoch: 1706675214
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 2421823
-Filename: bnx2x-firmware_20230804-1_x86_64.ipk
-Size: 2415459
-SHA256sum: 3aa42e7cfee631cd893cf53a43342d078b6efc29f19308db8be6ac20fd231e23
+Installed-Size: 2421826
+Filename: bnx2x-firmware_20231211-1_x86_64.ipk
+Size: 2415440
+SHA256sum: 6a74261d68d86356332fa619b3b831fea302252b1def35e3e9fc2918a9f5b57f
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
@@ -141,8 +123,8 @@ Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 232312
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233260
-SHA256sum: 7ba6a543a0d4312639e8ae899ae4474304e7b97f9ee2a2f5b4f9d8fa7f29424c
+Size: 233261
+SHA256sum: 5986891dffd9600e32bf7af43b5184a6b4c9d62697c6e8d194cca24f187041ec
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -226,19 +208,19 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 3-9
+Version: 3-10
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1705257468
+SourceDateEpoch: 1706883963
 Architecture: all
-Installed-Size: 2040
-Filename: default-settings_3-9_all.ipk
-Size: 2771
-SHA256sum: 24ebfdf933704e24f73bc716f8355431cb6e0222b3dcea337b460d53cb6ed873
+Installed-Size: 2042
+Filename: default-settings_3-10_all.ipk
+Size: 2774
+SHA256sum: c112adcccd591cff0c87aa9d8d426d0f6d7546f09119ebf94f2ea7dd5fd77296
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -334,18 +316,18 @@ SHA256sum: 375e24651d6511a0e92ef677c64580fac2c3024c0905294741643a53deaeb654
 Description:  OpenWrt getrandom system helper
 
 Package: i915-firmware
-Version: 20230804-1
+Version: 20231211-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: i915-firmware
 Section: firmware
-SourceDateEpoch: 1701182422
+SourceDateEpoch: 1706675214
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 7776191
-Filename: i915-firmware_20230804-1_x86_64.ipk
-Size: 7747966
-SHA256sum: bac13cb2b7f726eebc7403a00e0ce6affdf5a03f11fde5828678c5bfc0827bcf
+Installed-Size: 7807654
+Filename: i915-firmware_20231211-1_x86_64.ipk
+Size: 7779534
+SHA256sum: 8d7e214b0d015dfc8bd94e289e478abd403a3961c9cb3a8823f0b3ab0f359e3c
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -600,10 +582,10 @@ ABIVersion: 1
 CPE-ID: cpe:/a:elfutils_project:elfutils
 Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
-Installed-Size: 40457
+Installed-Size: 40455
 Filename: libelf1_0.188-1_x86_64.ipk
-Size: 41279
-SHA256sum: 853e915237208ef6d4a7ffac8acda037af1949d0d3a2d137fbdca41d2f8da8f3
+Size: 41270
+SHA256sum: 9b964f062cfa53dfc44c4dc886d83300b2b30776abef2c6b588152dd4d374a0e
 Description:  ELF manipulation libraries (libelf)
 
 Package: libeudev
@@ -985,21 +967,21 @@ SHA256sum: eee3fbf5620125af21e4ad6028d24e1b7f4832330935a7f37b30f4e7643e5780
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 3.0.12-1
+Version: 3.0.13-1
 Depends: libc, libopenssl3
 Source: package/libs/openssl
 SourceName: libopenssl-conf
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1704976275
+SourceDateEpoch: 1706943781
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 6264
-Filename: libopenssl-conf_3.0.12-1_x86_64.ipk
-Size: 7439
-SHA256sum: 9696285354ec502743e6737a66fc32359c745aa62266affd909f9157e35b9c5b
+Installed-Size: 6268
+Filename: libopenssl-conf_3.0.13-1_x86_64.ipk
+Size: 7448
+SHA256sum: 358c8bdb81dda284f8fc70acee45b3d17086386739d332c66a3216737bda245c
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1007,7 +989,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl3
-Version: 3.0.12-1
+Version: 3.0.13-1
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
@@ -1015,15 +997,15 @@ SourceName: libopenssl
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1704976275
+SourceDateEpoch: 1706943781
 ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2133667
-Filename: libopenssl3_3.0.12-1_x86_64.ipk
-Size: 2124559
-SHA256sum: 234795c6e3b622e9e4b6004bdbb73949747ee38860fdb0ed8e249d2681855e20
+Installed-Size: 2137217
+Filename: libopenssl3_3.0.13-1_x86_64.ipk
+Size: 2128240
+SHA256sum: e3b7e5547a4c1a59af46fa5903f1128a883b7715c3c0c3e537a6e728ba9d5653
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1424,21 +1406,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 3.0.12-1
+Version: 3.0.13-1
 Depends: libc, libopenssl3, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1704976275
+SourceDateEpoch: 1706943781
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 343325
-Filename: openssl-util_3.0.12-1_x86_64.ipk
-Size: 342025
-SHA256sum: b6f34605dfc7911584b921a23c759ce80ee80817476ff6b46c7fcea94a32f871
+Installed-Size: 343318
+Filename: openssl-util_3.0.13-1_x86_64.ipk
+Size: 341864
+SHA256sum: 3956692fbfd292f7553c53a2f52876e8fb891eb76427f82e1864748b95bbdc57
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1863,31 +1845,6 @@ Filename: vsftpd-alt_3.0.5-1_x86_64.ipk
 Size: 46359
 SHA256sum: 81e5bfbb373381e4bc7860924765ba52b64e86e167e689af12e06bcbbd56eaa7
 Description:  A fast and secure FTP server (with aio support)
-
-Package: wireguard-tools
-Version: 1.0.20210914-2
-Depends: libc, kmod-wireguard
-Source: package/network/utils/wireguard-tools
-SourceName: wireguard-tools
-License: GPL-2.0
-LicenseFiles: COPYING
-Section: net
-SourceDateEpoch: 1632845080
-Maintainer: Jason A. Donenfeld <Jason@zx2c4.com>
-Architecture: x86_64
-Installed-Size: 26670
-Filename: wireguard-tools_1.0.20210914-2_x86_64.ipk
-Size: 27783
-SHA256sum: 07efb97d0b3c1cd324fb4b62806cd5cab2ecedbbb2d09c551b2cf8573a8b3c80
-Description:  WireGuard is a novel VPN that runs inside the Linux Kernel and utilizes
- state-of-the-art cryptography. It aims to be faster, simpler, leaner, and
- more useful than IPSec, while avoiding the massive headache. It intends to
- be considerably more performant than OpenVPN.  WireGuard is designed as a
- general purpose VPN for running on embedded interfaces and super computers
- alike, fit for many different circumstances. It uses UDP.
- 
- This package provides the userspace control program for WireGuard,
- `wg(8)`, a netifd protocol helper, and a re-resolve watchdog script.
 
 Package: wol
 Version: 0.7.1-3

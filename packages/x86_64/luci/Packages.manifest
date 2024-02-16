@@ -135,22 +135,6 @@ Size: 29971
 SHA256sum: fb03b344041278ebbc866315bee23f784958fa624752601bd8494e01e35621c3
 Description:  LuCI Support for Dynamic DNS Client (ddns-scripts)
 
-Package: luci-app-diskman
-Version: v0.2.11-3
-Depends: libc, blkid, e2fsprogs, parted, smartmontools
-Source: feeds/luci/applications/luci-app-diskman
-SourceName: luci-app-diskman
-License: AGPL-3.0
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: lisaac <lisaac.cn@gmail.com>
-Architecture: all
-Installed-Size: 20562
-Filename: luci-app-diskman_v0.2.11-3_all.ipk
-Size: 21398
-SHA256sum: 55c07772d05fc587470dbe3acd1bc1094169c6376d24f2219d1654e2f24ceda1
-Description:  Disk Manager interface for LuCI
-
 Package: luci-app-filetransfer
 Version: 1-2
 Depends: libc, luci-lib-fs
@@ -210,20 +194,6 @@ Filename: luci-app-frps_0.0.2-4_all.ipk
 Size: 5454
 SHA256sum: 99937501700e5cd9bb894b62ddb9c171e55ad8675e7f806e2876c4c1c2289a97
 Description:  LuCI support for Frps
-
-Package: luci-app-ipsec-vpnd
-Version: 1.0-11
-Depends: libc, strongswan, strongswan-minimal, strongswan-mod-xauth-generic, strongswan-mod-kernel-libipsec, kmod-tun
-Source: feeds/luci/applications/luci-app-ipsec-vpnd
-SourceName: luci-app-ipsec-vpnd
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 5313
-Filename: luci-app-ipsec-vpnd_1.0-11_all.ipk
-Size: 6162
-SHA256sum: 731f5e5295ce1f452637ca8568dedc02bc77f873e9652c1e12f521f44bc6ac78
-Description:  LuCI support for IPSec VPN Server (IKEv1 with PSK and Xauth)
 
 Package: luci-app-minidlna
 Version: git-24.022.58211-8354e26-1
@@ -356,20 +326,6 @@ Size: 30663
 SHA256sum: a37600422edc5e161b459f999f7bc828555c202faa03020e3f2b7447ec5bbd5b
 Description:  LuCI Statistics Application
 
-Package: luci-app-ttyd
-Version: 1.0-3
-Depends: libc, ttyd
-Source: feeds/luci/applications/luci-app-ttyd
-SourceName: luci-app-ttyd
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 742
-Filename: luci-app-ttyd_1.0-3_all.ipk
-Size: 1434
-SHA256sum: 1a934b59313641692d5dc228fe155c148286ad7603869c46f2ecc0875f8576dd
-Description:  LuCI support for ttyd
-
 Package: luci-app-turboacc
 Version: git-24.022.58211-8354e26-1
 Depends: libc, pdnsd-alt, kmod-tcp-bbr, kmod-shortcut-fe-cm
@@ -385,22 +341,6 @@ Filename: luci-app-turboacc_git-24.022.58211-8354e26-1_all.ipk
 Size: 7507
 SHA256sum: 526899f26bbc0cf639a55556ae237c9be5693aea36fa81947b69f0bdd7a34012
 Description:  LuCI support for Flow Offload / Shortcut-FE
-
-Package: luci-app-unblockmusic
-Version: 2.3.5-21
-Depends: libc, dnsmasq-full, ipset, uclient-fetch, UnblockNeteaseMusic-Go, UnblockNeteaseMusic
-Source: feeds/luci/applications/luci-app-unblockmusic
-SourceName: luci-app-unblockmusic
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: lean <coolsnowwolf@gmail.com>
-Architecture: all
-Installed-Size: 7436
-Filename: luci-app-unblockmusic_2.3.5-21_all.ipk
-Size: 8350
-SHA256sum: 687192ac0b531390ca9d632a4c9296289fe6fe1287c725cb6c8d604174590c09
-Description:  LuCI support for Unblock NeteaseCloudMusic
 
 Package: luci-app-upnp
 Version: git-24.022.58211-8354e26-1
@@ -472,21 +412,6 @@ Size: 3649
 SHA256sum: 15b4c8a42bc0e4487c56adc8b065cefc98619f9b0b08f28def54ba0dda5b8174
 Description:  LuCI support for VSFTPD
 
-Package: luci-app-wireguard
-Version: git-24.022.58211-8354e26-1
-Depends: libc, wireguard-tools, kmod-wireguard, luci-proto-wireguard
-Source: feeds/luci/applications/luci-app-wireguard
-SourceName: luci-app-wireguard
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Dan Luedtke <mail@danrl.com>
-Architecture: all
-Installed-Size: 2415
-Filename: luci-app-wireguard_git-24.022.58211-8354e26-1_all.ipk
-Size: 3163
-SHA256sum: 7ae8b31bca9c99cd3a68b6f0445040ebc7418a55a89a27e4a4d3ee5474a5bb10
-Description:  WireGuard Status
-
 Package: luci-app-wol
 Version: git-24.022.58211-8354e26-1
 Depends: libc, etherwake, wol
@@ -500,36 +425,6 @@ Filename: luci-app-wol_git-24.022.58211-8354e26-1_all.ipk
 Size: 2181
 SHA256sum: eacabe7e7fa72521374a972f5b414521faf021b66c4cccd43f9cf6789c027777
 Description:  LuCI Support for Wake-on-LAN
-
-Package: luci-app-xlnetacc
-Version: 1.1-1
-Depends: libc, jshn, curl, openssl-util, luci-compat
-Source: feeds/luci/applications/luci-app-xlnetacc
-SourceName: luci-app-xlnetacc
-License: GPLv2
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Sense <sensec@gmail.com>
-Architecture: all
-Installed-Size: 10826
-Filename: luci-app-xlnetacc_1.1-1_all.ipk
-Size: 11612
-SHA256sum: 133e0e30bd5e69bf0fde480f167d73d074a221f0f97a7c98e2bd700f790521da
-Description:  LuCI Support for XLNetAcc.
-
-Package: luci-app-zerotier
-Version: 1.0-20
-Depends: libc, zerotier
-Source: feeds/luci/applications/luci-app-zerotier
-SourceName: luci-app-zerotier
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 3307
-Filename: luci-app-zerotier_1.0-20_all.ipk
-Size: 4048
-SHA256sum: 6575b8188a1c403d8c416d7677bca9afd9927e98aba4cfebda4347bdc677033a
-Description:  LuCI for Zerotier
 
 Package: luci-base
 Version: git-24.022.58211-8354e26-1
@@ -696,21 +591,6 @@ Size: 30866
 SHA256sum: 4bdcc3fca310146abcfcd6b6c5e8ff822c96a46400da4e68451490f3be55af2e
 Description:  Translation for luci-base - 简体中文 (Simplified Chinese)
 
-Package: luci-i18n-bonding-zh-cn
-Version: git-24.022.58211-8354e26-1
-Depends: libc, luci-proto-bonding
-Source: feeds/luci/protocols/luci-proto-bonding
-SourceName: luci-i18n-bonding-zh-cn
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Helge Mader <ma@dev.tdt.de>
-Architecture: all
-Installed-Size: 3980
-Filename: luci-i18n-bonding-zh-cn_git-24.022.58211-8354e26-1_all.ipk
-Size: 4820
-SHA256sum: 33cc27fffedbcbb08b6c0ffcb741119a7ce83bce08dc8d636b3eb5170873d58a
-Description:  Translation for luci-proto-bonding - 简体中文 (Simplified Chinese)
-
 Package: luci-i18n-ddns-zh-cn
 Version: 2.4.9-9
 Depends: libc, luci-app-ddns
@@ -726,22 +606,6 @@ Filename: luci-i18n-ddns-zh-cn_2.4.9-9_all.ipk
 Size: 7660
 SHA256sum: 20508f6cb4548135a425ceb5434b38f78f2ac451500f687afcb08ebf5688cfaf
 Description:  Translation for luci-app-ddns - 简体中文 (Simplified Chinese)
-
-Package: luci-i18n-diskman-zh-cn
-Version: v0.2.11-3
-Depends: libc, luci-app-diskman
-Source: feeds/luci/applications/luci-app-diskman
-SourceName: luci-i18n-diskman-zh-cn
-License: AGPL-3.0
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: lisaac <lisaac.cn@gmail.com>
-Architecture: all
-Installed-Size: 2215
-Filename: luci-i18n-diskman-zh-cn_v0.2.11-3_all.ipk
-Size: 3092
-SHA256sum: 96cb269d0b424c196d38689f699ecb7793ff4777e236e75139e81660d59624fa
-Description:  Translation for luci-app-diskman - 简体中文 (Simplified Chinese)
 
 Package: luci-i18n-filetransfer-zh-cn
 Version: 1-2
@@ -802,20 +666,6 @@ Filename: luci-i18n-frps-zh-cn_0.0.2-4_all.ipk
 Size: 3130
 SHA256sum: 694e2f4a61b8a45bdcaf1fa63d21da364e5b9ea48bc189538a2724c731c848db
 Description:  Translation for luci-app-frps - 简体中文 (Simplified Chinese)
-
-Package: luci-i18n-ipsec-vpnd-zh-cn
-Version: 1.0-11
-Depends: libc, luci-app-ipsec-vpnd
-Source: feeds/luci/applications/luci-app-ipsec-vpnd
-SourceName: luci-i18n-ipsec-vpnd-zh-cn
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 847
-Filename: luci-i18n-ipsec-vpnd-zh-cn_1.0-11_all.ipk
-Size: 1678
-SHA256sum: 96d313cde7212bde4a867a3391ae230794a71f94562a37b25361d22505ea7746
-Description:  Translation for luci-app-ipsec-vpnd - 简体中文 (Simplified Chinese)
 
 Package: luci-i18n-minidlna-zh-cn
 Version: git-24.022.58211-8354e26-1
@@ -948,20 +798,6 @@ Size: 8652
 SHA256sum: a140388dd4240481b99785fb5c4c15058b0ac867d223f904e56022eca1fa6cb5
 Description:  Translation for luci-app-statistics - 简体中文 (Simplified Chinese)
 
-Package: luci-i18n-ttyd-zh-cn
-Version: 1.0-3
-Depends: libc, luci-app-ttyd
-Source: feeds/luci/applications/luci-app-ttyd
-SourceName: luci-i18n-ttyd-zh-cn
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 415
-Filename: luci-i18n-ttyd-zh-cn_1.0-3_all.ipk
-Size: 1231
-SHA256sum: 7047cb696969c1597c7eed1d83cb9f51b205943adbcea8bcd2640ff019c76c3a
-Description:  Translation for luci-app-ttyd - 简体中文 (Simplified Chinese)
-
 Package: luci-i18n-turboacc-zh-cn
 Version: git-24.022.58211-8354e26-1
 Depends: libc, luci-app-turboacc
@@ -977,22 +813,6 @@ Filename: luci-i18n-turboacc-zh-cn_git-24.022.58211-8354e26-1_all.ipk
 Size: 2387
 SHA256sum: f4b49025e71d12b1cd6c9d2078de1f5899b929a47bff7c77492b1854393266a8
 Description:  Translation for luci-app-turboacc - 简体中文 (Simplified Chinese)
-
-Package: luci-i18n-unblockmusic-zh-cn
-Version: 2.3.5-21
-Depends: libc, luci-app-unblockmusic
-Source: feeds/luci/applications/luci-app-unblockmusic
-SourceName: luci-i18n-unblockmusic-zh-cn
-License: Apache-2.0
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: lean <coolsnowwolf@gmail.com>
-Architecture: all
-Installed-Size: 521
-Filename: luci-i18n-unblockmusic-zh-cn_2.3.5-21_all.ipk
-Size: 1386
-SHA256sum: b8dc3e65a5c0f6ae439d2a482bb8ae9b9af9495b26c4cfefd6aaef543aa72d64
-Description:  Translation for luci-app-unblockmusic - 简体中文 (Simplified Chinese)
 
 Package: luci-i18n-upnp-zh-cn
 Version: git-24.022.58211-8354e26-1
@@ -1064,21 +884,6 @@ Size: 3042
 SHA256sum: d73e0e25017a497576cfe4531ea8234e5e54d2b68969a2c7f66238dd8d0c569e
 Description:  Translation for luci-app-vsftpd - 简体中文 (Simplified Chinese)
 
-Package: luci-i18n-wireguard-zh-cn
-Version: git-24.022.58211-8354e26-1
-Depends: libc, luci-app-wireguard
-Source: feeds/luci/applications/luci-app-wireguard
-SourceName: luci-i18n-wireguard-zh-cn
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Dan Luedtke <mail@danrl.com>
-Architecture: all
-Installed-Size: 913
-Filename: luci-i18n-wireguard-zh-cn_git-24.022.58211-8354e26-1_all.ipk
-Size: 1785
-SHA256sum: 36b5d01296258f1684f62922eb18d9ce3a67199bee23e39f3b27e924786799c8
-Description:  Translation for luci-app-wireguard - 简体中文 (Simplified Chinese)
-
 Package: luci-i18n-wol-zh-cn
 Version: git-24.022.58211-8354e26-1
 Depends: libc, luci-app-wol
@@ -1092,20 +897,6 @@ Filename: luci-i18n-wol-zh-cn_git-24.022.58211-8354e26-1_all.ipk
 Size: 1705
 SHA256sum: 9cd13469bcfbaac04908448764a4484a052709fc7c672032fa8208486ce85bdc
 Description:  Translation for luci-app-wol - 简体中文 (Simplified Chinese)
-
-Package: luci-i18n-zerotier-zh-cn
-Version: 1.0-20
-Depends: libc, luci-app-zerotier
-Source: feeds/luci/applications/luci-app-zerotier
-SourceName: luci-i18n-zerotier-zh-cn
-Section: luci
-SourceDateEpoch: 1705939811
-Architecture: all
-Installed-Size: 817
-Filename: luci-i18n-zerotier-zh-cn_1.0-20_all.ipk
-Size: 1644
-SHA256sum: f7e150d783034da476098f952b27121d5afc7515fb08a4f95d4c65c955382545
-Description:  Translation for luci-app-zerotier - 简体中文 (Simplified Chinese)
 
 Package: luci-lib-fs
 Version: 1.0-1
@@ -1222,21 +1013,6 @@ Size: 12701
 SHA256sum: e90845ccfce3582a2b2d622057402ba8bee0d9d3ebf7f8744cafad4a72b5b6a0
 Description:  LuCI NewAPI
 
-Package: luci-proto-bonding
-Version: git-24.022.58211-8354e26-1
-Depends: libc, proto-bonding
-Source: feeds/luci/protocols/luci-proto-bonding
-SourceName: luci-proto-bonding
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Helge Mader <ma@dev.tdt.de>
-Architecture: all
-Installed-Size: 4774
-Filename: luci-proto-bonding_git-24.022.58211-8354e26-1_all.ipk
-Size: 5519
-SHA256sum: bb917dac8fb3c1645f50acd0169258fa639739a68b28e2e6c74f8ec5ec5f4c3c
-Description:  Support for Link Aggregation (Channel Bonding)
-
 Package: luci-proto-ipv6
 Version: git-24.022.58211-8354e26-1
 Depends: libc
@@ -1266,21 +1042,6 @@ Filename: luci-proto-ppp_git-24.022.58211-8354e26-1_all.ipk
 Size: 3885
 SHA256sum: 0fce40368e4b9100e91346214e79e69691a123f90f42df0ede4e61d0e8b8c6b6
 Description:  Support for PPP/PPPoE/PPPoA/PPtP
-
-Package: luci-proto-wireguard
-Version: git-24.022.58211-8354e26-1
-Depends: libc, kmod-wireguard, wireguard-tools
-Source: feeds/luci/protocols/luci-proto-wireguard
-SourceName: luci-proto-wireguard
-Section: luci
-SourceDateEpoch: 1705939811
-Maintainer: Dan Luedtke <mail@danrl.com>
-Architecture: all
-Installed-Size: 1987
-Filename: luci-proto-wireguard_git-24.022.58211-8354e26-1_all.ipk
-Size: 2737
-SHA256sum: 6da6bf63735f71888d7444c1d72b6f19877dabc80c742ef427df1fc1b27bc4c2
-Description:  Support for WireGuard VPN
 
 Package: luci-theme-argon-mod
 Version: 1.7.3-20220421
