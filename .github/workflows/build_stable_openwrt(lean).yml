@@ -44,7 +44,9 @@ env:
 
 jobs:
   Toolchain:
-    runs-on: ubuntu-22.04
+    runs-on:
+      group: ubuntu-runners
+      labels: ubuntu-22.04
 
     outputs:
       OPENWRT_ROOT_PATH: ${{ steps.clone.outputs.OPENWRT_ROOT_PATH }}
@@ -190,7 +192,10 @@ jobs:
 
   Build:
     needs: [Toolchain]
-    runs-on: ubuntu-22.04
+    runs-on:
+      group: ubuntu-runners
+      labels: ubuntu-22.04
+    timeout-minutes: 480
 
     steps:
       - name: 恢复变量
