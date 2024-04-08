@@ -121,10 +121,10 @@ CPE-ID: cpe:/a:busybox:busybox
 Essential: yes
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 232312
+Installed-Size: 232310
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233271
-SHA256sum: 34aef7d0ce5ae313519258a05764140cbaf91b11a9c11db5e754f77682c6fd18
+Size: 233266
+SHA256sum: 7bae917150b26725123ac7ba90f990a4ad501d382acb1560f6769775e80a47ef
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -332,7 +332,7 @@ Description:  Intel GPU firmware
 
 Package: ip-full
 Version: 6.2.0-1
-Depends: libc, libnl-tiny2022-11-01, libbpf20220308
+Depends: libc, libnl-tiny2023-07-01, libbpf20220308
 Provides: ip
 Alternatives: 300:/sbin/ip:/usr/libexec/ip-full
 Source: package/network/utils/iproute2
@@ -345,8 +345,8 @@ Maintainer: Russell Senior <russell@personaltelco.net>
 Architecture: x86_64
 Installed-Size: 224995
 Filename: ip-full_6.2.0-1_x86_64.ipk
-Size: 225855
-SHA256sum: 422bdb937c4614b87c4296a7869ab5b12ecbc7142f06a38280a37b1b1a3d9d19
+Size: 225858
+SHA256sum: edaa08a27940d8296adb56bf7369511707f787241919864443c8f60a2566b7d8
 Description:  Routing control utility (full)
 
 Package: ipset
@@ -948,22 +948,22 @@ Size: 341927
 SHA256sum: 0caca030a7e231263cac906285f828091717c7a94ad0760e5cb43040dcdc139e
 Description:  GNU crypto library
 
-Package: libnl-tiny2022-11-01
-Version: 2022-11-01-db3b2cdb-1
+Package: libnl-tiny2023-07-01
+Version: 2023-07-01-d433990c-1
 Depends: libc
 Provides: libnl-tiny
 Source: package/libs/libnl-tiny
 SourceName: libnl-tiny
 License: LGPL-2.1
 Section: libs
-SourceDateEpoch: 1670480457
-ABIVersion: 2022-11-01
+SourceDateEpoch: 1711551492
+ABIVersion: 2023-07-01
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 15634
-Filename: libnl-tiny2022-11-01_2022-11-01-db3b2cdb-1_x86_64.ipk
-Size: 16392
-SHA256sum: eee3fbf5620125af21e4ad6028d24e1b7f4832330935a7f37b30f4e7643e5780
+Installed-Size: 15644
+Filename: libnl-tiny2023-07-01_2023-07-01-d433990c-1_x86_64.ipk
+Size: 16398
+SHA256sum: b7f631978c0476f6caa6179c49f5e29c248d64bc7b1602ea26bf5f833279a762
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
@@ -1002,10 +1002,10 @@ ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2137218
+Installed-Size: 2137216
 Filename: libopenssl3_3.0.13-1_x86_64.ipk
-Size: 2128216
-SHA256sum: 1338de1c5928fd0a8a900276562349a35486aec85184cf06f206e94d9a876dff
+Size: 2128184
+SHA256sum: 36c20f0f165feb7422ba6bb6199ee646b7baf3439a393ac1c86d7c20f97c4a66
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1353,7 +1353,7 @@ Description:  Utility for creating a Flash-Friendly File System (F2FS)
 
 Package: netifd
 Version: 2021-06-04-50381d0a-1
-Depends: libc, libuci20130104, libnl-tiny2022-11-01, libubus20220601, ubus, ubusd, jshn, libubox20220927
+Depends: libc, libuci20130104, libnl-tiny2023-07-01, libubus20220601, ubus, ubusd, jshn, libubox20220927
 Source: package/network/config/netifd
 SourceName: netifd
 License: GPL-2.0
@@ -1364,7 +1364,7 @@ Architecture: x86_64
 Installed-Size: 94816
 Filename: netifd_2021-06-04-50381d0a-1_x86_64.ipk
 Size: 95685
-SHA256sum: 049fe030fa64b311538e7ec2ac8bbc95f2c474f93a6ba38d205b7170627dd7b9
+SHA256sum: afc144087ecf23fbdb4fa3ed36143749f7ec772a7da9f2fcbf235a0ceba3dffb
 Description:  OpenWrt Network Interface Configuration Daemon
 
 Package: odhcp6c
@@ -1385,7 +1385,7 @@ Description:  Embedded DHCPv6-client for OpenWrt
 
 Package: odhcpd-ipv6only
 Version: 2021-06-19-564d25e5-15
-Depends: libc, libubox20220927, libuci20130104, libubus20220601, libnl-tiny2022-11-01
+Depends: libc, libubox20220927, libuci20130104, libubus20220601, libnl-tiny2023-07-01
 Source: package/network/services/odhcpd
 SourceName: odhcpd-ipv6only
 License: GPL-2.0
@@ -1395,8 +1395,8 @@ Maintainer: Hans Dedecker <dedeckeh@gmail.com>
 Architecture: x86_64
 Installed-Size: 38558
 Filename: odhcpd-ipv6only_2021-06-19-564d25e5-15_x86_64.ipk
-Size: 39667
-SHA256sum: 36360f73d73bc5a34fcc7e46fc8562205254023f49c556d03b9fbd5043fee8d8
+Size: 39663
+SHA256sum: c293ea9b9defb4ddcef824832833055e0d171f48f075a67f7201c19e14cc9e00
 Description:  odhcpd is a daemon for serving and relaying IP management protocols to
  configure clients and downstream routers. It tries to follow the RFC 6204
  requirements for IPv6 home routers.
@@ -1831,19 +1831,20 @@ SHA256sum: f2c8c42d5924156b2f2be11765c021361b1248200b609716eac9ef71ba1697d1
 Description:  OpenWrt signature verification utility
 
 Package: vsftpd-alt
-Version: 3.0.5-1
+Version: 3.0.5-2
 Depends: libc, libuci20130104
 Source: package/lean/vsftpd-alt
 SourceName: vsftpd-alt
 License: GPLv2
 Section: net
-SourceDateEpoch: 1661261418
+SourceDateEpoch: 1711397139
+CPE-ID: cpe:/a:vsftpd_project:vsftpd
 Maintainer: Cezary Jackiewicz <cezary@eko.one.pl>
 Architecture: x86_64
-Installed-Size: 45533
-Filename: vsftpd-alt_3.0.5-1_x86_64.ipk
-Size: 46359
-SHA256sum: 81e5bfbb373381e4bc7860924765ba52b64e86e167e689af12e06bcbbd56eaa7
+Installed-Size: 45699
+Filename: vsftpd-alt_3.0.5-2_x86_64.ipk
+Size: 46542
+SHA256sum: affe8e81c7e71f049660a8b2b439862f934d133bafe921708bd72c89231b206b
 Description:  A fast and secure FTP server (with aio support)
 
 Package: wol
