@@ -17,10 +17,10 @@ Version: 20240220-1
 Depends: libc
 Section: firmware
 Architecture: x86_64
-Installed-Size: 27819661
+Installed-Size: 27819795
 Filename: amdgpu-firmware_20240220-1_x86_64.ipk
-Size: 27582362
-SHA256sum: 2e75b826b3fbe805b7bce2fcad73ce24e91ed1744f5755014e494b3a4adacca2
+Size: 27580397
+SHA256sum: 26f2fe8ac113c54ffbd19a3e3dd2877a3b2614c5a7e5b62af56365b187a6c3a7
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
@@ -61,10 +61,10 @@ Version: 20240220-1
 Depends: libc
 Section: firmware
 Architecture: x86_64
-Installed-Size: 105166
+Installed-Size: 105167
 Filename: bnx2-firmware_20240220-1_x86_64.ipk
-Size: 105828
-SHA256sum: 552e127d903d8fa5250bf78d2f3b3281c0c7af8b122132096c859c31f1e586dc
+Size: 105841
+SHA256sum: a2e17f9f578f50b8fc6fb2da5c65fe31b4f6dcb3f1d21ed2b9f794cf323b3a5c
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
@@ -72,10 +72,10 @@ Version: 20240220-1
 Depends: libc
 Section: firmware
 Architecture: x86_64
-Installed-Size: 2421831
+Installed-Size: 2421829
 Filename: bnx2x-firmware_20240220-1_x86_64.ipk
-Size: 2415483
-SHA256sum: 91308496b89307080186fc892d007277eae325077acc3b7afd8505c678e10f1a
+Size: 2415515
+SHA256sum: f5846d9fe773a2456032a85b8e71585652d1e4d4685eaaeb216bd19e6defb9f9
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
@@ -87,12 +87,26 @@ Section: base
 CPE-ID: cpe:/a:busybox:busybox
 Essential: yes
 Architecture: x86_64
-Installed-Size: 232310
+Installed-Size: 232312
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233263
-SHA256sum: c0ae28ee0bcc0b91153970c85115f0c055aa5b435bd2fe1d92c0acbd8f55e448
+Size: 233271
+SHA256sum: af9c2d0eded7e0b1d54d7dc5bb274524b509999f63a5e4003ae0e2347c0399c1
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
+
+Package: bzip2
+Version: 1.0.8-1
+Depends: libc, libbz2-1.0
+License: bzip2-1.0.8
+Section: utils
+CPE-ID: cpe:/a:bzip:bzip2
+Architecture: x86_64
+Installed-Size: 11691
+Filename: bzip2_1.0.8-1_x86_64.ipk
+Size: 12514
+SHA256sum: 5827c2d084c6b78285417365b256095b817d508eefc3c0bc6387b7bc1afb09fd
+Description:  bzip2 is a freely available, patent free, high-quality
+ data compressor. This package provides the binary.
 
 Package: ca-bundle
 Version: 20211016-1
@@ -156,15 +170,15 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 3-11
+Version: 3-12
 Depends: libc, luci-base, luci
 License: GPLv3
 Section: luci
 Architecture: all
-Installed-Size: 2039
-Filename: default-settings_3-11_all.ipk
-Size: 2769
-SHA256sum: 2f2a7c467311d3ea1c7c88b06d8d062d67c6a7aa2274bfee0807a55376e3b92b
+Installed-Size: 2038
+Filename: default-settings_3-12_all.ipk
+Size: 2767
+SHA256sum: fdc8ec20f69731341282167a7e4b8823ef3532aa49d43b09f6ea47a53b259b36
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -191,10 +205,10 @@ License: GPL-2.0
 Section: utils
 CPE-ID: cpe:/a:e2fsprogs_project:e2fsprogs
 Architecture: x86_64
-Installed-Size: 192236
+Installed-Size: 187073
 Filename: e2fsprogs_1.47.0-2_x86_64.ipk
-Size: 193077
-SHA256sum: 5d71fb969923dfc82551a1fdbedb377e092cca4c52ac21cd210fe53fd185efac
+Size: 187875
+SHA256sum: 71ef3f3ba8e126955b8cc81d998d73aace21965aff10986d54ff358d112dfb6e
 Description:  This package contains essential ext2 filesystem utilities which consists of
  e2fsck, mke2fs and most of the other core ext2 filesystem utilities.
 
@@ -216,13 +230,15 @@ Description:  ethtool is a small utility for examining and tuning your ethernet-
 Package: firewall
 Version: 2022-02-17-4cd7d4f3-3
 Depends: libc, libubox20220927, libubus20220601, libuci20130104, libip4tc2, libip6tc2, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
+Conflicts: firewall4
+Provides: uci-firewall
 License: ISC
 Section: net
 Architecture: x86_64
-Installed-Size: 50840
+Installed-Size: 50844
 Filename: firewall_2022-02-17-4cd7d4f3-3_x86_64.ipk
-Size: 51739
-SHA256sum: ecc902bd1f94f3f7d99f7b07ece1000a8710a5a92ba5dabc808d4e0938410045
+Size: 51754
+SHA256sum: 9e8a280d7369efe949845e6e10877f0046fa09cdc46515eca6b912ee5f42a0ea
 Description:  This package provides a config-compatible C implementation of the UCI firewall.
 
 Package: getrandom
@@ -242,10 +258,10 @@ Version: 20240220-1
 Depends: libc
 Section: firmware
 Architecture: x86_64
-Installed-Size: 7811500
+Installed-Size: 7811557
 Filename: i915-firmware_20240220-1_x86_64.ipk
-Size: 7780914
-SHA256sum: 034c1b3c1c148673b37e05442dd9bd30d5f09a2b2a2e56a0d057ec45f4a2731b
+Size: 7784498
+SHA256sum: c5420cc053ea9f4b3dc350e98cb4f09981224548ae96150e63445443960b6073
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -298,6 +314,21 @@ Filename: ipv6helper_1.0-2_all.ipk
 Size: 1281
 SHA256sum: c2198e6fedc562edfeac66de38f1d158fffc01baa6d595794b439ac7ac743b83
 Description:  IPv6 Helper and Dynamic Update he.net of ip
+
+Package: jansson4
+Version: 2.14-3
+Depends: libc
+Provides: jansson
+License: MIT
+Section: libs
+ABIVersion: 4
+CPE-ID: cpe:/a:jansson_project:jansson
+Architecture: x86_64
+Installed-Size: 23269
+Filename: jansson4_2.14-3_x86_64.ipk
+Size: 23998
+SHA256sum: 96c29c843a6767c2049d77cbe475b9596c96b6429c6c679f0f8b867396bba036
+Description:  Jansson is a C library for encoding, decoding and manipulating JSON data
 
 Package: jshn
 Version: 2022-09-27-ea560134-1
@@ -422,10 +453,10 @@ Section: libs
 ABIVersion: 0
 CPE-ID: cpe:/a:e2fsprogs_project:e2fsprogs
 Architecture: x86_64
-Installed-Size: 4080
+Installed-Size: 4063
 Filename: libcomerr0_1.47.0-2_x86_64.ipk
-Size: 4859
-SHA256sum: 888ed3dffc99e2bb6ea427b521bdf43fb09e68c643c777dfe519ed50840b10f3
+Size: 4846
+SHA256sum: 7f7fd0c41a7e2517703bd79fdd450839cbb90edc2154ce6f634b4169e501a784
 Description:  This package contains libcom_err, the common error description library
  bundled with e2fsprogs.
 
@@ -438,10 +469,10 @@ Section: libs
 ABIVersion: 1
 CPE-ID: cpe:/a:elfutils_project:elfutils
 Architecture: x86_64
-Installed-Size: 40457
+Installed-Size: 40456
 Filename: libelf1_0.188-1_x86_64.ipk
-Size: 41271
-SHA256sum: d3e91e27fd8375e59d5ed0be9ef1145d8dd6451a326c4c471bc31885213a9e33
+Size: 41277
+SHA256sum: 2c424329d2e86256c8d7481a46fa4f09e191c3b8a35036ce4ef47d1045ea67ce
 Description:  ELF manipulation libraries (libelf)
 
 Package: libeudev
@@ -493,10 +524,10 @@ Section: libs
 ABIVersion: 2
 CPE-ID: cpe:/a:e2fsprogs_project:e2fsprogs
 Architecture: x86_64
-Installed-Size: 182242
+Installed-Size: 180581
 Filename: libext2fs2_1.47.0-2_x86_64.ipk
-Size: 182772
-SHA256sum: 306784b67524a526ff68c2d2f049035b8444a5741a4b88da99b0afb35a1ead22
+Size: 181145
+SHA256sum: 9c1c798bab679e340a32a108f6328a0af02c5f76518cadfea9c09467b8e57c57
 Description:  libext2fs is a library which can access ext2, ext3 and ext4 filesystems.
 
 Package: libf2fs6
@@ -544,6 +575,20 @@ Size: 214582
 SHA256sum: d89f0691fe3f2435c5ebe1ebb95fbf21a473030e3e47fe409a4273ac59bc296a
 Description:  GMP is a free library for arbitrary precision arithmetic, operating on
  signed integers, rational numbers, and floating point numbers.
+
+Package: libiconv-full2
+Version: 1.17-1
+Depends: libc
+Provides: libiconv-full
+License: LGPL-2.1-or-later
+Section: libs
+ABIVersion: 2
+Architecture: x86_64
+Installed-Size: 666794
+Filename: libiconv-full2_1.17-1_x86_64.ipk
+Size: 667168
+SHA256sum: dafc63c9b8a8c95e55e6cc4cb60b894d7ce2eb80c10c1bbeebc2490c2cd49a09
+Description:  Character set conversion library
 
 Package: libipset13
 Version: 7.17-1
@@ -733,6 +778,22 @@ Size: 341927
 SHA256sum: 0caca030a7e231263cac906285f828091717c7a94ad0760e5cb43040dcdc139e
 Description:  GNU crypto library
 
+Package: libnftnl11
+Version: 1.2.4-11
+Depends: libc, libmnl0
+Provides: libnftnl
+License: GPL-2.0-or-later
+Section: libs
+ABIVersion: 11
+CPE-ID: cpe:/a:netfilter:libnftnl
+Architecture: x86_64
+Installed-Size: 65052
+Filename: libnftnl11_1.2.4-11_x86_64.ipk
+Size: 65890
+SHA256sum: 544c95814d7ef482c7f167405dd3688a4100962f115ccbc8b00e5caf076c830c
+Description:  libnftnl is a userspace library providing a low-level netlink
+ programming interface (API) to the in-kernel nf_tables subsystem.
+
 Package: libnl-tiny2023-07-01
 Version: 2023-07-01-d433990c-1
 Depends: libc
@@ -773,10 +834,10 @@ Section: libs
 ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Architecture: x86_64
-Installed-Size: 2137216
+Installed-Size: 2114343
 Filename: libopenssl3_3.0.13-1_x86_64.ipk
-Size: 2128237
-SHA256sum: a141e61cacec7b206655e6a5bed1bbfec3db40fc3419be0d70c34cbfe243a9e0
+Size: 2104700
+SHA256sum: 9815b1de3ff43237bd65e13dd35867fb703db1385d6e4f296c8c2862a4205886
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -854,10 +915,10 @@ Section: libs
 ABIVersion: 2
 CPE-ID: cpe:/a:e2fsprogs_project:e2fsprogs
 Architecture: x86_64
-Installed-Size: 8993
+Installed-Size: 8898
 Filename: libss2_1.47.0-2_x86_64.ipk
-Size: 9757
-SHA256sum: 7e4c2e327c7cf84e7cd3b2bb8b650f9fbad08b65ee34b226918b47dcdb02e800
+Size: 9673
+SHA256sum: eb680790cc8efc94ccc353908ccc76f5cfa123a700e0ae50adc7326c303e885d
 Description:  This pacakge contains libss, a command-line interface parsing library
  bundled with e2fsprogs.
 
@@ -941,6 +1002,21 @@ Filename: libuci20130104_2021-10-22-f84f49f0-6_x86_64.ipk
 Size: 17731
 SHA256sum: 031afc8c8595892ae5f2f8d95a8fe7d92334ef13e68f2b9dcf9ba0292e27ac65
 Description:  C library for the Unified Configuration Interface (UCI)
+
+Package: libucl
+Version: 1.03-3
+Depends: libc
+License: GPL-2.0-only
+Section: libs
+Architecture: x86_64
+Installed-Size: 17377
+Filename: libucl_1.03-3_x86_64.ipk
+Size: 18276
+SHA256sum: 1263e2c2c5e038ccbf7fcbe14a55d16f314c51dfd205a05263fdd609c81f668f
+Description:  UCL is a portable lossless data compression library written in ANSI C. UCL
+ implements a number of compression algorithms that achieve an excellent
+ compression ratio while allowing *very* fast decompression. Decompression
+ requires no additional memory.
 
 Package: libuclient20201210
 Version: 2021-05-14-6a6011df-1
@@ -1057,6 +1133,19 @@ Size: 95685
 SHA256sum: afc144087ecf23fbdb4fa3ed36143749f7ec772a7da9f2fcbf235a0ceba3dffb
 Description:  OpenWrt Network Interface Configuration Daemon
 
+Package: nftables-json
+Version: 1.0.6-1
+Depends: libc, kmod-nft-core, libnftnl11, jansson4
+Provides: nftables
+License: GPL-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 296429
+Filename: nftables-json_1.0.6-1_x86_64.ipk
+Size: 296147
+SHA256sum: 12d341f7b989729734fcb662e91721bd4b799e52b8af5a78f75ebceeeed5d714
+Description:  nftables userspace utility with JSON support
+
 Package: odhcp6c
 Version: 2021-01-09-53f07e90-18
 Depends: libc, libubox20220927
@@ -1094,10 +1183,10 @@ License: Apache-2.0
 Section: utils
 CPE-ID: cpe:/a:openssl:openssl
 Architecture: x86_64
-Installed-Size: 343318
+Installed-Size: 340686
 Filename: openssl-util_3.0.13-1_x86_64.ipk
-Size: 341864
-SHA256sum: 3956692fbfd292f7553c53a2f52876e8fb891eb76427f82e1864748b95bbdc57
+Size: 339133
+SHA256sum: 08a4773ae01e64e97e61da1c83793aa97ebc4234241746514bf2328f1198f6ee
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1162,6 +1251,19 @@ Size: 11346
 SHA256sum: e2bc14d40f05f28905ebeb41e580a715e2d0bbb4dc214bfd1c034b6cae2c2f9c
 Description:  This package contains a PPPoE (PPP over Ethernet) plugin for ppp.
 
+Package: ppp-mod-pppol2tp
+Version: 2.4.9.git-2021-01-04-6
+Depends: libc, kmod-pppol2tp
+License: BSD-4-Clause
+Section: net
+CPE-ID: cpe:/a:samba:ppp
+Architecture: x86_64
+Installed-Size: 4761
+Filename: ppp-mod-pppol2tp_2.4.9.git-2021-01-04-6_x86_64.ipk
+Size: 5520
+SHA256sum: d5252b8a4d661c94820d6301a6ddc54adbedb1f50e3e521f9e4a1ad71c1b8912
+Description:  This package contains a PPPoL2TP (PPP over L2TP) plugin for ppp.
+
 Package: ppp
 Version: 2.4.9.git-2021-01-04-6
 Depends: libc, kmod-ppp, libpthread, shellsync, kmod-mppe
@@ -1211,6 +1313,20 @@ Filename: procd_2023-01-16-190f13a7-1_x86_64.ipk
 Size: 57343
 SHA256sum: 3d907d3bb35deec33a355a2b73f836338244c6dcc0ccca6ff13b207b780c32f3
 Description:  OpenWrt system process manager
+
+Package: qos-scripts
+Version: 1.3.1-2
+Depends: libc, tc, kmod-sched-core, kmod-sched-connmark, kmod-ifb, iptables, iptables-mod-ipopt, iptables-mod-conntrack-extra
+License: GPL-2.0
+Section: utils
+Architecture: all
+Installed-Size: 6365
+Filename: qos-scripts_1.3.1-2_all.ipk
+Size: 7277
+SHA256sum: 6390ae571e9e41c073bbaa76f7bb625e751cf2348c48088badffe667c84d347f
+Description:  A set of scripts that abstract QoS configuration into a simple 
+ configuration file supporting stanzas that specify any number of QoS 
+ entries.
 
 Package: resolveip
 Version: 2
@@ -1264,6 +1380,21 @@ Filename: sysfsutils_2.1.0-4_x86_64.ipk
 Size: 9407
 SHA256sum: 43af86f1931d2f776f14da5232d9ae940cd70ad4630a967baec6223cb3e8aa4e
 Description:  A utility built upon libsysfs that lists devices by bus, class, and topology.
+
+Package: tc-tiny
+Version: 6.2.0-1
+Depends: libc, kmod-sched-core
+Provides: tc
+Alternatives: 200:/sbin/tc:/usr/libexec/tc-tiny
+License: GPL-2.0
+Section: net
+CPE-ID: cpe:/a:iproute2_project:iproute2
+Architecture: x86_64
+Installed-Size: 174351
+Filename: tc-tiny_6.2.0-1_x86_64.ipk
+Size: 175259
+SHA256sum: b3a075ae58c05d1edb0fef8621bf164e1144dd4d0480d82bb2e3d84986979198
+Description:  Traffic control utility (minimal)
 
 Package: terminfo
 Version: 6.4-1
@@ -1368,6 +1499,19 @@ Description:  uHTTPd is a tiny single threaded HTTP server with TLS, CGI and Lua
  support. It is intended as a drop-in replacement for the Busybox
  HTTP daemon.
 
+Package: upx
+Version: 4.2.2-1
+Depends: libc, libucl, libstdcpp6, zlib
+License: GPL-2.0-only
+Section: utils
+Architecture: x86_64
+Installed-Size: 785119
+Filename: upx_4.2.2-1_x86_64.ipk
+Size: 783316
+SHA256sum: 32b0cda7a696922eecc17cec26ade6a7aa92033834b3bbb92d864d334ea2902c
+Description:  UPX is a free, secure, portable, extendable, high-performance
+ executable packer for several executable formats.
+
 Package: urandom-seed
 Version: 3
 Depends: libc, getrandom
@@ -1426,6 +1570,26 @@ Filename: vsftpd-alt_3.0.5-2_x86_64.ipk
 Size: 46542
 SHA256sum: affe8e81c7e71f049660a8b2b439862f934d133bafe921708bd72c89231b206b
 Description:  A fast and secure FTP server (with aio support)
+
+Package: wireguard-tools
+Version: 1.0.20210914-2
+Depends: libc, kmod-wireguard
+License: GPL-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 26670
+Filename: wireguard-tools_1.0.20210914-2_x86_64.ipk
+Size: 27783
+SHA256sum: 07efb97d0b3c1cd324fb4b62806cd5cab2ecedbbb2d09c551b2cf8573a8b3c80
+Description:  WireGuard is a novel VPN that runs inside the Linux Kernel and utilizes
+ state-of-the-art cryptography. It aims to be faster, simpler, leaner, and
+ more useful than IPSec, while avoiding the massive headache. It intends to
+ be considerably more performant than OpenVPN.  WireGuard is designed as a
+ general purpose VPN for running on embedded interfaces and super computers
+ alike, fit for many different circumstances. It uses UDP.
+ 
+ This package provides the userspace control program for WireGuard,
+ `wg(8)`, a netifd protocol helper, and a re-resolve watchdog script.
 
 Package: wol
 Version: 0.7.1-3
