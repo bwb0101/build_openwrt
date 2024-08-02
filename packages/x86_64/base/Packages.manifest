@@ -22,28 +22,28 @@ Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amdgpu-firmware
 Section: firmware
-SourceDateEpoch: 1716563158
+SourceDateEpoch: 1720534087
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 27819795
+Installed-Size: 27819171
 Filename: amdgpu-firmware_20240220-1_x86_64.ipk
-Size: 27580397
-SHA256sum: 26f2fe8ac113c54ffbd19a3e3dd2877a3b2614c5a7e5b62af56365b187a6c3a7
+Size: 27581747
+SHA256sum: c0852d1b5509a102b9b883e3eb2415ac1d985c0434250f7ee711e87752a3e528
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
-Version: 68
+Version: 73
 Depends: libc, bc, lm-sensors, ethtool, pciutils
 Source: package/lean/autocore
 SourceName: autocore-x86
 Section: opt
-SourceDateEpoch: 1700202510
+SourceDateEpoch: 1720340293
 Maintainer: Lean
 Architecture: x86_64
-Installed-Size: 8312
-Filename: autocore-x86_68_x86_64.ipk
-Size: 9066
-SHA256sum: 0ba0733887ef9dd3a89e4f31a24702111b4f82cb2b06bdb98e0b165d26534603
+Installed-Size: 8305
+Filename: autocore-x86_73_x86_64.ipk
+Size: 9059
+SHA256sum: 885412f71dd683b2e393d37c9bd7f5c137b66bf08e735ce03ea19126305ab0f3
 Description:  A usb autoconfig hotplug script.
 
 Package: automount
@@ -82,13 +82,13 @@ Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2-firmware
 Section: firmware
-SourceDateEpoch: 1716563158
+SourceDateEpoch: 1720534087
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 105167
+Installed-Size: 105164
 Filename: bnx2-firmware_20240220-1_x86_64.ipk
-Size: 105841
-SHA256sum: a2e17f9f578f50b8fc6fb2da5c65fe31b4f6dcb3f1d21ed2b9f794cf323b3a5c
+Size: 105816
+SHA256sum: 678aeec6a099728ccf0085397f7e4de1d290b300a2de312b3367d5530fa24e84
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
@@ -97,13 +97,13 @@ Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2x-firmware
 Section: firmware
-SourceDateEpoch: 1716563158
+SourceDateEpoch: 1720534087
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 2421829
+Installed-Size: 2421832
 Filename: bnx2x-firmware_20240220-1_x86_64.ipk
-Size: 2415515
-SHA256sum: f5846d9fe773a2456032a85b8e71585652d1e4d4685eaaeb216bd19e6defb9f9
+Size: 2415530
+SHA256sum: 0b0bcd1d75bcca9059dbfbd13bc90bf4c60d06237093950b8ce739be867caa98
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
@@ -123,8 +123,8 @@ Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 232312
 Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233271
-SHA256sum: af9c2d0eded7e0b1d54d7dc5bb274524b509999f63a5e4003ae0e2347c0399c1
+Size: 233260
+SHA256sum: 477d75370ccf349ac27b9f90e1797b55af76aaf17156708e583a9baa29d72e9b
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -227,19 +227,19 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 3-12
+Version: 182
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1715145250
+SourceDateEpoch: 1720278337
 Architecture: all
-Installed-Size: 2038
-Filename: default-settings_3-12_all.ipk
-Size: 2767
-SHA256sum: fdc8ec20f69731341282167a7e4b8823ef3532aa49d43b09f6ea47a53b259b36
+Installed-Size: 1993
+Filename: default-settings_182_all.ipk
+Size: 2723
+SHA256sum: 3210bafe6d8be3849e6cdc5af8ab5e7c9e391aa416c96bc2eec6cda9cc08dd0a
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -304,20 +304,20 @@ Description:  ethtool is a small utility for examining and tuning your ethernet-
 
 Package: firewall
 Version: 2022-02-17-4cd7d4f3-3
-Depends: libc, libubox20220927, libubus20220601, libuci20130104, libip4tc2, libip6tc2, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
+Depends: libc, libubox20220927, libubus20220601, libuci20130104, libip4tc2, libip6tc2, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, iptables-mod-conntrack-extra, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
 Conflicts: firewall4
 Provides: uci-firewall
 Source: package/network/config/firewall
 SourceName: firewall
 License: ISC
 Section: net
-SourceDateEpoch: 1715144132
+SourceDateEpoch: 1719051392
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 50844
+Installed-Size: 50842
 Filename: firewall_2022-02-17-4cd7d4f3-3_x86_64.ipk
-Size: 51754
-SHA256sum: 9e8a280d7369efe949845e6e10877f0046fa09cdc46515eca6b912ee5f42a0ea
+Size: 51773
+SHA256sum: c41e0077237802e4f1a08f5b2261f211c5d90e785bd67ca648dc9ab7f2ec8e15
 Description:  This package provides a config-compatible C implementation of the UCI firewall.
 
 Package: getrandom
@@ -342,13 +342,13 @@ Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: i915-firmware
 Section: firmware
-SourceDateEpoch: 1716563158
+SourceDateEpoch: 1720534087
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 7811557
+Installed-Size: 7811501
 Filename: i915-firmware_20240220-1_x86_64.ipk
-Size: 7784498
-SHA256sum: c5420cc053ea9f4b3dc350e98cb4f09981224548ae96150e63445443960b6073
+Size: 7784197
+SHA256sum: 0125ad1933355a8fd521b43e3dd59259473bc883a5b877f8b4b1a83f454ed5f1
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -388,19 +388,19 @@ Description:  IPset administration utility
 
 Package: iptables-mod-fullconenat
 Version: 2022-02-13-108a36cb-10
-Depends: libc, iptables, kmod-ipt-fullconenat
+Depends: libc, libxtables12, kmod-ipt-fullconenat
 Source: package/network/services/fullconenat
 SourceName: iptables-mod-fullconenat
 License: GPL-2.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1672378208
+SourceDateEpoch: 1719081598
 Maintainer: Chion Tang <tech@chionlab.moe>
 Architecture: x86_64
-Installed-Size: 2540
+Installed-Size: 2539
 Filename: iptables-mod-fullconenat_2022-02-13-108a36cb-10_x86_64.ipk
-Size: 3304
-SHA256sum: 2ed886f9517852f7bc206bce127caf515e4ea020a81dc569389618c106dcce26
+Size: 3307
+SHA256sum: 07776aa966659fd0a3e34aae996699fdbb247e7b8f10050ec3004fc0f2c64f61
 Description:  FULLCONENAT iptables extension
 
 Package: ipv6helper
@@ -467,8 +467,8 @@ Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
 Installed-Size: 9762
 Filename: jsonfilter_2018-02-04-c7e938d6-1_x86_64.ipk
-Size: 10524
-SHA256sum: 76c867ebb9bc66e111b7da199c4cadd795873cada1714323a3d772e0839ea10c
+Size: 10520
+SHA256sum: f16a36eef4df1ea4fcc9b446a9724b19cb1581242a6a4ca57b8f00d7dd46a2d1
 Description:  OpenWrt JSON filter utility
 
 Package: libblkid1
@@ -617,15 +617,15 @@ SourceName: libelf
 License: GPL-3.0-or-later
 LicenseFiles: COPYING COPYING-GPLV2 COPYING-LGPLV3
 Section: libs
-SourceDateEpoch: 1674738953
+SourceDateEpoch: 1717218606
 ABIVersion: 1
 CPE-ID: cpe:/a:elfutils_project:elfutils
 Maintainer: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 Architecture: x86_64
-Installed-Size: 40456
+Installed-Size: 40455
 Filename: libelf1_0.188-1_x86_64.ipk
-Size: 41277
-SHA256sum: 2c424329d2e86256c8d7481a46fa4f09e191c3b8a35036ce4ef47d1045ea67ce
+Size: 41266
+SHA256sum: df4f40604acf97996b58958c0c2e4609acdc4d93596a67f96a26512018807318
 Description:  ELF manipulation libraries (libelf)
 
 Package: libeudev
@@ -697,7 +697,7 @@ SHA256sum: 9c1c798bab679e340a32a108f6328a0af02c5f76518cadfea9c09467b8e57c57
 Description:  libext2fs is a library which can access ext2, ext3 and ext4 filesystems.
 
 Package: libf2fs6
-Version: 1.16.0-2
+Version: 1.16.0-3
 Depends: libc, libuuid1
 Conflicts: libf2fs-selinux
 Provides: libf2fs
@@ -706,15 +706,15 @@ SourceName: libf2fs
 License: GPL-2.0-only
 LicenseFiles: COPYING
 Section: libs
-SourceDateEpoch: 1705124623
+SourceDateEpoch: 1720003911
 ABIVersion: 6
 CPE-ID: cpe:/a:f2fs-tools_project:f2fs-tools
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 41553
-Filename: libf2fs6_1.16.0-2_x86_64.ipk
-Size: 42324
-SHA256sum: abc147a7b139179f573d4c395f8d2d171ec715e54f081855d0a4f9e03edd0805
+Installed-Size: 41555
+Filename: libf2fs6_1.16.0-3_x86_64.ipk
+Size: 42330
+SHA256sum: 670ed441549760c5d5fc2318f86c61bb29bb8a63f758c70943175bd2cb91b234
 Description:  Library for Flash-Friendly File System (F2FS) tools
 
 Package: libfdisk1
@@ -792,7 +792,7 @@ SHA256sum: 73825278f73220c8808ed9da7c0c0d4494e1737a0d7ce9d6e936179a2573ba28
 Description:  IPset administration utility
 
 Package: libjson-c5
-Version: 0.16-2
+Version: 0.17-1
 Depends: libc
 Provides: libjson-c
 Source: package/libs/libjson-c
@@ -800,15 +800,15 @@ SourceName: libjson-c
 License: MIT
 LicenseFiles: COPYING
 Section: libs
-SourceDateEpoch: 1670480457
+SourceDateEpoch: 1717517889
 ABIVersion: 5
 CPE-ID: cpe:/a:json-c_project:json-c
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 27825
-Filename: libjson-c5_0.16-2_x86_64.ipk
-Size: 28629
-SHA256sum: c1ae694f43b5ed1f864fb3955d103ed0d4e78a925d155ac7a7fd9941eacdc08b
+Installed-Size: 29558
+Filename: libjson-c5_0.17-1_x86_64.ipk
+Size: 30311
+SHA256sum: 2fdc5ac019fd23dbbe407c8fc1f4c9c74dffd38ffe0a4290da129ea8d0e52790
 Description:  This package contains a library for javascript object notation backends.
 
 Package: libjson-script20220927
@@ -849,7 +849,7 @@ SHA256sum: 295bb27facb57ef4fd38ddf44a02d2f04d587503ec4d3583debd3ebd7fb83302
 Description:  A generic dynamic object loading library
 
 Package: liblua5.1.5
-Version: 5.1.5-10
+Version: 5.1.5-11
 Depends: libc
 Provides: liblua
 Source: package/utils/lua
@@ -857,14 +857,14 @@ SourceName: liblua
 License: MIT
 LicenseFiles: COPYRIGHT
 Section: libs
-SourceDateEpoch: 1672818075
+SourceDateEpoch: 1721052366
 ABIVersion: 5.1.5
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 73747
-Filename: liblua5.1.5_5.1.5-10_x86_64.ipk
-Size: 74613
-SHA256sum: 2fef9f24515b05065f96d8a4fcee69a1b6caaefd95f79eba61a823ebcc15db6a
+Installed-Size: 73754
+Filename: liblua5.1.5_5.1.5-11_x86_64.ipk
+Size: 74632
+SHA256sum: a4602cb75f3abdf88f075bc08464e14e3bd787222c23b9d27555b0bad6baea98
 Description:  Lua is a powerful light-weight programming language designed for extending 
  applications. Lua is also frequently used as a general-purpose, stand-alone 
  language. Lua is free software.
@@ -1047,21 +1047,21 @@ SHA256sum: b7f631978c0476f6caa6179c49f5e29c248d64bc7b1602ea26bf5f833279a762
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 3.0.13-1
+Version: 3.0.14-1
 Depends: libc, libopenssl3
 Source: package/libs/openssl
 SourceName: libopenssl-conf
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1706943781
+SourceDateEpoch: 1718896226
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 6268
-Filename: libopenssl-conf_3.0.13-1_x86_64.ipk
-Size: 7448
-SHA256sum: 358c8bdb81dda284f8fc70acee45b3d17086386739d332c66a3216737bda245c
+Installed-Size: 6265
+Filename: libopenssl-conf_3.0.14-1_x86_64.ipk
+Size: 7447
+SHA256sum: e6cc0a191c2d4c91b443984892564c05b372235e65dded78126caaca95675c89
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1069,7 +1069,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl3
-Version: 3.0.13-1
+Version: 3.0.14-1
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
@@ -1077,15 +1077,15 @@ SourceName: libopenssl
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1706943781
+SourceDateEpoch: 1718896226
 ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2114343
-Filename: libopenssl3_3.0.13-1_x86_64.ipk
-Size: 2104700
-SHA256sum: 9815b1de3ff43237bd65e13dd35867fb703db1385d6e4f296c8c2862a4205886
+Installed-Size: 2116523
+Filename: libopenssl3_3.0.14-1_x86_64.ipk
+Size: 2106664
+SHA256sum: b0ad665a7872bddffe5ac74a42e47795281faa837e31df0aa0e71156faf1b024
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1307,10 +1307,10 @@ Section: libs
 SourceDateEpoch: 1650528970
 Maintainer: Xingwang Liao <kuoruan@gmail.com>
 Architecture: x86_64
-Installed-Size: 17377
+Installed-Size: 17374
 Filename: libucl_1.03-3_x86_64.ipk
-Size: 18276
-SHA256sum: 1263e2c2c5e038ccbf7fcbe14a55d16f314c51dfd205a05263fdd609c81f668f
+Size: 18266
+SHA256sum: a861e9cda1e35c342ebe99a67cf8d54a8c219f56014edff49f05914d672d370a
 Description:  UCL is a portable lossless data compression library written in ANSI C. UCL
  implements a number of compression algorithms that achieve an excellent
  compression ratio while allowing *very* fast decompression. Decompression
@@ -1413,27 +1413,27 @@ SHA256sum: 71be79be11e1386ca684bed616bc9b73bb03c79f02daebefff78b205e4305791
 Description:  OpenWrt system log implementation
 
 Package: lua
-Version: 5.1.5-10
+Version: 5.1.5-11
 Depends: libc, liblua5.1.5
 Source: package/utils/lua
 SourceName: lua
 License: MIT
 LicenseFiles: COPYRIGHT
 Section: lang
-SourceDateEpoch: 1672818075
+SourceDateEpoch: 1721052366
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
 Installed-Size: 4596
-Filename: lua_5.1.5-10_x86_64.ipk
-Size: 5461
-SHA256sum: 49a1854a8630bdca6937a42fb5bfdd8fe9675df9430e1d6ad10442cc05662277
+Filename: lua_5.1.5-11_x86_64.ipk
+Size: 5459
+SHA256sum: b16d71de5a80d13ae0dd336672a63f167f0f407dc0b1fc351e7c31b763ac501c
 Description:  Lua is a powerful light-weight programming language designed for extending 
  applications. Lua is also frequently used as a general-purpose, stand-alone 
  language. Lua is free software.
  This package contains the Lua language interpreter.
 
 Package: mkf2fs
-Version: 1.16.0-2
+Version: 1.16.0-3
 Depends: libc, libf2fs6
 Conflicts: mkf2fs-selinux
 Source: package/utils/f2fs-tools
@@ -1441,14 +1441,14 @@ SourceName: mkf2fs
 License: GPL-2.0-only
 LicenseFiles: COPYING
 Section: utils
-SourceDateEpoch: 1705124623
+SourceDateEpoch: 1720003911
 CPE-ID: cpe:/a:f2fs-tools_project:f2fs-tools
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
 Installed-Size: 16692
-Filename: mkf2fs_1.16.0-2_x86_64.ipk
-Size: 17487
-SHA256sum: 843d9cf0913e57223d1025b7718d623bee6c9a6a4bf787b2af8a0da018325303
+Filename: mkf2fs_1.16.0-3_x86_64.ipk
+Size: 17493
+SHA256sum: 0cfaa987afb2c34624f259aa953a8b5defca6cc049ee071e2d2e9f699a408467
 Description:  Utility for creating a Flash-Friendly File System (F2FS)
 
 Package: netifd
@@ -1523,21 +1523,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 3.0.13-1
+Version: 3.0.14-1
 Depends: libc, libopenssl3, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1706943781
+SourceDateEpoch: 1718896226
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 340686
-Filename: openssl-util_3.0.13-1_x86_64.ipk
-Size: 339133
-SHA256sum: 08a4773ae01e64e97e61da1c83793aa97ebc4234241746514bf2328f1198f6ee
+Installed-Size: 340836
+Filename: openssl-util_3.0.14-1_x86_64.ipk
+Size: 339788
+SHA256sum: d5e2cabd659a50dd1fb6f122140cd8e0fb40fbf88bd3038ed04f27e57c921924
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
