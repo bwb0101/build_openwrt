@@ -16,34 +16,49 @@ Description:  Provides support for 6in4 tunnels in /etc/config/network.
  Refer to http://wiki.openwrt.org/doc/uci/network for
  configuration details.
 
+Package: amd64-microcode
+Version: 20240709-1
+Depends: libc
+Source: package/firmware/linux-firmware
+SourceName: amd64-microcode
+Section: firmware
+SourceDateEpoch: 1722393970
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: x86_64
+Installed-Size: 57036
+Filename: amd64-microcode_20240709-1_x86_64.ipk
+Size: 57799
+SHA256sum: 2b3a7598a803ff89d22abbaf84aa6977d3f65711cb5220a0da909d423922b7c3
+Description:  AMD64 CPU microcode
+
 Package: amdgpu-firmware
-Version: 20240220-1
+Version: 20240709-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amdgpu-firmware
 Section: firmware
-SourceDateEpoch: 1720534087
+SourceDateEpoch: 1722393970
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 27819171
-Filename: amdgpu-firmware_20240220-1_x86_64.ipk
-Size: 27581747
-SHA256sum: c0852d1b5509a102b9b883e3eb2415ac1d985c0434250f7ee711e87752a3e528
+Installed-Size: 31927627
+Filename: amdgpu-firmware_20240709-1_x86_64.ipk
+Size: 31655794
+SHA256sum: b77c5ea737e6039780fcccdc8e4c73468274fc9c9485f20bb28329c13fde6c55
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
-Version: 73
+Version: 75
 Depends: libc, bc, lm-sensors, ethtool, pciutils
 Source: package/lean/autocore
 SourceName: autocore-x86
 Section: opt
-SourceDateEpoch: 1720340293
+SourceDateEpoch: 1723210805
 Maintainer: Lean
 Architecture: x86_64
-Installed-Size: 8305
-Filename: autocore-x86_73_x86_64.ipk
-Size: 9059
-SHA256sum: 885412f71dd683b2e393d37c9bd7f5c137b66bf08e735ce03ea19126305ab0f3
+Installed-Size: 8298
+Filename: autocore-x86_75_x86_64.ipk
+Size: 9050
+SHA256sum: 82b2e1cc9246ebf3de1ba54454a18fa6efa5202e730a8eb9f21584e0949feff7
 Description:  A usb autoconfig hotplug script.
 
 Package: automount
@@ -77,33 +92,33 @@ SHA256sum: 503cd241a9a730895abc3d8225636a4a3a87808a791c7028112a255afc509514
 Description:  A hotplug script to config Samba share automatically.
 
 Package: bnx2-firmware
-Version: 20240220-1
+Version: 20240709-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2-firmware
 Section: firmware
-SourceDateEpoch: 1720534087
+SourceDateEpoch: 1722393970
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 105164
-Filename: bnx2-firmware_20240220-1_x86_64.ipk
-Size: 105816
-SHA256sum: 678aeec6a099728ccf0085397f7e4de1d290b300a2de312b3367d5530fa24e84
+Installed-Size: 105167
+Filename: bnx2-firmware_20240709-1_x86_64.ipk
+Size: 105826
+SHA256sum: 490661ff0483f7966bec23f7d250d6fef2f159752b7cb1934ca7aecd6b184548
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
-Version: 20240220-1
+Version: 20240709-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2x-firmware
 Section: firmware
-SourceDateEpoch: 1720534087
+SourceDateEpoch: 1722393970
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 2421832
-Filename: bnx2x-firmware_20240220-1_x86_64.ipk
-Size: 2415530
-SHA256sum: 0b0bcd1d75bcca9059dbfbd13bc90bf4c60d06237093950b8ce739be867caa98
+Installed-Size: 2421835
+Filename: bnx2x-firmware_20240709-1_x86_64.ipk
+Size: 2415491
+SHA256sum: 7c399082fc1c0059ff5b6828c985589ddc46932b764000f33b8f4aa7836427c7
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
@@ -124,7 +139,7 @@ Architecture: x86_64
 Installed-Size: 232312
 Filename: busybox_1.36.0-1_x86_64.ipk
 Size: 233260
-SHA256sum: 477d75370ccf349ac27b9f90e1797b55af76aaf17156708e583a9baa29d72e9b
+SHA256sum: ade474e6f91de8f82ebf72c595fbaf8adf23ce4ef878b4fe1d06f9a384bd6fdf
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -227,19 +242,19 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 182
+Version: 183
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1720278337
+SourceDateEpoch: 1722394367
 Architecture: all
-Installed-Size: 1993
-Filename: default-settings_182_all.ipk
-Size: 2723
-SHA256sum: 3210bafe6d8be3849e6cdc5af8ab5e7c9e391aa416c96bc2eec6cda9cc08dd0a
+Installed-Size: 1994
+Filename: default-settings_183_all.ipk
+Size: 2728
+SHA256sum: c57ef2dfa16c7abc6396d4c005063427ddbb90194d2383aa8b313e5da02a050b
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -337,18 +352,18 @@ SHA256sum: 375e24651d6511a0e92ef677c64580fac2c3024c0905294741643a53deaeb654
 Description:  OpenWrt getrandom system helper
 
 Package: i915-firmware
-Version: 20240220-1
+Version: 20240709-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: i915-firmware
 Section: firmware
-SourceDateEpoch: 1720534087
+SourceDateEpoch: 1722393970
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 7811501
-Filename: i915-firmware_20240220-1_x86_64.ipk
-Size: 7784197
-SHA256sum: 0125ad1933355a8fd521b43e3dd59259473bc883a5b877f8b4b1a83f454ed5f1
+Installed-Size: 7811520
+Filename: i915-firmware_20240709-1_x86_64.ipk
+Size: 7781396
+SHA256sum: 62c4506a36efe159514cd85341ee9038569d9e0215cee88d56da8d5a34b856a8
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -627,24 +642,6 @@ Filename: libelf1_0.188-1_x86_64.ipk
 Size: 41266
 SHA256sum: df4f40604acf97996b58958c0c2e4609acdc4d93596a67f96a26512018807318
 Description:  ELF manipulation libraries (libelf)
-
-Package: libeudev
-Version: 3.2.10-1
-Depends: libc
-Conflicts: libudev-zero, udev
-Provides: libudev
-Source: package/qat/libs/eudev
-SourceName: libeudev
-License: GPL-2.0
-Section: libs
-SourceDateEpoch: 1650639027
-Maintainer: Ian Cooper <iancooper@hotmail.com>
-Architecture: x86_64
-Installed-Size: 57447
-Filename: libeudev_3.2.10-1_x86_64.ipk
-Size: 58320
-SHA256sum: 6957bc1281064edb36a31a727f6866d36b0e15db150955b44cbc94953ea28fa0
-Description:  Dynamic device management subsystem
 
 Package: libevent2-7
 Version: 2.1.12-1
@@ -1082,10 +1079,10 @@ ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2116523
+Installed-Size: 2116530
 Filename: libopenssl3_3.0.14-1_x86_64.ipk
-Size: 2106664
-SHA256sum: b0ad665a7872bddffe5ac74a42e47795281faa837e31df0aa0e71156faf1b024
+Size: 2106644
+SHA256sum: 7f20b63b5d15ecc12b391964d81da3560429a96ed5a98784911988ce143f1919
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1307,10 +1304,10 @@ Section: libs
 SourceDateEpoch: 1650528970
 Maintainer: Xingwang Liao <kuoruan@gmail.com>
 Architecture: x86_64
-Installed-Size: 17374
+Installed-Size: 17375
 Filename: libucl_1.03-3_x86_64.ipk
-Size: 18266
-SHA256sum: a861e9cda1e35c342ebe99a67cf8d54a8c219f56014edff49f05914d672d370a
+Size: 18270
+SHA256sum: 7bfb7320d6210ec97d7f04c11134ff77147992e68963aaa6413ab97090b8e3bc
 Description:  UCL is a portable lossless data compression library written in ANSI C. UCL
  implements a number of compression algorithms that achieve an excellent
  compression ratio while allowing *very* fast decompression. Decompression
@@ -1333,27 +1330,6 @@ Filename: libuclient20201210_2021-05-14-6a6011df-1_x86_64.ipk
 Size: 11322
 SHA256sum: aab287c39b7335567a141fa8dec6061f1163275cb432c9ea2b4ff2fded1e2c61
 Description:  HTTP/1.1 client library
-
-Package: libusb-1.0-0
-Version: 1.0.26-7
-Depends: libc, libpthread, librt, libatomic1
-Provides: libusb-1.0
-Source: package/libs/libusb
-SourceName: libusb-1.0
-License: LGPL-2.1-or-later
-LicenseFiles: COPYING
-Section: libs
-SourceDateEpoch: 1670480457
-ABIVersion: -0
-CPE-ID: cpe:/a:libusb:libusb
-Maintainer: Felix Fietkau <nbd@nbd.name>
-Architecture: x86_64
-Installed-Size: 32706
-Filename: libusb-1.0-0_1.0.26-7_x86_64.ipk
-Size: 33572
-SHA256sum: 6fe96864507995ac9c1d2553c1a1b8fe86ea6d4f9cd9dba6c298d0706bb7715f
-Description:  libusb is a C library that gives applications easy access to USB devices on
- many different operating systems.
 
 Package: libustream-openssl20201210
 Version: 2022-12-08-9217ab46-1
