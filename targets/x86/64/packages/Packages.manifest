@@ -9,8 +9,8 @@ SourceDateEpoch: 1720278337
 Architecture: x86_64
 Installed-Size: 45950
 Filename: base-files_78-r6824-f5361b8b3_x86_64.ipk
-Size: 46929
-SHA256sum: 3f876b1252b5156f3e8e2cc55066392b7d7cfce86fdc6b36dcb7b4240796569c
+Size: 46933
+SHA256sum: 73e2d9e4991846524b826292da5c0f9850a3a2ed5b3e3bc9b572572c743d83c1
 Description:  This package contains a base filesystem and system scripts for OpenWrt.
 
 Package: block-mount
@@ -1149,6 +1149,21 @@ Filename: kmod-e1000e_6.6.40-1_x86_64.ipk
 Size: 88330
 SHA256sum: f6d4fb2b259fdb52103bd297277ca32c2439c134dad2ae49503aef074b75fd11
 Description:  Kernel modules for Intel(R) PRO/1000 PCIe Ethernet adapters.
+
+Package: kmod-fast-classifier
+Version: 6.6.40-6
+Depends: kernel (=6.6.40-1-2b68764cba218aa1b73acfa8db01c2db), kmod-ipt-conntrack, kmod-shortcut-fe
+Conflicts: kmod-shortcut-fe-drv, kmod-shortcut-fe-cm
+Source: package/qca/shortcut-fe/fast-classifier
+SourceName: kmod-fast-classifier
+Section: kernel
+SourceDateEpoch: 1706535023
+Architecture: x86_64
+Installed-Size: 9918
+Filename: kmod-fast-classifier_6.6.40-6_x86_64.ipk
+Size: 10715
+SHA256sum: c9d541def09814f16825716cfd4d2bcb4ced7d64621be3dbfb7bea96569fec2b
+Description:  FAST Classifier talks to SFE to make decisions about offloading connections
 
 Package: kmod-fb-cfb-copyarea
 Version: 6.6.40-1
@@ -2764,21 +2779,6 @@ Filename: kmod-sdhci_6.6.40-1_x86_64.ipk
 Size: 3447
 SHA256sum: e6a44aefdc3f9c7579519874fe8735cf980f7d7bffa8818706a29bbf7c79ae39
 Description:  Kernel support for SDHCI Hosts
-
-Package: kmod-shortcut-fe-cm
-Version: 6.6.40-8
-Depends: kernel (=6.6.40-1-2b68764cba218aa1b73acfa8db01c2db), kmod-ipt-conntrack, kmod-shortcut-fe
-Conflicts: kmod-shortcut-fe-drv
-Source: package/qca/shortcut-fe/shortcut-fe
-SourceName: kmod-shortcut-fe-cm
-Section: kernel
-SourceDateEpoch: 1706535023
-Architecture: x86_64
-Installed-Size: 6372
-Filename: kmod-shortcut-fe-cm_6.6.40-8_x86_64.ipk
-Size: 7140
-SHA256sum: ff01dd6c39af96ea1fbaf93f83bf13bf03c186620dc414eacbd87367f30c5279
-Description:  Kernel driver for SFE
 
 Package: kmod-shortcut-fe
 Version: 6.6.40-8
