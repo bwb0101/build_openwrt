@@ -48,7 +48,8 @@ jobs:
         git clone https://github.com/coolsnowwolf/luci.git mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
-        git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
+        # mosdns新版只支持原生估计，不再支持lean固件
+        #git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
 
@@ -56,12 +57,12 @@ jobs:
         rm -rf mypkg/luci/applications/luci-app-smartdns
         cp -r kenzok8-new/smartdns mypkg/pkg/net
         cp -r kenzok8-new/luci-app-smartdns mypkg/luci/applications
-        rm -rf mypkg/pkg/net/mosdns
-        rm -rf mypkg/pkg/utils/v2dat
-        rm -rf mypkg/luci/applications/luci-app-mosdns
-        cp -r myplugin/mosdns/mosdns mypkg/pkg/net
-        cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
-        cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
+        #rm -rf mypkg/pkg/net/mosdns
+        #rm -rf mypkg/pkg/utils/v2dat
+        #rm -rf mypkg/luci/applications/luci-app-mosdns
+        #cp -r myplugin/mosdns/mosdns mypkg/pkg/net
+        #cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
+        #cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
 
         rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
         rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
