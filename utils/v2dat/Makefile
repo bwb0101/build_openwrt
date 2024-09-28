@@ -22,13 +22,11 @@ PKG_MAINTAINER:=sbwml <admin@cooluc.com>
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
-PKG_BUILD_FLAGS:=no-mips16
 
 GO_PKG:=github.com/urlesistiana/v2dat
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+include ../../lang/golang/golang-package.mk
 
 define Package/v2dat
   SECTION:=utils
