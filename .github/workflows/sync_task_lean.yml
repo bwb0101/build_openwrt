@@ -48,7 +48,7 @@ jobs:
         git clone https://github.com/coolsnowwolf/luci.git mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
-        # mosdns新版只支持原生估计，不再支持lean固件
+        # mosdns5.3.1+只支持原生固件，不再支持lean固件
         #git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
