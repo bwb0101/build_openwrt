@@ -17,33 +17,33 @@ Description:  Provides support for 6in4 tunnels in /etc/config/network.
  configuration details.
 
 Package: amd64-microcode
-Version: 20240709-1
+Version: 20240909-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amd64-microcode
 Section: firmware
-SourceDateEpoch: 1722393970
+SourceDateEpoch: 1727091499
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 57036
-Filename: amd64-microcode_20240709-1_x86_64.ipk
-Size: 57799
-SHA256sum: 2b3a7598a803ff89d22abbaf84aa6977d3f65711cb5220a0da909d423922b7c3
+Installed-Size: 55905
+Filename: amd64-microcode_20240909-1_x86_64.ipk
+Size: 56664
+SHA256sum: 3e7db18055d65db0e052705e6a330145ce48ddda02436fe873a93b13fb89ae9f
 Description:  AMD64 CPU microcode
 
 Package: amdgpu-firmware
-Version: 20240709-1
+Version: 20240909-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: amdgpu-firmware
 Section: firmware
-SourceDateEpoch: 1722393970
+SourceDateEpoch: 1727091499
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 31927627
-Filename: amdgpu-firmware_20240709-1_x86_64.ipk
-Size: 31655794
-SHA256sum: b77c5ea737e6039780fcccdc8e4c73468274fc9c9485f20bb28329c13fde6c55
+Installed-Size: 31980055
+Filename: amdgpu-firmware_20240909-1_x86_64.ipk
+Size: 31713941
+SHA256sum: 6482dfb2a81a6c3761e3cc63756cfdc71e09642accb1d2f06cb7000aa3007eb6
 Description:  AMDGPU Video Driver firmware
 
 Package: autocore-x86
@@ -92,37 +92,37 @@ SHA256sum: 503cd241a9a730895abc3d8225636a4a3a87808a791c7028112a255afc509514
 Description:  A hotplug script to config Samba share automatically.
 
 Package: bnx2-firmware
-Version: 20240709-1
+Version: 20240909-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2-firmware
 Section: firmware
-SourceDateEpoch: 1722393970
+SourceDateEpoch: 1727091499
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 105167
-Filename: bnx2-firmware_20240709-1_x86_64.ipk
-Size: 105826
-SHA256sum: 490661ff0483f7966bec23f7d250d6fef2f159752b7cb1934ca7aecd6b184548
+Installed-Size: 105166
+Filename: bnx2-firmware_20240909-1_x86_64.ipk
+Size: 105816
+SHA256sum: 443b80c1be2d30dd39308904fbf35eaeb9f819c76c65d177f6462e23a1ac499c
 Description:  Broadcom BCM5706/5708/5709/5716 firmware
 
 Package: bnx2x-firmware
-Version: 20240709-1
+Version: 20240909-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: bnx2x-firmware
 Section: firmware
-SourceDateEpoch: 1722393970
+SourceDateEpoch: 1727091499
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 2421835
-Filename: bnx2x-firmware_20240709-1_x86_64.ipk
-Size: 2415491
-SHA256sum: 7c399082fc1c0059ff5b6828c985589ddc46932b764000f33b8f4aa7836427c7
+Installed-Size: 2421822
+Filename: bnx2x-firmware_20240909-1_x86_64.ipk
+Size: 2415466
+SHA256sum: 8d9829937a4651367c578903159167a4ea6566e442c2b03bfb0979773d13a55a
 Description:  =QLogic 5771x/578xx firmware
 
 Package: busybox
-Version: 1.36.0-1
+Version: 1.36.0-2
 Depends: libc
 Conflicts: busybox-selinux
 Source: package/utils/busybox
@@ -131,15 +131,15 @@ License: GPL-2.0
 LicenseFiles: LICENSE archival/libarchive/bz/LICENSE
 Section: base
 Require-User: ntp=123:ntp=123
-SourceDateEpoch: 1674631835
+SourceDateEpoch: 1727018462
 CPE-ID: cpe:/a:busybox:busybox
 Essential: yes
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 232312
-Filename: busybox_1.36.0-1_x86_64.ipk
-Size: 233260
-SHA256sum: ade474e6f91de8f82ebf72c595fbaf8adf23ce4ef878b4fe1d06f9a384bd6fdf
+Installed-Size: 232318
+Filename: busybox_1.36.0-2_x86_64.ipk
+Size: 233254
+SHA256sum: be2b35ddf9366fc797568593539bea794b0ac50ab9acf810faa2ef004eee34e3
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
@@ -242,19 +242,19 @@ SHA256sum: 5941407b690e76d429bdfd0dbef85a2b2c141b37acc320b633f607c2747500e2
 Description:  Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 
 Package: default-settings
-Version: 183
+Version: 184
 Depends: libc, luci-base, luci
 Source: package/lean/default-settings
 SourceName: default-settings
 License: GPLv3
 LicenseFiles: LICENSE
 Section: luci
-SourceDateEpoch: 1722394367
+SourceDateEpoch: 1726650092
 Architecture: all
-Installed-Size: 1994
-Filename: default-settings_183_all.ipk
-Size: 2728
-SHA256sum: c57ef2dfa16c7abc6396d4c005063427ddbb90194d2383aa8b313e5da02a050b
+Installed-Size: 1988
+Filename: default-settings_184_all.ipk
+Size: 2716
+SHA256sum: 3ab5eeae2758a4bd9c4f4792821caf5f41e2f5d81d242d84d2c5c97f30232cba
 Description:  Language Support Packages.
 
 Package: dnsmasq-full
@@ -352,18 +352,18 @@ SHA256sum: 375e24651d6511a0e92ef677c64580fac2c3024c0905294741643a53deaeb654
 Description:  OpenWrt getrandom system helper
 
 Package: i915-firmware
-Version: 20240709-1
+Version: 20240909-1
 Depends: libc
 Source: package/firmware/linux-firmware
 SourceName: i915-firmware
 Section: firmware
-SourceDateEpoch: 1722393970
+SourceDateEpoch: 1727091499
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 7811520
-Filename: i915-firmware_20240709-1_x86_64.ipk
-Size: 7781396
-SHA256sum: 62c4506a36efe159514cd85341ee9038569d9e0215cee88d56da8d5a34b856a8
+Installed-Size: 7804971
+Filename: i915-firmware_20240909-1_x86_64.ipk
+Size: 7779014
+SHA256sum: 14f391139e433a8eb986d7744bb58fa7c41dfebed2fbc99a13a13f0041509f4b
 Description:  Intel GPU firmware
 
 Package: ip-full
@@ -386,19 +386,20 @@ SHA256sum: edaa08a27940d8296adb56bf7369511707f787241919864443c8f60a2566b7d8
 Description:  Routing control utility (full)
 
 Package: ipset
-Version: 7.17-1
+Version: 7.21-1
 Depends: libc, kmod-ipt-ipset, libmnl0, libipset13
 Source: package/network/utils/ipset
 SourceName: ipset
 License: GPL-2.0
 Section: net
-SourceDateEpoch: 1674450162
+SourceDateEpoch: 1726323616
+CPE-ID: cpe:/a:netfilter:ipset
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 1465
-Filename: ipset_7.17-1_x86_64.ipk
-Size: 2216
-SHA256sum: da150077f082837b0c7372da778dc24605f1fc5358abc4fd199ec7fc86357836
+Installed-Size: 1462
+Filename: ipset_7.21-1_x86_64.ipk
+Size: 2234
+SHA256sum: ef23e8c32bb3ab984fd1218089dbcd866917360e64cc130539c335829ccd1b38
 Description:  IPset administration utility
 
 Package: iptables-mod-fullconenat
@@ -771,21 +772,22 @@ SHA256sum: dafc63c9b8a8c95e55e6cc4cb60b894d7ce2eb80c10c1bbeebc2490c2cd49a09
 Description:  Character set conversion library
 
 Package: libipset13
-Version: 7.17-1
+Version: 7.21-1
 Depends: libc, kmod-ipt-ipset, libmnl0
 Provides: libipset
 Source: package/network/utils/ipset
 SourceName: libipset
 License: GPL-2.0
 Section: net
-SourceDateEpoch: 1674450162
+SourceDateEpoch: 1726323616
 ABIVersion: 13
+CPE-ID: cpe:/a:netfilter:ipset
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 50424
-Filename: libipset13_7.17-1_x86_64.ipk
-Size: 50897
-SHA256sum: 73825278f73220c8808ed9da7c0c0d4494e1737a0d7ce9d6e936179a2573ba28
+Installed-Size: 51474
+Filename: libipset13_7.21-1_x86_64.ipk
+Size: 51778
+SHA256sum: 69bb9551f29d7c4b7ca90bb002b60a0bd3796c11f1613767d4c47d9b1a58eeb9
 Description:  IPset administration utility
 
 Package: libjson-c5
@@ -1044,21 +1046,21 @@ SHA256sum: b7f631978c0476f6caa6179c49f5e29c248d64bc7b1602ea26bf5f833279a762
 Description:  This package contains a stripped down version of libnl
 
 Package: libopenssl-conf
-Version: 3.0.14-1
+Version: 3.0.15-1
 Depends: libc, libopenssl3
 Source: package/libs/openssl
 SourceName: libopenssl-conf
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1718896226
+SourceDateEpoch: 1726398005
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 6265
-Filename: libopenssl-conf_3.0.14-1_x86_64.ipk
-Size: 7447
-SHA256sum: e6cc0a191c2d4c91b443984892564c05b372235e65dded78126caaca95675c89
+Installed-Size: 6266
+Filename: libopenssl-conf_3.0.15-1_x86_64.ipk
+Size: 7452
+SHA256sum: ecfad468ca91ff070508e0b4ddf031c1458395071dc6897dcb97745f8364dd75
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1066,7 +1068,7 @@ Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  This package installs the OpenSSL configuration file /etc/ssl/openssl.cnf.
 
 Package: libopenssl3
-Version: 3.0.14-1
+Version: 3.0.15-1
 Depends: libc, kmod-crypto-user, kmod-cryptodev
 Provides: libopenssl
 Source: package/libs/openssl
@@ -1074,15 +1076,15 @@ SourceName: libopenssl
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: libs
-SourceDateEpoch: 1718896226
+SourceDateEpoch: 1726398005
 ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2116530
-Filename: libopenssl3_3.0.14-1_x86_64.ipk
-Size: 2106644
-SHA256sum: 7f20b63b5d15ecc12b391964d81da3560429a96ed5a98784911988ce143f1919
+Installed-Size: 2116734
+Filename: libopenssl3_3.0.15-1_x86_64.ipk
+Size: 2106798
+SHA256sum: 6c2f29b96a0c43b3989329142c071ee70c090de539e050ad9238703a6cb10112
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1304,10 +1306,10 @@ Section: libs
 SourceDateEpoch: 1650528970
 Maintainer: Xingwang Liao <kuoruan@gmail.com>
 Architecture: x86_64
-Installed-Size: 17375
+Installed-Size: 17379
 Filename: libucl_1.03-3_x86_64.ipk
-Size: 18270
-SHA256sum: 7bfb7320d6210ec97d7f04c11134ff77147992e68963aaa6413ab97090b8e3bc
+Size: 18273
+SHA256sum: 861d02b5d3497739d5c8e9610ebbbffbf094897aa56a64e53b2f5201f00a69b0
 Description:  UCL is a portable lossless data compression library written in ANSI C. UCL
  implements a number of compression algorithms that achieve an excellent
  compression ratio while allowing *very* fast decompression. Decompression
@@ -1499,21 +1501,21 @@ Description:  odhcpd is a daemon for serving and relaying IP management protocol
  routed (non-bridged) interfaces in case no delegated prefixes are available.
 
 Package: openssl-util
-Version: 3.0.14-1
+Version: 3.0.15-1
 Depends: libc, libopenssl3, libopenssl-conf
 Source: package/libs/openssl
 SourceName: openssl-util
 License: Apache-2.0
 LicenseFiles: LICENSE
 Section: utils
-SourceDateEpoch: 1718896226
+SourceDateEpoch: 1726398005
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 340836
-Filename: openssl-util_3.0.14-1_x86_64.ipk
-Size: 339788
-SHA256sum: d5e2cabd659a50dd1fb6f122140cd8e0fb40fbf88bd3038ed04f27e57c921924
+Installed-Size: 340868
+Filename: openssl-util_3.0.15-1_x86_64.ipk
+Size: 339687
+SHA256sum: beb03207d4c441fe904e6d72164da9079f9fc26cbac8f8433bf956ac8a132d9b
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
