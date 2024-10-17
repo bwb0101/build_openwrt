@@ -50,6 +50,8 @@ jobs:
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
         # mosdns5.3.1+只支持原生固件，不再支持lean固件
         #git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
+        #luci-app-eqosplus没有二级子目录，feeds更新时会报错
+        git clone https://github.com/sirpdboy/luci-app-eqosplus.git myplugin/luci-app-eqosplus
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
 
@@ -63,6 +65,7 @@ jobs:
         #cp -r myplugin/mosdns/mosdns mypkg/pkg/net
         #cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
         #cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
+        cp -r myplugin/luci-app-eqosplus mypkg/luci/applications
 
         rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
         rm -rf mypkg/luci/applications/luci-app-aliyundrive-fuse
