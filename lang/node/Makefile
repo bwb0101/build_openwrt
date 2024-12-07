@@ -6,6 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
+ifeq ($(CONFIG_NODEJS_22),y)
+PKG_VERSION:=v22.11.0
+PKG_RELEASE:=1
+PKG_HASH:=bbf0297761d53aefda9d7855c57c7d2c272b83a7b5bad4fea9cb29006d8e1d35
+PATCH_DIR:=./patches/v22.x
+else
 ifeq ($(CONFIG_NODEJS_20),y)
 PKG_VERSION:=v20.12.2
 PKG_RELEASE:=1
@@ -38,6 +44,7 @@ endif
 endif
 endif
 endif
+endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
@@ -66,7 +73,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR||SOFT_FLOAT) @!arc @!armeb @!powerpc \
-	   +libstdcpp +(NODEJS_18||NODEJS_20):libopenssl +zlib +libnghttp2 +libuv \
+	   +libstdcpp +(NODEJS_18||NODEJS_20||NODEJS_22):libopenssl +zlib +libnghttp2 +libuv \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
@@ -101,7 +108,7 @@ define Package/node/config
 	choice
 		prompt "Version Selection"
 		default NODEJS_12 if mips||mipsel||mips64||mips64el
-		default NODEJS_18
+		default NODEJS_22
 		help
 		 Select node.js version.
 		 The host package version is also the same.
@@ -124,6 +131,10 @@ define Package/node/config
 		config NODEJS_20
 			depends on !(mips||mipsel||mips64||mips64el)
 			bool "20.x Active LTS"
+			
+		config NODEJS_22
+			depends on !(mips||mipsel||mips64||mips64el)
+			bool "22.x Active LTS"
 	endchoice
 
 	if PACKAGE_node
@@ -178,7 +189,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_18),--shared-openssl) \
+	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
