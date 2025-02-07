@@ -7,15 +7,15 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_22),y)
-PKG_VERSION:=v22.11.0
+PKG_VERSION:=v22.13.1
 PKG_RELEASE:=1
-PKG_HASH:=bbf0297761d53aefda9d7855c57c7d2c272b83a7b5bad4fea9cb29006d8e1d35
+PKG_HASH:=cfce282119390f7e0c2220410924428e90dadcb2df1744c0c4a0e7baae387cc2
 PATCH_DIR:=./patches/v22.x
 else
 ifeq ($(CONFIG_NODEJS_20),y)
-PKG_VERSION:=v20.12.2
+PKG_VERSION:=v20.18.2
 PKG_RELEASE:=1
-PKG_HASH:=d7cbcc5fbfb31e9001f3f0150bbeda59abe5dd7137aaa6273958cd59ce35ced7
+PKG_HASH:=69bf81b70f3a95ae0763459f02860c282d7e3a47567c8afaf126cc778176a882
 PATCH_DIR:=./patches/v20.x
 else
 ifeq ($(CONFIG_NODEJS_18),y)
@@ -108,7 +108,7 @@ define Package/node/config
 	choice
 		prompt "Version Selection"
 		default NODEJS_12 if mips||mipsel||mips64||mips64el
-		default NODEJS_22
+		default NODEJS_20
 		help
 		 Select node.js version.
 		 The host package version is also the same.
