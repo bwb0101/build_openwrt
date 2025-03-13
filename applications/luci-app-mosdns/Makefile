@@ -1,12 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-mosdns
-PKG_VERSION:=1.5.23
-PKG_RELEASE:=3
+PKG_VERSION:=1.6.6
+PKG_RELEASE:=1
 
 LUCI_TITLE:=LuCI Support for mosdns
 LUCI_PKGARCH:=all
-LUCI_DEPENDS:=+mosdns +jsonfilter +luci-compat +curl +v2ray-geoip +v2ray-geosite +v2dat
+LUCI_DEPENDS:=+mosdns +jsonfilter +curl +v2ray-geoip +v2ray-geosite +v2dat
+
+PKG_MAINTAINER:=sbwml <admin@cooluc.com>
 
 define Package/$(PKG_NAME)/conffiles
 /etc/config/mosdns
@@ -15,6 +17,6 @@ define Package/$(PKG_NAME)/conffiles
 /etc/mosdns/rule
 endef
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include ../../luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

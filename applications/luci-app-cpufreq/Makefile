@@ -1,15 +1,11 @@
 # SPDX-License-Identifier: GPL-3.0-only
 #
-# Copyright (C) 2021 ImmortalWrt.org
+# Copyright (C) 2021-2022 ImmortalWrt.org
 
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI for CPU Freq Setting
-LUCI_DEPENDS:=@(arm||aarch64)
-
-PKG_NAME:=luci-app-cpufreq
-PKG_VERSION:=11
-PKG_RELEASE:=$(COMMITCOUNT)
+LUCI_DEPENDS:=+cpufreq
 
 include ../../luci.mk
 
