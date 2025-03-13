@@ -79,14 +79,14 @@ jobs:
         rm -rf mypkg/luci/applications/luci-app-socat
         cp -r kenzok8-new/luci-app-socat mypkg/luci/applications
         
-        rm -rf mypkg/luci/applications/luci-app-xlnetacc
-        cp -r kenzok8-new/luci-app-xlnetacc mypkg/luci/applications
-        rm -rf mypkg/luci/applications/luci-app-adguardhome
-        cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
+        #rm -rf mypkg/luci/applications/luci-app-xlnetacc
+        #cp -r kenzok8-new/luci-app-xlnetacc mypkg/luci/applications
+        #rm -rf mypkg/luci/applications/luci-app-adguardhome
+        #cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
         #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
-        cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
+        #cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
         #cp -r kenzok8/luci-theme-neobird mypkg/luci/themes
-        cp -r kenzok8/luci-theme-tomato mypkg/luci/themes
+        #cp -r kenzok8/luci-theme-tomato mypkg/luci/themes
         
         #sed -i '/files\/adguardhome.*/d' mypkg/pkg/net/adguardhome/Makefile
         #sed -i '/$(INSTALL_DIR) $(1)\/etc/d' mypkg/pkg/net/adguardhome/Makefile
