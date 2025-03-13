@@ -81,6 +81,7 @@ jobs:
         
         rm -rf mypkg/luci/applications/luci-app-xlnetacc
         cp -r kenzok8-new/luci-app-xlnetacc mypkg/luci/applications
+        rm -rf mypkg/luci/applications/luci-app-adguardhome
         cp -r kenzok8/luci-app-adguardhome mypkg/luci/applications
         #cp -r kenzok8/luci-app-aliddns mypkg/luci/applications
         cp -r kenzok8/luci-theme-atmaterial_new mypkg/luci/themes
@@ -89,7 +90,7 @@ jobs:
         
         #sed -i '/files\/adguardhome.*/d' mypkg/pkg/net/adguardhome/Makefile
         #sed -i '/$(INSTALL_DIR) $(1)\/etc/d' mypkg/pkg/net/adguardhome/Makefile
-        patch -p1 < patches/lean/adguardhome.patch
+        #patch -p1 < patches/lean/adguardhome.patch
         
         #echo -e '\nmsgid "Local DNS Lists"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
         #echo 'msgstr "国内解析"' >> mypkg/luci/applications/luci-app-mosdns/po/zh-cn/mosdns.po
