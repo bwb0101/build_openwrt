@@ -24,9 +24,9 @@ cp $GITHUB_WORKSPACE/data/banner package/base-files/files/etc/banner
 cp $GITHUB_WORKSPACE/data/model.sh package/base-files/files/etc/
 chmod +x package/base-files/files/etc/model.sh
 
-# xray-core need golang1.22
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+# xray-core need golang1.22+
+#rm -rf feeds/packages/lang/golang
+#git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
 # add IPv6 hotplug(ipv6 nat，现在已有kmod-ipt-nat6模块)
 #mkdir -p package/base-files/files/etc/hotplug.d/iface
