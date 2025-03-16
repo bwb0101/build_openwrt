@@ -1,45 +1,46 @@
 Package: lua-neturl
-Version: 1.1-1-3
+Version: 1.1.1-4
 Depends: libc, lua
 Source: feeds/ssrp/lua-neturl
 SourceName: lua-neturl
 License: MIT
 Section: lang
-SourceDateEpoch: 1730991364
+SourceDateEpoch: 1741621694
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: all
-Installed-Size: 4530
-Filename: lua-neturl_1.1-1-3_all.ipk
-Size: 5310
-SHA256sum: f35c27414e037021accbcbebada7cf384a61633ccc129c09e6791f9f440f67ff
+Installed-Size: 4528
+Filename: lua-neturl_1.1.1-4_all.ipk
+Size: 5308
+SHA256sum: 790c366b18703f07fa17b3e177c475e0e1c021dd50959e585bbea9776ede2c97
 Description:  This small Lua library provides a few functions to parse URL with
  querystring and build new URL easily.
 
 Package: luci-app-ssr-plus
-Version: 189-1
-Depends: libc, coreutils, coreutils-base64, dns2socks, dns2tcp, dnsmasq-full, ipset, kmod-ipt-nat, ip-full, iptables, iptables-mod-tproxy, lua, lua-neturl, libuci-lua, microsocks, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, libustream-openssl20201210, curl, xray-core, chinadns-ng, mosdns, ipt2socks, naiveproxy, shadowsocks-libev-ss-server, shadowsocks-rust-sslocal, simple-obfs, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, trojan
+Version: 189
+Depends: libc, coreutils, coreutils-base64, dns2socks, dns2tcp, dnsmasq-full, ipset, kmod-ipt-nat, jq, ip-full, iptables, iptables-mod-tproxy, lua, lua-neturl, libuci-lua, microsocks, tcping, resolveip, shadowsocksr-libev-ssr-check, uclient-fetch, libustream-mbedtls20201210, curl, xray-core, mosdns, shadowsocks-libev-ss-server, shadowsocks-rust-sslocal, simple-obfs, shadowsocksr-libev-ssr-local, shadowsocksr-libev-ssr-redir, shadowsocksr-libev-ssr-server, luci-lua-runtime
 Source: feeds/ssrp/luci-app-ssr-plus
 SourceName: luci-app-ssr-plus
 Section: luci
-SourceDateEpoch: 1730991364
+SourceDateEpoch: 1741621694
+Maintainer: OpenWrt LuCI community
 Architecture: all
-Installed-Size: 281108
-Filename: luci-app-ssr-plus_189-1_all.ipk
-Size: 281379
-SHA256sum: 3c4d500501702b27c0ac4dee92b18856a17b33a0ef13872b8b943b197dde47b8
+Installed-Size: 290716
+Filename: luci-app-ssr-plus_189_all.ipk
+Size: 290980
+SHA256sum: 2d7f8468fd6ef413c8f9affca59e6fdbfd595317328b1e32954fab68d76d56b3
 Description:  SS/SSR/V2Ray/Trojan/NaiveProxy/Tuic/ShadowTLS/Hysteria/Socks5/Tun LuCI interface
 
 Package: luci-i18n-ssr-plus-zh-cn
-Version: 189-1
+Version: git-25.069.56894-5d1380f
 Depends: libc, luci-app-ssr-plus
 Source: feeds/ssrp/luci-app-ssr-plus
 SourceName: luci-i18n-ssr-plus-zh-cn
 Section: luci
-SourceDateEpoch: 1730991364
+SourceDateEpoch: 1741621694
 Architecture: all
-Installed-Size: 9597
-Filename: luci-i18n-ssr-plus-zh-cn_189-1_all.ipk
-Size: 10408
-SHA256sum: 8edc2bce6e180de61854f1b73dd1b00b1ce1c46803e0a570ced333ba2381ac75
-Description:  Translation for luci-app-ssr-plus - 简体中文 (Simplified Chinese)
+Installed-Size: 9363
+Filename: luci-i18n-ssr-plus-zh-cn_git-25.069.56894-5d1380f_all.ipk
+Size: 10123
+SHA256sum: 86a9c826af0ad8b6d84dd5c0c16d19620a58a79d65ee324910ae72d139183135
+Description:  Translation for luci-app-ssr-plus - 简体中文 (Chinese Simplified)
 
