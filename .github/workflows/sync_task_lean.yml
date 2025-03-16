@@ -127,7 +127,7 @@ jobs:
         folder: mypkg/pkg
         commit-message: "Build: ${{ env.DATE }}"
         clean: true
-    - name: Push my packages
+    - name: Push my luci
       uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
         branch: luci_lean
