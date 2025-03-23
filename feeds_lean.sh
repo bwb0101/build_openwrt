@@ -6,6 +6,7 @@ echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-pa
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> feeds.conf.default
 echo "src-git openclash https://github.com/vernesong/OpenClash.git;master" >> feeds.conf.default
+echo "src-git argon https://github.com/jerrykuku/luci-theme-argon.git;master" >> feeds.conf.default
 #mbedtls与openssl冲突 echo "src-git ssrp https://github.com/fw876/helloworld.git;master" >> feeds.conf.default
 #echo "src-git bypass https://github.com/kiddin9/openwrt-bypass.git;main" >>  feeds.conf.default
 #echo "src-git subconverter https://github.com/tindy2013/openwrt-subconverter.git;master" >>  feeds.conf.default
