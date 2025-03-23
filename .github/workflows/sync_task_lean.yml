@@ -121,14 +121,14 @@ jobs:
         #sed -i "/UU_ARCH:=x86_64/{n;s/.*/\tPKG_MD5SUM:=$uu_x86_64_md5/}" mypkg/pkg/net/uugamebooster/Makefile
         
     - name: Push my packages
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: packages_lean
         folder: mypkg/pkg
         commit-message: "Build: ${{ env.DATE }}"
         clean: true
     - name: Push my luci
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: luci_lean
         folder: mypkg/luci
