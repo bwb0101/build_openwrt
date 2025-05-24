@@ -316,6 +316,24 @@ SHA256sum: 4e7e54544d2a76f0f8294f49a50b778c30b83a173b9fef02926e9294e2a2e5f4
 Description:  ethtool is a small utility for examining and tuning your ethernet-based
  network interface
 
+Package: firewall4
+Version: 2022-11-29-700a925f-3
+Depends: ucode (>= 2022-03-22), libc, kmod-nft-core, kmod-nft-fib, kmod-nft-offload, kmod-nft-nat, nftables-json, ucode, ucode-mod-fs, ucode-mod-ubus, ucode-mod-uci
+Provides: uci-firewall
+Source: package/network/config/firewall4
+SourceName: firewall4
+License: ISC
+Section: net
+SourceDateEpoch: 1670480457
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: x86_64
+Installed-Size: 28005
+Filename: firewall4_2022-11-29-700a925f-3_x86_64.ipk
+Size: 28955
+SHA256sum: b546aed72995272b49cd2df8d04b627dac2b96719ed32984063b4209e3b0e389
+Description:  This package provides an nftables-based implementation of the UCI firewall
+ sharing the same configuration format.
+
 Package: firewall
 Version: 2022-02-17-4cd7d4f3-3
 Depends: libc, libubox20240329, libubus20241020, libuci20130104, libip4tc2, libip6tc2, libxtables12, kmod-ipt-core, kmod-ipt-conntrack, iptables-mod-conntrack-extra, kmod-nf-conntrack6, kmod-ipt-nat, iptables-mod-fullconenat
@@ -434,6 +452,25 @@ Filename: ipv6helper_1.0-2_all.ipk
 Size: 1281
 SHA256sum: c2198e6fedc562edfeac66de38f1d158fffc01baa6d595794b439ac7ac743b83
 Description:  IPv6 Helper and Dynamic Update he.net of ip
+
+Package: jansson4
+Version: 2.14-3
+Depends: libc
+Provides: jansson
+Source: package/libs/jansson
+SourceName: jansson
+License: MIT
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1670480457
+ABIVersion: 4
+CPE-ID: cpe:/a:jansson_project:jansson
+Architecture: x86_64
+Installed-Size: 23036
+Filename: jansson4_2.14-3_x86_64.ipk
+Size: 23762
+SHA256sum: 8798a666aa28c7f622e24437ce81554877911691f7e350c0c54665f3481a4ac1
+Description:  Jansson is a C library for encoding, decoding and manipulating JSON data
 
 Package: jshn
 Version: 2024-03-29-eb9bcb64-1
@@ -1027,6 +1064,27 @@ Description:  libnfnetlink is is the low-level library for netfilter related ker
  (such as nfnetlink_log, nfnetlink_queue, nfnetlink_conntrack) and their respective users
  and/or management tools in userspace.
 
+Package: libnftnl11
+Version: 1.2.4-11
+Depends: libc, libmnl0
+Provides: libnftnl
+Source: package/libs/libnftnl
+SourceName: libnftnl
+License: GPL-2.0-or-later
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1670480457
+ABIVersion: 11
+CPE-ID: cpe:/a:netfilter:libnftnl
+Maintainer: Steven Barth <steven@midlink.org>
+Architecture: x86_64
+Installed-Size: 64190
+Filename: libnftnl11_1.2.4-11_x86_64.ipk
+Size: 64981
+SHA256sum: a63349249c819b0635a7d90aa333fa0b59700e936c8283e8b4c5860b94bb701c
+Description:  libnftnl is a userspace library providing a low-level netlink
+ programming interface (API) to the in-kernel nf_tables subsystem.
+
 Package: libnl-core200
 Version: 3.7.0-1
 Depends: libc, libpthread
@@ -1500,6 +1558,23 @@ Filename: netifd_2021-06-04-50381d0a-1_x86_64.ipk
 Size: 95133
 SHA256sum: b3cee696d89bf1b8f3cc20ff223b76e992e30083e9f4cb5f76e0e0b8f1055107
 Description:  OpenWrt Network Interface Configuration Daemon
+
+Package: nftables-json
+Version: 1.0.6-1
+Depends: libc, kmod-nft-core, libnftnl11, jansson4
+Provides: nftables
+Source: package/network/utils/nftables
+SourceName: nftables-json
+License: GPL-2.0
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1674631835
+Architecture: x86_64
+Installed-Size: 294399
+Filename: nftables-json_1.0.6-1_x86_64.ipk
+Size: 294500
+SHA256sum: cd208068e5dea19265530d1490ee0bcb3d43086f1b2a7d38d4393024a18d2661
+Description:  nftables userspace utility with JSON support
 
 Package: odhcp6c
 Version: 2021-01-09-53f07e90-18
