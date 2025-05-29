@@ -196,16 +196,16 @@ Description:  Language Support Packages.
 
 Package: dnsmasq-full
 Version: 2.88-3
-Depends: libc, libubus20241020, kmod-ipt-ipset
+Depends: libc, libubus20241020, libnettle8, kmod-ipt-ipset, nftables-json
 Provides: dnsmasq
 License: GPL-2.0
 Section: net
 CPE-ID: cpe:/a:thekelleys:dnsmasq
 Architecture: x86_64
-Installed-Size: 173294
+Installed-Size: 189809
 Filename: dnsmasq-full_2.88-3_x86_64.ipk
-Size: 174067
-SHA256sum: 2069e9a070c4bbb9e3424e342f6af7a96fc9c784278ca4d4a9c88a980b894823
+Size: 190605
+SHA256sum: 858280fc8f7c8ded8dfd0c9c9123a4a9f7d5c49bb4f15cc6d6cb7601918310ec
 Description:  It is intended to provide coupled DNS and DHCP service to a LAN.
  
  This is a fully configurable variant with DHCPv4, DHCPv6, DNSSEC, Authoritative DNS
@@ -811,6 +811,21 @@ Description:  libnetfilter_conntrack is a userspace library providing a programm
  library libnetfilter_conntrack has been previously known as
  libnfnetlink_conntrack and libctnetlink. This library is currently
  used by conntrack-tools among many other applications.
+
+Package: libnettle8
+Version: 3.9-1
+Depends: libc, libgmp10
+Provides: libnettle
+License: GPL-2.0-or-later
+Section: libs
+ABIVersion: 8
+CPE-ID: cpe:/a:nettle_project:nettle
+Architecture: x86_64
+Installed-Size: 340340
+Filename: libnettle8_3.9-1_x86_64.ipk
+Size: 340546
+SHA256sum: ca3452a564643bff91eb545eb8993fc3cf3b5fee1f08d69962b2d66f97371bf8
+Description:  GNU crypto library
 
 Package: libnfnetlink0
 Version: 1.0.2-1
@@ -1745,6 +1760,4 @@ Size: 59705
 SHA256sum: 036731eaef7e8bb64f3b45fb22f992990f8ce7e08cbdd1632b62e5dbdd9ed94a
 Description:  zlib is a lossless data-compression library.
  This package includes the shared library.
-
-
 
