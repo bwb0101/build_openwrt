@@ -45,7 +45,7 @@ jobs:
     - name: Sync my packages
       run: |
         git clone https://github.com/coolsnowwolf/packages.git mypkg/pkg
-        git clone https://github.com/coolsnowwolf/luci.git -b openwrt-23.05 mypkg/luci
+        git clone https://github.com/coolsnowwolf/luci.git -b openwrt-24.10 mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
         # mosdns5.3.1+只支持原生固件，不再支持lean固件
