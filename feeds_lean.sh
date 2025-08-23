@@ -1,6 +1,6 @@
 #!/bin/bash
 sed -i 's#https://github.com/coolsnowwolf/packages#https://github.com/jkingben/build_openwrt.git;packages_lean#' feeds.conf.default
-sed -i 's#https://github.com/coolsnowwolf/luci.git;openwrt-23.05#https://github.com/jkingben/build_openwrt.git;luci_lean#' feeds.conf.default
+sed -i 's#https://github.com/coolsnowwolf/luci.git;openwrt-24.10#https://github.com/jkingben/build_openwrt.git;luci_lean#' feeds.conf.default
 echo ""  >> feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> feeds.conf.default
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
