@@ -6,8 +6,8 @@ Section: net
 Architecture: x86_64
 Installed-Size: 26537
 Filename: ipt2socks_1.1.4-3_x86_64.ipk
-Size: 27238
-SHA256sum: 756ca29d239db02fcc66c9e829545234507779f0f749ce9b9649e76fcdc73f7c
+Size: 27242
+SHA256sum: e9908e16c17eee5f9fd436d0ee9ec78f18549db614d8edd02922a01f5eeef0ff
 Description:  Utility for converting iptables (redirect/tproxy) to socks5.
 
 Package: shadowsocks-rust-sslocal
@@ -16,10 +16,10 @@ Depends: libc
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 3899627
+Installed-Size: 3793784
 Filename: shadowsocks-rust-sslocal_1.23.5-1_x86_64.ipk
-Size: 3861845
-SHA256sum: 5c8f52be0313999a0efee54152c9a53481d31aeee28c85173f0b6296cbf979e5
+Size: 3772486
+SHA256sum: 45c63c00006559ec913eb3da70760de8b01042cced84e2dd1be3214ba6eaad9f
 Description:  shadowsocks-rust sslocal
 
 Package: shadowsocks-rust-ssserver
@@ -28,10 +28,10 @@ Depends: libc
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 3141664
+Installed-Size: 3033868
 Filename: shadowsocks-rust-ssserver_1.23.5-1_x86_64.ipk
-Size: 3109578
-SHA256sum: e6cbac169dcd0a90bf974dba8f76a40abe2427c4c832b9054f99c8fe7fc540c8
+Size: 3014965
+SHA256sum: 28c46d6c718970e95b62e86709bf859d5c3c37082aec9782a1b31d35c3a2bd66
 Description:  shadowsocks-rust ssserver
 
 Package: shadowsocksr-libev-ssr-local
@@ -40,10 +40,10 @@ Depends: libc, libev, libsodium, libopenssl3, libpthread, libpcre2, libudns, zli
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 62834
+Installed-Size: 62723
 Filename: shadowsocksr-libev-ssr-local_2.5.6-11_x86_64.ipk
-Size: 63688
-SHA256sum: c3325aec5eff4fae275598599b6573313b6d3631a678ba0342498fe9a17df8a3
+Size: 63580
+SHA256sum: 06f14b8b68578b423bb94a9988d27ba7257625567e1e7eb982ed00f6849d00d3
 Description:  shadowsocksr-libev ssr-local
 
 Package: shadowsocksr-libev-ssr-redir
@@ -52,22 +52,35 @@ Depends: libc, libev, libsodium, libopenssl3, libpthread, libpcre2, libudns, zli
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 55946
+Installed-Size: 55945
 Filename: shadowsocksr-libev-ssr-redir_2.5.6-11_x86_64.ipk
-Size: 56756
-SHA256sum: 2aec7bf8017c2a29fb4259b4f5c437cc314ae1bdb71873883d1b0e62b0d9529b
+Size: 56732
+SHA256sum: c68381e0f1100cfd485e2ea92581734bf491f40945f3cf9e1cb41d2895065a97
 Description:  shadowsocksr-libev ssr-redir
+
+Package: simple-obfs-client
+Version: 0.0.5-3
+Depends: libc, libpthread, libev
+Provides: simple-obfs
+License: GPL-3.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 30424
+Filename: simple-obfs-client_0.0.5-3_x86_64.ipk
+Size: 31207
+SHA256sum: 387d0547bf15e223c37c626f3d37290c4cf0468da6a28b63959aac232cf20ba1
+Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 
 Package: trojan-plus
 Version: 10.0.3-2
-Depends: libc, libpthread, libstdcpp6, libopenssl3, boost, boost-system, boost-program_options
+Depends: libc, libpthread, libstdcpp6, libopenssl3, boost, boost-program_options, boost-system
 License: GPL-3.0
 Section: net
 Architecture: x86_64
-Installed-Size: 442416
+Installed-Size: 441958
 Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 443259
-SHA256sum: 312553aa73d842a319182ebb8985c2ad66327247119de9dffee519a5f868334c
+Size: 442823
+SHA256sum: 8e8e4dd70528fe6d9810762fb7ee29bd7c9b5ddf18b53ea8d33b3998a09309bb
 Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
 
 Package: v2ray-plugin
@@ -76,9 +89,9 @@ Depends: libc, ca-bundle
 License: MIT
 Section: net
 Architecture: x86_64
-Installed-Size: 6346959
+Installed-Size: 6402212
 Filename: v2ray-plugin_5.37.0-1_x86_64.ipk
-Size: 6332577
-SHA256sum: 9089ad2522c4bd419d4e46488db8b36d78735760a415aa76f5393d1707aa8b15
+Size: 6386892
+SHA256sum: 8f29e0026ea56098f8a1055a29f5a22064b3c917ca5b3764a740f3bef59c37de
 Description:  SIP003 plugin for shadowsocks, based on v2ray
 
