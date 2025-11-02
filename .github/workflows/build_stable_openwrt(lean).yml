@@ -369,7 +369,7 @@ jobs:
             cd ..
             cp $GITHUB_WORKSPACE/$OPKG_CFG .
             cd $OPENWRT_ROOT_PATH
-            git clone https://git.openwrt.org/project/usign.git
+            git clone https://github.com/openwrt/usign.git
             cd usign
             cmake .
             make
