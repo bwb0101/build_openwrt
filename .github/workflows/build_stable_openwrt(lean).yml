@@ -17,7 +17,7 @@ on:
       ssh:
         description: 'SSH connection to Actions'
         required: false
-        default: 'false'
+        默认: 'false'
   schedule:
     # local 3点
     - cron: 0 19 */7 * *
@@ -86,7 +86,7 @@ jobs:
             libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
             libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
             python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
-            swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+            swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev scdoc
           sudo timedatectl set-timezone "$TZ"
           docker image prune -a -f
           git config --global init.defaultBranch main
@@ -198,7 +198,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: ${{ env.TOOLCHAIN_TAG }}
-          commit: ${{ env.CURRENT_BRANCH }}
+          提交: ${{ env.CURRENT_BRANCH }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: output/*
 
@@ -431,7 +431,7 @@ jobs:
         if: steps.generate.outputs.status == 'success' && !cancelled()
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
-          branch: openwrt_stable
+          分支: openwrt_stable
           folder: ${{ env.OPENWRT_ROOT_PATH }}/files/snapshots
           commit-message: "Build: ${{ env.DATE }}"
           clean: true
