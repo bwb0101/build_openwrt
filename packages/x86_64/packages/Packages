@@ -1,0 +1,1962 @@
+Package: acme
+Version: 3.0.7-1
+Depends: libc, wget-ssl, ca-bundle, openssl-util, socat
+License: GPL-3.0-only
+Section: net
+Architecture: all
+Installed-Size: 54724
+Filename: acme_3.0.7-1_all.ipk
+Size: 55682
+SHA256sum: b9cc442c9b150b6c4e72d23ec815d26aa7f124e8bd3b939d0562cfac85a57855
+Description:  A client for issuing Letsencrypt certificates.
+
+Package: adblock-fast
+Version: 1.1.1-11
+Depends: libc, jshn, curl
+Provides: simple-adblock
+License: AGPL-3.0-or-later
+Section: net
+Architecture: all
+Installed-Size: 17484
+Filename: adblock-fast_1.1.1-11_all.ipk
+Size: 18697
+SHA256sum: 6b69de966a1631c74b011557ed9d32ee52dc1b7253efa89d16d0e5bcfbc05139
+Description:  Fast AdBlocking script to block ad or abuse/malware domains with DNSMASQ or Unbound.
+ Script supports local/remote list of domains and hosts-files for both block-listing and allow-listing.
+ Please see https://docs.openwrt.melmac.net/adblock-fast/ for more information.
+
+Package: adblock
+Version: 4.1.5-9
+Depends: libc, jshn, jsonfilter
+License: GPL-3.0+
+Section: net
+Architecture: all
+Installed-Size: 9570
+Filename: adblock_4.1.5-9_all.ipk
+Size: 10535
+SHA256sum: 6260dab2a42f92aff5ae27313ba625bd766b5c1053e165381e8ee99ab8c73bc0
+Description:  Powerful adblock script to block ad/abuse domains via dnsmasq, unbound, named, kresd or dnscrypt-proxy.
+ The script supports many domain blacklist sites plus manual black- and whitelist overrides.
+ Please see https://github.com/openwrt/packages/blob/master/net/adblock/files/README.md for further information.
+ 
+
+Package: attendedsysupgrade-common
+Version: 1
+Depends: libc, rpcd, rpcd-mod-rpcsys
+License: GPL-2.0
+Section: utils
+Architecture: all
+Installed-Size: 517
+Filename: attendedsysupgrade-common_1_all.ipk
+Size: 1530
+SHA256sum: 5a4ef6561603ef2a4f761f2787bf4cca372fad06ffdfd05f5692d6e94360715e
+Description:  Common needed files for attendedsysupgrade tool
+ 
+ Manages dependencies and brings settings used by clients.
+ 
+ UCI options:
+ 
+ * attendedsysupgrade.server.url
+ URL of compatible upgrade server [1]
+ 
+ * attendedsysupgrade.client.upgrade_packages
+ Client should request image also if no new release but new packages
+ upgrade are available.
+ 
+ * attendedsysupgrade.client.advanced_mode
+ Offer advanced options like editing packages before request and show
+ additional information.
+ 
+ * attendedsysupgrade.client.auto_search
+ Tells the client to automattically search for upgrades
+ 
+ [1]: https://github.com/aparcar/asu
+
+Package: banip
+Version: 0.7.10-5
+Depends: libc, jshn, jsonfilter, ip, ipset, iptables, ca-bundle
+License: GPL-3.0-or-later
+Section: net
+Architecture: all
+Installed-Size: 20948
+Filename: banip_0.7.10-5_all.ipk
+Size: 21892
+SHA256sum: a0581eb8fb79fd6a0bc4a2b02c7a18b91c14ea4b1d04ef18d6feb6271f8f69b0
+Description:  Powerful banIP script to block ip addresses via ipsets.
+ The script supports many ip blacklist sites plus manual black- and whitelist overrides.
+ Please see https://github.com/openwrt/packages/blob/master/net/banip/files/README.md for further information.
+ 
+
+Package: bash
+Version: 5.2.15-1
+Depends: libc, libncurses6, libreadline8
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:bash
+Architecture: x86_64
+Installed-Size: 479067
+Filename: bash_5.2.15-1_x86_64.ipk
+Size: 479898
+SHA256sum: d432f1c315ea31cd6fcf6e3d3a2c48dd0bc61bd6f366bc2a4ef193151ac867ea
+Description:  Bash is an sh-compatible command language interpreter that executes
+ commands read from the standard input or from a file. Bash also
+ incorporates useful features from the Korn and C shells (ksh and csh).
+
+Package: bc
+Version: 1.06.95-1
+Depends: libc, libreadline8, libncurses6
+License: GPL-2.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 35625
+Filename: bc_1.06.95-1_x86_64.ipk
+Size: 36501
+SHA256sum: ca1f2f230998a308206d827c9ecf2d968d5b863da753e22e8f65b7176e2ad52f
+Description:  bc is a language that supports arbitrary precision numbers with
+ interactive execution of statements.
+
+Package: boost-program_options
+Version: 1.81.0-1
+Depends: libc, libstdcpp6, libpthread, librt
+License: BSL-1.0
+Section: libs
+CPE-ID: cpe:/a:boost:boost
+Architecture: x86_64
+Installed-Size: 64967
+Filename: boost-program_options_1.81.0-1_x86_64.ipk
+Size: 65776
+SHA256sum: b3adeaab7c3ece0b885331bc2df0cf48af31b53c573f615ada36fbfb80d1340d
+Description:  This package contains the Boost program_options library.
+
+Package: boost-system
+Version: 1.81.0-1
+Depends: libc, libstdcpp6, libpthread, librt
+License: BSL-1.0
+Section: libs
+CPE-ID: cpe:/a:boost:boost
+Architecture: x86_64
+Installed-Size: 905
+Filename: boost-system_1.81.0-1_x86_64.ipk
+Size: 1695
+SHA256sum: ce63772947441c5313fb225f2b076d3eb72788e974ebd98edfd65e43af90df3f
+Description:  This package contains the Boost system library.
+
+Package: boost
+Version: 1.81.0-1
+Depends: libc, libstdcpp6, libpthread, librt
+License: BSL-1.0
+Section: libs
+CPE-ID: cpe:/a:boost:boost
+Architecture: x86_64
+Installed-Size: 96
+Filename: boost_1.81.0-1_x86_64.ipk
+Size: 1237
+SHA256sum: a0591ba67aad5cf4eff35a428bc8607e528383db79a0f348c2b79acbc4d55e31
+Description:  This package provides the Boost v1.81.0 libraries.
+ Boost is a set of free, peer-reviewed, portable C++ source libraries.
+ 
+ This package provides the following run-time libraries:
+ - atomic
+ - chrono
+ - container
+ - context
+ - contract
+ - coroutine and coroutine2 (Coroutine is deprecated - use Coroutine2)
+ - date_time
+ - exception
+ - filesystem
+ - fiber
+ - graph
+ - - graph-parallel
+ - iostreams
+ - json
+ - locale
+ - log
+ - math
+ - nowide
+ - program_options
+ - python3
+ - random
+ - regex
+ - serialization and wserialization
+ - stackstrace
+ - system
+ - thread
+ - timer
+ - type_erasure
+ - url (new)
+ - wave
+ 
+ There are many more header-only libraries supported by Boost.
+ See more at http://www.boost.org/doc/libs/1_81_0/
+
+Package: btrfs-progs
+Version: 5.16.1-1
+Depends: libc, libattr, libuuid1, libmount1, zlib, libblkid1, liblzo2, libpthread, kmod-fs-btrfs
+License: GPL-2.0-only
+Section: utils
+Architecture: x86_64
+Installed-Size: 972275
+Filename: btrfs-progs_5.16.1-1_x86_64.ipk
+Size: 973283
+SHA256sum: 4a9b79c60e2a1b562d65212f938f985754a7403960967997f926e87cea5cad29
+Description:  Btrfs is a new copy on write filesystem for Linux aimed at implementing
+ advanced features while focusing on fault tolerance, repair and easy
+ administration. Initially developed by Oracle, Btrfs is licensed under the
+ GPL and open for contribution from anyone.
+
+Package: cgi-io
+Version: 2022-08-10-901b0f04-21
+Depends: libc, libubox20240329, libubus20241020
+License: GPL-2.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 8848
+Filename: cgi-io_2022-08-10-901b0f04-21_x86_64.ipk
+Size: 9631
+SHA256sum: 7c98cc2e7d69f02e48bb7c076181858cfb68fbb77a0a68780a66e46edc75e7a8
+Description:  This package contains an cgi utility that is useful for up/downloading files
+
+Package: chinadns-ng
+Version: 2025.06.20-1
+Depends: libc
+License: AGPL-3.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 284222
+Filename: chinadns-ng_2025.06.20-1_x86_64.ipk
+Size: 284561
+SHA256sum: c93d3d8583222a29ec0660f1dd8166207a08715cd07865d23cf0d87ab14b3c60
+Description:  ChinaDNS next generation, refactoring with epoll and ipset.
+
+Package: cloudflared
+Version: 2025.10.1-1
+Depends: libc, ca-bundle
+License: Apache-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 10020831
+Filename: cloudflared_2025.10.1-1_x86_64.ipk
+Size: 9992737
+SHA256sum: b4746e5824f65158ed4eec7bf2db1c9ec296da97ea2695043824432f3b48ddf2
+Description:  Contains the command-line client for Cloudflare Tunnel, a tunneling
+ daemon that proxies traffic from the Cloudflare network to your origins.
+ 
+ This daemon sits between Cloudflare network and your origin (e.g. a
+ webserver). Cloudflare attracts client requests and sends them to you
+ via this daemon, without requiring you to poke holes on your firewall
+ --- your origin can remain as closed as possible.
+
+Package: collectd-mod-cpu
+Version: 5.12.0-9
+Depends: libc, collectd
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 4074
+Filename: collectd-mod-cpu_5.12.0-9_x86_64.ipk
+Size: 4847
+SHA256sum: edfaa84187f7bf4edb18ee831ac6a49dae7853c14c52cf1e93d171ee4922e202
+Description:  CPU input plugin
+
+Package: collectd-mod-interface
+Version: 5.12.0-9
+Depends: libc, collectd
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 3678
+Filename: collectd-mod-interface_5.12.0-9_x86_64.ipk
+Size: 4455
+SHA256sum: 67132ce86406114752f4e19a2b57ace587f62933a6952bfc5a938f675ff5da2c
+Description:  network interfaces input plugin
+
+Package: collectd-mod-iwinfo
+Version: 5.12.0-9
+Depends: libc, collectd, libiwinfo20230701
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 3730
+Filename: collectd-mod-iwinfo_5.12.0-9_x86_64.ipk
+Size: 4514
+SHA256sum: ff1264a1de229b49b86a4d25109cd071e1dff90e1b11d304829ccac2f6780964
+Description:  libiwinfo wireless statistics plugin
+
+Package: collectd-mod-load
+Version: 5.12.0-9
+Depends: libc, collectd
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 1968
+Filename: collectd-mod-load_5.12.0-9_x86_64.ipk
+Size: 2727
+SHA256sum: d8291508add3c259049b9e6e42ce602a2517adf18709be7ecae05bc025193152
+Description:  system load input plugin
+
+Package: collectd-mod-memory
+Version: 5.12.0-9
+Depends: libc, collectd
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 2674
+Filename: collectd-mod-memory_5.12.0-9_x86_64.ipk
+Size: 3452
+SHA256sum: e2d723adcd9cdea1240336174cb75d64048a18c24f531161eeee5ac3ec1da2dd
+Description:  physical memory usage input plugin
+
+Package: collectd-mod-network
+Version: 5.12.0-9
+Depends: libc, collectd
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 14512
+Filename: collectd-mod-network_5.12.0-9_x86_64.ipk
+Size: 15234
+SHA256sum: b2ac69eb80182a900e7758af8e51304356edaa380d624fb04c3b3beae824d3b7
+Description:  network input/output plugin
+
+Package: collectd-mod-rrdtool
+Version: 5.12.0-9
+Depends: libc, collectd, librrd1
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 10976
+Filename: collectd-mod-rrdtool_5.12.0-9_x86_64.ipk
+Size: 11751
+SHA256sum: b62d55a3e57cd4e914ac3be31bc4fa40588e9d9f96b5e454312612be154d48de
+Description:  RRDtool output plugin
+
+Package: collectd
+Version: 5.12.0-9
+Depends: libc, libpthread, zlib, libltdl7, libip4tc2, jshn
+Section: utils
+CPE-ID: cpe:/a:collectd:collectd
+Architecture: x86_64
+Installed-Size: 91375
+Filename: collectd_5.12.0-9_x86_64.ipk
+Size: 92324
+SHA256sum: 49344e671c5ab2e79709944ea8045f3806a7fc0909a50d2de82ea22a51e9e569
+Description:  collectd is a small daemon which collects system information periodically
+ and provides mechanismns to store the values in a variety of ways.
+
+Package: conntrack
+Version: 1.4.7-1
+Depends: libc, libnetfilter-conntrack3, libnetfilter-cttimeout1, libnetfilter-cthelper0, libnetfilter-queue1
+License: GPL-2.0-or-later
+Section: net
+CPE-ID: cpe:/a:netfilter:conntrack-tools
+Architecture: x86_64
+Installed-Size: 25832
+Filename: conntrack_1.4.7-1_x86_64.ipk
+Size: 26690
+SHA256sum: 9d77141fe21e43c04ba51aeaa7bd031a12370928e925da837c15cc08948783f1
+Description:  Conntrack is a userspace command line program targeted at system
+ administrators. It enables them to view and manage the in-kernel
+ connection tracking state table.
+
+Package: conntrackd
+Version: 1.4.7-1
+Depends: libc, libnetfilter-conntrack3, libnetfilter-cttimeout1, libnetfilter-cthelper0, libnetfilter-queue1
+License: GPL-2.0-or-later
+Section: net
+CPE-ID: cpe:/a:netfilter:conntrack-tools
+Architecture: x86_64
+Installed-Size: 83425
+Filename: conntrackd_1.4.7-1_x86_64.ipk
+Size: 84350
+SHA256sum: c86a6c1d72c187467aff72f6c6c614deb65c6421e93628073b7bb9c2856346ad
+Description:  Conntrackd can replicate the status of the connections that are
+ currently being processed by your stateful firewall based on Linux.
+ Conntrackd can also run as statistics daemon.
+
+Package: coremark
+Version: 2022-07-27-eefc986e-1
+Depends: libc
+License: Apache-2.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 9921
+Filename: coremark_2022-07-27-eefc986e-1_x86_64.ipk
+Size: 10845
+SHA256sum: f26491c03f5dd65dade64d42a87280cb18c97db33b43560c13a6a27be8506761
+Description:  Embedded Microprocessor Benchmark
+
+Package: coreutils-base64
+Version: 9.3-1
+Depends: libc, coreutils
+Alternatives: 300:/bin/base64:/usr/libexec/base64-coreutils
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:coreutils
+Architecture: x86_64
+Installed-Size: 24747
+Filename: coreutils-base64_9.3-1_x86_64.ipk
+Size: 25540
+SHA256sum: 9591f78fd2a87848fb8ff568aa532ce0aa8decc38bdbd241ed21eac44b540329
+Description:  Full version of standard GNU base64 utility.
+
+Package: coreutils-nohup
+Version: 9.3-1
+Depends: libc, coreutils
+Alternatives: 300:/usr/bin/nohup:/usr/libexec/nohup-coreutils
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:coreutils
+Architecture: x86_64
+Installed-Size: 23418
+Filename: coreutils-nohup_9.3-1_x86_64.ipk
+Size: 24199
+SHA256sum: 1ea3f837998f87464ff39204cccf1e832375c96068ea3ba569e2fa4199223dfe
+Description:  Full version of standard GNU nohup utility.
+
+Package: coreutils-timeout
+Version: 9.3-1
+Depends: libc, coreutils, librt
+Alternatives: 300:/usr/bin/timeout:/usr/libexec/timeout-coreutils
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:coreutils
+Architecture: x86_64
+Installed-Size: 26829
+Filename: coreutils-timeout_9.3-1_x86_64.ipk
+Size: 27693
+SHA256sum: a6e20c2372e1b132464b29361be3dd078d44a635557af44040a2cd4c2ddc45bf
+Description:  Full version of standard GNU timeout utility.
+
+Package: coreutils
+Version: 9.3-1
+Depends: libc
+License: GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:gnu:coreutils
+Architecture: x86_64
+Installed-Size: 96
+Filename: coreutils_9.3-1_x86_64.ipk
+Size: 961
+SHA256sum: 698154888f82472db2b8f62f57300ef0094c934422ab33106e97e46037b0d981
+Description:  Full versions of standard GNU utilities. If an equivalent Busybox applet is
+ available, you should consider compiling that instead as Busybox applets are
+ usually smaller, at the expense of reduced functionality.
+
+Package: cpulimit
+Version: 0.3.2-1
+Depends: libc
+Section: utils
+Architecture: x86_64
+Installed-Size: 7555
+Filename: cpulimit_0.3.2-1_x86_64.ipk
+Size: 8317
+SHA256sum: 294d4cb0220f4b195abbc789f86ba5971d02e93bf8122d5a3a13fa8537dd0deb
+Description:  Cpulimit is a tool which limits the CPU usage of a process
+ (expressed in percentage, not in CPU time).
+
+Package: curl
+Version: 8.15.0-1
+Depends: libc, libcurl4
+License: MIT
+Section: net
+CPE-ID: cpe:/a:haxx:libcurl
+Architecture: x86_64
+Installed-Size: 68453
+Filename: curl_8.15.0-1_x86_64.ipk
+Size: 69282
+SHA256sum: 2f4b0fc06e1f550ab2a433dac2e52dd5fd40f54d8c925140600035fc061b2fe0
+Description:  A client-side URL transfer utility
+
+Package: ddns-go
+Version: 6.13.3-1
+Depends: libc, ca-bundle
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 4555246
+Filename: ddns-go_6.13.3-1_x86_64.ipk
+Size: 4546911
+SHA256sum: 9caabea34f510df7c4d3e2ea12fadf5f95aaa6830ccfd4047f084704df54497f
+Description:  A simple and easy-to-use Dynamic DNS client with IPv6 support.
+ Supported backend:
+ - Alidns
+ - Baidu Cloud
+ - CloudFlare
+ - DnsPod
+ - GoDaddy Domains
+ - Google Domains
+ - Huawei Cloud
+ - Porkbun
+ - Custom callback
+
+Package: ddns-scripts-services
+Version: 2.8.2-49
+Depends: libc
+Provides: ddns-scripts_service
+License: GPL-2.0
+Section: net
+Architecture: all
+Installed-Size: 3977
+Filename: ddns-scripts-services_2.8.2-49_all.ipk
+Size: 4593
+SHA256sum: 1e3a0099e9b38d6e7007a35ecff26d74771a331884f31180ff3156f8e6083b07
+Description:  Dynamic DNS Client definitions for supported services
+
+Package: ddns-scripts
+Version: 2.8.2-49
+Depends: libc, ddns-scripts-services
+License: GPL-2.0
+Section: net
+Architecture: all
+Installed-Size: 26729
+Filename: ddns-scripts_2.8.2-49_all.ipk
+Size: 27829
+SHA256sum: 816c3e61e247538f85e232fb71d66f7537dcde9e9081a06feb08033d825d0af8
+Description:  Dynamic DNS Client scripts (with IPv6 support)
+ A highly configurable set of scripts for doing dynamic dns updates.
+ - IPv6 support
+ - DNS server support
+ - Glue Record support (require BIND host or KNOT host)
+ - DNS requests via TCP
+ - Proxy server support
+ - log file support
+ - support to run once
+ Version: 2.8.2-49
+ Info   : https://openwrt.org/docs/guide-user/services/ddns/client
+
+Package: dns2socks
+Version: 2.1-2
+Depends: libc, libpthread
+License: BSD-3-Clause
+Section: net
+Architecture: x86_64
+Installed-Size: 10350
+Filename: dns2socks_2.1-2_x86_64.ipk
+Size: 11119
+SHA256sum: 2717c3d8b2623f5d39d371e24596398097954dd3d97e53bd5e1292f8bd51dabf
+Description:  This is a command line utility to resolve DNS requests via
+ a SOCKS tunnel like Tor or a HTTP proxy.
+
+Package: eoip
+Version: 0.5-1
+Depends: libc, kmod-tun, libpthread, liblzo2
+License: GPL-3.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 8395
+Filename: eoip_0.5-1_x86_64.ipk
+Size: 9284
+SHA256sum: 5f13c013531ae3140f8ad24f2e5887318cbe31420a94e943fbf34f6c2ee3144a
+Description:  linux-eoip can create ethernet tunnels compatible with Mikrotik EoIP tunnel.
+ At current moment it is easiest way to create stateless tunnel with Mikrotik.
+
+Package: etherwake
+Version: 1.09-5
+Depends: libc
+Section: net
+Architecture: x86_64
+Installed-Size: 5036
+Filename: etherwake_1.09-5_x86_64.ipk
+Size: 5922
+SHA256sum: de64ad4c346da4d368ab1bf3a9abff7c316b56e9d334b773f6d389988df240e7
+Description:  You can wake up WOL compliant Computers which have been powered down to
+ sleep mode or start WOL compliant Computers with a BIOS feature.
+ WOL is an abbreviation for Wake-on-LAN. It is a standard that allows you
+ to turn on a computer from another location over a network connection.
+ ether-wake also supports WOL passwords.
+
+Package: filebrowser
+Version: 2.28.0-1
+Depends: libc
+License: Apache-2.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 7928231
+Filename: filebrowser_2.28.0-1_x86_64.ipk
+Size: 7917703
+SHA256sum: dd3b2507859355a9f0b1e4c0aa6624330e220c265422b6273a4420bc811c60fe
+Description:  filebrowser provides a file managing interface within a specified directory
+ and it can be used to upload, delete, preview, rename and edit your files.
+ It allows the creation of multiple users and each user can have its own directory.
+ It can be used as a standalone app or as a middleware.
+
+Package: frpc
+Version: 0.51.3-1
+Depends: libc
+License: Apache-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 5951358
+Filename: frpc_0.51.3-1_x86_64.ipk
+Size: 5932817
+SHA256sum: fdabf11730b64e848cd95ab762049d9f81ce7f6ea9b76cdf169781a1012ecbd5
+Description:  frpc is a fast reverse proxy client to help you expose a local server behind
+ a NAT or firewall to the internet.
+
+Package: frps
+Version: 0.51.3-1
+Depends: libc
+License: Apache-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 6841236
+Filename: frps_0.51.3-1_x86_64.ipk
+Size: 6821417
+SHA256sum: f63ab76c3b6c398b8c813fdfea0af60fbd03189356c3f4ad287b84014c4b480d
+Description:  frps is a fast reverse proxy server to help you expose a local server behind
+ a NAT or firewall to the internet.
+
+Package: fuse3-utils
+Version: 3.10.5-1
+Depends: libc, libfuse3-3
+License: GPL-2.0-only
+Section: utils
+CPE-ID: cpe:/a:fuse_project:fuse
+Architecture: x86_64
+Installed-Size: 14140
+Filename: fuse3-utils_3.10.5-1_x86_64.ipk
+Size: 14884
+SHA256sum: 1955c5c585a8c4f0439490bf0ebfc629686d25455e9e7bfd3d570ee01ba5bdd3
+Description:  fuse3 (Filesystem in UserSpacE)
+ This package contains the FUSE utilities.
+ - fusermount3
+ - mount.fuse3
+
+Package: geoview
+Version: 0.2.2-1
+Depends: libc
+License: Apache-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 2597965
+Filename: geoview_0.2.2-1_x86_64.ipk
+Size: 2593502
+SHA256sum: 3bfa4eace2e8cf367ecf63017818ad6bfdb8dd33d3e22aa941a50b7a4601af79
+Description:  geoview is a handy tool to extract useful information from geo* files.
+
+Package: haproxy
+Version: 2.8.5-1
+Depends: libc, libpcre, libltdl7, zlib, libpthread, liblua5.3-5.3, libopenssl3, libncurses6, libreadline8, libatomic1
+License: GPL-2.0-only
+Section: net
+CPE-ID: cpe:/a:haproxy:haproxy
+Architecture: x86_64
+Installed-Size: 1089192
+Filename: haproxy_2.8.5-1_x86_64.ipk
+Size: 1089304
+SHA256sum: 0da6b9206b3c53da11737187918ec61e9f8f6b77ddd4829b57effc0da3ae5ee6
+Description:  Open source Reliable, High Performance TCP/HTTP Load Balancer.
+ This package is built with SSL and LUA support.
+
+Package: hd-idle
+Version: 1.05-2
+Depends: libc
+License: GPL-2.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 4545
+Filename: hd-idle_1.05-2_x86_64.ipk
+Size: 5361
+SHA256sum: 9a169d17631c9aa69302c65ef81de88e1d401d325986679f0a6aebddcfd507b0
+Description:  hd-idle is a utility program for spinning-down external disks after a period of idle time.
+
+Package: jq
+Version: 1.6-2
+Depends: libc
+License: BSD
+Section: utils
+Architecture: x86_64
+Installed-Size: 107829
+Filename: jq_1.6-2_x86_64.ipk
+Size: 108654
+SHA256sum: 6759a48944823fc742bfe66082d4b2624f87a4eceedad2c3f633318cb0064a1b
+Description:  Lightweight and flexible command-line JSON processor.
+
+Package: ksmbd-server
+Version: 3.5.2-1
+Depends: libc, kmod-fs-ksmbd, libnl-core200, libnl-genl200
+License: GPL-2.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 124970
+Filename: ksmbd-server_3.5.2-1_x86_64.ipk
+Size: 124344
+SHA256sum: b2e8d35476c0fb9b0e31c98368973fb380cb43a352a1274a5e550e3fbc29e33b
+Description:  installs: ksmbd.mountd
+ 
+ This provides the basic fileserver service and is the minimum needed to serve 'guest only' file shares or use a existing user database file ksmbdpwd.db.
+
+Package: libattr
+Version: 2.5.2-3
+Depends: libc
+License: LGPL-2.1-or-later
+Section: libs
+CPE-ID: cpe:/a:attr_project:attr
+Architecture: x86_64
+Installed-Size: 6336
+Filename: libattr_2.5.2-3_x86_64.ipk
+Size: 7142
+SHA256sum: 5899d32ecc2cddd369f29147ad84aa46acf53532b84a6a96efe90e1705606cdc
+Description:  Extended attributes support
+ This package provides libattr
+
+Package: libcurl4
+Version: 8.15.0-1
+Depends: libc, libopenssl3, libnghttp2-14, ca-bundle
+Provides: libcurl
+License: MIT
+Section: libs
+ABIVersion: 4
+CPE-ID: cpe:/a:haxx:libcurl
+Architecture: x86_64
+Installed-Size: 256477
+Filename: libcurl4_8.15.0-1_x86_64.ipk
+Size: 257200
+SHA256sum: 6d65088bd312e76d9ad7e5897a16d146338dba4fa120482fb5edee1bd68299f1
+Description:  A client-side URL transfer library
+
+Package: libev
+Version: 4.33-1
+Depends: libc
+License: BSD-2-Clause
+Section: libs
+Architecture: x86_64
+Installed-Size: 23212
+Filename: libev_4.33-1_x86_64.ipk
+Size: 23971
+SHA256sum: 66d95ae40b1d40e095e4bba949516535f9fabce5ccdc68e9ffade398cbf9772f
+Description:  A full-featured and high-performance event loop that is loosely modelled after
+ libevent, but without its limitations and bugs.
+
+Package: libfuse3-3
+Version: 3.10.5-1
+Depends: libc, kmod-fuse, libpthread
+Provides: libfuse3
+License: LGPL-2.1-only
+Section: libs
+ABIVersion: -3
+CPE-ID: cpe:/a:fuse_project:fuse
+Architecture: x86_64
+Installed-Size: 63149
+Filename: libfuse3-3_3.10.5-1_x86_64.ipk
+Size: 63897
+SHA256sum: d40be70caf89a50a8592d040b9b214ae64cfc31275b33809153a93175a15fe06
+Description:  fuse3 (Filesystem in UserSpacE)
+ This package contains the fuse3 shared libraries, needed by other programs.
+ - libfuse3
+
+Package: libgd
+Version: 2.3.3-1
+Depends: libc, libjpeg, libpng, libwebp
+Conflicts: libgd-full
+License: MIT
+Section: libs
+CPE-ID: cpe:/a:libgd:libgd
+Architecture: x86_64
+Installed-Size: 91979
+Filename: libgd_2.3.3-1_x86_64.ipk
+Size: 92427
+SHA256sum: e1751cccfdb91f183d06de56df1dad0f01a0821a010ce73b278303abe798b946
+Description:  GD is an open source code library for the dynamic creation of images by
+ programmers. GD creates PNG, JPEG and GIF images, among other formats.
+
+Package: libjpeg-turbo
+Version: 2.1.4-1
+Depends: libc
+Provides: libjpeg
+License: BSD-3-Clause IJG zlib
+Section: libs
+Architecture: x86_64
+Installed-Size: 110692
+Filename: libjpeg-turbo_2.1.4-1_x86_64.ipk
+Size: 110563
+SHA256sum: e51d1f07d7f4f536e7f2288facb20a5906d0a2f0751c42c75febb10d787e6d26
+Description:  libjpeg-turbo is a speed focused fork of libjpeg.
+
+Package: libkmod
+Version: 34.2-1
+Depends: libc, zlib
+License: LGPL-2.1-or-later
+Section: libs
+CPE-ID: cpe:/a:kernel:kmod
+Architecture: x86_64
+Installed-Size: 37068
+Filename: libkmod_34.2-1_x86_64.ipk
+Size: 37924
+SHA256sum: 09e1eeb7c2b2d0958539c21b38b83a4ee39e231a86bfea4466bc01d5b6116546
+Description:  Linux kernel module handling (library)
+
+Package: liblzma
+Version: 5.4.1-1
+Depends: libc, libpthread
+License: Public-Domain LGPL-2.1-or-later GPL-2.0-or-later GPL-3.0-or-later
+Section: libs
+CPE-ID: cpe:/a:tukaani:xz
+Architecture: x86_64
+Installed-Size: 63627
+Filename: liblzma_5.4.1-1_x86_64.ipk
+Size: 64483
+SHA256sum: 9736cb40228e53b4147d27f48507174405ec72d23efa35c8ab430684168da919
+Description:  liblzma library from XZ Utils
+
+Package: liblzo2
+Version: 2.10-4
+Depends: libc
+Provides: liblzo
+License: GPL-2.0-or-later
+Section: libs
+ABIVersion: 2
+Architecture: x86_64
+Installed-Size: 37376
+Filename: liblzo2_2.10-4_x86_64.ipk
+Size: 38217
+SHA256sum: 229a7c035131e85a19c6ef5ac9636cb30b13dea6b25fbed446f77afad0e80fab
+Description:  LZO is a data compression library which is suitable for data de-/compression
+ in real-time. This means it favours speed over compression ratio.
+
+Package: libminiupnpc
+Version: 2.2.3-1
+Depends: libc
+License: BSD-3-Clause
+Section: libs
+CPE-ID: cpe:/a:miniupnp_project:miniupnp
+Architecture: x86_64
+Installed-Size: 20152
+Filename: libminiupnpc_2.2.3-1_x86_64.ipk
+Size: 20892
+SHA256sum: 3f96cc5388548129d150809cdc18f7ba6415a1a44eed3c83e0ce4b7a96966002
+Description:  Lightweight UPnP library
+
+Package: libnatpmp1
+Version: 20150609-3
+Depends: libc
+Provides: libnatpmp
+License: BSD-3-Clause
+Section: libs
+ABIVersion: 1
+Architecture: x86_64
+Installed-Size: 3304
+Filename: libnatpmp1_20150609-3_x86_64.ipk
+Size: 4208
+SHA256sum: 98403dd97cc97ab228c5a1b00f3ac5cd75bc61121ac84485013111c98d84f8bf
+Description:  libnatpmp is an attempt to make a portable and fully compliant implementation
+ of the protocol for the client side. It is based on non blocking sockets and
+ all calls of the API are asynchronous. It is therefore very easy to integrate
+ the NAT-PMP code to any event driven code.
+ This package contains the shared library.
+
+Package: libnetfilter-cthelper0
+Version: 1.0.0-2
+Depends: libc, libmnl0
+Provides: libnetfilter-cthelper
+License: GPL-2.0+
+Section: libs
+ABIVersion: 0
+Architecture: x86_64
+Installed-Size: 4206
+Filename: libnetfilter-cthelper0_1.0.0-2_x86_64.ipk
+Size: 5020
+SHA256sum: 74326e7fdec9b47ca35d90acdd03cd9c8d751307ee6a9cee96879b0a64a3f367
+Description:  libnetfilter_cthelper is a userspace library providing a programming
+ interface (API) to the in-kernel connection tracking helpers. 
+ This library is currently used by conntrack-tools.
+
+Package: libnetfilter-cttimeout1
+Version: 1.0.0-2
+Depends: libc, libmnl0
+Provides: libnetfilter-cttimeout
+License: GPL-2.0+
+Section: libs
+ABIVersion: 1
+Architecture: x86_64
+Installed-Size: 4253
+Filename: libnetfilter-cttimeout1_1.0.0-2_x86_64.ipk
+Size: 5038
+SHA256sum: e7faabd5f964caf4c452ff716cab9c7dde18b34834aaa2111974a4010da65ede
+Description:  libnetfilter_cttimeout is a userspace library providing a programming
+ interface (API) to the in-kernel connection tracking timeout handling.
+ This library is currently used by conntrack-tools.
+
+Package: libnetfilter-queue1
+Version: 1.0.5-4
+Depends: libc, libmnl0, libnfnetlink0
+Provides: libnetfilter-queue
+License: GPL-2.0-or-later
+Section: libs
+ABIVersion: 1
+Architecture: x86_64
+Installed-Size: 10542
+Filename: libnetfilter-queue1_1.0.5-4_x86_64.ipk
+Size: 11330
+SHA256sum: b98f91eb46f041229f75080787e710de09eccb14f2486ce67e4d04e060b57139
+Description:  libnetfilter_queue is a userspace library providing a programming
+ interface (API) to packets that have been queued by the kernel
+ packet filter.
+
+Package: libnghttp2-14
+Version: 1.63.0-1
+Depends: libc
+Provides: libnghttp2
+License: MIT
+Section: libs
+ABIVersion: -14
+CPE-ID: cpe:/a:nghttp2:nghttp2
+Architecture: x86_64
+Installed-Size: 71502
+Filename: libnghttp2-14_1.63.0-1_x86_64.ipk
+Size: 70572
+SHA256sum: 70037b198d58699d522e252d0e0152d8270976419c2e202b8f772a0711c6cc19
+Description:  C library implementing the framing layer of the HTTP/2 protocol. It can be used to build a HTTP/2-capable HTTP client or server
+
+Package: libparted
+Version: 3.4-1
+Depends: libc, libblkid1, libuuid1
+License: GPL-3.0-or-later
+Section: libs
+Architecture: x86_64
+Installed-Size: 185796
+Filename: libparted_3.4-1_x86_64.ipk
+Size: 186541
+SHA256sum: 2c5eb25afb5e9684c419741056f00883a677404616ad468847e7f5b441d4142a
+Description:  GNU Parted shared library
+
+Package: libpci
+Version: 3.14.0-1
+Depends: libc
+License: GPL-2.0
+Section: libs
+Architecture: x86_64
+Installed-Size: 28694
+Filename: libpci_3.14.0-1_x86_64.ipk
+Size: 29435
+SHA256sum: ef7bc5501acd49148a57d898cecc923a5fd823dbbc7dd84b3698c9a39fe293f6
+Description:  Linux PCI Libraries
+
+Package: libpcre2
+Version: 10.42-1
+Depends: libc
+License: BSD-3-Clause
+Section: libs
+CPE-ID: cpe:/a:pcre:pcre
+Architecture: x86_64
+Installed-Size: 187814
+Filename: libpcre2_10.42-1_x86_64.ipk
+Size: 188684
+SHA256sum: d4b183dfb00b50a39d8b5635cd6d810b7815b5f873e43091e2b45e741abfe2d6
+Description:  A Perl Compatible Regular Expression library
+
+Package: libpng
+Version: 1.6.38-1
+Depends: libc, zlib
+License: Libpng GPL-2.0-or-later BSD-3-Clause
+Section: libs
+CPE-ID: cpe:/a:libpng:libpng
+Architecture: x86_64
+Installed-Size: 92784
+Filename: libpng_1.6.38-1_x86_64.ipk
+Size: 93608
+SHA256sum: 0cf25a40b2c9f349fc15d359e7347f318ea606ade4413fe062caf6b1436b1b01
+Description:  A PNG format files handling library
+
+Package: librrd1
+Version: 1.0.50-6
+Depends: libc, zlib
+License: GPL-2.0-or-later
+Section: libs
+Architecture: x86_64
+Installed-Size: 139191
+Filename: librrd1_1.0.50-6_x86_64.ipk
+Size: 140135
+SHA256sum: 6088132674df8e6ae29e2411b45f1aec7f2bd5239764d1ad0f9c59032030a48e
+Description:  RRD is the Acronym for Round Robin Database. RRD is a system to store and
+ display time-series data (i.e. network bandwidth, machine-room temperature,
+ server load average). It stores the data in a very compact way that will
+ not expand over time, and it presents useful graphs by processing the data
+ to enforce a certain data density. It can be used either via simple wrapper
+ scripts (from shell or Perl) or via frontends that poll network devices and
+ put friendly user interface on it.
+ 
+ This is version 1.0.x with cgilib-0.4, gd1.3 and libpng-1.0.9 linked into
+ librrd.so. The library is much smaller compared to the 1.2.x version with
+ separate dynamic linked libraries.
+ This package contains a shared library, used by other programs.
+
+Package: libruby3.3
+Version: 3.3.6-1
+Depends: libc, libpthread, librt, libgmp10, zlib
+Provides: libruby
+License: BSD-2-Clause
+Section: libs
+ABIVersion: 3.3
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 1393726
+Filename: libruby3.3_3.3.6-1_x86_64.ipk
+Size: 1387021
+SHA256sum: 5c94ab8293d9f6aabd32120410b7d4d4f640502e39f91ba38c730d70b8821906
+Description:  Ruby scripting language (shared library)
+
+Package: libsensors5
+Version: 3.6.0-1
+Depends: libc, sysfsutils
+Provides: libsensors
+License: GPL-2.0-or-later LGPL-2.1-or-later
+Section: libs
+ABIVersion: 5
+CPE-ID: cpe:/a:lm_sensors:lm_sensors
+Architecture: x86_64
+Installed-Size: 19858
+Filename: libsensors5_3.6.0-1_x86_64.ipk
+Size: 20571
+SHA256sum: 5e21335a096799d2d40c105613b66ef99303b086cf0a243d1ee020bd8a52ab7e
+Description:  lm-sensors libraries
+
+Package: libsodium
+Version: 1.0.18-4
+Depends: libc
+License: ISC
+Section: libs
+Architecture: x86_64
+Installed-Size: 147071
+Filename: libsodium_1.0.18-4_x86_64.ipk
+Size: 148257
+SHA256sum: 3e7b7cb89fd69e83d3a93c677c439eadd23d0eb69a801c982374ca4a7e0d0d81
+Description:  NaCl (pronounced "salt") is a new easy-to-use high-speed software library for network communication, encryption, decryption, signatures, etc.
+ NaCl's goal is to provide all of the core operations needed to build higher-level cryptographic tools.
+ Sodium is a portable, cross-compilable, installable, packageable fork of NaCl (based on the latest released upstream version nacl-20110221), with a compatible API.
+ The design choices, particularly in regard to the Curve25519 Diffie-Hellman function, emphasize security (whereas NIST curves emphasize "performance" at the cost of security), and "magic constants" in NaCl/Sodium have clear rationales.
+ The same cannot be said of NIST curves, where the specific origins of certain constants are not described by the standards.
+ And despite the emphasis on higher security, primitives are faster across-the-board than most implementations of the NIST standards.
+
+Package: libsqlite3-0
+Version: 3400000-1
+Depends: libc, libpthread, zlib
+Provides: libsqlite3
+License: PUBLICDOMAIN
+Section: libs
+ABIVersion: -0
+CPE-ID: cpe:/a:sqlite:sqlite
+Architecture: x86_64
+Installed-Size: 523044
+Filename: libsqlite3-0_3400000-1_x86_64.ipk
+Size: 523812
+SHA256sum: 6829c26b860c73776270e32d5b65b2517fbee88888e06eacd896a840e73240ba
+Description:  SQLite is a small C library that implements a self-contained, embeddable,
+ zero-configuration SQL database engine.
+ This package contains the SQLite (v3.x) shared library, used by other
+ programs.
+
+Package: libudns
+Version: 0.4-1
+Depends: libc
+License: LGPL-2.1
+Section: libs
+Architecture: x86_64
+Installed-Size: 18918
+Filename: libudns_0.4-1_x86_64.ipk
+Size: 19700
+SHA256sum: f6e207d01887c6026629a7664cb862ed7a366236d71023e3135d917b4d7fd655
+Description:  UDNS is a stub DNS resolver library with ability to perform both syncronous
+ and asyncronous DNS queries.
+
+Package: libuv1
+Version: 1.48.0-1
+Depends: libc, libpthread, librt
+Provides: libuv
+License: MIT
+Section: libs
+ABIVersion: 1
+CPE-ID: cpe:/a:libuv_project:libuv
+Architecture: x86_64
+Installed-Size: 68334
+Filename: libuv1_1.48.0-1_x86_64.ipk
+Size: 69314
+SHA256sum: 24b5634a180e862e50f08c87b5288d2fe53c8764bcae56206404fdc3207221d6
+Description:  libuv is a multi-platform support library with a focus on asynchronous I/O. It
+ was primarily developed for use by Node.js, but it's also used by Luvit, Julia,
+ pyuv, and others.
+
+Package: libwebp
+Version: 1.3.0-1
+Depends: libc
+License: BSD-3-Clause
+Section: libs
+Architecture: x86_64
+Installed-Size: 260681
+Filename: libwebp_1.3.0-1_x86_64.ipk
+Size: 261452
+SHA256sum: ddde6497736cfe2d8c71fc9058df78bbdae42c93c8399c24fc5bf972e472626f
+Description:  The libwebp package contains a library for the WebP format.
+
+Package: libwebsockets-full
+Version: 4.3.2-3
+Depends: libc, zlib, libcap, libubox20240329, libopenssl3, libuv1
+Provides: libwebsockets, libwebsockets-openssl
+License: MIT
+Section: libs
+Architecture: x86_64
+Installed-Size: 190099
+Filename: libwebsockets-full_4.3.2-3_x86_64.ipk
+Size: 190777
+SHA256sum: f428c301a3ff17370664a957d45f2d52b97eb2c73c779c9467af69d9b532cb7c
+Description:  libwebsockets (Full - OpenSSL, libuv, plugins, CGI)
+
+Package: libyaml
+Version: 0.2.5-1
+Depends: libc
+License: MIT
+Section: libs
+CPE-ID: cpe:/a:pyyaml_project:pyyaml
+Architecture: x86_64
+Installed-Size: 41418
+Filename: libyaml_0.2.5-1_x86_64.ipk
+Size: 42274
+SHA256sum: 056bdb1758c4c79f3fe46f61bfa089613d493e4b8359b9c7a4a4e94bcfdeade0
+Description:  Fast YAML 1.1 parser and emitter library
+
+Package: libzstd
+Version: 1.5.6-1
+Depends: libc
+License: GPL-2.0-or-later
+Section: libs
+Architecture: x86_64
+Installed-Size: 378588
+Filename: libzstd_1.5.6-1_x86_64.ipk
+Size: 379250
+SHA256sum: 9886fba30fe69ea5bc3dc0cbdfdac099981d1709461c29a291f59b6b518d059e
+Description:  Zstandard - Fast real-time compression algorithm.
+ This package provides libzstd library.
+
+Package: lm-sensors
+Version: 3.6.0-1
+Depends: libc, sysfsutils, libsensors5
+License: GPL-2.0-or-later LGPL-2.1-or-later
+Section: utils
+CPE-ID: cpe:/a:lm_sensors:lm_sensors
+Architecture: x86_64
+Installed-Size: 8288
+Filename: lm-sensors_3.6.0-1_x86_64.ipk
+Size: 9025
+SHA256sum: feff1c2b6d2a5fe4fcc7d3bdc433b170f1be6bf1487d28eef80e36787020939a
+Description:  utility to read hardware sensor data
+
+Package: microsocks
+Version: 1.0.4-1
+Depends: libc
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 5892
+Filename: microsocks_1.0.4-1_x86_64.ipk
+Size: 6723
+SHA256sum: bb61a07436d0ad0917d6f7591707bf71ed98312351c821e4cab6f6bbd0310db1
+Description:  Low resource SOCKS5 proxy.
+ Supports only SOCKS5 protocol and forwarding only TCP/IP connections.
+
+Package: miniupnpd
+Version: 2.0.20170421-3
+Depends: libc, iptables, libip4tc2, libuuid1
+License: BSD-3-Clause
+Section: net
+Architecture: x86_64
+Installed-Size: 56585
+Filename: miniupnpd_2.0.20170421-3_x86_64.ipk
+Size: 57516
+SHA256sum: b44f8c88d2e6f7b8bef0ac68867b04432a5d9180369d80848da6d2218c57d965
+Description:  Lightweight UPnP IGD, NAT-PMP & PCP daemon
+
+Package: mosdns
+Version: 5.3.3-1
+Depends: libc, ca-bundle
+License: GPL-3.0
+Section: net
+Architecture: x86_64
+Installed-Size: 7070701
+Filename: mosdns_5.3.3-1_x86_64.ipk
+Size: 7054867
+SHA256sum: ff67f06e1b4648b128e1f0ad890230f9c145915a8a66e30a2d6a22d75661d14a
+Description:  A plug-in DNS forwarder/splitter
+
+Package: mwan3
+Version: 2.8.12-1
+Depends: libc, ip, ipset, iptables, iptables-mod-conntrack-extra, iptables-mod-ipopt, jshn
+License: GPL-2.0
+Section: net
+Architecture: all
+Installed-Size: 13690
+Filename: mwan3_2.8.12-1_all.ipk
+Size: 14703
+SHA256sum: 88a47ad105e1992f839773b63a279c4b4cb5a7827da9dc1ac99c23f1de21f1a9
+Description:  Hotplug script which makes configuration of multiple WAN interfaces simple
+ and manageable. With loadbalancing/failover support for up to 250 wan
+ interfaces, connection tracking and an easy to manage traffic ruleset.
+
+Package: n2n
+Version: 3.0-1
+Depends: libc, libopenssl3, libpthread, libzstd, libcap, kmod-tun, resolveip
+License: GPL-3.0
+Section: net
+Architecture: x86_64
+Installed-Size: 162158
+Filename: n2n_3.0-1_x86_64.ipk
+Size: 163067
+SHA256sum: d65f4c46b639236597e0c7a4e8df541e7540f0d6894fbe897c7d15b8c07b543e
+Description:  This package contains client node and supernode for the N2N infrastructure.
+
+Package: netdata
+Version: 1.33.1-1
+Depends: libc, zlib, libuuid1, libuv1, libmnl0, libjson-c5, coreutils, coreutils-timeout
+License: GPL-3.0-or-later
+Section: admin
+CPE-ID: cpe:/a:my-netdata:netdata
+Architecture: x86_64
+Installed-Size: 8020061
+Filename: netdata_1.33.1-1_x86_64.ipk
+Size: 7991749
+SHA256sum: 100b4eb2f1f4fdffc1d2dd8468560919b0a5128af876e051e27535f9d4bc2752
+Description:  netdata is a highly optimized Linux daemon providing real-time performance
+ monitoring for Linux systems, applications and SNMP devices over the web.
+ 
+ If you want to use Python plugins install python3, python3-yaml and
+ python3-urllib3
+
+Package: nextdns
+Version: 1.45.0-1
+Depends: libc, ca-bundle
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 3515905
+Filename: nextdns_1.45.0-1_x86_64.ipk
+Size: 3510653
+SHA256sum: 4d23d5feeb4b50cfc2bb09074fbb1bc4a12221b685aeea4c6d6219214e7f6a80
+Description:  Official NextDNS DNS over HTTPS Proxy.
+
+Package: ngrokc
+Version: 1.55-2
+Depends: libc, libpthread, libopenssl3, libstdcpp6, zlib
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 29638
+Filename: ngrokc_1.55-2_x86_64.ipk
+Size: 30307
+SHA256sum: ee45bdd1cbec146668fbc99eb9947dad940210cb9e1c385b7ee1e92ec9fef633
+Description:  Secure tunnels to localhost (C++ port)
+
+Package: nlbwmon
+Version: 2021-09-01-d82c910c-1
+Depends: libc, libubox20240329, libnl-tiny1, zlib, kmod-nf-conntrack-netlink
+License: ISC
+Section: net
+Architecture: x86_64
+Installed-Size: 20397
+Filename: nlbwmon_2021-09-01-d82c910c-1_x86_64.ipk
+Size: 21208
+SHA256sum: 923e631388a29addf4a31007dbd9f2b3d25c6458fd90f56ef113676876b11f31
+Description:  OpenWrt Traffic Usage Monitor
+
+Package: openvpn-easy-rsa
+Version: 3.0.8-4
+Depends: libc, openssl-util
+License: GPL-2.0
+Section: net
+Architecture: all
+Installed-Size: 27875
+Filename: openvpn-easy-rsa_3.0.8-4_all.ipk
+Size: 28715
+SHA256sum: cc23f0a2f98d6449a191802cff1a895f80dd568c1bf6fd4f8d3312125fd11534
+Description:  CLI utility to build and manage a PKI CA.
+
+Package: openvpn-openssl
+Version: 2.5.8-1
+Depends: libc, kmod-tun, liblzo2, libopenssl3
+Provides: openvpn, openvpn-crypto
+License: GPL-2.0
+Section: net
+CPE-ID: cpe:/a:openvpn:openvpn
+Architecture: x86_64
+Installed-Size: 230574
+Filename: openvpn-openssl_2.5.8-1_x86_64.ipk
+Size: 231454
+SHA256sum: b01ef3880ebea2366457dd5cf27dbe9f7ef28e5b1661f078352efe2325dee083
+Description:  Open source VPN solution using OpenSSL
+
+Package: parted
+Version: 3.4-1
+Depends: libc, libparted, libreadline8, libncurses6
+License: GPL-3.0-or-later
+Section: utils
+Architecture: x86_64
+Installed-Size: 26432
+Filename: parted_3.4-1_x86_64.ipk
+Size: 27201
+SHA256sum: f1aecbb695d7a7114bc216a002b1e3f23976edd52a1c98bde33f8554e5c0a4f7
+Description:  GNU Parted manipulates partition tables. This is useful for
+ creating space for new operating systems, reorganizing
+ disk usage, copying data on hard disks and disk imaging.
+
+Package: pciids
+Version: 0.359-1
+Depends: libc
+License: GPL-2.0-or-later  XFree86-1.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 306361
+Filename: pciids_0.359-1_x86_64.ipk
+Size: 306602
+SHA256sum: 3253327e951b2647d3987931e1f61f883d6bd8bd97ec30ce571e2146c7b7da1b
+Description:  PCI ID list
+
+Package: pciutils
+Version: 3.14.0-1
+Depends: libc, libkmod, libpci, pciids
+License: GPL-2.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 52868
+Filename: pciutils_3.14.0-1_x86_64.ipk
+Size: 53686
+SHA256sum: d0b38884de88e3314c536d4cd43b07dc581781858c777228d311ee2c86cd45df
+Description:  contains collection of programs for inspecting and manipulating configuration
+ of PCI devices
+
+Package: pdnsd-alt
+Version: 1.2.9b-par-3
+Depends: libc, libpthread
+Section: net
+Architecture: x86_64
+Installed-Size: 91955
+Filename: pdnsd-alt_1.2.9b-par-3_x86_64.ipk
+Size: 92982
+SHA256sum: 85b0b80311374ff5300da4b701aeb12d0de67601ad1dd3cca30a08bbbb89008f
+Description:  pdnsd, is an IPv6 capable proxy DNS server with permanent caching (the cache
+ contents are written to hard disk on exit) that is designed to cope with
+ unreachable or down DNS servers (for example in dial-in networking).
+ 
+ pdnsd can be used with applications that do dns lookups, eg on startup, and
+ can't be configured to change that behaviour, to prevent the often
+ minute-long hangs (or even crashes) that result from stalled dns queries.
+
+Package: rclone-config
+Version: 1.69.0-1
+Depends: libc, rclone
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 1245
+Filename: rclone-config_1.69.0-1_x86_64.ipk
+Size: 2073
+SHA256sum: 9a4fe1102435e6debe1f67155698e4e3db582750f50b847ca25e4517fc90061e
+Description:  rsync for cloud storage (Config Scripts)
+
+Package: rclone-ng
+Version: 0.5.0-1
+Depends: libc, rclone-config
+License: MIT
+Section: net
+Architecture: all
+Installed-Size: 4637205
+Filename: rclone-ng_0.5.0-1_all.ipk
+Size: 4632069
+SHA256sum: 2ad012c8bf409bf2ee76f0e0f6986bd1c2b025df70c133590c48bfec338df1af
+Description:  An angular web application for rclone
+
+Package: rclone-webui-react
+Version: 2.0.5-1
+Depends: libc, rclone-config
+License: MIT
+Section: net
+Architecture: all
+Installed-Size: 4467225
+Filename: rclone-webui-react_2.0.5-1_all.ipk
+Size: 4463989
+SHA256sum: ddd17b87dc550337db2f2fbe8b9e84a81ba12c15e105fc8f6a306eb55294c70e
+Description:  A full fledged UI for the rclone cloud sync tool.
+
+Package: rclone
+Version: 1.69.0-1
+Depends: libc, ca-bundle, fuse3-utils
+License: MIT
+Section: net
+Architecture: x86_64
+Installed-Size: 21649342
+Filename: rclone_1.69.0-1_x86_64.ipk
+Size: 21562138
+SHA256sum: 1fe255800ed72da7c2251c420ae801ba9b60f2f938f96d451765c5f64961968a
+Description:  Rclone ("rsync for cloud storage") is a command line program to sync
+ files and directories to and from different cloud storage providers.
+
+Package: rrdtool1
+Version: 1.0.50-6
+Depends: libc, librrd1
+License: GPL-2.0-or-later
+Section: utils
+Architecture: x86_64
+Installed-Size: 10149
+Filename: rrdtool1_1.0.50-6_x86_64.ipk
+Size: 11294
+SHA256sum: 41ab02edf9c4fbf5d2bc07dd33a23633450cf9224d225ca71a9708ca639f4649
+Description:  RRD is the Acronym for Round Robin Database. RRD is a system to store and
+ display time-series data (i.e. network bandwidth, machine-room temperature,
+ server load average). It stores the data in a very compact way that will
+ not expand over time, and it presents useful graphs by processing the data
+ to enforce a certain data density. It can be used either via simple wrapper
+ scripts (from shell or Perl) or via frontends that poll network devices and
+ put friendly user interface on it.
+ 
+ This is version 1.0.x with cgilib-0.4, gd1.3 and libpng-1.0.9 linked into
+ librrd.so. The library is much smaller compared to the 1.2.x version with
+ separate dynamic linked libraries.
+ This package contains command line tools used to manage RRDs.
+
+Package: ruby-bigdecimal
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 42838
+Filename: ruby-bigdecimal_3.3.6-1_x86_64.ipk
+Size: 43751
+SHA256sum: 47a0bbbfa7ca5a36a016314dd3a0157617f35862013cbe494c804cc6578a8b17
+Description:  This package contains the ruby Arbitrary-precision decimal floating-point library.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/*/bigdecimal.so 
+ - /usr/lib/ruby/3.3/bigdecimal/ 
+ - /usr/lib/ruby/3.3/bigdecimal.rb 
+ - /usr/lib/ruby/gems/3.3/specifications/default/bigdecimal-*.gemspec
+ 
+
+Package: ruby-date
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 63393
+Filename: ruby-date_3.3.6-1_x86_64.ipk
+Size: 64346
+SHA256sum: d95c1182e64f461685a2f19e1c02384c8c269e5b33f76372818c69f3ab8e2b28
+Description:  This package contains the ruby Comparable module for handling dates.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/date.rb 
+ - /usr/lib/ruby/3.3/*/date_core.so 
+ - /usr/lib/ruby/gems/3.3/specifications/default/date-*.gemspec
+ 
+
+Package: ruby-digest
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 25054
+Filename: ruby-digest_3.3.6-1_x86_64.ipk
+Size: 25809
+SHA256sum: b39c927096979ed61f440e56de2a62c1dc2f326b20055830bca0414b8b1fadbe
+Description:  Provides digest* files. Can be configured to use OpenSSL or
+ bundled hash functions.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/digest 
+ - /usr/lib/ruby/3.3/digest.rb 
+ - /usr/lib/ruby/3.3/*/digest.so 
+ - /usr/lib/ruby/3.3/*/digest/* 
+ - /usr/lib/ruby/gems/3.3/specifications/default/digest-*.gemspec
+ 
+
+Package: ruby-enc
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 9737
+Filename: ruby-enc_3.3.6-1_x86_64.ipk
+Size: 10517
+SHA256sum: dc2e176420267869a8bb019fe3cd63dc1e438a7494d7bf7df6d376fc7d30cdcc
+Description:  This package contains the ruby character re-coding library charset (small subset).
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/*/enc/encdb.so 
+ - /usr/lib/ruby/3.3/*/enc/iso_8859_1.so 
+ - /usr/lib/ruby/3.3/*/enc/utf_*.so 
+ - /usr/lib/ruby/3.3/*/enc/euc_jp.so
+ 
+
+Package: ruby-forwardable
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 3801
+Filename: ruby-forwardable_3.3.6-1_x86_64.ipk
+Size: 4677
+SHA256sum: 00e8dd37dbd3b7f29445f4d7969047e7b8bff42dca019807e8a328082d9f9fa6
+Description:  This package contains the ruby delegation of methods to a object.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/forwardable.rb 
+ - /usr/lib/ruby/3.3/forwardable 
+ - /usr/lib/ruby/gems/3.3/specifications/default/forwardable-*.gemspec
+ 
+
+Package: ruby-pstore
+Version: 3.3.6-1
+Depends: libc, ruby, ruby-digest, ruby-enc
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 6929
+Filename: ruby-pstore_3.3.6-1_x86_64.ipk
+Size: 7846
+SHA256sum: 888f42ffae4626bc08f2cb0e8952987248f874d4f48854dfe3c340dad3b55f1f
+Description:  This package contains the ruby file based persistence.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/pstore.rb 
+ - /usr/lib/ruby/3.3/pstore/ 
+ - /usr/lib/ruby/gems/3.3/gems/pstore-*/ 
+ - /usr/lib/ruby/gems/3.3/specifications/default/pstore-*.gemspec
+ 
+
+Package: ruby-psych
+Version: 3.3.6-1
+Depends: libc, ruby, ruby-bigdecimal, ruby-date, ruby-enc, ruby-stringio, libyaml
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 34229
+Filename: ruby-psych_3.3.6-1_x86_64.ipk
+Size: 35191
+SHA256sum: 2234edf3194e0fa0c826c49bae3a8d97d6ce04cefb22a82a06d93232c9abb5aa
+Description:  This package contains the ruby YAML parser and emitter.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/psych 
+ - /usr/lib/ruby/3.3/psych.rb 
+ - /usr/lib/ruby/3.3/*/psych.so 
+ - /usr/lib/ruby/gems/3.3/specifications/default/psych-*.gemspec
+ 
+
+Package: ruby-stringio
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 12633
+Filename: ruby-stringio_3.3.6-1_x86_64.ipk
+Size: 13459
+SHA256sum: 1c0d83c6ef49e4467beff7ca9adee761f6fd06922f9cc8d35a1bf7359c53092d
+Description:  This package contains the ruby Pseudo `IO` class from/to `String`.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/*/stringio.so 
+ - /usr/lib/ruby/gems/3.3/specifications/default/stringio-*.gemspec
+ 
+
+Package: ruby-strscan
+Version: 3.3.6-1
+Depends: libc, ruby
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 8567
+Filename: ruby-strscan_3.3.6-1_x86_64.ipk
+Size: 9437
+SHA256sum: 65b92f4d56d697a504391235f9113206ccdfa8113e36095d25c1b8ca848b0dec
+Description:  This package contains the ruby Lexical scanning operations on a String.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/*/strscan.so 
+ - /usr/lib/ruby/gems/3.3/specifications/default/strscan-*.gemspec
+ 
+
+Package: ruby-yaml
+Version: 3.3.6-1
+Depends: libc, ruby, ruby-pstore, ruby-psych
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 4523
+Filename: ruby-yaml_3.3.6-1_x86_64.ipk
+Size: 5372
+SHA256sum: 53ba03effa699ed7709d9b833500067d12247f1d44fa8117fcdf438e7ca57672
+Description:  This package contains the ruby YAML toolkit.
+ 
+ Provides:
+ 
+ - /usr/lib/ruby/3.3/yaml 
+ - /usr/lib/ruby/3.3/yaml.rb 
+ - /usr/lib/ruby/gems/3.3/gems/yaml-*/ 
+ - /usr/lib/ruby/gems/3.3/specifications/default/yaml-*.gemspec
+ 
+
+Package: ruby
+Version: 3.3.6-1
+Depends: libc, libruby3.3
+License: BSD-2-Clause
+Section: lang
+CPE-ID: cpe:/a:ruby-lang:ruby
+Architecture: x86_64
+Installed-Size: 1638
+Filename: ruby_3.3.6-1_x86_64.ipk
+Size: 2534
+SHA256sum: e9435b4fb01dc3919e6ace40e9d5ff6c16246f8f5011a23f90b8dc8f31b27765
+Description:  Ruby is the interpreted scripting language for quick and easy
+ object-oriented programming.  It has many features to process text files
+ and to do system management tasks (as in perl).  It is simple,
+ straight-forward, and extensible.
+ 
+
+Package: sing-box
+Version: 1.12.13-1
+Depends: libc, ca-bundle, kmod-inet-diag, kmod-netlink-diag, kmod-tun
+License: GPL-3.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 16509872
+Filename: sing-box_1.12.13-1_x86_64.ipk
+Size: 16468031
+SHA256sum: 8f43b246d2facef8ee4c3750183b200f164d2d13ee7304c7b5857cd90901c601
+Description:  Sing-box is a universal proxy platform which supports hysteria, SOCKS, Shadowsocks,
+ ShadowTLS, Tor, trojan, VLess, VMess, WireGuard and so on.
+
+Package: smartdns
+Version: 47.1-1
+Depends: libc, libopenssl3
+License: GPL-3.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 222733
+Filename: smartdns_47.1-1_x86_64.ipk
+Size: 223736
+SHA256sum: 6e14d1027f411a59791d29ceac96fc64629ac17b6941a4a3b9935a070a8b9efd
+Description:  SmartDNS is a local DNS server which accepts DNS query requests from local network clients,
+ gets DNS query results from multiple upstream DNS servers concurrently, and returns the fastest IP to clients.
+ Unlike dnsmasq's all-servers, smartdns returns the fastest IP, and encrypt DNS queries with DoT or DoH.
+
+Package: smartmontools
+Version: 7.4-1
+Depends: libc, libstdcpp6
+License: GPL-2.0-or-later
+Section: utils
+Architecture: x86_64
+Installed-Size: 253349
+Filename: smartmontools_7.4-1_x86_64.ipk
+Size: 254267
+SHA256sum: 981398d47b9ee2edbda80c49ce6fba6aa773e6d85207bc751966289baa5dd810
+Description:  smartmontools contains utility programs (smartctl) to
+ control/monitor storage systems using the Self-Monitoring, Analysis
+ and Reporting Technology System (S.M.A.R.T.) built into most modern
+ ATA and SCSI disks. It is derived from smartsuite.
+
+Package: socat
+Version: 1.8.0.0-2
+Depends: libc, libpthread, librt
+License: GPL-2.0-or-later OpenSSL
+Section: net
+CPE-ID: cpe:/a:dest-unreach:socat
+Architecture: x86_64
+Installed-Size: 123998
+Filename: socat_1.8.0.0-2_x86_64.ipk
+Size: 124815
+SHA256sum: bbfa77363fd8297e7d6a4f97bcfa85ea1e8070421b74a7ad3854a9af17d5a9a2
+Description:  SoCat (for SOcket CAT) establishes two bidirectional byte streams and
+ transfers data between them.
+ Data channels may be files, pipes, devices (terminal or modem, etc.), or
+ sockets (Unix, IPv4, IPv6, raw, UDP, TCP, SSL). It provides forking,
+ logging and tracing, different modes for interprocess communication and
+ many more options.
+
+Package: squid
+Version: 5.7-1
+Depends: libc, libpthread, librt, libltdl7, libstdcpp6, libatomic1, libopenssl3
+License: GPL-2.0-or-later
+Section: net
+CPE-ID: cpe:/a:squid-cache:squid
+Architecture: x86_64
+Installed-Size: 2245993
+Filename: squid_5.7-1_x86_64.ipk
+Size: 2244283
+SHA256sum: 6b61fdee30a7e2bc5ec898d666c7465732266d83e3bf60136295b5b0cb17be3c
+Description:  Squid is a caching proxy for the Web supporting HTTP, HTTPS, FTP, and more.
+ It reduces bandwidth and improves response times by caching and reusing
+ frequently-requested web pages.
+
+Package: syncthing
+Version: 1.24.0-1
+Depends: libc
+License: MPL-2.0
+Section: utils
+CPE-ID: cpe:/a:syncthing:syncthing
+Architecture: x86_64
+Installed-Size: 10341270
+Filename: syncthing_1.24.0-1_x86_64.ipk
+Size: 10323332
+SHA256sum: 5091b1c3c4aaa51e6c017d6edf799c9b9cd5b4f79e8e06f7737dd72919b17167
+Description:  Syncthing replaces proprietary sync and cloud services with something
+ open, trustworthy and decentralized. Your data is your data alone and
+ you deserve to choose where it is stored, if it is shared with some
+ third party and how it's transmitted over the Internet.
+
+Package: tcping
+Version: 0.3-1
+Depends: libc
+License: GPL-2.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 3701
+Filename: tcping_0.3-1_x86_64.ipk
+Size: 4410
+SHA256sum: fb406ef966d899cc804f2dbcabe5492814c9f1f5d8b546ba9e8f2d582b49b7f5
+Description:  tcping measures the latency of a tcp-connection
+
+Package: ttyd
+Version: 1.6.3-3
+Depends: libc, libopenssl3, libjson-c5, libuv1, zlib, libwebsockets-full
+License: MIT
+Section: utils
+Architecture: x86_64
+Installed-Size: 270511
+Filename: ttyd_1.6.3-3_x86_64.ipk
+Size: 271443
+SHA256sum: 9a6b1991eeffaf613856b703b034416f3e9af0d722d99a4c82b98141b2616ef4
+Description:  ttyd is a command-line tool for sharing terminal over the web.
+
+Package: unzip
+Version: 6.0-8
+Depends: libc
+License: BSD-4-Clause
+Section: utils
+CPE-ID: cpe:/a:info-zip:unzip
+Architecture: x86_64
+Installed-Size: 108426
+Filename: unzip_6.0-8_x86_64.ipk
+Size: 109348
+SHA256sum: 67c7b2b781f0d12f2fb8e6be689b3be84a5630e57bef7570912946ff3e6aeb3f
+Description:  InfoZIP's unzip program. With the exception of multi-volume archives
+ (ie, .ZIP files that are split across several disks using PKZIP's /& option),
+ this can handle any file produced either by PKZIP, or the corresponding
+ InfoZIP zip program.
+
+Package: v2dat
+Version: 2022-12-15-47b8ee51-1
+Depends: libc
+License: GPL-3.0
+Section: utils
+Architecture: x86_64
+Installed-Size: 3320947
+Filename: v2dat_2022-12-15-47b8ee51-1_x86_64.ipk
+Size: 3314058
+SHA256sum: 853cc6130ec3c9104b8c1daf7f2e9f67355e054996192c45aebb6348ea50a1e0
+Description:  V2ray geo/ip data unpack tools
+
+Package: v2ray-geoip
+Version: 202506050146.1
+Depends: libc
+License: CC-BY-SA-4.0
+Section: net
+Architecture: all
+Installed-Size: 4179451
+Filename: v2ray-geoip_202506050146.1_all.ipk
+Size: 3763602
+SHA256sum: 242276c3e4f05089eb70f501dbaba84cc98ec3559db0b66a22147b48251930eb
+Description:  GeoIP List for V2Ray
+
+Package: v2ray-geosite
+Version: 20250608120644.1
+Depends: libc
+License: MIT
+Section: net
+Architecture: all
+Installed-Size: 664373
+Filename: v2ray-geosite_20250608120644.1_all.ipk
+Size: 663599
+SHA256sum: dae6367aa5916cc0465d62a8c489c6970eb31afaeeed3a3065a3d77775bf7c3a
+Description:  Geosite List for V2Ray
+
+Package: verysync
+Version: 2.21.3-1
+Depends: libc
+Section: net
+Architecture: x86_64
+Installed-Size: 15469631
+Filename: verysync_2.21.3-1_x86_64.ipk
+Size: 15447265
+SHA256sum: d47c46e275a2681f682999385f1b32b7d06ca2f4636f1cf8351baf701c5b2bf5
+Description:  A efficient data transmission tool
+
+Package: vlmcsd
+Version: svn1113-1
+Depends: libc, libpthread
+Section: net
+Architecture: x86_64
+Installed-Size: 30734
+Filename: vlmcsd_svn1113-1_x86_64.ipk
+Size: 31451
+SHA256sum: e7d9a6294c1931a7751340ffde9a4088ae40e998e85cb0f6590d1ebd6bbaddb7
+Description:  vlmcsd is a KMS Emulator in C.
+
+Package: vnstat2
+Version: 2.7-1
+Depends: libc, libsqlite3-0
+Conflicts: vnstat
+License: GPL-2.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 82355
+Filename: vnstat2_2.7-1_x86_64.ipk
+Size: 83380
+SHA256sum: e927fe68ad17ada0f15a5f0c46436b976076c093f10221c428a16b1d53708c43
+Description:  vnStat is a network traffic monitor for Linux that keeps a log of daily
+ network traffic for the selected interface(s). vnStat isn't a packet
+ sniffer. The traffic information is analyzed from the /proc -filesystem,
+ so vnStat can be used without root permissions.
+
+Package: vnstati2
+Version: 2.7-1
+Depends: libc, libsqlite3-0, vnstat2, libgd
+Conflicts: vnstat
+License: GPL-2.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 38136
+Filename: vnstati2_2.7-1_x86_64.ipk
+Size: 39116
+SHA256sum: 45324c82b7f8ae7dc8cf77e2c05dc36c7751fffb066c6dea1b6c5cc13f4b88ce
+Description:  The purpose of vnstati is to provide image output support for statistics
+ collected using vnstat. However, the image file format is limited to
+ png. All basic outputs of vnStat are supported excluding live traffic
+ features. The image can be outputted either to a file or to standard
+ output.
+
+Package: wget-ssl
+Version: 1.21.3-1
+Depends: libc, libpcre, zlib, libopenssl3, librt
+Provides: gnu-wget, wget
+Alternatives: 300:/usr/bin/wget:/usr/libexec/wget-ssl
+License: GPL-3.0-or-later
+Section: net
+CPE-ID: cpe:/a:gnu:wget
+Architecture: x86_64
+Installed-Size: 214986
+Filename: wget-ssl_1.21.3-1_x86_64.ipk
+Size: 216025
+SHA256sum: 8783a927b328d62c3921406fa50710288e2e58937db67048645445c3e0f314e8
+Description:  Wget is a network utility to retrieve files from the Web using http
+ and ftp, the two most widely used Internet protocols. It works
+ non-interactively, so it will work in the background, after having
+ logged off. The program supports recursive retrieval of web-authoring
+ pages as well as ftp sites -- you can use wget to make mirrors of
+ archives and home pages or to travel the Web like a WWW robot.
+ This package is built with SSL support.
+
+Package: wsdd2
+Version: 2023-12-21-b676d8ac-1
+Depends: libc
+License: GPL-3.0-only
+Section: net
+Architecture: x86_64
+Installed-Size: 19085
+Filename: wsdd2_2023-12-21-b676d8ac-1_x86_64.ipk
+Size: 19980
+SHA256sum: 943905bbf43743a9226374af23447ed05dd2779631203b00d83a7dc691c6709a
+Description:  Web Services for Devices or Web Services on Devices (WSD),
+ is a Microsoft API to simplify programming connections to web service
+ enabled devices, such as printers, scanners and file shares.
+ 
+ This daemon advertises and responds to probe requests from Windows clients looking for file shares.
+ It also implements LLMNR multicast name lookup services.
+
+Package: xfrpc
+Version: 3.05.661-1
+Depends: libc, zlib, libjson-c5, libevent2-7, libevent2-openssl7
+License: GPL-3.0-or-later
+Section: net
+Architecture: x86_64
+Installed-Size: 88699
+Filename: xfrpc_3.05.661-1_x86_64.ipk
+Size: 89683
+SHA256sum: 639dd052e9bc6d0607ef37677348d6e3e5e513126721097ff49b5c02566be123
+Description:  xfrpc is C language fast reverse proxy client
+ compare with golang version frpc
+ xfrpc can run in almost all openwrt device
+
+Package: xray-core
+Version: 25.12.2-1
+Depends: libc, ca-bundle
+License: MPL-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 11349978
+Filename: xray-core_25.12.2-1_x86_64.ipk
+Size: 11318487
+SHA256sum: afbb02acd43c18629a1dcf48aae84dc5c241caafe85b73c2e68835dc85b9dace
+Description:  Xray, Penetrates Everything. It helps you to build your own computer network.
+ It secures your network connections and thus protects your privacy.
+
+Package: xz-utils
+Version: 5.4.1-1
+Depends: libc
+License: Public-Domain LGPL-2.1-or-later GPL-2.0-or-later GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:tukaani:xz
+Architecture: x86_64
+Installed-Size: 96
+Filename: xz-utils_5.4.1-1_x86_64.ipk
+Size: 833
+SHA256sum: 7965b6c884da0dbe473c6dfd0e820cc6f41394c1f7979beddaac7d984f0a5896
+Description:  XZ Utils (meta)
+
+Package: xz
+Version: 5.4.1-1
+Depends: libc, xz-utils, liblzma
+Alternatives: 300:/usr/bin/xz:/usr/libexec/xz-lzmautils, 300:/usr/bin/lzcat:/usr/libexec/xz-lzmautils, 300:/usr/bin/lzma:/usr/libexec/xz-lzmautils, 300:/usr/bin/unlzma:/usr/libexec/xz-lzmautils, 300:/usr/bin/unxz:/usr/libexec/xz-lzmautils, 300:/usr/bin/xzcat:/usr/libexec/xz-lzmautils
+License: Public-Domain LGPL-2.1-or-later GPL-2.0-or-later GPL-3.0-or-later
+Section: utils
+CPE-ID: cpe:/a:tukaani:xz
+Architecture: x86_64
+Installed-Size: 28146
+Filename: xz_5.4.1-1_x86_64.ipk
+Size: 28996
+SHA256sum: 344f511314b180f784b94b70787d866ccc11645f2eaeec676411c574aee591b7
+Description:  Contains: xz  lzcat lzma unlzma unxz xzcat
+
+Package: zerotier
+Version: 1.16.0-1
+Depends: libc, libpthread, libstdcpp6, kmod-tun, ip, libminiupnpc, libnatpmp1, libatomic1
+License: MPL-2.0
+Section: net
+Architecture: x86_64
+Installed-Size: 523513
+Filename: zerotier_1.16.0-1_x86_64.ipk
+Size: 524336
+SHA256sum: 17c7862b5202e47f9e3561ddc0e1bf473719e48e1f97011dcaca55ba19700d78
+Description:  ZeroTier creates a global provider-independent virtual private cloud network.
+
