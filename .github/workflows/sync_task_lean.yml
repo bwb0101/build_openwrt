@@ -55,6 +55,10 @@ jobs:
         rm -rf mypkg/pkg/.git*
         rm -rf mypkg/luci/.git*
 
+        rm -rf mypkg/luci/themes/luci-theme-argon/*
+        git clone https://github.com/jerrykuku/luci-theme-argon.git mypkg/luci/themes/luci-theme-argon
+        rm -rf mypkg/luci/themes/luci-theme-argon/*.git
+
         rm -rf mypkg/pkg/net/smartdns
         rm -rf mypkg/luci/applications/luci-app-smartdns
         cp -r kenzok8-new/smartdns mypkg/pkg/net
