@@ -17,7 +17,7 @@ on:
       ssh:
         description: 'SSH connection to Actions'
         required: false
-        默认: 'false'
+        default: 'false'
   schedule:
     # local 3点
     - cron: 0 19 */7 * *
@@ -148,7 +148,7 @@ jobs:
         id: hash
         run: |
           cd $OPENWRT_ROOT_PATH
-          export CURRENT_HASH=$(git log --pretty=tformat:"%H" -n1 tools toolchain)
+          export CURRENT_HASH=$(git log --pretty=tformat:"%H" -n1 -- tools toolchain)
           echo "CURRENT_HASH=$CURRENT_HASH" >> $GITHUB_ENV
           echo "CURRENT_HASH=$(echo $CURRENT_HASH)" >> $GITHUB_OUTPUT
           echo "CURRENT_HASH is $CURRENT_HASH"
@@ -306,6 +306,23 @@ jobs:
           sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
           cd $OPENWRT_ROOT_PATH
           git pull
+      - name: 恢复缓存（dl + ccache）
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.OPENWRT_ROOT_PATH }}/dl
+            ${{ github.workspace }}/.ccache
+          key: ${{ runner.os }}-openwrt-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ hashFiles('cfgs/x86_config_lean', 'feeds_lean.sh', 'diy-part1.sh', 'diy-part2.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-openwrt-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-
+      - name: 设置 ccache 环境变量
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/.ccache"
+          echo "CCACHE_DIR=${GITHUB_WORKSPACE}/.ccache" >> $GITHUB_ENV
+          echo "CCACHE_BASEDIR=${OPENWRT_ROOT_PATH}" >> $GITHUB_ENV
+          echo "CCACHE_NOHASHDIR=true" >> $GITHUB_ENV
+          echo "CCACHE_COMPRESS=true" >> $GITHUB_ENV
+          echo "CCACHE_COMPRESSLEVEL=6" >> $GITHUB_ENV
       - name: 在feed更新前加载自定义配置
         run: |
           cp $FEED_UPDATE_SH $OPENWRT_ROOT_PATH/$FEED_UPDATE_SH
@@ -329,6 +346,11 @@ jobs:
           chmod +x $DIY_P2_SH
           ./$DIY_P2_SH
           make defconfig
+      - name: 初始化 ccache（可看命中率）
+        run: |
+          ccache -M 6G
+          ccache -z || true
+          ccache -s || true
       - name: 释放磁盘空间
         if: env.FREE_UP_DISK == 'true'
         env:
@@ -356,6 +378,8 @@ jobs:
           yes n | make target/compile -j1 V=s IGNORE_ERRORS=1
           make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
           make package/index
+          # 打印 ccache 命中率
+          ccache -s || true
       - name: 固件生成
         id: generate
         run: |
