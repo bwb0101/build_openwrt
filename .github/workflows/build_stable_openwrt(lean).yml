@@ -351,8 +351,7 @@ jobs:
           ccache -M 6G
           ccache -z || true
           ccache -s || true
-          ls -l $OPENWRT_ROOT_PATH
-          command -v ccache
+          ls -l $OPENWRT_ROOT_PATH/staging_dir/host/bin
           which ccache
       - name: 释放磁盘空间
         if: env.FREE_UP_DISK == 'true'
