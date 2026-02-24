@@ -5,13 +5,67 @@ Source: feeds/passwall_packages/ipt2socks
 SourceName: ipt2socks
 License: AGPL-3.0
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Architecture: x86_64
-Installed-Size: 26537
+Installed-Size: 26534
 Filename: ipt2socks_1.1.4-3_x86_64.ipk
-Size: 27241
-SHA256sum: 2256097b9d68f3c4e9e44c711d1c88141d18a9c9e67e71075a5e124aa8d1bd20
+Size: 27235
+SHA256sum: d02014ac04bb52055a450431b21785b7a5e129fee8fbad8c5b3c080aa1850b23
 Description:  Utility for converting iptables (redirect/tproxy) to socks5.
+
+Package: shadowsocks-libev-ss-local
+Version: 3.3.5-13
+Depends: libc, libev, libmbedtls21, libpthread, libsodium, libpcre2
+Source: feeds/passwall_packages/shadowsocks-libev
+SourceName: shadowsocks-libev-ss-local
+License: GPL-3.0-or-later
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1771925359
+CPE-ID: cpe:/a:shadowsocks:shadowsocks-libev
+Maintainer: Yousong Zhou <yszhou4tech@gmail.com>
+Architecture: x86_64
+Installed-Size: 51519
+Filename: shadowsocks-libev-ss-local_3.3.5-13_x86_64.ipk
+Size: 52411
+SHA256sum: 528fda600f029546eb78de6f5ca515edddd9a37c94e73aaef3444d56765c8ac6
+Description:  shadowsocks-libev ss-local
+
+Package: shadowsocks-libev-ss-redir
+Version: 3.3.5-13
+Depends: libc, libev, libmbedtls21, libpthread, libsodium
+Source: feeds/passwall_packages/shadowsocks-libev
+SourceName: shadowsocks-libev-ss-redir
+License: GPL-3.0-or-later
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1771925359
+CPE-ID: cpe:/a:shadowsocks:shadowsocks-libev
+Maintainer: Yousong Zhou <yszhou4tech@gmail.com>
+Architecture: x86_64
+Installed-Size: 46204
+Filename: shadowsocks-libev-ss-redir_3.3.5-13_x86_64.ipk
+Size: 47065
+SHA256sum: b68dd0744030d010473f5a9c69ab242b7b85783f1eb142edf4df51f95327e73c
+Description:  shadowsocks-libev ss-redir
+
+Package: shadowsocks-libev-ss-server
+Version: 3.3.5-13
+Depends: libc, libev, libmbedtls21, libpthread, libsodium, libcares, libpcre2
+Source: feeds/passwall_packages/shadowsocks-libev
+SourceName: shadowsocks-libev-ss-server
+License: GPL-3.0-or-later
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1771925359
+CPE-ID: cpe:/a:shadowsocks:shadowsocks-libev
+Maintainer: Yousong Zhou <yszhou4tech@gmail.com>
+Architecture: x86_64
+Installed-Size: 56250
+Filename: shadowsocks-libev-ss-server_3.3.5-13_x86_64.ipk
+Size: 57111
+SHA256sum: 1939f2c6b2615942b76a94a2e892a1df9c0ee38b6c319d912b4d65feac3b1dad
+Description:  shadowsocks-libev ss-server
 
 Package: shadowsocks-rust-sslocal
 Version: 1.24.0-1
@@ -21,13 +75,13 @@ SourceName: shadowsocks-rust-sslocal
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 3698182
+Installed-Size: 3698184
 Filename: shadowsocks-rust-sslocal_1.24.0-1_x86_64.ipk
-Size: 3688408
-SHA256sum: e9bb0cdcf69d70032ac84a257623ed43dc58cf9285e93393d9c044536df0a000
+Size: 3688414
+SHA256sum: b07dacd1a21bd4fed9d679fe8677085dbae8f2cb3ef605beaaf3a8362d0bfc42
 Description:  shadowsocks-rust sslocal
 
 Package: shadowsocks-rust-ssserver
@@ -38,13 +92,13 @@ SourceName: shadowsocks-rust-ssserver
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
 Architecture: x86_64
-Installed-Size: 2850149
+Installed-Size: 2850144
 Filename: shadowsocks-rust-ssserver_1.24.0-1_x86_64.ipk
-Size: 2843724
-SHA256sum: 24e0991dde39b129562e35a44a911da4c497dd560215aa95878ef8e8c668abdc
+Size: 2844080
+SHA256sum: 9be0a4fc4b80f0ba273d986d1a973f073fcc0c3bcb8fad88c0dadc6cab0918be
 Description:  shadowsocks-rust ssserver
 
 Package: shadowsocksr-libev-ssr-local
@@ -55,12 +109,12 @@ SourceName: shadowsocksr-libev-ssr-local
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Architecture: x86_64
-Installed-Size: 62728
+Installed-Size: 62725
 Filename: shadowsocksr-libev-ssr-local_2.5.6-11_x86_64.ipk
-Size: 63595
-SHA256sum: d7ad472fad680d15b3745f7143d8e4a0a6a85c4e2eab5392b1222ea0e359b4fb
+Size: 63581
+SHA256sum: 31c14c46d78bab56bf3265e8aaaa210f91a1f3f4b2a7cd95649b5aafd9ce717f
 Description:  shadowsocksr-libev ssr-local
 
 Package: shadowsocksr-libev-ssr-redir
@@ -71,12 +125,12 @@ SourceName: shadowsocksr-libev-ssr-redir
 License: GPL-3.0
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Architecture: x86_64
-Installed-Size: 55946
+Installed-Size: 55945
 Filename: shadowsocksr-libev-ssr-redir_2.5.6-11_x86_64.ipk
-Size: 56732
-SHA256sum: 489ac929c759ae925075a35e7bb7cf4a77d42b6f4de9ba420b6325075c6201cd
+Size: 56735
+SHA256sum: 50eba96bab8be4ce34b3ace1d5262ff6a2c7c22662eecec5bb6483fbed7124c7
 Description:  shadowsocksr-libev ssr-redir
 
 Package: simple-obfs-client
@@ -88,13 +142,13 @@ SourceName: simple-obfs-client
 License: GPL-3.0-or-later
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Maintainer: Jian Chang <aa65535@live.com>
 Architecture: x86_64
-Installed-Size: 30424
+Installed-Size: 30421
 Filename: simple-obfs-client_0.0.5-3_x86_64.ipk
 Size: 31205
-SHA256sum: 9b08b1501c788f2d835dffe7a7d1a89e9f12c9fc8748c387c8c2457a71f589cf
+SHA256sum: 756a8d1302576b3e5a0b270432214af82598ff96cccb910f55e40366e9c2c739
 Description:  Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 
 Package: trojan-plus
@@ -104,13 +158,13 @@ Source: feeds/passwall_packages/trojan-plus
 SourceName: trojan-plus
 License: GPL-3.0
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Maintainer: Trojan-Plus-Group
 Architecture: x86_64
-Installed-Size: 441963
+Installed-Size: 442233
 Filename: trojan-plus_10.0.3-2_x86_64.ipk
-Size: 442840
-SHA256sum: a22f161d510408b8f5fce6880bc461aa394dffe71cc178bf25c66d6e4e8b56c9
+Size: 443042
+SHA256sum: f08b3740dea1bb7c37dd6c42d03c51678b650898949aa2593ab4dc7c8780e316
 Description:  An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
 
 Package: v2ray-plugin
@@ -121,12 +175,12 @@ SourceName: v2ray-plugin
 License: MIT
 LicenseFiles: LICENSE
 Section: net
-SourceDateEpoch: 1771732515
+SourceDateEpoch: 1771925359
 Maintainer: madeye <max.c.lv@gmail.com>
 Architecture: x86_64
-Installed-Size: 6607439
+Installed-Size: 6606651
 Filename: v2ray-plugin_5.46.0-1_x86_64.ipk
-Size: 6593716
-SHA256sum: 4275661e81bf7d70852a46a63abb175cefc0876711fb8e8c284250bb992f0b16
+Size: 6592855
+SHA256sum: 4354b3fdc1ad55be4b4f13fe1f8794ad5b3ef291b1f378b1af97931ca96f21bd
 Description:  SIP003 plugin for shadowsocks, based on v2ray
 

@@ -160,6 +160,25 @@ SHA256sum: a62885cef34b5d0b6d97ec6b81f51968fe3734435a027ffe5051d12cffbab9b4
 Description:  The Swiss Army Knife of embedded Linux.
  It slices, it dices, it makes Julian Fries.
 
+Package: bzip2
+Version: 1.0.8-1
+Depends: libc, libbz2-1.0
+Source: package/utils/bzip2
+SourceName: bzip2
+License: bzip2-1.0.8
+LicenseFiles: LICENSE
+Section: utils
+SourceDateEpoch: 1593703856
+CPE-ID: cpe:/a:bzip:bzip2
+Maintainer: Steven Barth <cyrus@openwrt.org>
+Architecture: x86_64
+Installed-Size: 11680
+Filename: bzip2_1.0.8-1_x86_64.ipk
+Size: 12489
+SHA256sum: 84aa985d4ffc77dd3837eb9a2ead6b6cea162377836c5f2395116846b9dd247f
+Description:  bzip2 is a freely available, patent free, high-quality
+ data compressor. This package provides the binary.
+
 Package: ca-bundle
 Version: 20250419-1
 Depends: libc
@@ -292,10 +311,10 @@ Section: utils
 SourceDateEpoch: 1705123429
 CPE-ID: cpe:/a:e2fsprogs_project:e2fsprogs
 Architecture: x86_64
-Installed-Size: 186992
+Installed-Size: 187645
 Filename: e2fsprogs_1.47.0-2_x86_64.ipk
-Size: 187759
-SHA256sum: 85a5e125e0a02a679f215b00d6bf75a1f71ac17a1d62e64dc3e32cb3862ac7db
+Size: 188433
+SHA256sum: 447b07b5cb1af1ed4b12dcb4093233ad2e11d228e3391b51441b53636ffacc2e
 Description:  This package contains essential ext2 filesystem utilities which consists of
  e2fsck, mke2fs and most of the other core ext2 filesystem utilities.
 
@@ -318,6 +337,23 @@ Size: 41491
 SHA256sum: b9b3c8d79cc3174d8e77462c035fd31ea0dfb3c680e0eb860fc7ef5e2e34024a
 Description:  ethtool is a small utility for examining and tuning your ethernet-based
  network interface
+
+Package: fdisk
+Version: 2.38.1-1
+Depends: libc, libblkid1, libsmartcols1, libfdisk1, libncursesw6
+Source: package/utils/util-linux
+SourceName: fdisk
+License: GPL-2.0-only
+LicenseFiles: COPYING libblkid/COPYING libmount/COPYING Documentation/licenses/COPYING.GPLv2 Documentation/licenses/COPYING.LGPLv2.1 libuuid/COPYING Documentation/licenses/COPYING.BSD-3
+Section: utils
+SourceDateEpoch: 1751380225
+CPE-ID: cpe:/a:kernel:util-linux
+Architecture: x86_64
+Installed-Size: 52775
+Filename: fdisk_2.38.1-1_x86_64.ipk
+Size: 53645
+SHA256sum: 0942180f28ba8241c22d6ea12d56051da2a048ebccc819492da33e936e1c2c4a
+Description:  a menu-driven program for creation and manipulation of partition tables
 
 Package: firewall4
 Version: 2022-11-29-700a925f-4
@@ -354,6 +390,42 @@ Filename: firewall_2022-02-17-4cd7d4f3-3_x86_64.ipk
 Size: 51594
 SHA256sum: 5531f3a793013662345ef4270169d4c261614f5680e01de92c3a2e3e9d71360f
 Description:  This package provides a config-compatible C implementation of the UCI firewall.
+
+Package: flock
+Version: 2.38.1-1
+Depends: libc, librt
+Alternatives: 200:/usr/bin/flock:/usr/bin/util-linux-flock
+Source: package/utils/util-linux
+SourceName: flock
+License: GPL-2.0-only
+LicenseFiles: COPYING libblkid/COPYING libmount/COPYING Documentation/licenses/COPYING.GPLv2 Documentation/licenses/COPYING.LGPLv2.1 libuuid/COPYING Documentation/licenses/COPYING.BSD-3
+Section: utils
+SourceDateEpoch: 1751380225
+CPE-ID: cpe:/a:kernel:util-linux
+Architecture: x86_64
+Installed-Size: 10257
+Filename: flock_2.38.1-1_x86_64.ipk
+Size: 11078
+SHA256sum: 6c3091547945acae1ce6b262df2b1732c5e55a3a67219cbeeba34259e5ee5dc0
+Description:  manages flock locks from within shell scripts or the command line
+
+Package: getopt
+Version: 2.38.1-1
+Depends: libc, librt
+Source: package/utils/util-linux
+SourceName: getopt
+License: GPL-2.0-only
+LicenseFiles: COPYING libblkid/COPYING libmount/COPYING Documentation/licenses/COPYING.GPLv2 Documentation/licenses/COPYING.LGPLv2.1 libuuid/COPYING Documentation/licenses/COPYING.BSD-3
+Section: utils
+SourceDateEpoch: 1751380225
+CPE-ID: cpe:/a:kernel:util-linux
+Architecture: x86_64
+Installed-Size: 9769
+Filename: getopt_2.38.1-1_x86_64.ipk
+Size: 10594
+SHA256sum: fb7bc30c4b0719d41b9c9ea9c54d4f7fd4d998fdfa6cced7e8115ec2fc6a06a0
+Description:  getopt is used to break up (parse) options in command lines for easy parsing
+ by shell procedures, and to check for legal options
 
 Package: getrandom
 Version: 2024-04-26-85f10530-1
@@ -626,6 +698,27 @@ Size: 158237
 SHA256sum: c01ca681bfb08633bb94cc365d11cb1ab1a8518451fff5338a5aa8ac4c458747
 Description:  libbpf is a library for loading eBPF programs and reading and manipulating eBPF objects from user-space.
 
+Package: libbz2-1.0
+Version: 1.0.8-1
+Depends: libc
+Provides: libbz2
+Source: package/utils/bzip2
+SourceName: libbz2
+License: bzip2-1.0.8
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1593703856
+ABIVersion: -1.0
+CPE-ID: cpe:/a:bzip:bzip2
+Maintainer: Steven Barth <cyrus@openwrt.org>
+Architecture: x86_64
+Installed-Size: 24006
+Filename: libbz2-1.0_1.0.8-1_x86_64.ipk
+Size: 24814
+SHA256sum: 73c2f9149d7f612bf453036bb4e5945382ba7db24bf451dda1ea9affa21aecea
+Description:  bzip2 is a freely available, patent free, high-quality
+ data compressor. This packages provides libbz2 library.
+
 Package: libcap-bin
 Version: 2.68-1
 Depends: libc, libcap
@@ -718,10 +811,10 @@ ABIVersion: -7
 CPE-ID: cpe:/a:libevent_project:libevent
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 98555
+Installed-Size: 106551
 Filename: libevent2-7_2.1.12-1_x86_64.ipk
-Size: 99753
-SHA256sum: 3fe26a31c5b66f0bb80a7ed4a8d422aaedf79cf83dbba67f854de4d50dc64819
+Size: 107686
+SHA256sum: 796ec2beba091ee52c3201f80da0fcba4e9147e66d9231608602f4f04b7df9f8
 Description:  The libevent API provides a mechanism to execute a callback function
  when a specific event occurs on a file descriptor or after a timeout
  has been reached. Furthermore, libevent also support callbacks due
@@ -749,10 +842,10 @@ ABIVersion: 7
 CPE-ID: cpe:/a:libevent_project:libevent
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 55452
+Installed-Size: 62247
 Filename: libevent2-core7_2.1.12-1_x86_64.ipk
-Size: 56572
-SHA256sum: 32fc27a0125b2a502d54e44a0d889b61fee877964af3fda35195faa43909899f
+Size: 63388
+SHA256sum: 919e3aec99ef944ea1409a7b683b878cb550fbb5f1e523b9ba56fb658c09b957
 Description:  The libevent API provides a mechanism to execute a callback function
  when a specific event occurs on a file descriptor or after a timeout
  has been reached. Furthermore, libevent also support callbacks due
@@ -780,10 +873,10 @@ ABIVersion: 7
 CPE-ID: cpe:/a:libevent_project:libevent
 Maintainer: Jo-Philipp Wich <jo@mein.io>
 Architecture: x86_64
-Installed-Size: 8047
+Installed-Size: 8185
 Filename: libevent2-openssl7_2.1.12-1_x86_64.ipk
-Size: 9149
-SHA256sum: acefea8e8faba9b1d718915e7e6c3599c4c4cf913504fe71663d204b2b3958e2
+Size: 9302
+SHA256sum: b446c773d15cf14fb739d0cead71de72adea4a774955c8efa69eabd4eb74f4ad
 Description:  The libevent API provides a mechanism to execute a callback function
  when a specific event occurs on a file descriptor or after a timeout
  has been reached. Furthermore, libevent also support callbacks due
@@ -796,6 +889,37 @@ Description:  The libevent API provides a mechanism to execute a callback functi
  
  This package contains the libevent OpenSSL shared library for encrypted
  bufferevents.
+
+Package: libevent2-pthreads7
+Version: 2.1.12-1
+Depends: libc, libpthread, libevent2-core7
+Provides: libevent2-pthreads
+Source: package/libs/libevent2
+SourceName: libevent2-pthreads
+License: BSD-3-Clause
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1623666608
+ABIVersion: 7
+CPE-ID: cpe:/a:libevent_project:libevent
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: x86_64
+Installed-Size: 1926
+Filename: libevent2-pthreads7_2.1.12-1_x86_64.ipk
+Size: 2992
+SHA256sum: 168085f713437cc27cd23d2b933e55e34c69d53b893b1373f1a1853840cdb14e
+Description:  The libevent API provides a mechanism to execute a callback function
+ when a specific event occurs on a file descriptor or after a timeout
+ has been reached. Furthermore, libevent also support callbacks due
+ to signals or regular timeouts.
+ 
+ libevent is meant to replace the event loop found in event driven
+ network servers. An application just needs to call event_dispatch()
+ and then add or remove events dynamically without having to change
+ the event loop.
+ 
+ This package contains the libevent Pthreads shared library for
+ threading & locking.
 
 Package: libext2fs2
 Version: 1.47.0-2
@@ -873,6 +997,25 @@ Size: 214906
 SHA256sum: 534736cff6757b7d88f737afab58e9a7285cc51cc66d2d9ba223e19e73194c90
 Description:  GMP is a free library for arbitrary precision arithmetic, operating on
  signed integers, rational numbers, and floating point numbers.
+
+Package: libiconv-full2
+Version: 1.18-1
+Depends: libc
+Provides: libiconv-full
+Source: package/libs/libiconv-full
+SourceName: libiconv-full
+License: LGPL-2.1-or-later
+LicenseFiles: COPYING.LIB
+Section: libs
+SourceDateEpoch: 1767611419
+ABIVersion: 2
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: x86_64
+Installed-Size: 669822
+Filename: libiconv-full2_1.18-1_x86_64.ipk
+Size: 669832
+SHA256sum: e52589fd3b89bf4ad27a526c028318102626151a5355df85ea1c61219865972a
+Description:  Character set conversion library
 
 Package: libipset13
 Version: 7.21-1
@@ -990,6 +1133,27 @@ Size: 89896
 SHA256sum: 6d4c21a8b8f42d69822ede2a9fc5cb65d0eab838173dc358478b3d63a041d351
 Description:  
  This package contains the Lua shared libraries, needed by other programs.
+
+Package: libmbedtls21
+Version: 3.6.5-1
+Depends: libc
+Provides: libmbedtls
+Source: package/libs/mbedtls
+SourceName: libmbedtls
+License: GPL-2.0-or-later
+LicenseFiles: LICENSE
+Section: libs
+SourceDateEpoch: 1761747502
+ABIVersion: 21
+CPE-ID: cpe:/a:arm:mbed_tls
+Architecture: x86_64
+Installed-Size: 311128
+Filename: libmbedtls21_3.6.5-1_x86_64.ipk
+Size: 311752
+SHA256sum: 7c1124e36aaa9f923c5eeacf7de796c0e7f2700c0bfde38480c529da1e2ef01f
+Description:  The aim of the mbedtls project is to provide a quality, open-source
+ cryptographic library written in C and targeted at embedded systems.
+ This package contains the mbedtls library.
 
 Package: libmnl0
 Version: 1.0.5-1
@@ -1154,6 +1318,25 @@ SHA256sum: 177ae0cb7764991d0d14993e46906fde9e7cec0826d9dfa40c5db4c29a6dc65a
 Description:  libnftnl is a userspace library providing a low-level netlink
  programming interface (API) to the in-kernel nf_tables subsystem.
 
+Package: libnl-cli200
+Version: 3.11.0-1
+Depends: libc, libnl-genl200, libnl-nf200
+Provides: libnl-cli
+Source: package/libs/libnl
+SourceName: libnl-cli
+License: LGPL-2.1
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1761057001
+ABIVersion: 200
+CPE-ID: cpe:/a:libnl_project:libnl
+Architecture: x86_64
+Installed-Size: 12860
+Filename: libnl-cli200_3.11.0-1_x86_64.ipk
+Size: 13621
+SHA256sum: fa9f8b568e18e0da21ba7fb8fded10b18cf3b7de5c855a070e354fb755695b2a
+Description:  CLI Netlink Library Functions
+
 Package: libnl-core200
 Version: 3.11.0-1
 Depends: libc, libpthread
@@ -1192,6 +1375,44 @@ Size: 9024
 SHA256sum: daddd6fa46236690a7239c350afd09ca3f84511f1874670238e70fb098eb045f
 Description:  Generic Netlink Library Functions
 
+Package: libnl-nf200
+Version: 3.11.0-1
+Depends: libc, libnl-route200
+Provides: libnl-nf
+Source: package/libs/libnl
+SourceName: libnl-nf
+License: LGPL-2.1
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1761057001
+ABIVersion: 200
+CPE-ID: cpe:/a:libnl_project:libnl
+Architecture: x86_64
+Installed-Size: 32401
+Filename: libnl-nf200_3.11.0-1_x86_64.ipk
+Size: 33099
+SHA256sum: 213b03ce7c4555a9f647f194becc0d5357fa5984fae5bdddcdb09e691ad3e319
+Description:  Netfilter Netlink Library Functions
+
+Package: libnl-route200
+Version: 3.11.0-1
+Depends: libc, libnl-core200
+Provides: libnl-route
+Source: package/libs/libnl
+SourceName: libnl-route
+License: LGPL-2.1
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1761057001
+ABIVersion: 200
+CPE-ID: cpe:/a:libnl_project:libnl
+Architecture: x86_64
+Installed-Size: 198242
+Filename: libnl-route200_3.11.0-1_x86_64.ipk
+Size: 198629
+SHA256sum: 5bd5915026ffc8ec4c32a67d26b289f2d6fcf85baffa9e2b11b21691cd4499fa
+Description:  Routing Netlink Library Functions
+
 Package: libnl-tiny1
 Version: 2025-03-19-c0df580a-1
 Depends: libc
@@ -1204,11 +1425,31 @@ SourceDateEpoch: 1761057001
 ABIVersion: 1
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 15487
+Installed-Size: 15453
 Filename: libnl-tiny1_2025-03-19-c0df580a-1_x86_64.ipk
-Size: 16242
-SHA256sum: 5dba6f65bfc1c389f82fdb1612c6cebb65e9b4ad085e09a7c155a9a25b2abe08
+Size: 16197
+SHA256sum: 46ae3beb33ad8f18140e3d410d72ab4c28753dddd54d69758a159a82f238d309
 Description:  This package contains a stripped down version of libnl
+
+Package: libnl200
+Version: 3.11.0-1
+Depends: libc, libnl-genl200, libnl-route200, libnl-nf200, libnl-cli200
+Provides: libnl
+Source: package/libs/libnl
+SourceName: libnl
+License: LGPL-2.1
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1761057001
+ABIVersion: 200
+CPE-ID: cpe:/a:libnl_project:libnl
+Architecture: x86_64
+Installed-Size: 95
+Filename: libnl200_3.11.0-1_x86_64.ipk
+Size: 908
+SHA256sum: b2f9a422380ac3a2dbe7f13403076efa621f596233a6fa1d7e9fb617203edd29
+Description:  Socket handling, connection management, sending and receiving of data,
+ message construction and parsing, object caching system, etc.
 
 Package: libopenssl-conf
 Version: 3.6.0-1
@@ -1246,10 +1487,10 @@ ABIVersion: 3
 CPE-ID: cpe:/a:openssl:openssl
 Maintainer: Eneas U de Queiroz <cotequeiroz@gmail.com>
 Architecture: x86_64
-Installed-Size: 2708327
+Installed-Size: 2708333
 Filename: libopenssl3_3.6.0-1_x86_64.ipk
-Size: 2690091
-SHA256sum: d110e955392079dec234651dc1d8c23b695b5783aed8b535f2ae129a93fd484b
+Size: 2690095
+SHA256sum: 81b28c8221e095e359ecdc39870f8f990bcb374037eb52569f717a674c45a909
 Description:  The OpenSSL Project is a collaborative effort to develop a robust,
  commercial-grade, full-featured, and Open Source toolkit implementing the
  Transport Layer Security (TLS) protocol as well as a full-strength
@@ -1293,6 +1534,23 @@ Filename: libpcre_8.45-5_x86_64.ipk
 Size: 144807
 SHA256sum: fae7478d3a42530171b5b0e3a1850b591975898225e1e816d328a16e8288b922
 Description:  A Perl Compatible Regular Expression library
+
+Package: libpopt0
+Version: 1.19-1
+Depends: libc
+Provides: libpopt
+Source: package/libs/popt
+SourceName: libpopt
+License: MIT
+Section: libs
+SourceDateEpoch: 1670480457
+ABIVersion: 0
+Architecture: x86_64
+Installed-Size: 19009
+Filename: libpopt0_1.19-1_x86_64.ipk
+Size: 19704
+SHA256sum: 74766aaa99921ce627d4d404e2e454a21412308f42a811094a0b8a57b40104c5
+Description:  A command line option parsing library
 
 Package: libreadline8
 Version: 8.3-1
@@ -1389,10 +1647,10 @@ SourceDateEpoch: 1733227532
 ABIVersion: 20240329
 Maintainer: Felix Fietkau <nbd@nbd.name>
 Architecture: x86_64
-Installed-Size: 28311
+Installed-Size: 28283
 Filename: libubox20240329_2024-03-29-eb9bcb64-1_x86_64.ipk
-Size: 29104
-SHA256sum: 2b92940e4080170b2e2920d6e3578279e840d7bdf0715e20e753ffc814c1ca1a
+Size: 29071
+SHA256sum: 525d31b0bd0821d0f4d17d727ec866fcacd76b8140877d01aa156a7aa1287c6a
 Description:  Basic utility library
 
 Package: libubus-lua
@@ -1629,6 +1887,23 @@ Size: 17459
 SHA256sum: da2fc60cf289832bac3bd57e8c84309f7011ad7db113728f76dae618674c2430
 Description:  Utility for creating a Flash-Friendly File System (F2FS)
 
+Package: mount-utils
+Version: 2.38.1-1
+Depends: libc, librt, libmount1, libsmartcols1
+Source: package/utils/util-linux
+SourceName: mount-utils
+License: GPL-2.0-only
+LicenseFiles: COPYING libblkid/COPYING libmount/COPYING Documentation/licenses/COPYING.GPLv2 Documentation/licenses/COPYING.LGPLv2.1 libuuid/COPYING Documentation/licenses/COPYING.BSD-3
+Section: utils
+SourceDateEpoch: 1751380225
+CPE-ID: cpe:/a:kernel:util-linux
+Architecture: x86_64
+Installed-Size: 54063
+Filename: mount-utils_2.38.1-1_x86_64.ipk
+Size: 54844
+SHA256sum: f3803aa5ed6a07877d9bf6126e1cea5a57312a9733d4e52529a494b02923a884
+Description:  contains: mount, umount, findmnt
+
 Package: netifd
 Version: 2021-06-04-50381d0a-1
 Depends: libc, libuci20130104, libnl-tiny1, libubus20241020, ubus, ubusd, jshn, libubox20240329
@@ -1863,6 +2138,24 @@ Filename: procd_2023-06-25-2db83655-1_x86_64.ipk
 Size: 57087
 SHA256sum: 51b36d3351116958ad717c77b2d45f5a4954dada1a645ec1a3c94c1182449f2a
 Description:  OpenWrt system process manager
+
+Package: qos-scripts
+Version: 1.3.1-2
+Depends: libc, tc, kmod-sched-core, kmod-sched-connmark, kmod-ifb, iptables, iptables-mod-ipopt, iptables-mod-conntrack-extra
+Source: package/network/config/qos-scripts
+SourceName: qos-scripts
+License: GPL-2.0
+Section: utils
+SourceDateEpoch: 1623666608
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: all
+Installed-Size: 6365
+Filename: qos-scripts_1.3.1-2_all.ipk
+Size: 7277
+SHA256sum: 6390ae571e9e41c073bbaa76f7bb625e751cf2348c48088badffe667c84d347f
+Description:  A set of scripts that abstract QoS configuration into a simple 
+ configuration file supporting stanzas that specify any number of QoS 
+ entries.
 
 Package: resolveip
 Version: 2
