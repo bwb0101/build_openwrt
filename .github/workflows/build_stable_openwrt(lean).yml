@@ -353,6 +353,7 @@ jobs:
           ccache -s || true
           ls -l $OPENWRT_ROOT_PATH/staging_dir/host/bin
           which ccache
+          [ -e $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache ] || ln -s "$(command -v ccache)" $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache
       - name: 释放磁盘空间
         if: env.FREE_UP_DISK == 'true'
         env:
