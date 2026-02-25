@@ -48,8 +48,10 @@ jobs:
         git clone https://github.com/coolsnowwolf/luci.git -b openwrt-24.10 mypkg/luci
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small-package.git kenzok8-new
-        # mosdns5.3.1+只支持原生固件，不再支持lean固件
-        #git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
+        git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
+        git clone https://github.com/sbwml/v2ray-geodata myplugin/v2ray-geodata
+        git clone https://github.com/pymumu/luci-app-smartdns.git myplugin/smartdns/luci-app-smartdns
+        git clone https://github.com/pymumu/openwrt-smartdns.git myplugin/smartdns/smartdns
         #luci-app-eqosplus没有二级子目录，feeds更新时会报错
         git clone https://github.com/sirpdboy/luci-app-eqosplus.git myplugin/luci-app-eqosplus
         rm -rf mypkg/pkg/.git*
@@ -61,15 +63,17 @@ jobs:
 
         rm -rf mypkg/pkg/net/smartdns
         rm -rf mypkg/luci/applications/luci-app-smartdns
-        cp -r kenzok8-new/smartdns mypkg/pkg/net
-        cp -r kenzok8-new/luci-app-smartdns mypkg/luci/applications
+        cp -r myplugin/smartdns/smartdns mypkg/pkg/net
+        cp -r myplugin/smartdns/luci-app-smartdns mypkg/luci/applications
         cp -r kenzok8-new/luci-app-homeproxy mypkg/luci/applications
-        #rm -rf mypkg/pkg/net/mosdns
-        #rm -rf mypkg/pkg/utils/v2dat
-        #rm -rf mypkg/luci/applications/luci-app-mosdns
-        #cp -r myplugin/mosdns/mosdns mypkg/pkg/net
-        #cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
-        #cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
+        rm -rf mypkg/pkg/net/v2ray-geodata
+        rm -rf mypkg/pkg/net/mosdns
+        rm -rf mypkg/pkg/utils/v2dat
+        rm -rf mypkg/luci/applications/luci-app-mosdns
+        cp -r myplugin/v2ray-geodata mypkg/pkg/net
+        cp -r myplugin/mosdns/mosdns mypkg/pkg/net
+        cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
+        cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
         cp -r myplugin/luci-app-eqosplus mypkg/luci/applications
 
         rm -rf mypkg/pkg/multimedia/aliyundrive-fuse
