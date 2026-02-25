@@ -380,8 +380,10 @@ jobs:
           yes n | make target/compile -j1 V=s IGNORE_ERRORS=1
           make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
           make package/index
-          # 打印 ccache 命中率
-          ccache -s || true
+      - name: ccache 命中率
+        run: |
+         # 打印 ccache 命中率
+         ccache -s || true
       - name: 固件生成
         id: generate
         run: |
