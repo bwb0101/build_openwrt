@@ -82,7 +82,6 @@ jobs:
           # 替换 PKG_VERSION (把你刚才 fork 提交的 commit hash 填在下面)
           sed -i 's/^PKG_VERSION:=.*/PKG_VERSION:=a04a2d7f5facb6615e62cb307a89c82b25f1b7f7/g' $VLMCSD_MAKEFILE
           # 替换 PKG_SOURCE_URL (注意这里用了 # 作为分隔符，因为网址里有 /)
-          # 把“你的用户名”换成你的 GitHub ID
           sed -i 's#^PKG_SOURCE_URL:=.*#PKG_SOURCE_URL:=https://codeload.github.com/bwb0101/vlmcsd/tar.gz/$(PKG_VERSION)?#g' $VLMCSD_MAKEFILE
           # 替换 PKG_HASH 为 skip，跳过哈希校验
           sed -i 's/^PKG_HASH:=.*/PKG_HASH:=skip/g' $VLMCSD_MAKEFILE
