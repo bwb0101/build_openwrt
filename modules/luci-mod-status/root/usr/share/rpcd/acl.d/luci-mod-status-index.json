@@ -9,7 +9,7 @@
 				"/www/luci-static/resources/view/status/include": [ "list" ]
 			},
 			"ubus": {
-				"luci": [ "getVersion", "getBuiltinEthernetPorts" ],
+				"luci": [ "getVersion", "getUnixtime", "getOdhcp6cStats", "getBuiltinEthernetPorts", "getCPUBench", "getCPUInfo", "getCPUUsage" ],
 				"file": [ "list", "read" ],
 				"system": [ "board", "info" ]
 			}
@@ -33,7 +33,8 @@
 		"description": "Grant access to DHCP status display",
 		"read": {
 			"ubus": {
-				"luci-rpc": [ "getDHCPLeases" ]
+				"luci-rpc": [ "getDHCPLeases" ],
+				"fingerprint": [ "fingerprint" ]
 			}
 		}
 	},
@@ -51,7 +52,8 @@
 		"description": "Grant access to port status display",
 		"read": {
 			"ubus": {
-				"luci": [ "getBuiltinEthernetPorts" ]
+				"luci": [ "getBuiltinEthernetPorts", "getSwconfigPortState" ],
+				"luci-rpc": [ "getNetworkDevices" ]
 			}
 		}
 	},
@@ -59,8 +61,12 @@
 	"luci-mod-status-index-wifi": {
 		"description": "Grant access to wireless status display",
 		"read": {
+			"file": {
+				"/usr/sbin/wlanconfig": [ "exec" ]
+			},
 			"ubus": {
-				"iwinfo": [ "assoclist" ]
+				"file": [ "exec" ],
+				"iwinfo": [ "assoclist", "devices", "info" ]
 			}
 		},
 		"write": {

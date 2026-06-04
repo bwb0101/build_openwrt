@@ -1,5 +1,6 @@
 'use strict';
 'require view';
+'require fs';
 'require poll';
 'require ui';
 'require uci';
@@ -7,62 +8,60 @@
 'require form';
 'require tools.widgets as widgets';
 
-var callRcList, callRcInit, callTimezone,
-    callGetLocaltime, callSetLocaltime, CBILocalTime;
-
-callRcList = rpc.declare({
+const callRcList = rpc.declare({
 	object: 'rc',
 	method: 'list',
 	params: [ 'name' ],
 	expect: { '': {} },
-	filter: function(res) {
+	filter(res) {
 		for (var k in res)
 			return +res[k].enabled;
 		return null;
 	}
 });
 
-callRcInit = rpc.declare({
+const callRcInit = rpc.declare({
 	object: 'rc',
 	method: 'init',
 	params: [ 'name', 'action' ],
 	expect: { result: false }
 });
 
-callGetLocaltime = rpc.declare({
-	object: 'system',
-	method: 'info',
-	expect: { localtime: 0 }
+const callGetUnixtime = rpc.declare({
+	object: 'luci',
+	method: 'getUnixtime',
+	expect: { result: 0 }
 });
 
-callSetLocaltime = rpc.declare({
+const callSetLocaltime = rpc.declare({
 	object: 'luci',
 	method: 'setLocaltime',
 	params: [ 'localtime' ],
 	expect: { result: 0 }
 });
 
-callTimezone = rpc.declare({
+const callTimezone = rpc.declare({
 	object: 'luci',
 	method: 'getTimezones',
 	expect: { '': {} }
 });
 
 function formatTime(epoch) {
-	var date = new Date(epoch * 1000);
+	const date = new Date(epoch * 1000);
+	const zn = uci.get('system', '@system[0]', 'zonename')?.replaceAll(' ', '_') || 'UTC';
+	const ts = uci.get('system', '@system[0]', 'clock_timestyle') || 0;
+	const hc = uci.get('system', '@system[0]', 'clock_hourcycle') || 0;
 
-	return '%04d-%02d-%02d %02d:%02d:%02d'.format(
-		date.getUTCFullYear(),
-		date.getUTCMonth() + 1,
-		date.getUTCDate(),
-		date.getUTCHours(),
-		date.getUTCMinutes(),
-		date.getUTCSeconds()
-	);
+	return new Intl.DateTimeFormat(undefined, {
+		dateStyle: 'medium',
+		timeStyle: (ts == 0) ? 'long' : 'full',
+		hourCycle: (hc == 0) ? undefined : hc,
+		timeZone: zn
+	}).format(date);
 }
 
-CBILocalTime = form.DummyValue.extend({
-	renderWidget: function(section_id, option_id, cfgvalue) {
+const CBILocalTime = form.DummyValue.extend({
+	renderWidget(section_id, option_id, cfgvalue) {
 		return E([], [
 			E('input', {
 				'id': 'localtime',
@@ -93,25 +92,28 @@ CBILocalTime = form.DummyValue.extend({
 });
 
 return view.extend({
-	load: function() {
+	load() {
 		return Promise.all([
 			callRcList('sysntpd'),
 			callTimezone(),
-			callGetLocaltime(),
+			callGetUnixtime(),
 			uci.load('luci'),
-			uci.load('system')
+			uci.load('system'),
+			L.hasSystemFeature('zram')
+				? L.resolveDefault(fs.read('/sys/block/zram0/comp_algorithm'), '')
+				: ''
 		]);
 	},
 
-	render: function(rpc_replies) {
-		var ntpd_enabled = rpc_replies[0],
-		    timezones = rpc_replies[1],
-		    localtime = rpc_replies[2],
-		    m, s, o;
+	render([ntpd_enabled, timezones, unixtime, _luci, _system, zram_algorithms]) {
+		let m, s, o;
+		const system_section = uci.sections('system', 'system')[0];
 
 		m = new form.Map('system',
 			_('System'),
 			_('Here you can configure the basic aspects of your device like its hostname or the timezone.'));
+		this.map = m;
+		this.systemSid = system_section?.['.name'];
 
 		m.chain('luci');
 
@@ -129,7 +131,7 @@ return view.extend({
 		 */
 
 		o = s.taboption('general', CBILocalTime, '_systime', _('Local Time'));
-		o.cfgvalue = function() { return localtime };
+		o.cfgvalue = function() { return unixtime };
 		o.ntpd_support = ntpd_enabled;
 
 		o = s.taboption('general', form.Value, 'hostname', _('Hostname'));
@@ -145,15 +147,22 @@ return view.extend({
 		o = s.taboption('general', form.ListValue, 'zonename', _('Timezone'));
 		o.value('UTC');
 
-		var zones = Object.keys(timezones || {}).sort();
-		for (var i = 0; i < zones.length; i++)
-			o.value(zones[i]);
+		const zones = Object.keys(timezones || {}).sort();
+		for (let zone of zones)
+			o.value(zone);
 
 		o.write = function(section_id, formvalue) {
-			var tz = timezones[formvalue] ? timezones[formvalue].tzstring : null;
+			const tz = timezones[formvalue] ? timezones[formvalue].tzstring : null;
 			uci.set('system', section_id, 'zonename', formvalue);
 			uci.set('system', section_id, 'timezone', tz);
 		};
+
+		o = s.taboption('general', form.Flag, 'clock_timestyle', _('Full TimeZone Name'), _('Unchecked means the timezone offset (E.g. GMT+1) is displayed'));
+
+		o = s.taboption('general', form.ListValue, 'clock_hourcycle', _('Time Format'));
+		o.value('', _('Default'));
+		o.value('h12', _('12-Hour Clock'));
+		o.value('h23', _('24-Hour Clock'));
 
 		/*
 		 * Logging
@@ -205,17 +214,42 @@ return view.extend({
 		if (L.hasSystemFeature('zram')) {
 			s.tab('zram', _('ZRam Settings'));
 
+			o = s.taboption('zram', form.Flag, 'zram_enabled', _('Enable'));
+			o.enabled = '1';
+			o.disabled = '0';
+			o.default = '1';
+			o.rmempty = false;
+			o.cfgvalue = function(section_id) {
+				return String(uci.get('system', section_id, 'zram_enabled') ?? '1');
+			};
+
 			o = s.taboption('zram', form.Value, 'zram_size_mb', _('ZRam Size'), _('Size of the ZRam device in megabytes'));
 			o.optional    = true;
 			o.placeholder = 16;
 			o.datatype    = 'uinteger';
+			o.depends('zram_enabled', '1');
+
+			const supported_algorithms = String(zram_algorithms || '')
+				.trim()
+				.split(/\s+/)
+				.map(algo => algo.replace(/[\[\]]/g, ''))
+				.filter((algo, index, list) => algo && list.indexOf(algo) === index);
+			const current_algorithm = uci.get('system', '@system[0]', 'zram_comp_algo');
 
 			o = s.taboption('zram', form.ListValue, 'zram_comp_algo', _('ZRam Compression Algorithm'));
 			o.optional    = true;
-			o.default     = 'lzo';
-			o.value('lzo', 'lzo');
-			o.value('lz4', 'lz4');
-			o.value('zstd', 'zstd');
+			o.default     = current_algorithm || supported_algorithms[0] || 'lzo';
+			o.depends('zram_enabled', '1');
+
+			if (!supported_algorithms.length) {
+				[ 'lzo', 'lz4', 'zstd' ].forEach(algo => o.value(algo, algo));
+			}
+			else {
+				supported_algorithms.forEach(algo => o.value(algo, algo));
+
+				if (current_algorithm && supported_algorithms.indexOf(current_algorithm) < 0)
+					o.value(current_algorithm, '%s (%s)'.format(current_algorithm, _('unsupported')));
+			}
 		}
 
 		/*
@@ -226,23 +260,29 @@ return view.extend({
 		o.uciconfig = 'luci';
 		o.ucisection = 'main';
 		o.ucioption = 'lang';
-		o.value('auto');
+		o.value('auto', _('auto'));
 
-		var l = Object.assign({ en: 'English' }, uci.get('luci', 'languages')),
-		    k = Object.keys(l).sort();
-		for (var i = 0; i < k.length; i++)
-			if (k[i].charAt(0) != '.')
-				o.value(k[i], l[k[i]]);
+		const l = Object.assign({ en: 'English' }, uci.get('luci', 'languages'));
+		const keys = Object.keys(l).sort();
+		for (let k of keys)
+			if (k.charAt(0) != '.')
+				o.value(k, l[k]);
 
 		o = s.taboption('language', form.ListValue, '_mediaurlbase', _('Design'))
 		o.uciconfig = 'luci';
 		o.ucisection = 'main';
 		o.ucioption = 'mediaurlbase';
 
-		var k = Object.keys(uci.get('luci', 'themes') || {}).sort();
-		for (var i = 0; i < k.length; i++)
-			if (k[i].charAt(0) != '.')
-				o.value(uci.get('luci', 'themes', k[i]), k[i]);
+		const th = Object.keys(uci.get('luci', 'themes') || {}).sort();
+		for (let t of th)
+			if (t.charAt(0) != '.')
+				o.value(uci.get('luci', 'themes', t), t);
+
+		o = s.taboption('language', form.Flag, '_tablefilters', _('Table Filters'));
+		o.default = o.disabled;
+		o.uciconfig = 'luci';
+		o.ucisection = 'main';
+		o.ucioption = 'tablefilters';
 
 		/*
 		 * NTP
@@ -309,12 +349,42 @@ return view.extend({
 
 		return m.render().then(function(mapEl) {
 			poll.add(function() {
-				return callGetLocaltime().then(function(t) {
+				return callGetUnixtime().then(function(t) {
 					mapEl.querySelector('#localtime').value = formatTime(t);
 				});
 			});
 
 			return mapEl;
 		});
+	},
+
+	isZramChanged() {
+		if (!L.hasSystemFeature('zram') || !this.map || !this.systemSid)
+			return false;
+
+		const enabled = this.map.lookupOption('zram_enabled', this.systemSid);
+		const size = this.map.lookupOption('zram_size_mb', this.systemSid);
+		const algo = this.map.lookupOption('zram_comp_algo', this.systemSid);
+		const current_enabled = String(uci.get('system', '@system[0]', 'zram_enabled') ?? '1');
+		const current_size = String(uci.get('system', '@system[0]', 'zram_size_mb') ?? '');
+		const current_algo = String(uci.get('system', '@system[0]', 'zram_comp_algo') ?? '');
+		const form_enabled = String(enabled ? (enabled[0].formvalue(enabled[1]) ?? '') : current_enabled);
+		const form_size = String(size ? (size[0].formvalue(size[1]) ?? '') : current_size);
+		const form_algo = String(algo ? (algo[0].formvalue(algo[1]) ?? '') : current_algo);
+
+		return (form_enabled !== current_enabled || form_size !== current_size || form_algo !== current_algo);
+	},
+
+	handleSaveApply(ev, mode) {
+		if (this.isZramChanged()) {
+			const fn = L.bind(() => {
+				callRcInit('zram', 'restart');
+				document.removeEventListener('uci-applied', fn);
+			});
+
+			document.addEventListener('uci-applied', fn);
+		}
+
+		return this.super('handleSaveApply', [ev, mode]);
 	}
 });

@@ -1,6 +1,7 @@
 #!/bin/bash
 . /lib/functions.sh
 . /usr/share/openclash/ruby.sh
+. /usr/share/openclash/uci.sh
 
 set_lock() {
    exec 885>"/tmp/lock/openclash_debug.lock" 2>/dev/null
@@ -25,43 +26,41 @@ set_lock
 
 DEBUG_LOG="/tmp/openclash_debug.log"
 LOGTIME=$(echo $(date "+%Y-%m-%d %H:%M:%S"))
-enable_custom_dns=$(uci -q get openclash.config.enable_custom_dns)
-rule_source=$(uci -q get openclash.config.rule_source)
-enable_custom_clash_rules=$(uci -q get openclash.config.enable_custom_clash_rules) 
-ipv6_enable=$(uci -q get openclash.config.ipv6_enable)
-ipv6_dns=$(uci -q get openclash.config.ipv6_dns)
-enable_redirect_dns=$(uci -q get openclash.config.enable_redirect_dns)
-disable_masq_cache=$(uci -q get openclash.config.disable_masq_cache)
-proxy_mode=$(uci -q get openclash.config.proxy_mode)
-intranet_allowed=$(uci -q get openclash.config.intranet_allowed)
-enable_udp_proxy=$(uci -q get openclash.config.enable_udp_proxy)
-enable_rule_proxy=$(uci -q get openclash.config.enable_rule_proxy)
-en_mode=$(uci -q get openclash.config.en_mode)
-RAW_CONFIG_FILE=$(uci -q get openclash.config.config_path)
-CONFIG_FILE="/etc/openclash/$(uci -q get openclash.config.config_path |awk -F '/' '{print $5}' 2>/dev/null)"
-core_model=$(uci -q get openclash.config.core_version)
+log_level=$(uci_get_config "log_level")
+enable_custom_dns=$(uci_get_config "enable_custom_dns")
+enable_custom_clash_rules=$(uci_get_config "enable_custom_clash_rules") 
+ipv6_enable=$(uci_get_config "ipv6_enable")
+ipv6_dns=$(uci_get_config "ipv6_dns")
+enable_redirect_dns=$(uci_get_config "enable_redirect_dns")
+disable_masq_cache=$(uci_get_config "disable_masq_cache")
+proxy_mode=$(uci_get_config "proxy_mode")
+intranet_allowed=$(uci_get_config "intranet_allowed")
+enable_udp_proxy=$(uci_get_config "enable_udp_proxy")
+enable_rule_proxy=$(uci_get_config "enable_rule_proxy")
+en_mode=$(uci_get_config "en_mode")
+RAW_CONFIG_FILE=$(uci_get_config "config_path")
+CONFIG_FILE="/etc/openclash/$(uci_get_config "config_path" |awk -F '/' '{print $5}' 2>/dev/null)"
+core_model=$(uci_get_config "core_version")
 if [ -x "/bin/opkg" ]; then
    cpu_model=$(opkg status libc 2>/dev/null |grep 'Architecture' |awk -F ': ' '{print $2}' 2>/dev/null)
 elif [ -x "/usr/bin/apk" ]; then
    cpu_model=$(apk list libc 2>/dev/null|awk '{print $2}')
 fi
 core_meta_version=$(/etc/openclash/core/clash_meta -v 2>/dev/null |awk -F ' ' '{print $3}' |head -1 2>/dev/null)
-servers_update=$(uci -q get openclash.config.servers_update)
-mix_proxies=$(uci -q get openclash.config.mix_proxies)
 op_version=$(ipk_v "luci-app-openclash")
-china_ip_route=$(uci -q get openclash.config.china_ip_route)
-common_ports=$(uci -q get openclash.config.common_ports)
-router_self_proxy=$(uci -q get openclash.config.router_self_proxy)
-core_type=$(uci -q get openclash.config.core_type || echo "Dev")
-da_password=$(uci -q get openclash.config.dashboard_password)
-cn_port=$(uci -q get openclash.config.cn_port)
-lan_interface_name=$(uci -q get openclash.config.lan_interface_name || echo "0")
+china_ip_route=$(uci_get_config "china_ip_route")
+common_ports=$(uci_get_config "common_ports")
+router_self_proxy=$(uci_get_config "router_self_proxy")
+core_type=$(uci_get_config "core_type" || echo "Dev")
+da_password=$(uci_get_config "dashboard_password")
+cn_port=$(uci_get_config "cn_port")
+lan_interface_name=$(uci_get_config "lan_interface_name" || echo "0")
 if [ "$lan_interface_name" = "0" ]; then
    lan_ip=$(uci -q get network.lan.ipaddr |awk -F '/' '{print $1}' 2>/dev/null || ip address show $(uci -q -p /tmp/state get network.lan.ifname || uci -q -p /tmp/state get network.lan.device) | grep -w "inet"  2>/dev/null |grep -Eo 'inet [0-9\.]+' | awk '{print $2}' |head -1 || ip addr show 2>/dev/null | grep -w 'inet' | grep 'global' | grep 'brd' | grep -Eo 'inet [0-9\.]+' | awk '{print $2}' | head -n 1)
 else
    lan_ip=$(ip address show $lan_interface_name | grep -w "inet"  2>/dev/null |grep -Eo 'inet [0-9\.]+' | awk '{print $2}' |head -1)
 fi
-dnsmasq_default_resolvfile=$(uci -q get openclash.config.default_resolvfile)
+dnsmasq_default_resolvfile=$(uci_get_config "default_resolvfile")
 
 if [ -z "$RAW_CONFIG_FILE" ] || [ ! -f "$RAW_CONFIG_FILE" ]; then
    for file_name in /etc/openclash/config/*
@@ -238,17 +237,15 @@ IPV6-DNS解析: $(ts_cf "$ipv6_dns")
 绕过中国大陆IP: $(ts_cf "$china_ip_route")
 路由本机代理: $(ts_cf "$router_self_proxy")
 
-#启动异常时建议关闭此项后重试
-混合节点: $(ts_cf "$mix_proxies")
-保留配置: $(ts_cf "$servers_update")
 EOF
 
 cat >> "$DEBUG_LOG" <<-EOF
 
-#启动异常时建议关闭此项后重试
-第三方规则: $(ts_cf "$rule_source")
-EOF
+#===================== 覆写模块设置 =====================#
 
+$(uci -q show openclash.@overwrite[0])
+
+EOF
 
 if [ "$enable_custom_clash_rules" -eq 1 ]; then
 cat >> "$DEBUG_LOG" <<-EOF
@@ -373,6 +370,9 @@ echo "" >> "$DEBUG_LOG"
 echo "#ip route list" >> "$DEBUG_LOG"
 ip route list >> "$DEBUG_LOG" 2>/dev/null
 echo "" >> "$DEBUG_LOG"
+echo "#ip route list table 354" >> "$DEBUG_LOG"
+ip route list table 354 >> "$DEBUG_LOG" 2>/dev/null
+echo "" >> "$DEBUG_LOG"
 echo "#ip rule show" >> "$DEBUG_LOG"
 ip rule show >> "$DEBUG_LOG" 2>/dev/null
 echo "" >> "$DEBUG_LOG"
@@ -383,6 +383,9 @@ route -A inet6 >> "$DEBUG_LOG" 2>/dev/null
 echo "" >> "$DEBUG_LOG"
 echo "#ip -6 route list" >> "$DEBUG_LOG"
 ip -6 route list >> "$DEBUG_LOG" 2>/dev/null
+echo "" >> "$DEBUG_LOG"
+echo "#ip -6 route list table 354" >> "$DEBUG_LOG"
+ip -6 route list table 354 >> "$DEBUG_LOG" 2>/dev/null
 echo "" >> "$DEBUG_LOG"
 echo "#ip -6 rule show" >> "$DEBUG_LOG"
 ip -6 rule show >> "$DEBUG_LOG" 2>/dev/null
@@ -461,23 +464,23 @@ fi
 
 cat >> "$DEBUG_LOG" <<-EOF
 
-#===================== 最近运行日志(自动切换为Debug模式) =====================#
+#===================== 最近运行日志 (切换为Debug模式) =====================#
 
 EOF
 
-if pidof clash >/dev/null; then
-   curl -SsL -m 3 -H "Content-Type: application/json" -H "Authorization: Bearer ${da_password}" -XPATCH http://${lan_ip}:${cn_port}/configs -d '{"log-level": "debug"}' >/dev/null
+if pidof clash >/dev/null && [ "$log_level" != "debug" ]; then
+   curl -SsL -m 3 --retry 2 -H "Content-Type: application/json" -H "Authorization: Bearer ${da_password}" -XPATCH http://${lan_ip}:${cn_port}/configs -d '{"log-level": "debug"}' >/dev/null
    sleep 10
 fi
 
 tail -n 100 "/tmp/openclash.log" >> "$DEBUG_LOG" 2>/dev/null
 cat >> "$DEBUG_LOG" <<-EOF
 
-#===================== 最近运行日志获取完成(自动切换为silent模式) =====================#
+#===================== 最近运行日志获取完成 =====================#
 
 EOF
-if pidof clash >/dev/null; then
-   curl -SsL -m 3 -H "Content-Type: application/json" -H "Authorization: Bearer ${da_password}" -XPATCH http://${lan_ip}:${cn_port}/configs -d '{"log-level": "silent"}' >/dev/null
+if pidof clash >/dev/null && [ "$log_level" != "debug" ]; then
+   curl -SsL -m 3 --retry 2 -H "Content-Type: application/json" -H "Authorization: Bearer ${da_password}" -XPATCH http://${lan_ip}:${cn_port}/configs -d '{"log-level": "'"$log_level"'"}' >/dev/null
 fi
 
 cat >> "$DEBUG_LOG" <<-EOF

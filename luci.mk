@@ -7,7 +7,8 @@
 LUCI_NAME?=$(notdir ${CURDIR})
 LUCI_TYPE?=$(word 2,$(subst -, ,$(LUCI_NAME)))
 LUCI_BASENAME?=$(patsubst luci-$(LUCI_TYPE)-%,%,$(LUCI_NAME))
-LUCI_LANGUAGES:=$(sort $(filter-out templates,$(notdir $(wildcard ${CURDIR}/po/*))))
+LUCI_LANGUAGES_RAW:=$(filter-out templates,$(notdir $(wildcard ${CURDIR}/po/*)))
+LUCI_LANGUAGES:=$(sort $(foreach lang,$(LUCI_LANGUAGES_RAW),$(if $(filter zh-cn,$(lang)),zh_Hans,$(lang))))
 LUCI_DEFAULTS:=$(notdir $(wildcard ${CURDIR}/root/etc/uci-defaults/*))
 LUCI_PKGARCH?=$(if $(realpath src/Makefile),,all)
 LUCI_SECTION?=luci
@@ -32,6 +33,7 @@ LUCI_LANG.fa=Farsi (Persian)
 LUCI_LANG.fi=Suomi (Finnish)
 LUCI_LANG.fil=Filipino (Philippinic)
 LUCI_LANG.fr=Français (French)
+LUCI_LANG.ga=Gaeilge (Irish)
 LUCI_LANG.he=עִבְרִית (Hebrew)
 LUCI_LANG.hi=हिंदी (Hindi)
 LUCI_LANG.hu=Magyar (Hungarian)
@@ -50,12 +52,13 @@ LUCI_LANG.ro=Română (Romanian)
 LUCI_LANG.ru=Русский (Russian)
 LUCI_LANG.sk=Slovenčina (Slovak)
 LUCI_LANG.sv=Svenska (Swedish)
+LUCI_LANG.ta=Tamil (Tamil)
 LUCI_LANG.tr=Türkçe (Turkish)
 LUCI_LANG.uk=Українська (Ukrainian)
 LUCI_LANG.vi=Tiếng Việt (Vietnamese)
 LUCI_LANG.yua=Yucateco (Yucatec Maya)
-LUCI_LANG.zh_Hans=简体中文 (Chinese Simplified)
-LUCI_LANG.zh_Hant=繁體中文 (Chinese Traditional)
+LUCI_LANG.zh_Hans=简体中文 (Simplified Chinese)
+LUCI_LANG.zh_Hant=正體中文 (Traditional Chinese)
 #LUCI_LANG_END
 
 # Submenu titles
@@ -72,12 +75,17 @@ LUCI_LC_ALIAS.nb_NO=no
 LUCI_LC_ALIAS.pt_BR=pt-br
 LUCI_LC_ALIAS.zh_Hans=zh-cn
 LUCI_LC_ALIAS.zh_Hant=zh-tw
+LUCI_PO_DIR_ALIAS.zh_Hans=zh-cn
 
 # Default locations
 HTDOCS = /www
 LUA_LIBRARYDIR = /usr/lib/lua
 LUCI_LIBRARYDIR = $(LUA_LIBRARYDIR)/luci
 UCODE_LIBRARYDIR = /usr/share/ucode/luci
+
+define LuciPoDir
+$(strip $(if $(wildcard ${CURDIR}/po/$(1)),$(1),$(firstword $(foreach alias,$(LUCI_PO_DIR_ALIAS.$(1)),$(if $(wildcard ${CURDIR}/po/$(alias)),$(alias))))))
+endef
 
 
 # 1: everything expect po subdir or only po subdir
@@ -160,6 +168,7 @@ endif
   $(if $(LUCI_EXTRA_DEPENDS),EXTRA_DEPENDS:=$(LUCI_EXTRA_DEPENDS))
   $(if $(LUCI_PKGARCH),PKGARCH:=$(LUCI_PKGARCH))
   $(if $(PKG_PROVIDES),PROVIDES:=$(PKG_PROVIDES))
+  $(if $(LUCI_DEFAULT),DEFAULT:=$(LUCI_DEFAULT))
   URL:=$(LUCI_URL)
   MAINTAINER:=$(LUCI_MAINTAINER)
 endef
@@ -231,7 +240,7 @@ define Package/$(PKG_NAME)/postinst
 [ -n "$${IPKG_INSTROOT}" ] || { \
 	rm -f /tmp/luci-indexcache.*
 	rm -rf /tmp/luci-modulecache/
-	killall -HUP rpcd 2>/dev/null
+	/etc/init.d/rpcd reload 2>/dev/null
 	exit 0
 }
 endef
@@ -299,11 +308,11 @@ ifeq ($(PKG_NAME),luci-base)
 
    config LUCI_JSMIN
 	bool "Minify JavaScript sources"
-	default n
+	default y
 
    config LUCI_CSSTIDY
 	bool "Minify CSS files"
-	default n
+	default y
 
    menu "Translations"$(foreach lang,$(LUCI_LANGUAGES),$(if $(LUCI_LANG.$(lang)),
 
@@ -340,7 +349,7 @@ define LuciTranslation
 	echo "uci set luci.languages.$(subst -,_,$(1))='$(LUCI_LANG.$(2))'; uci commit luci" \
 		> $$(1)/etc/uci-defaults/luci-i18n-$(LUCI_BASENAME)-$(1)
 	$$(INSTALL_DIR) $$(1)$(LUCI_LIBRARYDIR)/i18n
-	$(foreach po,$(wildcard ${CURDIR}/po/$(2)/*.po), \
+	$(foreach po,$(wildcard ${CURDIR}/po/$(call LuciPoDir,$(2))/*.po), \
 		po2lmo $(po) \
 			$$(1)$(LUCI_LIBRARYDIR)/i18n/$(basename $(notdir $(po))).$(1).lmo;)
   endef

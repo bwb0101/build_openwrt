@@ -2,8 +2,12 @@
 	"luci-mod-status-realtime": {
 		"description": "Grant access to realtime statistics",
 		"read": {
+			"file": {
+				"/etc/services": [ "read" ]
+			},
 			"ubus": {
 				"luci": [ "getConntrackList", "getRealtimeStats", "getCPUBench", "getCPUUsage", "getOnlineUsers" ],
+				"luci-rpc": [ "getHostHints", "getNetworkDevices", "getDHCPLeases" ],
 				"network.rrdns": [ "lookup" ]
 			}
 		}
@@ -35,6 +39,7 @@
 				"/usr/libexec/syslog-wrapper": [ "exec" ]
 			},
 			"ubus": {
+				"log": [ "read" ],
 				"file": [ "stat" ]
 			}
 		}
@@ -49,7 +54,23 @@
 				"/sbin/ip -[46] rule show": [ "exec" ]
 			},
 			"ubus": {
-				"file": [ "exec" ]
+				"file": [ "exec" ],
+				"fingerprint": [ "fingerprint" ]
+			}
+		}
+	},
+
+	"luci-mod-status-routes-json": {
+		"description": "Grant access to routing status",
+		"read": {
+			"file": {
+				"/sbin/ip -[46] -j neigh show": [ "exec" ],
+				"/sbin/ip -[46] -j route show table all": [ "exec" ],
+				"/sbin/ip -[46] -j rule show": [ "exec" ]
+			},
+			"ubus": {
+				"file": [ "exec" ],
+				"fingerprint": [ "fingerprint" ]
 			}
 		}
 	},
@@ -57,8 +78,14 @@
 	"luci-mod-status-channel_analysis": {
 		"description": "Grant access to wireless channel status",
 		"read": {
+			"file": {
+				"/usr/sbin/ip": [ "exec" ],
+				"/usr/sbin/iw": [ "exec" ]
+			},
 			"ubus": {
-				"iwinfo": [ "info", "freqlist", "scan" ]
+				"file": [ "exec" ],
+				"iwinfo": [ "freqlist" ],
+				"luci-rpc": [ "getNetworkDevices" ]
 			}
 		}
 	},

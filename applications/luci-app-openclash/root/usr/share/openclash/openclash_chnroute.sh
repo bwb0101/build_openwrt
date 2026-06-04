@@ -2,6 +2,7 @@
 . /usr/share/openclash/openclash_ps.sh
 . /usr/share/openclash/log.sh
 . /usr/share/openclash/openclash_curl.sh
+. /usr/share/openclash/uci.sh
 
 set_lock() {
    exec 879>"/tmp/lock/openclash_chn.lock" 2>/dev/null
@@ -14,29 +15,17 @@ del_lock() {
 }
 
 set_lock
-
-JOB_COUNTER_FILE="/tmp/openclash_jobs"
-
-inc_job_counter() {
-   flock -x 999
-   local cnt=0
-   [ -f "$JOB_COUNTER_FILE" ] && cnt=$(cat "$JOB_COUNTER_FILE")
-   cnt=$((cnt+1))
-   echo "$cnt" > "$JOB_COUNTER_FILE"
-   flock -u 999
-}
-exec 999>"/tmp/lock/openclash_jobs.lock"
 inc_job_counter
 
 FW4=$(command -v fw4)
-china_ip_route=$(uci -q get openclash.config.china_ip_route)
-china_ip6_route=$(uci -q get openclash.config.china_ip6_route)
-CHNR_CUSTOM_URL=$(uci -q get openclash.config.chnr_custom_url)
-CHNR6_CUSTOM_URL=$(uci -q get openclash.config.chnr6_custom_url)
-CNDOMAIN_CUSTOM_URL=$(uci -q get openclash.config.cndomain_custom_url)
-disable_udp_quic=$(uci -q get openclash.config.disable_udp_quic)
-small_flash_memory=$(uci -q get openclash.config.small_flash_memory)
-en_mode=$(uci -q get openclash.config.en_mode)
+china_ip_route=$(uci_get_config "china_ip_route")
+china_ip6_route=$(uci_get_config "china_ip6_route")
+CHNR_CUSTOM_URL=$(uci_get_config "chnr_custom_url")
+CHNR6_CUSTOM_URL=$(uci_get_config "chnr6_custom_url")
+CNDOMAIN_CUSTOM_URL=$(uci_get_config "cndomain_custom_url")
+disable_udp_quic=$(uci_get_config "disable_udp_quic")
+small_flash_memory=$(uci_get_config "small_flash_memory")
+en_mode=$(uci_get_config "en_mode")
 restart=0
 
 if [ "$small_flash_memory" != "1" ]; then
@@ -51,9 +40,9 @@ fi
 
 LOG_OUT "Start Downloading The Chnroute Cidr List..."
 if [ -z "$CHNR_CUSTOM_URL" ]; then
-   DOWNLOAD_FILE_CURL "https://ispip.clang.cn/all_cn.txt" "/tmp/china_ip_route.txt"
+   DOWNLOAD_FILE_CURL "https://ispip.clang.cn/all_cn.txt" "/tmp/china_ip_route.txt" "$chnr_path"
 else
-   DOWNLOAD_FILE_CURL "$CHNR_CUSTOM_URL" "/tmp/china_ip_route.txt"
+   DOWNLOAD_FILE_CURL "$CHNR_CUSTOM_URL" "/tmp/china_ip_route.txt" "$chnr_path"
 fi
 
 if [ "$?" -eq 0 ]; then
@@ -80,6 +69,8 @@ if [ "$?" -eq 0 ]; then
    else
       LOG_OUT "Updated Chnroute Cidr List No Change, Do Nothing..."
    fi
+elif [ "$?" -eq 2 ]; then
+   LOG_OUT "Updated Chnroute Cidr List No Change, Do Nothing..."
 else
    LOG_OUT "Chnroute Cidr List Update Error, Please Try Again Later..."
 fi
@@ -87,11 +78,12 @@ fi
 #ipv6
 LOG_OUT "Start Downloading The Chnroute6 Cidr List..."
 if [ -z "$CHNR6_CUSTOM_URL" ]; then
-   DOWNLOAD_FILE_CURL "https://ispip.clang.cn/all_cn_ipv6.txt" "/tmp/china_ip6_route.txt"
+   DOWNLOAD_FILE_CURL "https://ispip.clang.cn/all_cn_ipv6.txt" "/tmp/china_ip6_route.txt" "$chnr6_path"
 else
-   DOWNLOAD_FILE_CURL "$CHNR6_CUSTOM_URL" "/tmp/china_ip6_route.txt"
+   DOWNLOAD_FILE_CURL "$CHNR6_CUSTOM_URL" "/tmp/china_ip6_route.txt" "$chnr6_path"
 fi
-if [ "$?" -eq 0 ]; then
+DOWNLOAD_RESULT=$?
+if [ "$DOWNLOAD_RESULT" -eq 0 ]; then
    LOG_OUT "Chnroute6 Cidr List Download Success, Check Updated..."
    #预处理
    if [ -n "$FW4" ]; then
@@ -115,34 +107,14 @@ if [ "$?" -eq 0 ]; then
    else
       LOG_OUT "Updated Chnroute6 Cidr List No Change, Do Nothing..."
    fi
+elif [ "$DOWNLOAD_RESULT" -eq 2 ]; then
+   LOG_OUT "Updated Chnroute6 Cidr List No Change, Do Nothing..."
 else
    LOG_OUT "Chnroute6 Cidr List Update Error, Please Try Again Later..."
 fi
 
-dec_job_counter_and_restart() {
-   flock -x 999
-   local cnt=0
-   [ -f "$JOB_COUNTER_FILE" ] && cnt=$(cat "$JOB_COUNTER_FILE")
-   cnt=$((cnt-1))
-   [ $cnt -lt 0 ] && cnt=0
-   echo "$cnt" > "$JOB_COUNTER_FILE"
-   if [ $cnt -eq 0 ]; then
-      if [ "$restart" -eq 1 ] && [ "$(unify_ps_prevent)" -eq 0 ]; then
-         /etc/init.d/openclash restart >/dev/null 2>&1 &
-      elif [ "$restart" -eq 0 ] && [ "$(unify_ps_prevent)" -eq 0 ] && [ "$(uci -q get openclash.config.restart)" -eq 1 ]; then
-         /etc/init.d/openclash restart >/dev/null 2>&1 &
-         uci -q set openclash.config.restart=0
-         uci -q commit openclash
-      elif [ "$restart" -eq 1 ]; then
-         uci -q set openclash.config.restart=1
-         uci -q commit openclash
-      fi
-      rm -rf "$JOB_COUNTER_FILE" >/dev/null 2>&1
-   fi
-   flock -u 999
-}
-
 rm -rf /tmp/china_ip*_route* >/dev/null 2>&1
+
 SLOG_CLEAN
-dec_job_counter_and_restart
+dec_job_counter_and_restart "$restart"
 del_lock

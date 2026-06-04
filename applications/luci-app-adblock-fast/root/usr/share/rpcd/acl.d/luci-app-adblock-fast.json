@@ -11,23 +11,39 @@
 					"getFileUrlFilesizes",
 					"getInitList",
 					"getInitStatus",
+					"getCronStatus",
+					"getCronEntry",
 					"getPlatformSupport",
-					"getUbusInfo"
+					"getQueryLogStatus"
+				],
+				"log": [
+					"read"
+				],
+				"service": [
+					"list"
 				]
 			},
 			"uci": [
 				"adblock-fast",
 				"dhcp",
-				"smartdns"
+				"smartdns",
+				"unbound"
 			]
 		},
 		"write": {
 			"uci": [
-				"adblock-fast"
+				"adblock-fast",
+				"dhcp",
+				"smartdns",
+				"unbound"
 			],
 			"ubus": {
 				"luci.adblock-fast": [
-					"setInitAction"
+					"syncCron",
+					"setCronEntry",
+					"setInitAction",
+					"setRpcdToken",
+					"setQueryLog"
 				]
 			}
 		}

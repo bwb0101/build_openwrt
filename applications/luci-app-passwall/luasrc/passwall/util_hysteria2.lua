@@ -31,25 +31,25 @@ function gen_config_server(node)
 end
 
 function gen_config(var)
-	local node_id = var["-node"]
+	local node_id = var["node"]
 	if not node_id then
-		print("-node 不能为空")
+		print("node 不能为空")
 		return
 	end
 	local node = uci:get_all("passwall", node_id)
-	local local_tcp_redir_port = var["-local_tcp_redir_port"]
-	local local_udp_redir_port = var["-local_udp_redir_port"]
-	local local_socks_address = var["-local_socks_address"] or "0.0.0.0"
-	local local_socks_port = var["-local_socks_port"]
-	local local_socks_username = var["-local_socks_username"]
-	local local_socks_password = var["-local_socks_password"]
-	local local_http_address = var["-local_http_address"] or "0.0.0.0"
-	local local_http_port = var["-local_http_port"]
-	local local_http_username = var["-local_http_username"]
-	local local_http_password = var["-local_http_password"]
-	local tcp_proxy_way = var["-tcp_proxy_way"]
-	local server_host = var["-server_host"] or node.address
-	local server_port = var["-server_port"] or node.port
+	local local_tcp_redir_port = var["local_tcp_redir_port"]
+	local local_udp_redir_port = var["local_udp_redir_port"]
+	local local_socks_address = var["local_socks_address"] or "0.0.0.0"
+	local local_socks_port = var["local_socks_port"]
+	local local_socks_username = var["local_socks_username"]
+	local local_socks_password = var["local_socks_password"]
+	local local_http_address = var["local_http_address"] or "0.0.0.0"
+	local local_http_port = var["local_http_port"]
+	local local_http_username = var["local_http_username"]
+	local local_http_password = var["local_http_password"]
+	local tcp_proxy_way = var["tcp_proxy_way"]
+	local server_host = var["server_host"] or node.address
+	local server_port = var["server_port"] or node.port
 
 	if api.is_ipv6(server_host) then
 		server_host = api.get_ipv6_full(server_host)
@@ -63,7 +63,7 @@ function gen_config(var)
 	local config = {
 		server = server,
 		transport = {
-			type = node.protocol or "udp",
+			type = "udp",
 			udp = {
 				hopInterval = (function()
 							local HopIntervalStr = tostring(node.hysteria2_hop_interval or "30s")
@@ -90,14 +90,14 @@ function gen_config(var)
 		quic = {
 			initStreamReceiveWindow = (node.hysteria2_recv_window) and tonumber(node.hysteria2_recv_window) or nil,
 			initConnReceiveWindow = (node.hysteria2_recv_window_conn) and tonumber(node.hysteria2_recv_window_conn) or nil,
-			maxIdleTimeout = (function()
-						local timeoutStr = tostring(node.hysteria2_idle_timeout or "")
-						local timeout = tonumber(timeoutStr:match("^%d+"))
-						if timeout and timeout >= 4 and timeout <= 120 then
-							return tostring(timeout) .. "s"
-						end
-						return nil
-					end)(),
+			maxIdleTimeout = (function(t)
+				t = tonumber(tostring(t or "30"):match("^%d+"))
+				return (t and t >= 4 and t <= 120) and t .. "s" or "30s"
+			end)(node.hysteria2_idle_timeout),
+			keepAlivePeriod = (function(t)
+				t = tonumber(tostring(t or "0"):match("^%d+"))
+				return (t and t >= 2 and t <= 60) and t .. "s" or nil
+			end)(node.hysteria2_keep_alive_period),
 			disablePathMTUDiscovery = (node.hysteria2_disable_mtu_discovery) and true or false,
 		},
 		bandwidth = (node.hysteria2_up_mbps or node.hysteria2_down_mbps) and {
@@ -136,6 +136,10 @@ _G.gen_config = gen_config
 if arg[1] then
 	local func =_G[arg[1]]
 	if func then
-		print(func(api.get_function_args(arg)))
+		local var = nil
+		if arg[2] then
+			var = jsonc.parse(arg[2])
+		end
+		print(func(var))
 	end
 end

@@ -7,14 +7,17 @@
 				"/etc/iproute2/rt_tables": [ "read" ],
 				"/proc/sys/net/ipv6/conf/*/mtu": [ "read" ],
 				"/proc/sys/net/ipv6/conf/*/hop_limit": [ "read" ],
+				"/usr/sbin/iw": [ "exec" ],
 				"/usr/libexec/luci-peeraddr": [ "exec" ],
+				"/usr/sbin/wlanconfig": [ "exec" ],
 				"/proc/sys/net/ipv[46]/conf/*": [ "read" ],
 				"/sys/class/net/*/brport/*": [ "read" ]
 			},
 			"ubus": {
 				"file": [ "exec" ],
-				"iwinfo": [ "assoclist", "countrylist", "freqlist", "txpowerlist" ],
-				"luci": [ "getSwconfigFeatures", "getSwconfigPortState" ]
+				"iwinfo": [ "assoclist", "countrylist", "devices", "freqlist", "info", "txpowerlist" ],
+				"luci": [ "getSwconfigFeatures", "getSwconfigPortState" ],
+				"network.wireless": [ "status" ]
 			},
 			"uci": [ "dhcp", "firewall", "network", "wireless", "system" ]
 		},
@@ -34,11 +37,26 @@
 		}
 	},
 
+	"luci-mod-network-dns": {
+		"description": "Grant access to DNS configuration",
+		"read": {
+			"ubus": {
+				"luci-rpc": [ "getHostHints" ]
+			},
+			"uci": [ "dhcp" ]
+		},
+		"write": {
+			"uci": [ "dhcp" ]
+		}
+	},
+
 	"luci-mod-network-dhcp": {
 		"description": "Grant access to DHCP configuration",
 		"read": {
 			"ubus": {
-				"luci-rpc": [ "getDHCPLeases", "getDUIDHints", "getHostHints" ]
+				"luci-rpc": [ "getDHCPLeases", "getDUIDHints", "getHostHints", "getNetworkDevices" ],
+				"fingerprint": [ "fingerprint" ],
+				"service": [ "list" ]
 			},
 			"uci": [ "dhcp" ]
 		},

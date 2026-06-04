@@ -8,9 +8,6 @@ if not singbox_bin then
 	return
 end
 
-local local_version = api.get_app_version("sing-box")
-local version_ge_1_12_0 = api.compare_versions(local_version:match("[^v]+"), ">=", "1.12.0")
-
 local fs = api.fs
 
 local singbox_tags = luci.sys.exec(singbox_bin .. " version  | grep 'Tags:' | awk '{print $2}'")
@@ -52,9 +49,7 @@ end
 if singbox_tags:find("with_quic") then
 	o:value("hysteria2", "Hysteria2")
 end
-if version_ge_1_12_0 then
-	o:value("anytls", "AnyTLS")
-end
+o:value("anytls", "AnyTLS")
 o:value("direct", "Direct")
 o:depends({ [_n("custom")] = false })
 
@@ -125,9 +120,6 @@ if singbox_tags:find("with_quic") then
 
 	o = s:option(Flag, _n("hysteria_disable_mtu_discovery"), translate("Disable MTU detection"))
 	o:depends({ [_n("protocol")] = "hysteria" })
-
-	o = s:option(Value, _n("hysteria_alpn"), translate("QUIC TLS ALPN"))
-	o:depends({ [_n("protocol")] = "hysteria" })
 end
 
 if singbox_tags:find("with_quic") then
@@ -147,12 +139,26 @@ if singbox_tags:find("with_quic") then
 	o.default = "3"
 	o:depends({ [_n("protocol")] = "tuic" })
 
-	o = s:option(Value, _n("tuic_alpn"), translate("QUIC TLS ALPN"))
+	o = s:option(ListValue, _n("tuic_alpn"), translate("QUIC TLS ALPN"))
+	o.default = "default"
+	o:value("default", translate("Default"))
+	o:value("h3")
+	o:value("h2")
+	o:value("h3,h2")
+	o:value("http/1.1")
+	o:value("h2,http/1.1")
+	o:value("h3,h2,http/1.1")
+	o:value("spdy/3.1")
+	o:value("h3,spdy/3.1")
 	o:depends({ [_n("protocol")] = "tuic" })
 end
 
 if singbox_tags:find("with_quic") then
-	o = s:option(Flag, _n("hysteria2_ignore_client_bandwidth"), translate("Commands the client to use the BBR flow control algorithm"))
+	o = s:option(Value, _n("hysteria2_auth_password"), translate("Auth Password"))
+	o.password = true
+	o:depends({ [_n("protocol")] = "hysteria2"})
+
+	o = s:option(Flag, _n("hysteria2_ignore_client_bandwidth"), translate("Client BBR Flow Control"), translate("Commands the client to use the BBR flow control algorithm"))
 	o.default = 0
 	o:depends({ [_n("protocol")] = "hysteria2" })
 
@@ -168,11 +174,7 @@ if singbox_tags:find("with_quic") then
 	o:depends({ [_n("protocol")] = "hysteria2" })
 
 	o = s:option(Value, _n("hysteria2_obfs_password"), translate("Obfs Password"))
-	o:depends({ [_n("protocol")] = "hysteria2" })
-
-	o = s:option(Value, _n("hysteria2_auth_password"), translate("Auth Password"))
-	o.password = true
-	o:depends({ [_n("protocol")] = "hysteria2"})
+	o:depends({ [_n("hysteria2_obfs_type")] = "salamander" })
 end
 
 o = s:option(ListValue, _n("d_protocol"), translate("Destination protocol"))
@@ -210,7 +212,7 @@ o = s:option(ListValue, _n("flow"), translate("flow"))
 o.default = ""
 o:value("", translate("Disable"))
 o:value("xtls-rprx-vision")
-o:depends({ [_n("protocol")] = "vless" })
+o:depends({ [_n("protocol")] = "vless" , [_n("tls")] = true })
 
 o = s:option(Flag, _n("tls"), translate("TLS"))
 o.default = 0
@@ -260,6 +262,18 @@ if singbox_tags:find("with_utls") then
 	o.default = "443"
 	o:depends({ [_n("reality")] = true })
 end
+
+o = s:option(ListValue, _n("alpn"), translate("ALPN"))
+o.default = "default"
+o:value("default", translate("Default"))
+o:value("h3")
+o:value("h2")
+o:value("h3,h2")
+o:value("http/1.1")
+o:value("h2,http/1.1")
+o:value("h3,h2,http/1.1")
+o:depends({ [_n("tls")] = true, [_n("reality")] = false })
+o:depends({ [_n("protocol")] = "hysteria" })
 
 -- [[ TLS部分 ]] --
 
@@ -397,7 +411,8 @@ for k, e in ipairs(api.get_valid_nodes()) do
 	if e.node_type == "normal" and e.type == type_name then
 		nodes_table[#nodes_table + 1] = {
 			id = e[".name"],
-			remarks = e["remark"]
+			remarks = e["remark"],
+			group = e["group"]
 		}
 	end
 end
@@ -407,7 +422,12 @@ o:value("", translate("Close"))
 o:value("_socks", translate("Custom Socks"))
 o:value("_http", translate("Custom HTTP"))
 o:value("_iface", translate("Custom Interface"))
-for k, v in pairs(nodes_table) do o:value(v.id, v.remarks) end
+o.template = api.appname .. "/cbi/nodes_listvalue"
+o.group = {"","","",""}
+for k, v in pairs(nodes_table) do
+	o:value(v.id, v.remarks)
+	o.group[#o.group+1] = (v.group and v.group ~= "") and v.group or translate("default")
+end
 o:depends({ [_n("custom")] = false })
 
 o = s:option(Value, _n("outbound_node_address"), translate("Address (Support Domain Name)"))
@@ -440,7 +460,7 @@ o.validate = function(self, value, t)
 	if value and api.jsonc.parse(value) then
 		return value
 	else
-		return nil, translate("Must be JSON text!")
+		return nil, translate("Custom Config") .. " " .. translate("Must be JSON text!")
 	end
 end
 o.custom_cfgvalue = function(self, section, value)
@@ -450,7 +470,7 @@ o.custom_cfgvalue = function(self, section, value)
 	end
 end
 o.custom_write = function(self, section, value)
-	m:set(section, "config_str", api.base64Encode(value))
+	m:set(section, "config_str", api.base64Encode(value) or "")
 end
 
 o = s:option(Flag, _n("log"), translate("Log"))

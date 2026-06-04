@@ -13,18 +13,14 @@ config openclash 'config'
 	option auto_update_time '0'
 	option cn_port '9090'
 	option dashboard_forward_ssl '0'
-	option rule_source '0'
 	option enable_custom_dns '0'
 	option ipv6_enable '0'
 	option ipv6_dns '0'
 	option enable_custom_clash_rules '0'
-	option other_rule_auto_update '0'
 	option core_version '0'
 	option en_mode 'fake-ip'
 	option enable_redirect_dns '1'
-	option servers_if_update '0'
 	option disable_masq_cache '1'
-	option servers_update '0'
 	option log_level '0'
 	option proxy_mode 'rule'
 	option intranet_allowed '1'
@@ -212,13 +208,13 @@ config dns_servers
 	option type 'https'
 
 config dns_servers
-	option enabled '0'
+	option enabled '1'
 	option group 'fallback'
 	option ip 'dns.google/dns-query'
 	option type 'https'
 
 config dns_servers
-	option enabled '0'
+	option enabled '1'
 	option group 'fallback'
 	option ip 'dns.cloudflare.com/dns-query'
 	option type 'https'
@@ -288,3 +284,13 @@ config dns_servers
 	option group 'fallback'
 	option ip 'doh.mullvad.net/dns-query'
 	option type 'https'
+
+config config_overwrite
+	option name 'default'
+	option enable '0'
+	option url 'https://raw.githubusercontent.com/vernesong/OpenClash/refs/heads/dev/luci-app-openclash/root/etc/openclash/overwrite/default'
+	option update_days 'off'
+	option update_hour 'off'
+	option type 'http'
+	option order '1'
+

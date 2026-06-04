@@ -1,6 +1,5 @@
-local sys = require "luci.sys"
 local api = require "luci.passwall.api"
-local appname = "passwall"
+local appname = api.appname
 
 local var = api.get_args(arg)
 local FLAG = var["-FLAG"]
@@ -19,6 +18,7 @@ local NO_LOGIC_LOG = var["-NO_LOGIC_LOG"]
 local TCP_NODE = var["-TCP_NODE"]
 local NFTFLAG = var["-NFTFLAG"]
 local REMOTE_FAKEDNS = var["-REMOTE_FAKEDNS"]
+local FILTER_HTTPS = var["-FILTER_HTTPS"]
 local LOG_FILE = var["-LOG_FILE"]
 
 local uci = api.uci
@@ -33,6 +33,11 @@ local FLAG_PATH = TMP_ACL_PATH .. "/" .. FLAG
 local config_lines = {}
 local tmp_lines = {}
 local USE_GEOVIEW = uci:get(appname, "@global_rules[0]", "enable_geoview")
+local IS_SHUNT_NODE = uci:get(appname, TCP_NODE, "protocol") == "_shunt"
+
+if IS_SHUNT_NODE then
+	REMOTE_FAKEDNS = uci:get(appname, TCP_NODE, "fakedns") or "0"
+end
 
 local function log(...)
 	if NO_LOGIC_LOG == "1" then
@@ -91,8 +96,11 @@ local function get_geosite(list_arg, out_path)
 	local geosite_path = uci:get(appname, "@global_rules[0]", "v2ray_location_asset") or "/usr/share/v2ray/"
 	geosite_path = geosite_path:match("^(.*)/") .. "/geosite.dat"
 	if not is_file_nonzero(geosite_path) then return 1 end
-	if api.is_finded("geoview") and list_arg and out_path then
-		sys.exec("geoview -type geosite -append=true -input " .. geosite_path .. " -list '" .. list_arg .. "' -output " .. out_path)
+	local bin = api.finded_com("geoview")
+	if bin and list_arg and out_path then
+		local cmd = string.format("%q -type geosite -append=true -input %q -list %q -output %q -lowmem=true",
+			bin, geosite_path, list_arg, out_path)
+		sys.call(cmd)
 		return 0
 	end
 	return 1
@@ -106,15 +114,13 @@ local setflag = (NFTFLAG == "1") and "inet@passwall@" or ""
 
 local only_global = (DEFAULT_MODE == "proxy" and CHNLIST == "0" and GFWLIST == "0") and 1
 
-local force_https_soa = uci:get(appname, "@global[0]", "force_https_soa") or 1
-
 config_lines = {
 	LOG_FILE ~= "/dev/null" and "verbose" or "",
 	"bind-addr ::",
 	"bind-port " .. LISTEN_PORT,
 	"china-dns " .. DNS_LOCAL,
 	"trust-dns " .. DNS_TRUST,
-	tonumber(force_https_soa) == 1 and "filter-qtype 65" or ""
+	tonumber(FILTER_HTTPS) == 1 and "filter-qtype 65" or ""
 }
 
 for i = 1, 6 do
@@ -166,16 +172,22 @@ local file_vpslist = TMP_ACL_PATH .. "/vpslist"
 if not is_file_nonzero(file_vpslist) then
 	local f_out = io.open(file_vpslist, "w")
 	local written_domains = {}
-	uci:foreach(appname, "nodes", function(t)
-		local function process_address(address)
-			if address == "engage.cloudflareclient.com" then return end
-			if datatypes.hostname(address) and not written_domains[address] then
-				f_out:write(address .. "\n")
-				written_domains[address] = true
-			end
+	local function process_address(address)
+		if address == "engage.cloudflareclient.com" then return end
+		if datatypes.hostname(address) and not written_domains[address] then
+			f_out:write(address .. "\n")
+			written_domains[address] = true
 		end
+	end
+	uci:foreach(appname, "nodes", function(t)
 		process_address(t.address)
 		process_address(t.download_address)
+	end)
+	uci:foreach(appname, "subscribe_list", function(t)  --订阅链接
+		local url, _ = api.get_domain_port_from_url(t.url or "")
+		if url and url ~= "" then
+			process_address(url)
+		end
 	end)
 	f_out:close()
 end
@@ -348,7 +360,7 @@ if CHNLIST ~= "0" and is_file_nonzero(RULES_PATH .. "/chnlist") then
 end
 
 --分流规则
-if uci:get(appname, TCP_NODE, "protocol") == "_shunt" then
+if IS_SHUNT_NODE then
 	local white_domain, lookup_white_domain = {}, {}
 	local shunt_domain, lookup_shunt_domain = {}, {}
 	local file_white_host = FLAG_PATH .. "/shunt_direct_host"
@@ -486,7 +498,7 @@ if CHNLIST == "proxy" then DEFAULT_TAG = "chn" end
 --全局模式，默认使用远程DNS
 if only_global then
 	DEFAULT_TAG = "gfw"
-	if NO_IPV6_TRUST == "1" and uci:get(appname, TCP_NODE, "protocol") ~= "_shunt" then
+	if NO_IPV6_TRUST == "1" and not IS_SHUNT_NODE then
 		table.insert(config_lines, "no-ipv6")
 	end
 end
@@ -503,11 +515,6 @@ if DEFAULT_TAG == "none" then
 end
 
 table.insert(config_lines, "hosts")
-
-local cert_verify = uci:get(appname, "@global[0]", "chinadns_ng_cert_verify") or 0
-if tonumber(cert_verify) == 1 then
-	table.insert(config_lines, "cert-verify")
-end
 
 if DEFAULT_TAG == "chn" then
 	log(string.format("  - 默认 DNS ：%s", DNS_LOCAL))
