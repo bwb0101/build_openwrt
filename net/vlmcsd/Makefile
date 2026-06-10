@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vlmcsd
 PKG_VERSION:=a04a2d7f5facb6615e62cb307a89c82b25f1b7f7
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/bwb0101/vlmcsd/tar.gz/$(PKG_VERSION)?
@@ -28,8 +28,10 @@ define Package/vlmcsd/description
 	vlmcsd is a KMS Emulator in C.
 endef
 
-MAKE_FLAGS += \
-	-C $(PKG_BUILD_DIR)
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	rm $(PKG_BUILD_DIR)/GNUmakefile
+endef
 
 define Package/vlmcsd/install
 	$(INSTALL_DIR) $(1)/usr/bin
