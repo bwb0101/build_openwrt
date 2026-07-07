@@ -1,0 +1,67 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+#
+
+name: Sync task for lean[schedule]
+
+on:
+  #repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+  schedule:
+    # local 0点
+    - cron: 0 16 */3 * *
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo timedatectl set-timezone "$TZ"
+        date=$(date +%Y%m%d%H%M%S)
+        echo "DATE=$date" >> $GITHUB_ENV
+        sudo -E apt-get -qq install jq
+
+    - name: Sync my packages
+      run: |
+        git clone https://github.com/immortalwrt/packages.git -b openwrt-25.12 mypkg/pkg
+        git clone https://github.com/kenzok8/small.git kenzok8-new
+        rm -rf mypkg/pkg/.git*
+
+        rm -rf mypkg/pkg/net/mosdns
+        rm -rf mypkg/pkg/net/sing-box
+        cp -r kenzok8-new/sing-box mypkg/pkg/net
+        
+    - name: Push my packages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: packages_immortalwrt_25
+        folder: mypkg/pkg
+        commit-message: "Build: ${{ env.DATE }}"
+        clean: true
+
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        retain_days: 1
+        keep_minimum_runs: 3
