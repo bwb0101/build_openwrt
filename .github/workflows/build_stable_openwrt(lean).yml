@@ -33,8 +33,8 @@ env:
   DIY_P2_SH: diy-part2.sh
   FEED_DIY_SH: feed_diy.sh
   FEED_UPDATE_SH: feeds_lean.sh
-  TOOLCHAIN_TAG: toolchain
-  OPENWRT_TAG: openwrt
+  TOOLCHAIN_TAG: toolchain_lede
+  OPENWRT_TAG: openwrt_lede
   UPLOAD_TOOLCHAIN: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -179,7 +179,7 @@ jobs:
           split -d -b 1900M $TOOLCHAIN_IMAGE $GITHUB_WORKSPACE/output/$TOOLCHAIN_IMAGE.img.
           rm $TOOLCHAIN_IMAGE
           cd $OPENWRT_ROOT_PATH
-          echo $CURRENT_HASH > $GITHUB_WORKSPACE/output/toolchain-$SOURCE_OWNER-$SOURCE_REPO-$REPO_BRANCH-$DEVICE_TARGET-$DEVICE_SUBTARGET.hash
+          echo $CURRENT_HASH > $GITHUB_WORKSPACE/output/$TOOLCHAIN_IMAGE.hash
           ls -lh $GITHUB_WORKSPACE/output
       - name: 从发布页删除旧版本Toolchain
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
@@ -187,14 +187,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.TOOLCHAIN_TAG }}
-          assets: "toolchain-${{ env.TOOLCHAIN_IMAGE }}.*"
+          assets: "${{ env.TOOLCHAIN_IMAGE }}.*"
           fail-if-no-assets: false
           fail-if-no-release: false
       - name: 上传Toolchain到发布页
         if: env.UPLOAD_TOOLCHAIN == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         uses: ncipollo/release-action@main
         with:
-          name: toolchain-image
+          name: toolchain-image-lede
           allowUpdates: true
           replacesArtifacts: true
           tag: ${{ env.TOOLCHAIN_TAG }}
@@ -409,10 +409,10 @@ jobs:
           fi
           cd $OPENWRT_ROOT_PATH
           mkdir -p files/snapshots
-          cp -r bin/targets files/snapshots
-          cp -r bin/packages files/snapshots
-          ls -l files/snapshots/
-          ls -l files/snapshots/packages
+          cp -r bin/targets files/snapshots/lede/25.12
+          cp -r bin/packages files/snapshots/lede/25.12
+          ls -l files/snapshots/lede/25.12
+          ls -l files/snapshots/lede/25.12/packages
           make package/install -j$(nproc) || make package/install -j1 V=s
           make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
@@ -420,7 +420,7 @@ jobs:
           rm -rf bin/targets/*/*/packages
           ls -l bin/targets/*/*
           echo "status=success" >> $GITHUB_OUTPUT
-          td=$(date +"%Y.%m.%d-%H%M(b_$REPO_BRANCH)")
+          td=$(date +"%Y.%m.%d-%H%M($SOURCE_REPO_$REPO_BRANCH)")
           echo "release_tag=$td" >> $GITHUB_OUTPUT
       - name: 打印磁盘使用情况
         if: always()
