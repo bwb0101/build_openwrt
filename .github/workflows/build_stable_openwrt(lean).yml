@@ -76,7 +76,6 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo apt update -y
           sudo apt full-upgrade -y
           #sudo -E apt-get -qq install $(curl -fsSL https://raw.githubusercontent.com/Huanyueyichen/openwrt-list/master/immortalwrt-ubuntu-2204)
@@ -237,7 +236,6 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-            sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
             sudo -E apt-get -qq update
             #sudo -E apt-get -qq install $(curl -fsSL https://raw.githubusercontent.com/Huanyueyichen/openwrt-list/master/immortalwrt-ubuntu-2204)
             #sudo apt update -y
