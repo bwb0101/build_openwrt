@@ -290,8 +290,8 @@ jobs:
           cd $GITHUB_WORKSPACE
           git init
           git remote add origin https://github.com/$GITHUB_REPOSITORY
-          git fetch
-          git checkout -t origin/$CURRENT_BRANCH
+          git fetch --depth=1 --no-tags origin $CURRENT_BRANCH
+          git checkout -B $CURRENT_BRANCH FETCH_HEAD
       - name: 从发布页下载Toolchain
         if: env.UPLOAD_TOOLCHAIN == 'true'
         run: |
