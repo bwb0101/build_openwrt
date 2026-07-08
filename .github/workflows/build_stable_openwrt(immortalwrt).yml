@@ -384,7 +384,7 @@ jobs:
             cat distfeeds.list
           fi
           cd $OPENWRT_ROOT_PATH
-          mkdir -p files/snapshots
+          mkdir -p files/snapshots/immortalwrt/25.12
           cp -r bin/targets files/snapshots/immortalwrt/25.12
           cp -r bin/packages files/snapshots/immortalwrt/25.12
           ls -l files/snapshots/immortalwrt/25.12
