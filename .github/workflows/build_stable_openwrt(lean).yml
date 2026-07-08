@@ -101,7 +101,6 @@ jobs:
             python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
             swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev scdoc
           sudo timedatectl set-timezone "$TZ"
-          docker image prune -a -f
           git config --global init.defaultBranch main
           mkdir -p workspace
 
