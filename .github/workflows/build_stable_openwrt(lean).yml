@@ -71,7 +71,21 @@ jobs:
           echo -e "$(sudo lshw -short -C memory | grep GiB)\n"
           echo "--------------------------硬盘信息--------------------------"
           echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
-
+      - name: 释放磁盘空间
+        if: env.FREE_UP_DISK == 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -y -q purge azure-cli ghc* zulu* firefox google* dotnet* powershell openjdk* mysql* php* android* snapd* google-cloud-cli || true
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/share/swift
+          docker image prune -a -f
+          df -h
       - name: 初始化系统环境
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -232,6 +246,21 @@ jobs:
           echo "DEVICE_TARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_TARGET}}')" >> $GITHUB_ENV
           echo "DEVICE_SUBTARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_SUBTARGET}}')" >> $GITHUB_ENV
           echo "TOOLCHAIN_IMAGE=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_IMAGE}}')" >> $GITHUB_ENV
+      - name: 释放磁盘空间
+        if: env.FREE_UP_DISK == 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -y -q purge azure-cli ghc* zulu* firefox google* dotnet* powershell openjdk* mysql* php* android* snapd* google-cloud-cli || true
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/share/swift
+          docker image prune -a -f
+          df -h
       - name: 初始化系统环境
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -247,10 +276,7 @@ jobs:
               mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
               libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs libfuse-dev unzip \
               vim wget xmlto xxd zlib1g-dev python3-setuptools
-            sudo -E apt-get -qq autoremove --purge
-            sudo -E apt-get -qq clean
             sudo timedatectl set-timezone "$TZ"
-            docker image prune -a -f
             git config --global init.defaultBranch main
             date=$(date +%Y%m%d%H%M%S)
             echo "DATE=$date" >> $GITHUB_ENV
@@ -350,17 +376,6 @@ jobs:
           ccache -s || true
           # which ccache
           [ -e $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache ] || ln -s "$(command -v ccache)" $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache
-      - name: 释放磁盘空间
-        if: env.FREE_UP_DISK == 'true'
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo -E apt-get -q purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
-          docker image prune -a -f
-          df -h
       - name: 下载Packages
         id: download
         run: |
