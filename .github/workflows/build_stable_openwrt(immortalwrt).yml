@@ -154,7 +154,7 @@ jobs:
           cd $OPENWRT_ROOT_PATH
           echo -e "$(nproc) thread compile"
           make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
-          rm -rf .config* dl bin
+          rm -rf .git .github .ccache .config* dl bin
       - name: 生成Toolchain.img
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
@@ -225,8 +225,6 @@ jobs:
             sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
             sudo -E apt-get -qq update
             sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
-            sudo -E apt-get -qq autoremove --purge
-            sudo -E apt-get -qq clean
             sudo timedatectl set-timezone "$TZ"
             docker image prune -a -f
             git config --global init.defaultBranch main
@@ -335,10 +333,6 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo -E apt-get -q purge azure-cli ghc* zulu* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
           docker image prune -a -f
           df -h
       - name: 下载Packages
