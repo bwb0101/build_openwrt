@@ -61,7 +61,8 @@ jobs:
         clean: true
 
     - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: Mattraks/delete-workflow-runs@v2.1.0
       with:
         retain_days: 1
         keep_minimum_runs: 3
+        delete_workflow_pattern: Sync task.*immortalwrt.*
