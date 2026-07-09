@@ -308,7 +308,7 @@ jobs:
           cd $OPENWRT_ROOT_PATH
           git pull
       - name: 恢复缓存（dl + ccache）
-        uses: actions/cache@v4
+        uses: actions/cache@v6.1.0
         with:
           path: |
             ${{ env.OPENWRT_ROOT_PATH }}/dl
