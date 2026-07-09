@@ -35,6 +35,7 @@ env:
   FEED_UPDATE_SH: feeds_lean.sh
   TOOLCHAIN_TAG: toolchain_lede
   OPENWRT_TAG: openwrt_lede
+  BUILD_TAG: lean_25
   UPLOAD_TOOLCHAIN: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -335,9 +336,9 @@ jobs:
           path: |
             ${{ env.OPENWRT_ROOT_PATH }}/dl
             ${{ env.OPENWRT_ROOT_PATH }}/.ccache
-          key: ${{ runner.os }}-lean-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ hashFiles('cfgs/x86_config_lean', 'feeds_lean.sh', 'diy-part1.sh', 'diy-part2.sh') }}
+          key: ${{ runner.os }}-${{ env.BUILD_TAG }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ hashFiles('cfgs/x86_config_lean', 'feeds_lean.sh', 'diy-part1.sh', 'diy-part2.sh') }}
           restore-keys: |
-            ${{ runner.os }}-lean-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-
+            ${{ runner.os }}-${{ env.BUILD_TAG }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-
       - name: 设置 ccache 环境变量
         run: |
           echo "CCACHE_DIR=${OPENWRT_ROOT_PATH}/.ccache" >> $GITHUB_ENV
