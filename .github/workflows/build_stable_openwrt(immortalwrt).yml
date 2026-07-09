@@ -397,7 +397,7 @@ jobs:
           rm -rf bin/targets/*/*/packages
           ls -l bin/targets/*/*
           echo "status=success" >> $GITHUB_OUTPUT
-          td=$(date +"%Y.%m.%d-%H%M($SOURCE_REPO_$REPO_BRANCH)")
+          td="${SOURCE_REPO}_$(date +"%Y.%m.%d-%H%M")(${REPO_BRANCH})"
           echo "release_tag=$td" >> $GITHUB_OUTPUT
       - name: 打印磁盘使用情况
         if: always()
