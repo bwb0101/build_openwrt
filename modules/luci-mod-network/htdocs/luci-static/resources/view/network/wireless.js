@@ -40,6 +40,12 @@ let cachedIwinfoInfoMap = null;
 let cachedIwinfoInfoPromise = null;
 let cachedIwinfoResolver = null;
 let cachedIwinfoResolverPromise = null;
+let cachedAssocLists = Object.create(null);
+let pendingAssocLists = Object.create(null);
+let qcaRuntimeProbeHoldoffUntil = 0;
+
+const qcaRuntimeProbeHoldoffKey = 'luci-qca-wireless-runtime-holdoff';
+const qcaRuntimeProbeHoldoff = 30000;
 
 function pushUnique(list, value) {
 	if (value && list.indexOf(value) < 0)
@@ -189,14 +195,11 @@ function buildIwinfoResolver(devices) {
 }
 
 function loadIwinfoResolver(force) {
-	if (force)
-		cachedIwinfoResolverPromise = null;
+	if (cachedIwinfoResolverPromise != null)
+		return cachedIwinfoResolverPromise;
 
 	if (!force && cachedIwinfoResolver != null)
 		return Promise.resolve(cachedIwinfoResolver);
-
-	if (cachedIwinfoResolverPromise != null)
-		return cachedIwinfoResolverPromise;
 
 	cachedIwinfoResolverPromise = L.resolveDefault(callIwinfoDevices(), {}).then((res) => {
 		cachedIwinfoResolver = buildIwinfoResolver(res?.devices);
@@ -221,14 +224,11 @@ function loadIwinfoResolver(force) {
 }
 
 function loadIwinfoInfoMap(force) {
-	if (force)
-		cachedIwinfoInfoPromise = null;
+	if (cachedIwinfoInfoPromise != null)
+		return cachedIwinfoInfoPromise;
 
 	if (!force && cachedIwinfoInfoMap != null)
 		return Promise.resolve(cachedIwinfoInfoMap);
-
-	if (cachedIwinfoInfoPromise != null)
-		return cachedIwinfoInfoPromise;
 
 	cachedIwinfoInfoPromise = loadIwinfoResolver(force).then((resolver) => {
 		const queryTargets = resolver.queryTargets.length ? resolver.queryTargets : getLegacyIwinfoProbeTargets();
@@ -289,6 +289,13 @@ function refreshIwinfoInfoMap() {
 	return loadIwinfoInfoMap(true);
 }
 
+function startIwinfoInfoRefresh() {
+	if (areQcaRuntimeProbesSuspended())
+		return;
+
+	refreshIwinfoInfoMap().catch(() => {});
+}
+
 function count_changes(section_id) {
 	const changes = ui.changes.changes?.wireless;
 	if (!Array.isArray(changes)) return 0;
@@ -298,6 +305,29 @@ function count_changes(section_id) {
 
 function isQcaWifiHwtype(hwtype) {
 	return (hwtype == 'qcawifi' || hwtype == 'qcawificfg80211');
+}
+
+function suspendQcaRuntimeProbes() {
+	qcaRuntimeProbeHoldoffUntil = Date.now() + qcaRuntimeProbeHoldoff;
+
+	try {
+		window.sessionStorage.setItem(qcaRuntimeProbeHoldoffKey, String(qcaRuntimeProbeHoldoffUntil));
+	}
+	catch (e) {}
+}
+
+function areQcaRuntimeProbesSuspended() {
+	let deadline = qcaRuntimeProbeHoldoffUntil;
+
+	try {
+		deadline = Math.max(deadline, +window.sessionStorage.getItem(qcaRuntimeProbeHoldoffKey) || 0);
+
+		if (deadline <= Date.now())
+			window.sessionStorage.removeItem(qcaRuntimeProbeHoldoffKey);
+	}
+	catch (e) {}
+
+	return (deadline > Date.now());
 }
 
 function isConfigWifiDeviceDisabled(deviceName) {
@@ -570,6 +600,8 @@ function getDisplayChannel(radioNet) {
 
 	if (channel != null && channel !== '' && channel !== 'auto')
 		return +channel;
+	if (channel == 'auto')
+		return channel;
 
 	return null;
 }
@@ -1144,6 +1176,10 @@ function getAssocListForNetwork(radioNet) {
 		return Promise.resolve([]);
 
 	const hwtype = uci.get('wireless', radioNet.getWifiDeviceName(), 'type');
+
+	if (isQcaWifiHwtype(hwtype) && areQcaRuntimeProbesSuspended())
+		return Promise.resolve([]);
+
 	const candidates = getAssocListCandidates(radioNet);
 	const resolvedIfname = candidates[0];
 
@@ -1178,6 +1214,20 @@ function getAssocListForNetwork(radioNet) {
 	}));
 }
 
+function getCachedAssocListForNetwork(radioNet) {
+	const key = radioNet.getName();
+
+	if (pendingAssocLists[key] == null) {
+		pendingAssocLists[key] = getAssocListForNetwork(radioNet).then((entries) => {
+			cachedAssocLists[key] = Array.isArray(entries) ? entries : [];
+		}).catch(() => {}).then(() => {
+			delete pendingAssocLists[key];
+		});
+	}
+
+	return Promise.resolve(cachedAssocLists[key] || []);
+}
+
 function isDisplayAssociated(radioNet, hwtype, mode, bssid, channel, disabled) {
 	if (bssid && bssid != '00:00:00:00:00:00' && channel && mode != 'Unknown' && !disabled)
 		return true;
@@ -1202,7 +1252,7 @@ function getDisplaySignalPercent(radioNet, hwtype, is_assoc, disabled) {
 
 function getDisplaySignalValue(radioNet, hwtype, is_assoc) {
 	if ((hwtype == 'mt_dbdc' || (isQcaWifiHwtype(hwtype) && radioNet.getMode() == 'ap')) && is_assoc)
-		return getDisplayTxPower(radioNet);
+		return getDisplayTxPower(radioNet) ?? 30;
 
 	return radioNet.getSignal();
 }
@@ -1448,8 +1498,12 @@ function radio_restart(id, ev) {
 
 function network_updown(id, map, ev) {
 	const radio = uci.get('wireless', id, 'device');
+	const hwtype = uci.get('wireless', radio, 'type');
 	const disabled = (uci.get('wireless', id, 'disabled') == '1') ||
 	               (uci.get('wireless', radio, 'disabled') == '1');
+
+	if (isQcaWifiHwtype(hwtype))
+		suspendQcaRuntimeProbes();
 
 	if (disabled) {
 		uci.unset('wireless', id, 'disabled');
@@ -1532,14 +1586,19 @@ var CBIWifiFrequencyValue = form.Value.extend({
 		const chval = +cfg_channel;
 		const allow_auto = (hwtype == 'mt_dbdc' || isQcaWifiHwtype(hwtype) ||
 			cfg_channel == 'auto' || L.hasSystemFeature('hostapd', 'acs'));
+		const configOnly = isConfigWifiDeviceDisabled(device_section) ||
+			(isQcaWifiHwtype(hwtype) && areQcaRuntimeProbesSuspended());
+		const configDevice = configOnly
+			? network.getWifiDevicesFromConfig().find((device) => device.getName() == device_section)
+			: null;
 
 		return Promise.all([
-			network.getWifiDevice(device_section),
-			this.callFrequencyList(device_section),
-			this.callDeviceInfo(device_section),
-			L.resolveDefault(this.callWirelessStatus(), {}),
-			isQcaWifiHwtype(hwtype) ? L.resolveDefault(fs.exec_direct('/usr/sbin/iw', [ 'dev' ]), '') : '',
-			isQcaWifiHwtype(hwtype) ? L.resolveDefault(fs.exec_direct('/usr/sbin/iw', [ 'phy' ]), '') : ''
+			configOnly ? configDevice : network.getWifiDevice(device_section),
+			configOnly ? [] : this.callFrequencyList(device_section),
+			configOnly ? {} : this.callDeviceInfo(device_section),
+			configOnly ? {} : L.resolveDefault(this.callWirelessStatus(), {}),
+			!configOnly && isQcaWifiHwtype(hwtype) ? L.resolveDefault(fs.exec_direct('/usr/sbin/iw', [ 'dev' ]), '') : '',
+			!configOnly && isQcaWifiHwtype(hwtype) ? L.resolveDefault(fs.exec_direct('/usr/sbin/iw', [ 'phy' ]), '') : ''
 		]).then(L.bind(function(data) {
 			const wifidevs = data[0];
 			const freqlist = data[1];
@@ -1597,6 +1656,10 @@ var CBIWifiFrequencyValue = form.Value.extend({
 			}
 
 			const configured_band = getConfiguredBand(hwtype, statuscfg.hwmode ?? hwval, devcfg.channel ?? cfg_channel, devcfg.band ?? bandval, statuscfg.htmode ?? htval);
+
+			if (configOnly && cfg_channel && cfg_channel != 'auto' && Array.isArray(this.channels[configured_band]))
+				this.channels[configured_band].push(cfg_channel, String(cfg_channel), { available: true });
+
 			const has_band_channels = (band) => {
 				const channels = this.channels[band];
 				const offset = (channels?.[0] == 'auto') ? 3 : 0;
@@ -2212,8 +2275,10 @@ var CBIWifiTxPowerValue = form.ListValue.extend({
 
 	load: function(section_id) {
 		const device_section = this.getDeviceSection ? this.getDeviceSection(section_id) : section_id;
+		const hwtype = uci.get('wireless', device_section, 'type');
 
-		if (isConfigWifiDeviceDisabled(device_section)) {
+		if (isConfigWifiDeviceDisabled(device_section) ||
+		    (isQcaWifiHwtype(hwtype) && areQcaRuntimeProbesSuspended())) {
 			this.powerval = this.wifiNetwork ? getDisplayTxPower(this.wifiNetwork) : null;
 			this.poweroff = this.wifiNetwork ? this.wifiNetwork.getTXPowerOffset() : null;
 			this.value('', _('driver default'));
@@ -2424,7 +2489,7 @@ return view.extend({
 			callSystemBoard()
 		]).then((data) => {
 			this.boardinfo = data[4] || {};
-			return refreshIwinfoInfoMap().then(() => data);
+			return data;
 		});
 	},
 
@@ -2488,25 +2553,12 @@ return view.extend({
 		s.addremove = false;
 
 		s.load = function() {
-			return network.getWifiDevices().then(L.bind(function(radios) {
-				this.radios = radios.sort(function(a, b) {
-					return a.getName() > b.getName();
-				});
+			this.radios = network.getWifiDevicesFromConfig().sort(function(a, b) {
+				return a.getName() > b.getName();
+			});
+			this.wifis = network.getWifiNetworksFromConfig();
 
-				const tasks = [];
-
-				radios.forEach(radio => {
-					tasks.push(radio.getWifiNetworks());
-				});
-
-				return Promise.all(tasks);
-			}, this)).then(L.bind(function(data) {
-				this.wifis = [];
-
-				data.forEach(d => {
-					this.wifis.push.apply(this.wifis, d);
-				});
-			}, this));
+			return Promise.resolve();
 		};
 
 		s.cfgsections = function() {
@@ -4644,7 +4696,9 @@ return view.extend({
 
 		return m.render().then(L.bind(function(m, nodes) {
 			poll.add(L.bind(function() {
-				const tasks = [ network.getHostHints(), network.getWifiDevices(), refreshIwinfoInfoMap() ];
+				const tasks = [ network.getHostHints(), network.getWifiDevices() ];
+
+				startIwinfoInfoRefresh();
 
 				m?.children[0]?.cfgsections?.().forEach(s => {
 					const row = nodes.querySelector('.cbi-section-table-row[data-sid="%s"]'.format(s));
@@ -4681,8 +4735,14 @@ return view.extend({
 					}, network))
 					.then(L.bind(function(hosts_radios_wifis) {
 						const tasks = [];
+						const section = m?.children?.[0];
 
-						hosts_radios_wifis[2].forEach(hrw => tasks.push(getAssocListForNetwork(hrw)) );
+						if (section != null) {
+							section.radios = hosts_radios_wifis[1];
+							section.wifis = hosts_radios_wifis[2];
+						}
+
+						hosts_radios_wifis[2].forEach(hrw => tasks.push(getCachedAssocListForNetwork(hrw)) );
 
 						return Promise.all(tasks).then(function(data) {
 							hosts_radios_wifis[3] = [];
