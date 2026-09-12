@@ -49,7 +49,7 @@ jobs:
         git clone https://github.com/kenzok8/openwrt-packages.git kenzok8
         git clone https://github.com/kenzok8/small.git kenzok8-new
         git clone https://github.com/sbwml/luci-app-mosdns.git myplugin/mosdns
-        git clone https://github.com/sbwml/v2ray-geodata myplugin/v2ray-geodata
+        #git clone https://github.com/sbwml/v2ray-geodata myplugin/v2ray-geodata
         git clone https://github.com/pymumu/luci-app-smartdns.git myplugin/smartdns/luci-app-smartdns
         git clone https://github.com/pymumu/openwrt-smartdns.git myplugin/smartdns/smartdns
         #luci-app-eqosplus没有二级子目录，feeds更新时会报错
@@ -65,14 +65,14 @@ jobs:
         cp -r myplugin/smartdns/smartdns mypkg/pkg/net
         cp -r myplugin/smartdns/luci-app-smartdns mypkg/luci/applications
         cp -r kenzok8-new/luci-app-homeproxy mypkg/luci/applications
-        rm -rf mypkg/pkg/net/v2ray-geodata
+        #rm -rf mypkg/pkg/net/v2ray-geodata
+        #rm -rf mypkg/pkg/utils/v2dat
         rm -rf mypkg/pkg/net/mosdns
-        rm -rf mypkg/pkg/utils/v2dat
         rm -rf mypkg/luci/applications/luci-app-mosdns
-        cp -r myplugin/v2ray-geodata mypkg/pkg/net
+        #cp -r myplugin/v2ray-geodata mypkg/pkg/net
+        #cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
         cp -r myplugin/mosdns/mosdns mypkg/pkg/net
         cp -r myplugin/mosdns/luci-app-mosdns mypkg/luci/applications
-        cp -r myplugin/mosdns/v2dat mypkg/pkg/utils
         cp -r myplugin/luci-app-eqosplus mypkg/luci/applications
 
         VLMCSD_MAKEFILE="mypkg/pkg/net/vlmcsd/Makefile"
