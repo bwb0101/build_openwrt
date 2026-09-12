@@ -445,4 +445,4 @@ jobs:
         with:
           retain_days: 1
           keep_minimum_runs: 3
-          delete_workflow_pattern: Build OpenWrt.*immortalwrt.*
+          delete_workflow_pattern: ${{ github.workflow }}
