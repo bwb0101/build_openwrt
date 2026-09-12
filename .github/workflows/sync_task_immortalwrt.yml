@@ -44,14 +44,24 @@ jobs:
 
     - name: Sync my packages
       run: |
+        git clone https://github.com/immortalwrt/luci.git -b openwrt-25.12 mypkg/luci
         git clone https://github.com/immortalwrt/packages.git -b openwrt-25.12 mypkg/pkg
-        git clone https://github.com/kenzok8/small.git kenzok8-new
+        git clone https://github.com/kenzok8/small-package.git kenzok8-new
         rm -rf mypkg/pkg/.git*
 
         rm -rf mypkg/pkg/net/mosdns
         rm -rf mypkg/pkg/net/sing-box
         cp -r kenzok8-new/sing-box mypkg/pkg/net
-        
+        cp -r kenzok8-new/luci-app-homeassistant mypkg/luci/applications
+
+    - name: Push my packages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: luci_immortalwrt_25
+        folder: mypkg/luci
+        commit-message: "Build: ${{ env.DATE }}"
+        clean: true
+
     - name: Push my packages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
