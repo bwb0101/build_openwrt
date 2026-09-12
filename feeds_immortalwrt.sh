@@ -5,3 +5,4 @@ echo "src-git easytier https://github.com/EasyTier/luci-app-easytier.git;main" >
 echo "src-git mosdns https://github.com/sbwml/luci-app-mosdns;v5" >> feeds.conf.default
 echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> feeds.conf.default
 echo "src-git lucky https://github.com/sirpdboy/luci-app-lucky.git;main" >> feeds.conf.default
+echo "src-git istore https://github.com/linkease/istore.git;main" >> feeds.conf.default
