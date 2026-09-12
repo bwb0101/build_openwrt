@@ -1,4 +1,7 @@
 module("luci.passwall.api", package.seeall)
+appname = "passwall"
+c_config = "passwall"
+s_config = "passwall_server"
 local com = require "luci.passwall.com"
 nixio = require "nixio"
 fs = require "nixio.fs"
@@ -16,9 +19,11 @@ OPENWRT_ARCH = nil
 DISTRIB_ARCH = nil
 OPENWRT_BOARD = nil
 
-CACHE_PATH = "/tmp/etc/" .. appname .. "_tmp"
-LOG_FILE = "/tmp/log/" .. appname .. ".log"
-TMP_PATH = "/tmp/etc/" .. appname
+LOCK_PREFIX = "/tmp/lock/" .. c_config
+LOG_FILE = "/tmp/log/" .. c_config .. ".log"
+TMP_PATH = "/tmp/etc/" .. c_config
+CACHE_PATH = TMP_PATH .. "_tmp"
+S_TMP_PATH = "/tmp/etc/" .. s_config
 TMP_IFACE_PATH = TMP_PATH .. "/iface"
 
 function log(...)
@@ -30,15 +35,89 @@ function log(...)
 	end
 end
 
-function is_js_luci()
-	return sys.call('[ -f "/www/luci-static/resources/uci.js" ]') == 0
-end
-
 function is_old_uci()
 	return sys.call("grep -E 'require[ \t]*\"uci\"' /usr/lib/lua/luci/model/uci.lua >/dev/null 2>&1") == 0
 end
 
+function uci_del(config, section, option)
+	if option then
+		return uci:delete(config, section, option)
+	else
+		return uci:delete(config, section)
+	end
+end
+
+function uci_get(config, section, option)
+	if not section then
+		return uci:get_all(config)
+	elseif option then
+		return uci:get(config, section, option) or nil
+	else
+		return uci:get_all(config, section)
+	end
+end
+
+function uci_set(config, section, option, value)
+	if type(value) == "number" then
+		value = value .. ""
+	end
+	if #value > 0 then
+		if option then
+			if type(value) == "table" then
+				return uci:set_list(config, section, option, value)
+			else
+				return uci:set(config, section, option, value)
+			end
+		else
+			return uci:set(config, section, value)
+		end
+	else
+		return uci_del(config, section, option)
+	end
+end
+
+function uci_del_c(section, option)
+	return uci_del(c_config, section, option)
+end
+
+function uci_foreach_c(stype, func)
+	uci:foreach(c_config, stype, func)
+end
+
+function uci_get_c(section, option)
+	return uci_get(c_config, section, option)
+end
+
+function uci_set_c(section, option, value)
+	return uci_set(c_config, section, option, value)
+end
+
+function uci_save_c(commit, apply)
+	return uci_save(uci, c_config, commit, apply)
+end
+
+function uci_del_s(section, option)
+	return uci_del(s_config, section, option)
+end
+
+function uci_foreach_s(stype, func)
+	uci:foreach(s_config, stype, func)
+end
+
+function uci_get_s(section, option)
+	return uci_get(s_config, section, option)
+end
+
+function uci_set_s(section, option, value)
+	return uci_set(s_config, section, option, value)
+end
+
+function uci_save_s(commit, apply)
+	return uci_save(uci, s_config, commit, apply)
+end
+
 function uci_save(cursor, config, commit, apply)
+	if not cursor then cursor = uci end
 	if is_old_uci() then
 		cursor:save(config)
 		if commit then
@@ -100,21 +179,17 @@ function get_new_port()
 end
 
 function exec_call(cmd)
-	local process = io.popen(cmd .. '; echo -e "\n$?"')
-	local lines = {}
-	local result = ""
-	local return_code
-	for line in process:lines() do
-		lines[#lines + 1] = line
+	math.randomseed(os.time())
+	local tag = "\x01__RC__" .. tostring(math.random(100000, 999999)) .. "\x01"
+	local f = io.popen('(' .. cmd .. '); printf "\\n' .. tag .. '%d" "$?"')
+	local out = f:read("*a") or ""
+	f:close()
+	local rc = out:match(tag .. "(%d+)%s*$")
+	if not rc then
+		return 255, trim(out)
 	end
-	process:close()
-	if #lines > 0 then
-		return_code = lines[#lines]
-		for i = 1, #lines - 1 do
-			result = result .. lines[i] .. ((i == #lines - 1) and "" or "\n")
-		end
-	end
-	return tonumber(return_code), trim(result)
+	out = out:gsub("\n?" .. tag .. "%d+%s*$", "")
+	return tonumber(rc), trim(out)
 end
 
 function base64Decode(text)
@@ -136,12 +211,14 @@ function base64Encode(text)
 end
 
 function UrlEncode(szText)
+	if type(szText) ~= "string" then return "" end
 	return szText:gsub("([^%w%-_%.%~])", function(c)
 		return string.format("%%%02X", string.byte(c))
 	end)
 end
 
 function UrlDecode(szText)
+	if type(szText) ~= "string" then return "" end
 	return szText and szText:gsub("%+", " "):gsub("%%(%x%x)", function(h)
 		return string.char(tonumber(h, 16))
 	end) or nil
@@ -181,7 +258,7 @@ end
 
 function curl_proxy(url, file, args)
 	--使用代理
-	local socks_server = get_cache_var("GLOBAL_TCP_SOCKS_server")
+	local socks_server = get_cache_var("GLOBAL_SOCKS_server")
 	if socks_server and socks_server ~= "" then
 		if not args then args = {} end
 		local tmp_args = clone(args)
@@ -201,7 +278,7 @@ end
 
 function curl_direct(url, file, args)
 	--直连访问
-	local chn_list = uci:get(appname, "@global[0]", "chn_list") or "direct"
+	local chn_list = uci_get_c("@global[0]", "chn_list") or "direct"
 	local Dns = (chn_list == "proxy") and "1.1.1.1" or "223.5.5.5"
 	if not args then args = {} end
 	local tmp_args = clone(args)
@@ -216,7 +293,7 @@ function curl_direct(url, file, args)
 end
 
 function curl_auto(url, file, args)
-	local localhost_proxy = uci:get(appname, "@global[0]", "localhost_proxy") or "1"
+	local localhost_proxy = uci_get_c("@global[0]", "localhost_proxy") or "1"
 	if localhost_proxy == "1" then
 		return curl_base(url, file, args) -- 当路由器本机开启代理时，采用passwall规则进行访问
 	else
@@ -350,6 +427,33 @@ function strToTable(str)
 	return loadstring("return " .. str)()
 end
 
+function is_json(str)
+	if str and jsonc.parse(str) then
+		return true
+	end
+	return false
+end
+datatypes.json = is_json
+
+function is_timehhmm(str)
+	local hour, minute = string.match(str, "^(%d?%d):(%d%d)$")
+	if hour and minute then
+		hour = tonumber(hour)
+		minute = tonumber(minute)
+		if hour >= 0 and hour <= 23 and minute >= 0 and minute <= 59 then
+			return true
+		end
+	end
+	return false
+end
+datatypes.timehhmm = is_timehhmm
+
+function is_uuid(str)
+	local pattern = "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$"
+	return string.match(str, pattern) ~= nil
+end
+datatypes.uuid = is_uuid
+
 function is_normal_node(e)
 	if e and e.type and e.protocol and (e.protocol == "_balancing" or e.protocol == "_shunt" or e.protocol == "_iface" or e.protocol == "_urltest") then
 		return false
@@ -362,11 +466,13 @@ function is_special_node(e)
 end
 
 function is_ip(val)
+	val = trim(val):lower()
 	local str = val:match("%[(.-)%]") or val
 	return datatypes.ipaddr(str) or false
 end
 
 function is_ipv6(val)
+	val = trim(val):lower()
 	local str = val:match("%[(.-)%]") or val
 	return datatypes.ip6addr(str) or false
 end
@@ -455,11 +561,11 @@ function get_domain_from_url(url)
 end
 
 function get_valid_nodes()
-	local show_node_info = uci_get_type("global_other", "show_node_info", "0")
+	local show_node_info = uci_get_c("@global_other[0]", "show_node_info") or "0"
 	local nodes = {}
 	local default_nodes = {}
 	local other_nodes = {}
-	uci:foreach(appname, "nodes", function(e)
+	uci_foreach_c("nodes", function(e)
 		e.id = e[".name"]
 		if e.type and e.remarks then
 			local type_name = e.type
@@ -474,9 +580,10 @@ function get_valid_nodes()
 				end
 			end
 			local port = e.port or e.hysteria_hop or e.hysteria2_hop
-			if port and e.address then
+			local is_realm = (e.type == "Hysteria2" or e.protocol == 'hysteria2') and e.hysteria2_realms or nil
+			if (port and e.address) or is_realm then
 				local address = e.address
-				if is_ip(address) or datatypes.hostname(address) then
+				if is_ip(address) or datatypes.hostname(address) or is_realm then
 					if (e.type == "sing-box" or e.type == "Xray") and e.protocol then
 						local protocol = e.protocol
 						if protocol == "vmess" then
@@ -503,10 +610,13 @@ function get_valid_nodes()
 						type_name = type_name .. " " .. protocol
 					end
 					if is_ipv6(address) then address = get_ipv6_full(address) end
+					type_name = is_realm and type_name .. " Realm" or type_name
 					e["remark"] = trim("%s：[%s]" % {type_name, e.remarks})
 					if show_node_info == "1" then
-						port = port:gsub(":", "-")
-						e["remark"] = trim("%s：[%s] %s:%s" % {type_name, e.remarks, address, port})
+						port = (port or ""):gsub(":", "-")
+						if not is_realm then
+							e["remark"] = trim("%s：[%s] %s:%s" % {type_name, e.remarks, address, port})
+						end
 					end
 					e.node_type = "normal"
 					if not e.group or e.group == "" then
@@ -528,10 +638,10 @@ function get_node_list()
 		socks_list = {},
 		normal_list = {},
 	}
-	uci:foreach(appname, "socks", function(s)
+	uci_foreach_c("socks", function(s)
 		if s.enabled == "1" and s.node then
 			node_list.socks_list[#node_list.socks_list + 1] = {
-				id = "Socks_" .. s[".name"],
+				id = s[".name"],
 				remark = i18n.translate("Socks Config") .. " [" .. s.port .. i18n.translate("Port") .. "]",
 				group = "Socks"
 			}
@@ -596,6 +706,9 @@ function get_node_remarks(n)
 				end
 				type_name = type_name .. " " .. protocol
 			end
+			if (n.type == "Hysteria2" or n.protocol == 'hysteria2') and n.hysteria2_realms then
+				type_name = type_name .. " Realm"
+			end
 			remarks = trim("%s：[%s]" % {type_name, n.remarks})
 		end
 	end
@@ -614,35 +727,40 @@ function get_full_node_remarks(n)
 	return remarks
 end
 
-function gen_uuid(format)
-	local uuid = sys.exec("echo -n $(cat /proc/sys/kernel/random/uuid)")
-	if format == nil then
-		uuid = string.gsub(uuid, "-", "")
+function get_random_normal_node(exclude_id)
+	local exclude_id_lookup = {}
+	if type(exclude_id) == "table" then
+		for i, v in ipairs(exclude_id) do
+			exclude_id_lookup[v] = true
+		end
+	elseif type(exclude_id) == "string" then
+		exclude_id_lookup[exclude_id] = true
 	end
+	local normal_list = {}
+	for k, e in ipairs(get_valid_nodes()) do
+		if e.node_type == "normal" and not exclude_id_lookup[e[".name"]] then
+			normal_list[#normal_list + 1] = e
+		end
+	end
+	if #normal_list > 0 then
+		math.randomseed(os.time())
+		local num = math.random(1, #normal_list)
+		return normal_list[num]
+	end
+	return nil
+end
+
+function gen_uuid()
+	local uuid = sys.exec("echo -n $(cat /proc/sys/kernel/random/uuid)")
 	return uuid
 end
 
-function gen_short_uuid()
-	return sys.exec("echo -n $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8)")
+function gen_random_char(length)
+	if not length then length = 8 end
+	return sys.exec("echo -n $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c %s)" % length)
 end
 
-function uci_get_type(type, config, default)
-	local value = uci:get_first(appname, type, config, default) or sys.exec("echo -n $(uci -q get " .. appname .. ".@" .. type .."[0]." .. config .. ")")
-	if (value == nil or value == "") and (default and default ~= "") then
-		value = default
-	end
-	return value
-end
-
-function uci_get_type_id(id, config, default)
-	local value = uci:get(appname, id, config, default) or sys.exec("echo -n $(uci -q get " .. appname .. "." .. id .. "." .. config .. ")")
-	if (value == nil or value == "") and (default and default ~= "") then
-		value = default
-	end
-	return value
-end
-
-local function chmod_755(file)
+function chmod_755(file)
 	if file and file ~= "" then
 		if not fs.access(file, "rwx", "rx", "rx") then
 			fs.chmod(file, 755)
@@ -651,7 +769,7 @@ local function chmod_755(file)
 end
 
 function get_customed_path(e)
-	return uci_get_type("global_app", e .. "_file")
+	return uci_get_c("@global_app[0]", e .. "_file")
 end
 
 function finded_com(e)
@@ -690,16 +808,16 @@ function clone(org)
 end
 
 function get_bin_version_cache(file, cmd)
-	sys.call("mkdir -p /tmp/etc/passwall_tmp")
+	sys.call("mkdir -p " .. CACHE_PATH)
 	if fs.access(file) then
 		chmod_755(file)
 		local md5 = sys.exec("echo -n $(md5sum " .. file .. " | awk '{print $1}')")
-		if fs.access("/tmp/etc/passwall_tmp/" .. md5) then
-			return sys.exec("echo -n $(cat /tmp/etc/passwall_tmp/%s)" % md5)
+		if fs.access(CACHE_PATH .. "/" .. md5) then
+			return sys.exec("echo -n $(cat %s)" % { CACHE_PATH .. "/" .. md5 })
 		else
 			local version = sys.exec(string.format("echo -n $(%s %s)", file, cmd))
 			if version and version ~= "" then
-				sys.call("echo '" .. version .. "' > " .. "/tmp/etc/passwall_tmp/" .. md5)
+				sys.call("echo '%s' > %s"  % { version, CACHE_PATH .. "/" .. md5})
 				return version
 			end
 		end
@@ -710,7 +828,7 @@ end
 function get_app_path(app_name)
 	if com[app_name] then
 		local def_path = com[app_name].default_path
-		local path = uci_get_type("global_app", app_name:gsub("%-","_") .. "_file")
+		local path = uci_get_c("@global_app[0]", app_name:gsub("%-","_") .. "_file")
 		path = path and (#path>0 and path or def_path) or def_path
 		return path
 	end
@@ -949,6 +1067,28 @@ function parseURL(url_str)
 	return res
 end
 
+function parseDoH(doh_str)
+	doh_str = trim(doh_str)
+	if doh_str == "" then return nil end
+
+	local url_part, ip_part
+	if doh_str:find(",", 1, true) then
+		url_part, ip_part = doh_str:match("^([^,]+),(.+)$")
+	else
+		url_part = doh_str
+	end
+
+	local res = parseURL(url_part)
+	if not res then return nil end
+
+	res.url = url_part
+	if ip_part and ip_part ~= "" and is_ip(ip_part) then
+		res.hostip = ip_part
+	end
+
+	return res
+end
+
 local default_file_tree = {
 	x86_64  = "amd64",
 	x86     = "386",
@@ -966,8 +1106,14 @@ local default_file_tree = {
 }
 
 local function get_api_json(url)
-	local jsonc = require "luci.jsonc"
-	local return_code, content = curl_auto(url, nil, curl_args)
+	local gh_proxy = uci_get_c("@global_app[0]", "github_proxy") or "0"
+	local return_code, content
+	if gh_proxy == "1" then
+		url = "https://gh-proxy.org/" .. url
+		return_code, content = curl_base(url, nil, curl_args)
+	else
+		return_code, content = curl_auto(url, nil, curl_args)
+	end
 	if return_code ~= 0 or content == "" then return {} end
 	return jsonc.parse(content) or {}
 end
@@ -1084,7 +1230,14 @@ function to_download(app_name, url, size)
 	local _curl_args = clone(curl_args)
 	table.insert(_curl_args, "--speed-limit 51200 --speed-time 15 --max-time 300")
 
-	local return_code, result = curl_auto(url, tmp_file, _curl_args)
+	local gh_proxy = uci_get_c("@global_app[0]", "github_proxy") or "0"
+	local return_code, result
+	if gh_proxy == "1" then
+		url = "https://gh-proxy.org/" .. url
+		return_code, result = curl_base(url, tmp_file, _curl_args)
+	else
+		return_code, result = curl_auto(url, tmp_file, _curl_args)
+	end
 	result = return_code == 0
 
 	if not result then
@@ -1121,7 +1274,7 @@ function to_extract(app_name, file, subfix)
 				exec("/bin/rm", {"-f", file})
 				return {
 					code = 1,
-					error = i18n.translate("Not installed %s, Can't unzip!" % { tools_name })
+					error = i18n.translatef("Not installed %s, Can't unzip!", tools_name)
 				}
 			end
 		end
@@ -1187,7 +1340,7 @@ function to_move(app_name,file)
 		}
 	end
 
-	local flag = sys.call('pgrep -af "passwall/.*'.. app_name ..'" >/dev/null')
+	local flag = sys.call('busybox pgrep -af "passwall/.*'.. app_name ..'" >/dev/null')
 	if flag == 0 then
 		sys.call("/etc/init.d/passwall stop")
 	end
@@ -1235,7 +1388,14 @@ end
 function to_check_self()
 	local url = "https://raw.githubusercontent.com/Openwrt-Passwall/openwrt-passwall/main/luci-app-passwall/Makefile"
 	local tmp_file = "/tmp/passwall_makefile"
-	local return_code, result = curl_auto(url, tmp_file, curl_args)
+	local gh_proxy = uci_get_c("@global_app[0]", "github_proxy") or "0"
+	local return_code, result
+	if gh_proxy == "1" then
+		url = "https://gh-proxy.org/" .. url
+		return_code, result = curl_base(url, tmp_file, curl_args)
+	else
+		return_code, result = curl_auto(url, tmp_file, curl_args)
+	end
 	result = return_code == 0
 	if not result then
 		exec("/bin/rm", {"-f", tmp_file})
@@ -1265,76 +1425,211 @@ function to_check_self()
 	}
 end
 
-function luci_types(id, m, s, type_name, option_prefix)
-	local rewrite_option_table = {}
-	for key, value in pairs(s.fields) do
-		if key:find(option_prefix) == 1 then
-			if not s.fields[key].not_rewrite then
-				if s.fields[key].rewrite_option then
-					if not rewrite_option_table[s.fields[key].rewrite_option] then
-						rewrite_option_table[s.fields[key].rewrite_option] = 1
-					else
-						rewrite_option_table[s.fields[key].rewrite_option] = rewrite_option_table[s.fields[key].rewrite_option] + 1
-					end
-				end
+function is_js_luci()
+	return sys.call('[ -f "/www/luci-static/resources/uci.js" ]') == 0
+end
 
-				s.fields[key].cfgvalue = function(self, section)
-					-- 添加自定义 custom_cfgvalue 属性，如果有自定义的 custom_cfgvalue 函数，则使用自定义的 cfgvalue 逻辑
-					if self.custom_cfgvalue then
-						return self:custom_cfgvalue(section)
-					else
-						if self.rewrite_option then
-							return m:get(section, self.rewrite_option)
-						else
-							if self.option:find(option_prefix) == 1 then
-								return m:get(section, self.option:sub(1 + #option_prefix))
-							end
-						end
-					end
-				end
-				s.fields[key].write = function(self, section, value)
-					if s.fields["type"]:formvalue(id) == type_name then
-						-- 添加自定义 custom_write 属性，如果有自定义的 custom_write 函数，则使用自定义的 write 逻辑
-						if self.custom_write then
-							self:custom_write(section, value)
-						else
-							if self.rewrite_option then
-								m:set(section, self.rewrite_option, value)
-							else
-								if self.option:find(option_prefix) == 1 then
-									m:set(section, self.option:sub(1 + #option_prefix), value)
-								end
-							end
-						end
-					end
-				end
-				s.fields[key].remove = function(self, section)
-					if s.fields["type"]:formvalue(id) == type_name then
-						-- 添加自定义 custom_remove 属性，如果有自定义的 custom_remove 函数，则使用自定义的 remove 逻辑
-						if self.custom_remove then
-							self:custom_remove(section)
-						else
-							if self.rewrite_option and rewrite_option_table[self.rewrite_option] == 1 then
-								m:del(section, self.rewrite_option)
-							else
-								if self.option:find(option_prefix) == 1 then
-									m:del(section, self.option:sub(1 + #option_prefix))
-								end
-							end
-						end
-					end
-				end
-			end
-
-			local deps = s.fields[key].deps
-			if #deps > 0 then
-				for index, value in ipairs(deps) do
-					deps[index]["type"] = type_name
-				end
-			else
-				s.fields[key]:depends({ type = type_name })
+function set_default_cbi()
+	local cbi = require "luci.cbi"
+	if true then
+		--Map
+		local Map = cbi.Map
+		local default_init = Map.__init__
+		function Map.__init__(self, config, ...)
+			if not config then config = c_config end
+			default_init(self, config, ...)
+			self.api = require "luci.passwall.api"
+			if is_js_luci() == true then
+				self.apply_on_parse = false
+				self.is_js_luci = true
 			end
 		end
+		function Map.foreach(self, stype, func)
+			self.uci:foreach(self.config, stype, func)
+		end
+		function Map.template_path(self, template)
+			return appname .. template
+		end
+		function Map.appendTemplate(self, template, data)
+			local obj = cbi.Template(self:template_path(template))
+			obj.map = self
+			if data and next(data) then
+				for k, v in pairs(data) do
+					obj[k] = v
+				end
+			end
+			self:append(obj)
+			return obj
+		end
+	end
+	if true then
+		--AbstractSection
+		local AbstractSection = cbi.AbstractSection
+		function AbstractSection.appendTemplate(self, template, data)
+			local obj = cbi.Template(self.map:template_path(template))
+			obj.map = self.map
+			obj.section = self
+			if data and next(data) then
+				for k, v in pairs(data) do
+					obj[k] = v
+				end
+			end
+			self:append(obj)
+			return obj
+		end
+	end
+	if true then
+		--TextValue
+		local TextValue = cbi.TextValue
+		local default_init = TextValue.__init__
+		function TextValue.__init__(self, ...)
+			default_init(self, ...)
+			self.template  = appname .. "/cbi/tvalue"
+		end
+	end
+	if true then
+		--DynamicList
+		local DynamicList = cbi.DynamicList
+		function DynamicList.write(self, section, value)
+			local new_t = {}
+			if type(value) == "table" then
+				new_t = table_remove_duplicates(value)
+			else
+				new_t = { value }
+			end
+			local new_val
+			if self.cast == "string" then
+				new_val = table.concat(new_t, " ")
+			else
+				new_val = new_t
+			end
+			return cbi.AbstractValue.write(self, section, new_val)
+		end
+	end
+end
+
+function return_map(map)
+	local cbi = require "luci.cbi"
+	local api = require "luci.passwall.api"
+	if true then
+		-- header
+		local header = cbi.Template(appname .. "/cbi/header")
+		header.map = map
+		table.insert(map.children, 1, header)
+	end
+	if true then
+		-- footer
+		local footer = cbi.Template(appname .. "/cbi/footer")
+		footer.map = map
+		map:append(footer)
+	end
+	return map
+end
+
+function luci_types(s, s2)
+	local cbi = require "luci.cbi"
+	local m = s.map
+	local id = s2.section
+	local type_name = s2.type_name
+	local option_prefix = s2.option_prefix
+	local fv_type
+	local field_type = s.fields["type"]
+	if field_type then
+		fv_type = field_type:formvalue(id)
+	end
+	for i, v in ipairs(s2.children) do
+		local o = s2.children[i]
+		o.config_option = o.option
+		o.option_prefix = option_prefix
+		o.option = option_prefix .. o.option
+		if not o.not_rewrite then
+			o.cfgvalue = function(self, section)
+				-- Add a custom `custom_cfgvalue` attribute. If a custom `custom_cfgvalue` function exists, the custom `cfgvalue` logic will be used.
+				if self.custom_cfgvalue then
+					return self:custom_cfgvalue(section)
+				else
+					if self.rewrite_option then
+						return m:get(section, self.rewrite_option)
+					else
+						return m:get(section, self.config_option)
+					end
+				end
+			end
+			o.write = function(self, section, value)
+				if s.fields["type"]:formvalue(id) == type_name then
+					-- Add a custom `custom_write` attribute; if a custom `custom_write` function exists, then use the custom write logic.
+					if self.custom_write then
+						self:custom_write(section, value)
+					else
+						local new_val = value
+						if util.instanceof(self, cbi.DynamicList) then
+							local new_t = {}
+							if type(value) == "table" then
+								new_t = table_remove_duplicates(value)
+							else
+								new_t = { value }
+							end
+							if self.cast == "string" then
+								new_val = table.concat(new_t, " ")
+							else
+								new_val = new_t
+							end
+						end
+						if self.rewrite_option then
+							m:set(section, self.rewrite_option, new_val)
+						else
+							m:set(section, self.config_option, new_val)
+						end
+					end
+				end
+			end
+			o.remove = function(self, section)
+				if s.fields["type"]:formvalue(id) == type_name then
+					-- Add a custom `custom_remove` attribute; if a custom `custom_remove` function exists, use the custom remove logic.
+					if self.custom_remove then
+						self:custom_remove(section)
+					else
+						if self.rewrite_option then
+							m:del(section, self.rewrite_option)
+						else
+							m:del(section, self.config_option)
+						end
+					end
+				end
+			end
+		end
+
+		local deps = o.deps
+		if #deps > 0 then
+			local function process_deps(dep)
+				local rewrite_deps = {}
+				for k, v in pairs(dep) do
+					if k:find("!") then
+						rewrite_deps[k] = v
+					else
+						rewrite_deps[option_prefix .. k] = v
+					end
+				end
+				if not rewrite_deps['!reverse'] then
+					rewrite_deps["type"] = type_name
+				end
+				return rewrite_deps
+			end
+			for index, value in ipairs(deps) do
+				local rewrite_deps = process_deps(value)
+				if rewrite_deps then
+					deps[index] = rewrite_deps
+				end
+			end
+		else
+			o:depends({ type = type_name })
+		end
+
+		if fv_type and fv_type ~= type_name then
+			o.rmempty = true
+		end
+
+		s:append(o)
 	end
 end
 
@@ -1388,7 +1683,7 @@ function get_std_domain(domain)
 	return domain
 end
 
-function format_go_time(input)
+function format_go_time(input, default)
 	input = input and trim(input)
 	local N = 0
 	if input and input:match("^%d+$") then
@@ -1406,7 +1701,7 @@ function format_go_time(input)
 		end
 	end
 	if N <= 0 then
-		return "0s"
+		return default or "0s"
 	end
 	local result = ""
 	local h = math.floor(N / 3600)
@@ -1418,56 +1713,25 @@ function format_go_time(input)
 	return result
 end
 
-function set_apply_on_parse(map)
-	if not map then return end
-	if is_js_luci() then
-		apply_redirect(map)
-		local old = map.on_after_save
-		map.on_after_save = function(self)
-			if old then old(self) end
-			map:set("@global[0]", "timestamp", os.time())
-		end
-		-- 优化页面
-		local cbi = require "luci.cbi"
-		map:append(cbi.Template(appname .. "/cbi/optimize_cbi_ui"))
-	end
-end
-
-function apply_redirect(m)
-	local tmp_uci_file = "/etc/config/" .. appname .. "_redirect"
-	if m.redirect and m.redirect ~= "" then
-		if fs.access(tmp_uci_file) then
-			local redirect
-			for line in io.lines(tmp_uci_file) do
-				redirect = line:match("option%s+url%s+['\"]([^'\"]+)['\"]")
-				if redirect and redirect ~= "" then break end
-			end
-			if redirect and redirect ~= "" then
-				sys.call("/bin/rm -f " .. tmp_uci_file)
-				luci.http.redirect(redirect)
-			end
-		else
-			fs.writefile(tmp_uci_file, "config redirect\n")
-		end
-		m.on_after_save = function(self)
-			local redirect = self.redirect
-			if redirect and redirect ~= "" then
-				uci:set(appname .. "_redirect", "@redirect[0]", "url", redirect)
-			end
-		end
-	else
-		sys.call("/bin/rm -f " .. tmp_uci_file)
-	end
-end
-
 function match_node_rule(name, rule)
 	if not name then return false end
 	if not rule or rule == "" then return true end
+	-- split rule by || into OR groups
+	local function split_or(expr)
+		local t = {}
+		for part in (expr .. "||"):gmatch("(.-)%|%|") do
+			part = trim(part)
+			if part ~= "" then
+				table.insert(t, part)
+			end
+		end
+		return t
+	end
 	-- split rule by &&
 	local function split_and(expr)
 		local t = {}
-		for part in expr:gmatch("[^&]+") do
-			part = part:gsub("^%s+", ""):gsub("%s+$", "")
+		for part in (expr .. "&&"):gmatch("(.-)%&%&") do
+			part = trim(part)
 			if part ~= "" then
 				table.insert(t, part)
 			end
@@ -1498,17 +1762,76 @@ function match_node_rule(name, rule)
 		-- contains
 		return str:find(cond, 1, true) ~= nil
 	end
-	-- AND logic
-	for _, cond in ipairs(split_and(rule)) do
-		if not match_cond(name, cond) then
-			return false
+	-- check if all conditions in AND group match
+	local function match_and_group(str, group_expr)
+		for _, cond in ipairs(split_and(group_expr)) do
+			if not match_cond(str, cond) then
+				return false
+			end
+		end
+		return true
+	end
+	-- OR logic: return true if any group matches
+	for _, group in ipairs(split_or(rule)) do
+		if match_and_group(name, group) then
+			return true
 		end
 	end
-	return true
+	return false
+end
+
+local normal_nodes = {}
+function get_batch_nodes(node)
+	if #normal_nodes == 0 then
+		for k, e in ipairs(get_valid_nodes()) do
+			if e.node_type == "normal" and (not e.chain_proxy or e.chain_proxy == "") then
+				normal_nodes[#normal_nodes + 1] = {
+					id = e[".name"],
+					remarks = e["remarks"],
+					group = e["group"]
+				}
+			end
+		end
+	end
+	if not node.node_group or node.node_group == "" then return {} end
+	local nodes = {}
+	for g in node.node_group:gmatch("%S+") do
+		g = UrlDecode(g)
+		for k, v in pairs(normal_nodes) do
+			local gn = (v.group and v.group ~= "") and v.group or "default"
+			if gn:lower() == g:lower() and match_node_rule(v.remarks, node.node_match_rule) then
+				nodes[#nodes + 1] = v.id
+			end
+		end
+	end
+	return nodes
+end
+
+function get_socks_backup_nodes(id)
+	id = trim(id)
+	if id == "" then return "" end
+	local socks = uci_get_c(id)
+	local nodes
+	if socks.backup_node_add_mode and socks.backup_node_add_mode == "batch" then
+		local node = {}
+		node.node_group = socks.backup_node_group
+		node.node_match_rule = socks.backup_node_match_rule
+		nodes = get_batch_nodes(node)
+	else
+		nodes = socks.autoswitch_backup_node
+	end
+	local backup_nodes, seen = {}, {}
+	for _, v in ipairs(nodes or {}) do
+		if v ~= socks.node and not seen[v] then
+			seen[v] = true
+			table.insert(backup_nodes, v)
+		end
+	end
+	return table.concat(backup_nodes, " ")
 end
 
 function get_core(field, candidates)
-	local v = uci:get(appname, "@global_subscribe[0]", field)
+	local v = uci_get_c("@global_subscribe[0]", field)
 	if v and v ~= "" then
 		for _, c in ipairs(candidates) do
 			if c[2] == v and c[1] then
@@ -1530,4 +1853,218 @@ function cleanEmptyTables(t)
 		end
 	end
 	return next(t) and t or nil
+end
+
+function fetch_cert_sha256(host, port, sni, timeout, http3)
+	if not host then return "" end
+	port = tonumber(port) or 443
+	sni = sni or host
+	timeout = tonumber(timeout) or 5
+	local cmd
+	if http3 then
+		cmd = string.format(
+			"timeout %d curl --http3 -k -w '%%{certs}' -o /dev/null https://%s:%d 2>/dev/null " ..
+			"| awk 'BEGIN{c=0}/BEGIN CERT/{c++} c==1{print} /END CERT/{if(c==1)exit}' " ..
+			"| openssl x509 -outform der 2>/dev/null " ..
+			"| sha256sum 2>/dev/null",
+			timeout, host, port
+		)
+	else
+		cmd = string.format(
+			"timeout %d openssl s_client -connect %s:%d -servername %s -showcerts </dev/null 2>/dev/null " ..
+			"| awk 'BEGIN{c=0}/BEGIN CERT/{c++} c==1{print} /END CERT/{if(c==1)exit}' " ..
+			"| openssl x509 -outform der 2>/dev/null " ..
+			"| sha256sum 2>/dev/null",
+			timeout, host, port, sni
+		)
+	end
+	local out = trim(sys.exec(cmd))
+	local fp = out:match("^([0-9a-fA-F]+)")
+	if not fp or fp:lower():match("^e3b0c44298fc1c149afbf4c8996fb924") then
+		return ""
+	end
+	return fp:upper()
+end
+
+function vps_domain_exclude(domain)
+	domain = trim(domain)
+	if domain == "" then return true end
+	local map = {
+		["engage.cloudflareclient.com"] = 1, ["google.com"] = 1, ["youtube.com"] = 1,
+		["github.com"] = 1, ["telegram.org"] = 1, ["cloudflare.com"] = 1,
+		["bing.com"] = 1, ["x.com"] = 1, ["dns.google"] = 1, ["opendns.com"] = 1,
+		["cloudflare-dns.com"] = 1, ["one.one.one.one"] = 1, ["quad9.net"] = 1,
+		["adguard-dns.com"] = 1, ["nextdns.io"] = 1, ["libredns.gr"] = 1
+	}
+	while true do
+		if map[domain] then return true end
+		local p = domain:find("%.")
+		if not p then break end
+		domain = domain:sub(p + 1)
+	end
+	return false
+end
+
+function parse_realm_uri(uri)
+	uri = trim(uri)
+	if uri == "" then return nil end
+	-- realm[+http]://token@server/realm_id?query
+	local scheme = (uri:match("^realm%+http://") and "realm+http") or (uri:match("^realm://") and "realm")
+	if not scheme then return nil end
+	uri = uri:gsub("^realm%+http://", ""):gsub("^realm://", "")
+	local token, server_url, realm_id, query = uri:match("^([^@]+)@([^/]+)/([^?]*)%??(.*)$")
+	if not token or not server_url or not realm_id then return nil end
+	realm_id = realm_id:gsub("/+$", "")
+	local address, port = server_url:match("^%[([^%]]+)%]:(%d+)$") --ipv6:port
+	if not address then
+		address, port = server_url:match("^([^:]+):(%d+)$") --ipv4[domain]:port
+	end
+	address = address or server_url:match("^%[([^%]]+)%]$") or server_url
+	port = tonumber(port) or (scheme == "realm+http" and 80 or 443)
+	local realm = {
+		scheme = scheme,
+		token = token,
+		server_url = server_url,
+		address = address,
+		port = port,
+		realm_id = realm_id
+	}
+	-- 解析 query 中的 stun=
+	local stun_servers
+	for v in (query or ""):gmatch("[Ss][Tt][Uu][Nn]=([^&]+)") do
+		stun_servers = stun_servers or {}
+		stun_servers[#stun_servers + 1] = v
+	end
+	realm.stun_servers = stun_servers
+	return realm
+end
+
+function get_network_devices()
+	local _sysnet = "/sys/class/net/"
+	-- Map UCI interface names to their device names and vice versa
+	local _iface_to_dev = {}
+	local _dev_to_ifaces = {}
+	local _iface_proto = {}
+	uci:foreach("network", "interface", function(sec)
+		local name = sec[".name"]
+		if name ~= "loopback" then
+			_iface_proto[name] = sec.proto
+			if sec.device then
+				_iface_to_dev[name] = sec.device
+				_dev_to_ifaces[sec.device] = _dev_to_ifaces[sec.device] or {}
+				table.insert(_dev_to_ifaces[sec.device], name)
+			end
+		end
+	end)
+	-- Classify device type using sysfs attributes
+	local function classify_sysfs(dev)
+		if fs.stat(_sysnet .. dev .. "/bridge", "type") == "dir" then
+			return i18n.translate("Bridge")
+		elseif fs.stat(_sysnet .. dev .. "/wireless", "type") == "dir" then
+			return i18n.translate("Wireless Adapter")
+		elseif dev:match("^tun") or dev:match("^tap") or dev:match("^wg") or dev:match("^ppp") then
+			return i18n.translate("Tunnel Interface")
+		else
+			return i18n.translate("Ethernet Adapter")
+		end
+	end
+	-- Classify offline UCI interfaces by config hints
+	local function classify_uci(dev_name, proto)
+		if dev_name and dev_name:match("^br%-") then
+			return i18n.translate("Bridge")
+		elseif proto == "wireguard" or proto == "pppoe" or proto == "pptp" or proto == "l2tp" then
+			return i18n.translate("Tunnel Interface")
+		else
+			return i18n.translate("Interface")
+		end
+	end
+
+	local _seen = {}
+	local _devices = {}
+	-- Active kernel devices from /sys/class/net/
+	-- Skip bridge member ports (/master) and DSA master devices (/dsa)
+	local _iter = fs.dir(_sysnet)
+	if _iter then
+		for dev in _iter do
+			if dev ~= "lo"
+				and not dev:match("^veth")
+				and not dev:match("^ifb")
+				and not dev:match("^gre")
+				and not dev:match("^sit")
+				and not dev:match("^ip6tnl")
+				and not dev:match("^erspan")
+				and not fs.stat(_sysnet .. dev .. "/master", "type")
+				and not fs.stat(_sysnet .. dev .. "/dsa", "type")
+			then
+				local dtype = classify_sysfs(dev)
+				local label = dtype .. ': "' .. dev .. '"'
+				if _dev_to_ifaces[dev] then
+					label = label .. " (" .. table.concat(_dev_to_ifaces[dev], ", ") .. ")"
+				end
+				_devices[#_devices + 1] = { name = dev, label = label, sort = dtype .. ":" .. dev }
+				_seen[dev] = true
+			end
+		end
+	end
+	-- UCI interfaces whose device does not currently exist
+	for iface, dev in pairs(_iface_to_dev) do
+		if not _seen[dev] then
+			local dtype = classify_uci(dev, _iface_proto[iface])
+			local label = dtype .. ': "' .. iface .. '"'
+			_devices[#_devices + 1] = { name = iface, label = label, sort = "zzz:" .. iface }
+			_seen[dev] = true
+		end
+	end
+	table.sort(_devices, function(a, b) return a.sort < b.sort end)
+	return _devices
+end
+
+
+function table_remove_duplicates(t)
+	if not t or #t == 0 then return nil end
+	local t_lookup = {}
+	local new_t = {}
+	local x
+	for _, x in ipairs(t) do
+		if x and #x > 0 then
+			if not t_lookup[x] then
+				t_lookup[x] = x
+				new_t[#new_t+1] = x
+			end
+		end
+	end
+	return new_t
+end
+
+function gen_wireguard_key()
+	if sys.call("command -v wg >/dev/null") == 0 then
+		local private_key = sys.exec('echo -n $(wg genkey)')
+		local public_key = sys.exec('echo -n $(echo "%s" | wg pubkey)' % private_key)
+		return {
+			private_key = private_key,
+			public_key = public_key
+		}
+	end
+	local xray = finded_com("xray")
+	if xray then
+		local result = sys.exec(xray .. " wg | awk -F ': ' '{print $2}'")
+		local s = split(result, "\n")
+		local private_key = s[1]
+		local public_key = s[2]
+		return {
+			private_key = private_key,
+			public_key = public_key
+		}
+	end
+	local sb = finded_com("sing-box")
+	if sb then
+		local result = sys.exec(sb .. " generate wg-keypair | awk '{print $2}'")
+		local s = split(result, "\n")
+		local private_key = s[1]
+		local public_key = s[2]
+		return {
+			private_key = private_key,
+			public_key = public_key
+		}
+	end
 end

@@ -1,15 +1,12 @@
 #!/usr/bin/lua
 
 local api = require ("luci.passwall.api")
-local appname = "passwall"
+local appname = api.appname
 local fs = api.fs
-local jsonc = api.jsonc
 local uci = api.uci
 local sys = api.sys
 
-local log = function(...)
-	api.log(...)
-end
+local log = api.log
 
 function get_ip_port_from(str)
 	local result_port = sys.exec("echo -n " .. str .. " | sed -n 's/^.*[:#]\\([0-9]*\\)$/\\1/p'")
@@ -20,13 +17,14 @@ end
 local var = api.get_args(arg)
 local haproxy_path = var["-path"]
 local haproxy_conf = var["-conf"]
-local haproxy_dns = var["-dns"] or "119.29.29.29:53,223.5.5.5:53"
+local haproxy_dns = "127.0.0.1"
 
 local cpu_thread = sys.exec('echo -n $(cat /proc/cpuinfo | grep "processor" | wc -l)') or "1"
-local health_check_type = uci:get(appname, "@global_haproxy[0]", "health_check_type") or "tcp"
-local health_check_inter = uci:get(appname, "@global_haproxy[0]", "health_check_inter") or "10"
-local console_port = uci:get(appname, "@global_haproxy[0]", "console_port")
-local bind_local = uci:get(appname, "@global_haproxy[0]", "bind_local") or "0"
+local health_check_type = api.uci_get_c("@global_haproxy[0]", "health_check_type") or "tcp"
+local health_check_inter = api.uci_get_c("@global_haproxy[0]", "health_check_inter") or "20"
+local balancingStrategy = api.uci_get_c("@global_haproxy[0]", "balancingStrategy") or "roundrobin"
+local console_port = api.uci_get_c("@global_haproxy[0]", "console_port") or "1188"
+local bind_local = api.uci_get_c("@global_haproxy[0]", "bind_local") or "0"
 local bind_address = "0.0.0.0"
 if bind_local == "1" then bind_address = "127.0.0.1" end
 
@@ -40,35 +38,37 @@ local f_out = io.open(haproxy_file, "a")
 local haproxy_config = [[
 global
 	daemon
-	log         127.0.0.1 local2
-	maxconn     60000
-	stats socket  {{path}}/haproxy.sock
+	log 127.0.0.1 local2
+	maxconn 60000
+	stats socket {{path}}/haproxy.sock
 	nbthread {{nbthread}}
 	external-check
 	insecure-fork-wanted
+	spread-checks 50
+	tune.max-checks-per-thread 5
 
 defaults
-	mode                    tcp
-	log                     global
-	option                  tcplog
-	option                  dontlognull
-	option http-server-close
-	#option forwardfor       except 127.0.0.0/8
-	option                  redispatch
-	retries                 2
-	timeout http-request    10s
-	timeout queue           1m
-	timeout connect         10s
-	timeout client          1m
-	timeout server          1m
+	mode tcp
+	log global
+	option tcplog
+	option dontlognull
+	option abortonclose
+	#option forwardfor except 127.0.0.0/8
+	option redispatch
+	retries 2
+	timeout http-request 10s
+	timeout queue 1m
+	timeout connect 10s
+	timeout client 1m
+	timeout server 1m
 	timeout http-keep-alive 10s
-	timeout check           10s
-	maxconn                 3000
+	timeout check 10s
+	maxconn 3000
 
 resolvers mydns
-	resolve_retries       1
-	timeout resolve       5s
-	hold valid           600s
+	resolve_retries 1
+	timeout resolve 5s
+	hold valid 600s
 {{dns}}
 ]]
 
@@ -91,21 +91,23 @@ f_out:write(haproxy_config)
 
 local listens = {}
 
-uci:foreach(appname, "haproxy_config", function(t)
+api.uci_foreach_c("haproxy_config", function(t)
 	if t.enabled == "1" then
 		local server_remark
 		local server_address
 		local server_port
 		local lbss = t.lbss
 		local listen_port = tonumber(t.haproxy_port) or 0
-		local server_node = uci:get_all(appname, lbss)
-		if server_node and server_node.address and server_node.port then
-			server_remark = server_node.address .. ":" .. server_node.port
+		local server_node = api.uci_get_c(lbss)
+		local hop = (health_check_type == "script_logic") and (server_node.hysteria_hop or server_node.hysteria2_hop) or nil
+		hop = hop and hop:gsub(":", "-") or nil
+		if server_node and server_node.address and (server_node.port or hop) then
+			server_remark = server_node.address .. ":" .. (server_node.port or hop)
 			server_address = server_node.address
-			server_port = server_node.port
+			server_port = server_node.port or hop
 			t.origin_address = server_address
 			t.origin_port = server_port
-			if health_check_type == "passwall_logic" then
+			if health_check_type == "script_logic" then
 				if server_node.type ~= "Socks" then
 					local relay_port = server_node.port
 					local new_port = api.get_new_port()
@@ -145,6 +147,10 @@ uci:foreach(appname, "haproxy_config", function(t)
 	end
 end)
 
+local inter = tonumber((health_check_inter or "20"):match("^%d+"))
+inter = (inter and inter >= 20) and inter or 20
+local inter_arg = "inter " .. inter .. "s fastinter " .. inter / 2 .. "s downinter " .. inter * 1.5 .. "s"
+
 local sortTable = {}
 for i in pairs(listens) do
 	if i ~= nil then
@@ -160,14 +166,14 @@ for i, port in pairs(sortTable) do
 listen %s
 	bind %s:%s
 	mode tcp
-	balance roundrobin
-]], port, bind_address, port))
+	balance %s
+]], port, bind_address, port, balancingStrategy))
 
-	if health_check_type == "passwall_logic" then
+	if health_check_type == "script_logic" then
 		f_out:write(string.format([[
 	option external-check
-	external-check command "/usr/share/passwall/haproxy_check.sh"
-]], port, port))
+	external-check command "/usr/share/%s/haproxy_check.sh"
+]], appname))
 	end
 
 	local count_M, count_B = 1, 1
@@ -182,7 +188,7 @@ listen %s
 			count_B = count_B + 1
 		end
 		local server = o.server_address .. ":" .. o.server_port
-		local server_conf = "server {{remark}} {{server}} weight {{weight}} {{resolvers}} check inter {{inter}} rise 1 fall 3 {{backup}}"
+		local server_conf = "server {{remark}} {{server}} weight {{weight}} {{resolvers}} check {{inter_arg}} rise 2 fall 2 {{backup}}"
 		server_conf = server_conf:gsub("{{remark}}", remark)
 		server_conf = server_conf:gsub("{{server}}", server)
 		server_conf = server_conf:gsub("{{weight}}", o.lbweight)
@@ -191,13 +197,13 @@ listen %s
 			resolvers = ""
 		end
 		server_conf = server_conf:gsub("{{resolvers}}", resolvers)
-		server_conf = server_conf:gsub("{{inter}}", tonumber(health_check_inter) .. "s")
+		server_conf = server_conf:gsub("{{inter_arg}}", inter_arg)
 		server_conf = server_conf:gsub("{{backup}}", tostring(o.backup) == "1" and "backup" or "")
 
-		f_out:write("	" .. server_conf .. "\n")
+		f_out:write("	" .. api.trim(server_conf) .. "\n")
 
 		if o.export ~= "0" then
-			sys.call(string.format(". /usr/share/passwall/utils.sh ; add_ip2route %s %s", o.origin_address, o.export))
+			sys.call(string.format(". /usr/share/%s/utils.sh ; add_ip2route %s %s", appname, o.origin_address, o.export))
 		end
 
 		log(string.format("  | - 出口节点：%s:%s，权重：%s", o.origin_address, o.origin_port, o.lbweight))
@@ -205,8 +211,8 @@ listen %s
 end
 
 --控制台配置
-local console_user = uci:get(appname, "@global_haproxy[0]", "console_user")
-local console_password = uci:get(appname, "@global_haproxy[0]", "console_password")
+local console_user = api.uci_get_c("@global_haproxy[0]", "console_user")
+local console_password = api.uci_get_c("@global_haproxy[0]", "console_password")
 local str = [[
 listen console
 	bind 0.0.0.0:%s
@@ -221,8 +227,8 @@ f_out:write("\n" .. string.format(str, console_port, (console_user and console_u
 f_out:close()
 
 --passwall内置健康检查URL
-if health_check_type == "passwall_logic" then
-	local probeUrl = uci:get(appname, "@global_haproxy[0]", "health_probe_url") or "https://www.google.com/generate_204"
+if health_check_type == "script_logic" then
+	local probeUrl = api.uci_get_c("@global_haproxy[0]", "health_probe_url") or "https://www.google.com/generate_204"
 	local f_url = io.open(haproxy_path .. "/Probe_URL", "w")
 	f_url:write(probeUrl)
 	f_url:close()

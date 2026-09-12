@@ -1,19 +1,20 @@
 local api = require "luci.passwall.api"
-local appname = "passwall"
 
-m = Map(appname)
-api.set_apply_on_parse(m)
+api.set_default_cbi()
+
+local com = require "luci.passwall.com"
+
+m = Map()
 
 -- [[ App Settings ]]--
-s = m:section(TypedSection, "global_app", translate("App Update"),
-				"<font color='red'>" ..
-				translate("Please confirm that your firmware supports FPU.") ..
-				"</font>")
-s.anonymous = true
-s:append(Template(appname .. "/app_update/app_version"))
+s = m:section(NamedSection, "@global_app[0]", "global_app", translate("App Update"))
+
+s:appendTemplate("/app_update/app_version", {com = com})
+
+o = s:option(Flag, "github_proxy", translate("GitHub Proxy"), translate("Use gh-proxy instead of proxy nodes for component updates."))
+o.default = 0
 
 local k, v
-local com = require "luci.passwall.com"
 for _, k in ipairs(com.order) do
 	v = com[k]
 	if k ~= "chinadns-ng" then
@@ -29,4 +30,4 @@ o.cfgvalue = function(t, n)
 	return string.format('<font color="red">%s</font>', translate("if you want to run from memory, change the path, /tmp beginning then save the application and update it manually."))
 end
 
-return m
+return api.return_map(m)

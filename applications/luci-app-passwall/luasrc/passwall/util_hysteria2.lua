@@ -1,32 +1,70 @@
 module("luci.passwall.util_hysteria2", package.seeall)
 local api = require "luci.passwall.api"
-local uci = api.uci
 local jsonc = api.jsonc
 
 function gen_config_server(node)
+	local users = nil
+	if node.users and #node.users > 0 then
+		users = {}
+		for i, v in ipairs(node.users) do
+			local user = api.uci_get_s(v) or {}
+			if user[".type"] == "user" then
+				users[user.username] = user.password
+			end
+		end
+		if not next(users) then
+			users = nil
+		end
+	end
 	local config = {
-		listen = ":" .. node.port,
+		listen = (function()
+			if node.hysteria2_realms and node.hysteria2_realm_url then
+				local url = node.hysteria2_realm_url:gsub("/+$", "")
+				if node.port then
+					url = url .. (url:find("?") and "&lport=" or "?lport=") .. node.port
+				end
+				return url
+			end
+			return ":" .. (node.port or "0")
+		end)(),
 		tls = {
 			cert = node.tls_certificateFile,
 			key = node.tls_keyFile,
 		},
-		obfs = (node.hysteria2_obfs) and {
-			type = "salamander",
-			salamander = {
-				password = node.hysteria2_obfs
+		obfs = (node.hysteria2_obfs_type and node.hysteria2_obfs_password) and {
+			type = node.hysteria2_obfs_type,
+			[node.hysteria2_obfs_type] = {
+				password = node.hysteria2_obfs_password
 			}
 		} or nil,
-		auth = {
-			type = "password",
-			password = node.hysteria2_auth_password
-		},
+		auth = users and {
+			type = "userpass",
+			userpass = users
+		} or nil,
 		bandwidth = (node.hysteria2_up_mbps or node.hysteria2_down_mbps) and {
 			up = node.hysteria2_up_mbps and node.hysteria2_up_mbps .. " mbps" or nil,
 			down = node.hysteria2_down_mbps and node.hysteria2_down_mbps .. " mbps" or nil
 		} or nil,
 		ignoreClientBandwidth = (node.hysteria2_ignoreClientBandwidth == "1") and true or false,
 		disableUDP = (node.hysteria2_udp == "0") and true or false,
+		realm = (node.hysteria2_realms and node.hysteria2_realm_stun) and {
+			stunServers = node.hysteria2_realm_stun,
+			portMapping = (node.hysteria2_realm_upnp == "1") and { enabled = true } or nil
+		} or nil,
+		ech = (node.ech_keyFile and node.ech_keyFile ~= "") and { keyPath = node.ech_keyFile } or nil
 	}
+
+	if config.obfs and config.obfs.gecko then
+		local min = tonumber(node.hysteria2_obfs_MinPacketSize) or 512
+		local max = tonumber(node.hysteria2_obfs_MaxPacketSize) or 1200
+		if min <= 0 or min > max or max > 2048 then
+			min = 512
+			max = 1200
+		end
+		config.obfs.gecko.minPacketSize = min
+		config.obfs.gecko.maxPacketSize = max
+	end
+
 	return config
 end
 
@@ -36,9 +74,8 @@ function gen_config(var)
 		print("node 不能为空")
 		return
 	end
-	local node = uci:get_all("passwall", node_id)
-	local local_tcp_redir_port = var["local_tcp_redir_port"]
-	local local_udp_redir_port = var["local_udp_redir_port"]
+	local node = api.uci_get_c(node_id)
+	local local_redir_port = var["local_redir_port"]
 	local local_socks_address = var["local_socks_address"] or "0.0.0.0"
 	local local_socks_port = var["local_socks_port"]
 	local local_socks_username = var["local_socks_username"]
@@ -48,44 +85,63 @@ function gen_config(var)
 	local local_http_username = var["local_http_username"]
 	local local_http_password = var["local_http_password"]
 	local tcp_proxy_way = var["tcp_proxy_way"]
-	local server_host = var["server_host"] or node.address
+	local server_host = var["server_host"] or (node.address or ""):lower()
 	local server_port = var["server_port"] or node.port
 
 	if api.is_ipv6(server_host) then
 		server_host = api.get_ipv6_full(server_host)
 	end
-	local server = server_host .. ":" .. server_port
 
-	if (node.hysteria2_hop) then
-		server = server .. "," .. string.gsub(node.hysteria2_hop, ":", "-")
-	end
+	local port_hop = ((server_port or "") .. "," .. (node.hysteria2_hop or "")):gsub("^[%s,]+", ""):gsub("[%s,]+$", ""):gsub(":", "-")
+	local server = server_host .. ":" .. (port_hop ~= "" and port_hop or "443")
 
 	local config = {
-		server = server,
+		server = (function()
+			if node.hysteria2_realms and node.hysteria2_realm_url then
+				return node.hysteria2_realm_url:gsub("/+$", "")
+			end
+			return server
+		end)(),
+		realm = (node.hysteria2_realms and node.hysteria2_realm_stun) and {
+			stunServers = node.hysteria2_realm_stun,
+			portMapping = (node.hysteria2_realm_upnp == "1") and { enabled = true } or nil
+		} or nil,
 		transport = {
 			type = "udp",
-			udp = {
-				hopInterval = (function()
-							local HopIntervalStr = tostring(node.hysteria2_hop_interval or "30s")
-							local HopInterval = tonumber(HopIntervalStr:match("^%d+"))
-							if HopInterval and HopInterval >= 5 then
-								return tostring(HopInterval) .. "s"
-							end
-							return "30s"
-						end)(),
-			}
+			udp = node.hysteria2_hop and (function()
+				local udp = {}
+				local t = node.hysteria2_hop_interval
+				if not t then return nil end
+				if t:find("-", 1, true) then
+					local min, max = t:match("^(%d+)%-(%d+)$")
+					min = tonumber(min)
+					max = tonumber(max)
+					if min and max then
+						min = (min >= 5) and min or 5
+						max = (max >= min) and max or min
+						udp.minHopInterval = min .. "s"
+						udp.maxHopInterval = max .. "s"
+						return udp
+					end
+				end
+				t = tonumber((t or "30"):match("^%d+"))
+				t = (t and t >= 5) and t or 30
+				udp.hopInterval = t .. "s"
+				return udp
+			end)() or nil
 		},
-		obfs = (node.hysteria2_obfs) and {
-			type = "salamander",
-			salamander = {
-				password = node.hysteria2_obfs
+		obfs = (node.hysteria2_obfs_type and node.hysteria2_obfs_password) and {
+			type = node.hysteria2_obfs_type,
+			[node.hysteria2_obfs_type] = {
+				password = node.hysteria2_obfs_password
 			}
 		} or nil,
 		auth = node.hysteria2_auth_password,
 		tls = {
 			sni = node.tls_serverName,
 			insecure = (node.tls_allowInsecure == "1") and true or false,
-			pinSHA256 = (node.hysteria2_tls_pinSHA256) and node.hysteria2_tls_pinSHA256 or nil,
+			pinSHA256 = (node.tls_pinSHA256) and node.tls_pinSHA256 or nil,
+			ech = (node.ech == "1") and node.ech_config or nil
 		},
 		quic = {
 			initStreamReceiveWindow = (node.hysteria2_recv_window) and tonumber(node.hysteria2_recv_window) or nil,
@@ -117,16 +173,27 @@ function gen_config(var)
 			username = (local_http_username and local_http_password) and local_http_username or nil,
 			password = (local_http_username and local_http_password) and local_http_password or nil,
 		} or nil,
-		tcpRedirect = ("redirect" == tcp_proxy_way and local_tcp_redir_port) and {
-			listen = "0.0.0.0:" .. local_tcp_redir_port
+		tcpRedirect = ("redirect" == tcp_proxy_way and local_redir_port) and {
+			listen = "0.0.0.0:" .. local_redir_port
 		} or nil,
-		tcpTProxy = ("tproxy" == tcp_proxy_way and local_tcp_redir_port) and {
-			listen = "0.0.0.0:" .. local_tcp_redir_port
+		tcpTProxy = ("tproxy" == tcp_proxy_way and local_redir_port) and {
+			listen = "0.0.0.0:" .. local_redir_port
 		} or nil,
-		udpTProxy = (local_udp_redir_port) and {
-			listen = "0.0.0.0:" .. local_udp_redir_port
+		udpTProxy = (local_redir_port) and {
+			listen = "0.0.0.0:" .. local_redir_port
 		} or nil
 	}
+
+	if config.obfs and config.obfs.gecko then
+		local min = tonumber(node.hysteria2_obfs_MinPacketSize) or 512
+		local max = tonumber(node.hysteria2_obfs_MaxPacketSize) or 1200
+		if min <= 0 or min > max or max > 2048 then
+			min = 512
+			max = 1200
+		end
+		config.obfs.gecko.minPacketSize = min
+		config.obfs.gecko.maxPacketSize = max
+	end
 
 	return jsonc.stringify(config, 1)
 end
