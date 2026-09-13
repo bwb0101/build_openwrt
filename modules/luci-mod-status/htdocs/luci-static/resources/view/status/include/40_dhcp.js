@@ -4,6 +4,7 @@
 'require uci';
 'require network';
 'require validation';
+'require poll';
 
 const callLuciDHCPLeases = rpc.declare({
 	object: 'luci-rpc',
@@ -11,6 +12,13 @@ const callLuciDHCPLeases = rpc.declare({
 	expect: { '': {} }
 });
  
+const callClientRates = rpc.declare({
+	object: 'luci.client-rates',
+	method: 'get',
+	params: [ 'addresses' ],
+	expect: { '': {} }
+});
+
 const callUfpList = rpc.declare({
 	object: 'fingerprint',
 	method: 'fingerprint',
@@ -21,9 +29,145 @@ return baseclass.extend({
 	deferFirstLoad: true,
 	disableCache: true,
 
+	// Optional enhancement: never load the helper or query OUIs without the package.
+	renderHostname(host, mac) {
+		const node = E('span', { 'style': 'display:block;text-align:left' }, [ document.createTextNode(host || '-') ]);
+		if (!L.hasSystemFeature('oui'))
+			return node;
+		if (!this.ouiLoader) {
+			this.ouiLoader = Promise.all([L.resolveDefault(uci.load('oui')), new Promise(function(resolve) {
+				const script = document.createElement('script');
+				script.src = L.resource('oui/oui.js') + '?v=4';
+				script.onload = function() { resolve(window.luciOUI); };
+				script.onerror = function() { resolve(null); };
+				document.head.appendChild(script);
+			})]).then(function(results) {
+				if (results[1])
+					results[1].setDevices(uci.sections('oui', 'device'));
+				return results[1];
+			});
+		}
+		this.ouiLoader.then(function(oui) {
+			if (oui)
+				oui.decorate(node, mac);
+		});
+		return node;
+	},
+
 	isMACStatic: {},
 	isDUIDStatic: {},
 	isDUIDIAIDStatic: {},
+
+	normalizeRateAddress(ip) {
+		ip = ip.replace(/\/\d+$/, '');
+		const v4 = validation.parseIPv4(ip);
+		if (v4)
+			return v4.join('.');
+		const v6 = validation.parseIPv6(ip);
+		return v6 ? v6.map(word => word.toString(16)).join(':') : null;
+	},
+
+	clientAddresses(lease, hints) {
+		const host = hints.hosts?.[lease.macaddr?.toUpperCase()] || {};
+		return Array.from(new Set([
+			lease.ipaddr, lease.ip6addr, ...L.toArray(lease.ip6addrs),
+			...L.toArray(host.ipaddrs || host.ipv4), ...L.toArray(host.ip6addrs || host.ipv6)
+		].filter(Boolean).map(ip => this.normalizeRateAddress(ip)).filter(Boolean)));
+	},
+
+	renderRate(lease, hints, data, direction) {
+		return this.rateValue(this.clientAddresses(lease, hints), data, direction);
+	},
+
+	rateValue(addresses, data, direction, mac) {
+		if (direction == 'total') {
+			const value = data?.totals?.[mac?.toUpperCase()];
+			return value != null ? [Number(value), '%1024.2mB'.format(value)] : [-1, '-'];
+		}
+		let total = 0;
+		for (const ip of addresses) {
+			const rate = data?.rates?.[ip];
+			if (!rate?.ready || (mac && rate.mac && rate.mac != mac.toUpperCase()))
+				return [ -1, '-' ];
+			total += Number(rate[direction] || 0);
+		}
+		return addresses.length ? [ total, '%1024.1mB/s'.format(total) ] : [ -1, '-' ];
+	},
+
+	rateCell(lease, hints, direction) {
+		const addresses = this.clientAddresses(lease, hints);
+		const value = this.rateValue(addresses, this.rateData, direction, lease.macaddr);
+		return [ value[0], E('span', {
+			'class': 'luci-client-rate',
+			'data-addresses': JSON.stringify(addresses),
+			'data-direction': direction,
+			'data-mac': lease.macaddr || ''
+		}, value[1]) ];
+	},
+
+	initLeaseTable(table) {
+		const widget = new L.ui.Table(table);
+		const update = widget.update;
+		widget.update = function(...args) {
+			const result = update.apply(this, args);
+			this.node.querySelectorAll('.cbi-section-actions').forEach(cell => {
+				cell.style.setProperty('text-align', 'center', 'important');
+			});
+			return result;
+		};
+		const derive = widget.deriveSortKey;
+		widget.deriveSortKey = function(value, index) {
+			return Array.isArray(value) ? Number(value[0]) : derive.call(this, value, index);
+		};
+		const totalIndex = Array.from(table.querySelectorAll('th')).findIndex(th => th.dataset.totalTraffic);
+		if (!widget.getActiveSortState())
+			widget.sortState = [totalIndex, true];
+		L.dom.bindClassInstance(table, widget);
+	},
+
+	updateLeaseOrder(table) {
+		const widget = L.dom.findClassInstance(table);
+		if (!widget)
+			return;
+		// Keep the table widget's raw keys current for subsequent header clicks.
+		for (const row of widget.data || [])
+			for (const value of row)
+				if (Array.isArray(value) && value[1]?.matches?.('.luci-client-rate'))
+					value[0] = Number(value[1].closest('td')?.dataset.value ?? -1);
+		const sorting = widget.getActiveSortState();
+		if (sorting) {
+			const rows = Array.from(table.querySelectorAll('tr')).filter(row => row.querySelector('.luci-client-rate'));
+			const key = row => {
+				const cell = row.children[sorting[0]];
+				return cell.hasAttribute('data-value') ? Number(cell.dataset.value) : widget.deriveSortKey(cell, sorting[0]);
+			};
+			const sorted = rows.slice().sort((a, b) => {
+				const av = key(a), bv = key(b);
+				const cmp = typeof av == 'number' && typeof bv == 'number' ? av - bv : L.naturalCompare(av, bv);
+				return sorting[1] ? -cmp : cmp;
+			});
+			if (sorted.some((row, i) => row !== rows[i]))
+				for (const row of sorted)
+					row.parentElement.appendChild(row);
+		}
+	},
+
+	refreshRates() {
+		const cells = Array.from(document.querySelectorAll('.luci-client-rate'));
+		const addresses = Array.from(new Set(cells.flatMap(cell => JSON.parse(cell.dataset.addresses))));
+		if (!addresses.length)
+			return Promise.resolve();
+		return L.resolveDefault(callClientRates(addresses.slice(0, 1024)), {}).then(data => {
+			this.rateData = data;
+			// Query again: the normal overview refresh may have replaced the rows.
+			document.querySelectorAll('.luci-client-rate').forEach(cell => {
+				const value = this.rateValue(JSON.parse(cell.dataset.addresses), data, cell.dataset.direction, cell.dataset.mac);
+				cell.textContent = value[1];
+				cell.closest('td')?.setAttribute('data-value', value[0]);
+			});
+			document.querySelectorAll('#status_leases, #status_leases6').forEach(table => this.updateLeaseOrder(table));
+		});
+	},
 
 	load() {
 		return Promise.all([
@@ -35,6 +179,10 @@ return baseclass.extend({
 	},
 
 	render([dhcp_leases, host_hints, ufp_list]) {
+		if (!this.ratePoll) {
+			this.ratePoll = L.bind(this.refreshRates, this);
+			poll.add(this.ratePoll, 2);
+		}
 		if (L.hasSystemFeature('dnsmasq') || L.hasSystemFeature('odhcpd'))
 			return this.renderLeases(dhcp_leases, host_hints, ufp_list);
 
@@ -109,26 +257,19 @@ return baseclass.extend({
 		const table = E('table', { 'id': 'status_leases', 'class': 'table leases' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
 				L.hasSystemFeature('odhcpd', 'dhcpv4') ? E('th', { 'class': 'th' }, _('Interface')) : E([]),
-				E('th', { 'class': 'th' }, _('Hostname')),
+				E('th', { 'class': 'th', 'style': 'text-align:left' }, _('Hostname')),
 				E('th', { 'class': 'th' }, _('IPv4 address')),
 				E('th', { 'class': 'th' }, _('MAC address')),
-				E('th', { 'class': 'th' }, _('DUID')),
-				E('th', { 'class': 'th' }, _('IAID')),
-				E('th', { 'class': 'th' }, _('Remaining time')),
-				isReadonlyView ? E([]) : E('th', { 'class': 'th cbi-section-actions' }, _('Static Lease'))
+				E('th', { 'class': 'th' }, _('Upload')),
+				E('th', { 'class': 'th' }, _('Download')),
+				E('th', { 'class': 'th', 'data-total-traffic': '1' }, _('Total traffic')),
+				isReadonlyView ? E([]) : E('th', { 'class': 'th cbi-section-actions center' }, _('Static Lease'))
 			])
 		]);
 
+		this.initLeaseTable(table);
 		cbi_update_table(table, leases.map(L.bind(function(lease) {
-			let exp;
 			let vendor;
-
-			if (lease.expires === false)
-				exp = E('em', _('unlimited'));
-			else if (lease.expires <= 0)
-				exp = E('em', _('expired'));
-			else
-				exp = '%t'.format(lease.expires);
 
 			const hint = lease.macaddr ? machints.filter(function(h) { return h[0] == lease.macaddr })[0] : null;
 			let host = null;
@@ -142,12 +283,12 @@ return baseclass.extend({
 				vendor = macaddr[lease.macaddr.toLowerCase()]?.vendor ?? null;
 
 			const columns = [
-				host || '-',
+				this.renderHostname(host, lease.macaddr),
 				lease.ipaddr,
 				vendor ? lease.macaddr + ` (${vendor})` : lease.macaddr,
-				lease.duid || '-',
-				lease.iaid || '-',
-				exp,
+				this.rateCell(lease, host_hints, 'upload'),
+				this.rateCell(lease, host_hints, 'download'),
+				this.rateCell(lease, host_hints, 'total'),
 			];
 
 			if (L.hasSystemFeature('odhcpd', 'dhcpv4'))
@@ -168,24 +309,17 @@ return baseclass.extend({
 		const table6 = E('table', { 'id': 'status_leases6', 'class': 'table leases6' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
 				L.hasSystemFeature('odhcpd', 'dhcpv6') ? E('th', { 'class': 'th' }, _('Interface')) : E([]),
-				E('th', { 'class': 'th' }, _('Hostname')),
+				E('th', { 'class': 'th', 'style': 'text-align:left' }, _('Hostname')),
 				E('th', { 'class': 'th' }, _('IPv6 addresses')),
-				E('th', { 'class': 'th' }, _('DUID')),
-				E('th', { 'class': 'th' }, _('IAID')),
-				E('th', { 'class': 'th' }, _('Remaining time')),
-				isReadonlyView ? E([]) : E('th', { 'class': 'th cbi-section-actions' }, _('Static Lease'))
+				E('th', { 'class': 'th' }, _('Upload')),
+				E('th', { 'class': 'th' }, _('Download')),
+				E('th', { 'class': 'th', 'data-total-traffic': '1' }, _('Total traffic')),
+				isReadonlyView ? E([]) : E('th', { 'class': 'th cbi-section-actions center' }, _('Static Lease'))
 			])
 		]);
 
+		this.initLeaseTable(table6);
 		cbi_update_table(table6, leases6.map(L.bind(function(lease) {
-			let exp;
-
-			if (lease.expires === false)
-				exp = E('em', _('unlimited'));
-			else if (lease.expires <= 0)
-				exp = E('em', _('expired'));
-			else
-				exp = '%t'.format(lease.expires);
 
 			const hint = lease.macaddr ? machints.filter(function(h) { return h[0] == lease.macaddr })[0] : null;
 			let host = null;
@@ -210,11 +344,11 @@ return baseclass.extend({
 				disabled = true;
 
 			const columns = [
-				host || '-',
+				this.renderHostname(host, lease.macaddr),
 				lease.ip6addrs ? lease.ip6addrs.join('<br />') : lease.ip6addr,
-				duid || '-',
-				iaid || '-',
-				exp
+				this.rateCell(lease, host_hints, 'upload'),
+				this.rateCell(lease, host_hints, 'download'),
+				this.rateCell(lease, host_hints, 'total')
 			];
 
 			if (L.hasSystemFeature('odhcpd', 'dhcpv6'))
@@ -232,6 +366,8 @@ return baseclass.extend({
 			return columns;
 		}, this)), E('em', _('No active leases found')));
 
+		this.updateLeaseOrder(table);
+		this.updateLeaseOrder(table6);
 		return E([
 			E('h3', _('Active DHCPv4 Leases')),
 			table,
