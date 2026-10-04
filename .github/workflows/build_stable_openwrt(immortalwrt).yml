@@ -195,7 +195,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: ${{ env.TOOLCHAIN_TAG }}
-          提交: ${{ env.CURRENT_BRANCH }}
+          commit: ${{ env.CURRENT_BRANCH }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: output/*
 
