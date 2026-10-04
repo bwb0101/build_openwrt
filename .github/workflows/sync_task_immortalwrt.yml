@@ -19,8 +19,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    # local 0点
-    - cron: 0 16 */3 * *
+    # 转换为 UTC 时间：每周六 16:30（即北京时间每周日 0:30）
+    - cron: '30 16 * * 6'
 
 env:
   TZ: Asia/Shanghai
