@@ -19,8 +19,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    # local 3点
-    - cron: 0 19 */7 * *
+    # 转换为 UTC 时间：每周六 17:00（即北京时间每周日 01:00）
+    - cron: '0 17 * * 6'
 
 env:
   REPO_URL: https://github.com/bwb0101/immortalwrt
