@@ -19,8 +19,7 @@ on:
         required: false
         default: 'false'
   #schedule:
-    # local 3点
-    #- cron: 0 19 */7 * *
+    #- cron: '0 17 * * 6'
 
 env:
   REPO_URL: https://github.com/jkingben/lede
@@ -211,7 +210,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: ${{ env.TOOLCHAIN_TAG }}
-          提交: ${{ env.CURRENT_BRANCH }}
+          commit: ${{ env.CURRENT_BRANCH }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: output/*
 
