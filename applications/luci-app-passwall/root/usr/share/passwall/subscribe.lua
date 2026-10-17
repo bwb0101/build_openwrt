@@ -24,6 +24,36 @@ local uci, uci_get, uci_set, uci_del, uci_foreach, uci_save = api.uci, api.uci_g
 local tinsert = table.insert
 local ssub, slen, schar, sbyte, sformat, sgsub = string.sub, string.len, string.char, string.byte, string.format, string.gsub
 
+-- [[ 逻辑锁 Start ]] --
+if not arg[1] then os.exit(0) end
+-- Both update scripts use the same lockf lock; the kernel releases it on exit.
+local update_lock = api.nixio.open(api.LOCK_PREFIX .. "_sub_rule.lock", api.nixio.open_flags("rdwr", "creat"))
+if not update_lock then
+	api.log("无法打开订阅/规则更新锁，退出。")
+	os.exit(1)
+end
+-- Scheduled updates wait for the lock; manual requests may skip a busy lock.
+if not update_lock:lock("tlock") then
+	if arg[3] ~= "cron" then
+		api.log("订阅或规则更新正在运行，本次请求跳过。")
+		os.exit(0)
+	end
+	local running = ({s = "订阅", r = "规则更新"})[update_lock:read(1)] or "订阅/规则更新"
+	update_lock:seek(0)
+	api.log("[" .. running .. "]实例正在运行，[订阅]进入队列等待...")
+	if not update_lock:lock("lock") then
+		api.log("无法取得更新锁，计划任务失败。")
+		os.exit(1)
+	end
+end
+-- Record the running task in the same file: s = subscription, r = rule update.
+update_lock:write("s")
+update_lock:seek(0)
+api.uci:revert(c_config)
+math.randomseed(os.time() + math.floor(os.clock() * 1000))
+local restart_required = false
+-- [[ 逻辑锁 End ]] --
+
 local has_ss_rust = api.is_finded("sslocal")
 local has_ssr = api.is_finded("ssr-local") and api.is_finded("ssr-redir")
 local has_singbox = api.finded_com("sing-box")
@@ -596,7 +626,6 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 		-- if ssr_group then result.ssr_group = ssr_group end
 		result.remarks = base64Decode(params.remarks)
 	elseif szType == 'vmess' then
-		local info = jsonParse(content)
 		if sub_vmess_type == "sing-box" and has_singbox then
 			result.type = 'sing-box'
 		elseif sub_vmess_type == "xray" and has_xray then
@@ -605,6 +634,58 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			log("跳过 VMess 节点，因未适配到 VMess 核心程序，或未正确设置节点使用类型。")
 			return nil
 		end
+		-- vmess://base64(json)
+		local info = jsonParse(content)
+		if not info then
+			-- vmess://base64(auto:uuid@host:port)?tfo=1&remark=xxx&&alterId=0&obfs=websocket&path=%2F&obfsParam=host (obfs ~= ws obfsParam={})
+			if content:find("?", 1, true) then
+				info = {}
+				local Info = split(content:gsub("/%?", "?"), "%?")
+				local sp = split(base64Decode(Info[1]), "@")
+				local id_info = split(sp[1], ":")
+				info.security = (#id_info > 1 and id_info[1] ~= "") and id_info[1] or "auto"
+				info.id = id_info[#id_info]
+
+				local addr, port = sp[2], "443"
+				if api.is_ipv6addrport(addr) then
+					local a, p = addr:match("^%[(.+)%]:(%d+)$")
+					if a then addr, port = a, p end
+					addr = api.get_ipv6_only(addr)
+				else
+					local host_port = split(addr, ":")
+					addr = host_port[1]
+					if #host_port > 1 then port = host_port[#host_port] end
+				end
+				info.add, info.port = addr, port
+
+				local params = {}
+				for _, v in pairs(split(Info[2], '&')) do
+					local s = v:find("=", 1, true)
+					if s and s > 1 then
+						params[v:sub(1, s - 1)] = UrlDecode(v:sub(s + 1))
+					end
+				end
+				info.ps = params.remark or params.remarks
+				info.net = (params.obfs == "websocket") and "ws" or (params.obfs or "tcp")
+				info.path = params.path
+				info.aid = params.alterId or "0"
+				info.tls = params.tls
+				info.sni = params.peer
+				info.tfo = params.tfo
+				local op_info = jsonParse(params.obfsParam)
+				if op_info then
+					if op_info.header then info.type = op_info.header end
+					if op_info.Host then info.host = op_info.Host end
+				else
+					info.host = params.obfsParam
+				end
+				info.allowinsecure = params.allowInsecure
+			else
+				log("跳过 VMess 节点，该节点 URI 格式无法解析。")
+				return nil
+			end
+		end
+
 		result.alter_id = info.aid
 		result.address = info.add
 		result.port = info.port
@@ -641,21 +722,6 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 		if info.net == 'ws' then
 			result.ws_host = info.host
 			result.ws_path = info.path
-			if result.type == "sing-box" and info.path then
-				local ws_path_dat = split(info.path, "?")
-				local ws_path = ws_path_dat[1]
-				local ws_path_params = {}
-				for _, v in pairs(split(ws_path_dat[2], '&')) do
-					local t = split(v, '=')
-					ws_path_params[t[1]] = t[2]
-				end
-				if ws_path_params.ed and tonumber(ws_path_params.ed) then
-					result.ws_path = ws_path
-					result.ws_enableEarlyData = "1"
-					result.ws_maxEarlyData = tonumber(ws_path_params.ed)
-					result.ws_earlyDataHeaderName = "Sec-WebSocket-Protocol"
-				end
-			end
 		end
 		if info.net == "http" then
 			if result.type == "Xray" then
@@ -764,6 +830,11 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 				if idx_pn then
 					result.plugin = plugin_info:sub(1, idx_pn - 1)
 					result.plugin_opts = plugin_info:sub(idx_pn + 1, #plugin_info)
+					-- 部分订阅 ShadowTLS 采用 SIP003
+					result.plugin_opts = result.plugin_opts:gsub("^password=", "passwd=")
+					result.plugin_opts = result.plugin_opts:gsub(";password=", ";passwd=")
+					result.plugin_opts = result.plugin_opts:gsub("^version=([123])", "v%1=1")
+					result.plugin_opts = result.plugin_opts:gsub(";version=([123])", ";v%1=1")
 				else
 					result.plugin = plugin_info
 				end
@@ -870,10 +941,22 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 						result.plugin_opts = nil
 					end
 				elseif result.type == 'sing-box' then
-					if result.plugin ~= "obfs-local" and result.plugin ~= "v2ray-plugin" then
+					if result.plugin ~= "obfs-local" and result.plugin ~= "v2ray-plugin" and result.plugin ~= "shadow-tls" then
 						result.error_msg = "Sing-Box 不支持 SS " .. result.plugin .. " 插件。"
 					else
 						result.plugin_enabled = "1"
+						-- 部分订阅 ShadowTLS 采用 SIP003
+						if result.plugin == "shadow-tls" then
+							for item in result.plugin_opts:gmatch("[^;]+") do
+								local key, value = item:match("^([^=]+)=(.*)$")
+								if key == "host" then result.shadowtls_serverName = value end
+								if key == "passwd" then result.shadowtls_password = value end
+								if key:match("^v[123]$") then result.shadowtls_version = key:sub(2) end
+							end
+							result.shadowtls = "1"
+							result.plugin_opts = nil
+							result.plugin_enabled = nil
+						end
 					end
 				else
 					result.plugin_enabled = "1"
@@ -897,21 +980,6 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 					if params.type == 'ws' then
 						result.ws_host = params.host
 						result.ws_path = params.path
-						if result.type == "sing-box" and params.path then
-							local ws_path_dat = split(params.path, "%?")
-							local ws_path = ws_path_dat[1]
-							local ws_path_params = {}
-							for _, v in pairs(split(ws_path_dat[2], '&')) do
-								local t = split(v, '=')
-								ws_path_params[t[1]] = t[2]
-							end
-							if ws_path_params.ed and tonumber(ws_path_params.ed) then
-								result.ws_path = ws_path
-								result.ws_enableEarlyData = "1"
-								result.ws_maxEarlyData = tonumber(ws_path_params.ed)
-								result.ws_earlyDataHeaderName = "Sec-WebSocket-Protocol"
-							end
-						end
 					end
 					if params.type == "http" then
 						if result.type == "sing-box" then
@@ -997,7 +1065,7 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 				if result.type ~= "sing-box" and result.type ~= "SS-Rust" then
 					result.error_msg =  sub_ss_type .. " 不支持 shadow-tls 插件。"
 				else
-					-- 解析SS Shadow-TLS 插件参数
+					-- 解析SS Shadow-TLS 专用参数
 					local function parseShadowTLSParams(b64str, out)
 						local ok, data = pcall(jsonParse, base64Decode(b64str))
 						if not ok or type(data) ~= "table" then return "" end
@@ -1124,21 +1192,6 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			if params.type == 'ws' then
 				result.ws_host = params.host
 				result.ws_path = params.path
-				if result.type == "sing-box" and params.path then
-					local ws_path_dat = split(params.path, "%?")
-					local ws_path = ws_path_dat[1]
-					local ws_path_params = {}
-					for _, v in pairs(split(ws_path_dat[2], '&')) do
-						local t = split(v, '=')
-						ws_path_params[t[1]] = t[2]
-					end
-					if ws_path_params.ed and tonumber(ws_path_params.ed) then
-						result.ws_path = ws_path
-						result.ws_enableEarlyData = "1"
-						result.ws_maxEarlyData = tonumber(ws_path_params.ed)
-						result.ws_earlyDataHeaderName = "Sec-WebSocket-Protocol"
-					end
-				end
 			end
 			if params.type == "http" then
 				if result.type == "sing-box" then
@@ -1266,21 +1319,6 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			if params.type == 'ws' then
 				result.ws_host = params.host
 				result.ws_path = params.path
-				if result.type == "sing-box" and params.path then
-					local ws_path_dat = split(params.path, "%?")
-					local ws_path = ws_path_dat[1]
-					local ws_path_params = {}
-					for _, v in pairs(split(ws_path_dat[2], '&')) do
-						local t = split(v, '=')
-						ws_path_params[t[1]] = t[2]
-					end
-					if ws_path_params.ed and tonumber(ws_path_params.ed) then
-						result.ws_path = ws_path
-						result.ws_enableEarlyData = "1"
-						result.ws_maxEarlyData = tonumber(ws_path_params.ed)
-						result.ws_earlyDataHeaderName = "Sec-WebSocket-Protocol"
-					end
-				end
 			end
 			if params.type == "http" then
 				if result.type == "sing-box" then
@@ -1418,6 +1456,7 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 		result.hysteria_auth_type = "string"
 		result.hysteria_auth_password = params.auth
 		result.tls_serverName = params.peer or params.sni or ""
+		result.tls_pinSHA256 = params.pcs or params.pinSHA256
 		local insecure = params.allowinsecure or params.allowInsecure or params.insecure
 		result.tls_allowInsecure = (insecure == "1" or insecure == "0") and insecure or (sub_allowinsecure and "1" or "0")
 		result.alpn = params.alpn
@@ -1485,14 +1524,8 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			result.protocol = "hysteria2"
 			result.use_finalmask = (params.fm and params.fm ~= "") and "1" or nil
 			result.finalmask = (params.fm and params.fm ~= "") and api.base64Encode(params.fm) or nil
-			if is_singbox and (params.pcs or params.pinsha256) then
-				params.allowinsecure = "1"
-			end
 		elseif has_hysteria2 then
 			result.type = "Hysteria2"
-			if params.pcs or params.pinsha256 then
-				params.allowinsecure = "0"
-			end
 		else
 			log("跳过 Hysteria2 节点，因未适配到 Hysteria2 核心程序，或未正确设置节点使用类型。")
 			return nil
@@ -1552,6 +1585,7 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 		end
 		result.tls_serverName = params.sni
 		result.tls_disable_sni = params.disable_sni
+		result.tls_pinSHA256 = params.pcs or params.pinsha256
 		result.tuic_alpn = params.alpn or "h3"
 		result.tuic_congestion_control = params.congestion_control or "cubic"
 		result.tuic_udp_relay_mode = params.udp_relay_mode or "native"
@@ -1607,6 +1641,7 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			if params.security == "tls" or params.security == "reality" then
 				result.tls = "1"
 				result.tls_serverName = params.sni or params.peer
+				result.tls_pinSHA256 = params.pcs or params.pinsha256
 				result.alpn = params.alpn
 				if params.fp and params.fp ~= "" then
 					result.utls = "1"
@@ -1688,6 +1723,62 @@ local function processData(szType, content, add_mode, group, sub_cfg)
 			result.naive_quic = "1"
 			result.naive_congestion_control = params.congestion_control or "bbr"
 		end
+	elseif szType == "snell" then
+		if has_singbox then
+			result.type = 'sing-box'
+			result.protocol = "snell"
+		else
+			log("跳过 Snell 节点，因未安装 Snell 核心程序 Sing-box 1.14。")
+			return nil
+		end
+
+		local alias = ""
+		if content:find("#") then
+			local idx_sp = content:find("#")
+			alias = content:sub(idx_sp + 1, -1)
+			content = content:sub(0, idx_sp - 1)
+		end
+		result.remarks = UrlDecode(alias)
+		local Info = content
+		if content:find("@") then
+			local info = split(content, "@")
+			result.snell_psk = UrlDecode(info[1])
+			Info = info[2]
+		end
+		Info = (Info or ""):gsub("/%?", "?")
+		local query = split(Info, "%?")
+		local host_port = query[1]
+		local params = {}
+		for _, v in pairs(split(query[2], '&')) do
+			local s = v:find("=", 1, true)
+			if s and s > 1 then
+				params[UrlDecode(v:sub(1, s - 1)):lower()] = UrlDecode(v:sub(s + 1))
+			end
+		end
+		-- [2001:4860:4860::8888]:443
+		-- 8.8.8.8:443
+		result.port = "443"
+		if host_port:find(":") then
+			local sp = split(host_port, ":")
+			result.port = sp[#sp]
+			if api.is_ipv6addrport(host_port) then
+				result.address = api.get_ipv6_only(host_port)
+			else
+				result.address = sp[1]
+			end
+		else
+			result.address = host_port
+		end
+		result.snell_psk = params.psk or result.snell_psk
+		result.password = params.userkey
+		result.snell_version = params.version or "4"
+		if result.snell_version == "4" then
+			result.snell_obfs_mode = params.obfs or "none"
+			result.snell_obfs_host = params['obfs-host'] or params.obfs_host
+		else
+			result.snell_mode = params.mode or "default"
+		end
+		result.snell_reuse = (params.reuse == "1") and "1" or "0"
 	else
 		log("暂时不支持 " .. szType .. " 类型的节点订阅，跳过此节点。")
 		return nil
@@ -1708,22 +1799,26 @@ local function curl(url, file, ua, mode)
 		"-fskL",
 		"--retry 3",
 		"--connect-timeout 3",
+		"-H 'Accept: */*'",
 		"-H 'Accept-Encoding: identity'",
 		"--dump-header -",
 		"-w '\\n%{http_code}'"
 	}
 
 	ua = (ua and ua ~= "") and ua or "passwall"
-	ua = (ua == "passwall") and ("passwall/" .. api.get_version()) or ua
+	ua = (ua == "passwall") and ("passwall/" .. api.get_version():match("^([^-]+)")) or ua
 	curl_args[#curl_args + 1] = '--user-agent "' .. ua .. '"'
+
+	local cookie_file = "/tmp/cookie_" .. api.gen_random_char(5)
+	curl_args[#curl_args + 1] = '-c "' .. cookie_file .. '" -b "' .. cookie_file .. '"'
 
 	local return_code, result
 	if mode == "direct" then
-		return_code, result = api.curl_base(url, file, curl_args)
+		return_code, result = api.curl_direct(url, file, curl_args)
 	elseif mode == "proxy" then
 		return_code, result = api.curl_proxy(url, file, curl_args)
 	else
-		return_code, result = api.curl_logic(url, file, curl_args)
+		return_code, result = api.curl_auto(url, file, curl_args)
 	end
 
 	if result and result ~= "" then
@@ -1738,6 +1833,8 @@ local function curl(url, file, ua, mode)
 	if header_str ~= "" then
 		header_str = header_str:gsub("\r", "")
 	end
+
+	api.remove(cookie_file)
 
 	return return_code, http_code, header_str
 end
@@ -2040,15 +2137,7 @@ local function update_node(manual)
 
 	uci_save(true)
 
-	if arg[3] == "cron" then
-		if not fs.access(api.LOCK_PREFIX .. ".lock") then
-			luci.sys.call("touch %s_cron.lock" % api.LOCK_PREFIX)
-		end
-	end
-
-	if manual ~= 1 then
-		luci.sys.call("/etc/init.d/passwall restart > /dev/null 2>&1 &")
-	end
+	if manual ~= 1 then restart_required = true end
 end
 
 local function parse_link(raw, add_mode, group, sub_cfg)
@@ -2183,7 +2272,7 @@ local execute = function()
 				return_code, value.http_code, headers = curl(url, tmp_file, ua, access_mode)
 				if return_code ~= 0 then
 					fail_list[#fail_list + 1] = value
-					luci.sys.call("rm -f " .. tmp_file)
+					api.remove(tmp_file)
 				end
 			end
 			if fs.access(tmp_file) then
@@ -2193,8 +2282,8 @@ local execute = function()
 					f:close()
 					local raw_data = api.trim(stdout)
 					local old_md5 = value.md5 or ""
-					local new_md5 = luci.sys.exec("md5sum " .. tmp_file .. " 2>/dev/null | awk '{print $1}'"):gsub("\n", "")
-					if not manual_sub and old_md5 == new_md5 then
+					local new_md5 = api.md5_file(tmp_file)
+					if not manual_sub and new_md5 ~= "" and old_md5 == new_md5 then
 						log('订阅:【' .. remark .. '】没有变化，无需更新。')
 					else
 						raw_data = parseClashNode(raw_data)
@@ -2206,7 +2295,7 @@ local execute = function()
 					fail_list[#fail_list + 1] = value
 				end
 				if not url_is_local then
-					luci.sys.call("rm -f " .. tmp_file)
+					api.remove(tmp_file)
 				end
 			end
 		end
@@ -2220,56 +2309,28 @@ local execute = function()
 	end
 end
 
-local function check_instance(action)
-	local sub_lock = api.LOCK_PREFIX .. "_subscribe.lock"
-	local rule_lock = api.LOCK_PREFIX .. "_rule_update.lock"
-
-	if action == "start" then
-		math.randomseed(os.time() + math.floor(os.clock() * 1000))
-		api.nixio.nanosleep(0, math.random(100, 1000) * 1000000)
-		if fs.access(sub_lock) then
-			log("有[订阅]实例正在运行，请稍后再试...\n")
-			os.exit(0)
-		else
-			luci.sys.call("touch " .. sub_lock)
-			uci:revert(c_config)
+if arg[1] == "start" then
+	log('开始订阅...')
+	xpcall(execute, function(e)
+		log(e)
+		if type(debug) == "table" and type(debug.traceback) == "function" then
+			log(debug.traceback())
 		end
-	elseif action == "end" then
-		luci.sys.call("rm -f " .. sub_lock)
-		return
-	end
-
-	if fs.access(rule_lock) then
-		log("[规则更新]实例正在运行，[订阅]进入队列等待...\n")
-	end
-	while fs.access(rule_lock) do
-		api.nixio.nanosleep(2, 0)
-	end
+		log('订阅发生错误。')
+	end)
+	log('订阅完毕...\n')
+elseif arg[1] == "add" then
+	local f = assert(io.open("/tmp/links.conf", 'r'))
+	local raw = f:read('*all')
+	f:close()
+	parse_link(raw, "1", arg[2])
+	update_node(1)
+	api.remove("/tmp/links.conf")
+elseif arg[1] == "truncate" then
+	truncate_nodes(arg[2])
 end
-
-if arg[1] then
-	check_instance("start")
-
-	if arg[1] == "start" then
-		log('开始订阅...')
-		xpcall(execute, function(e)
-			log(e)
-			if type(debug) == "table" and type(debug.traceback) == "function" then
-				log(debug.traceback())
-			end
-			log('发生错误, 正在恢复服务')
-		end)
-		log('订阅完毕...\n')
-	elseif arg[1] == "add" then
-		local f = assert(io.open("/tmp/links.conf", 'r'))
-		local raw = f:read('*all')
-		f:close()
-		parse_link(raw, "1", arg[2])
-		update_node(1)
-		luci.sys.call("rm -f /tmp/links.conf")
-	elseif arg[1] == "truncate" then
-		truncate_nodes(arg[2])
-	end
-
-	check_instance("end")
+update_lock:close()
+if restart_required then
+	local action = arg[3] == "cron" and " cron" or ""
+	luci.sys.call("/etc/init.d/passwall restart" .. action .. " > /dev/null 2>&1 &")
 end
