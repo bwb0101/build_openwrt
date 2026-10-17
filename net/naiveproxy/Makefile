@@ -5,13 +5,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=naiveproxy
-PKG_REAL_VERSION:=140.0.7339.123-3
+PKG_REAL_VERSION:=154.0.8037.49-2
 PKG_VERSION:=$(subst -,.,$(PKG_REAL_VERSION))
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_REAL_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/klzgrad/naiveproxy/tar.gz/v$(PKG_REAL_VERSION)?
-PKG_HASH:=c69c4b256957a9c88f8cfd11ffe5954727682ee02cdc7c7b4564b181f898e4dc
+PKG_HASH:=967ad32dd4c18a862ea85b1439824d55bd0da2ea4f3f5a6c856cb257e3038dde
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_REAL_VERSION)
 
 PKG_LICENSE:=BSD 3-Clause
@@ -41,7 +41,7 @@ define Package/naiveproxy
   SUBMENU:=Web Servers/Proxies
   TITLE:=Make a fortune quietly
   URL:=https://github.com/klzgrad/naiveproxy
-  DEPENDS:=@!(arc||armeb||loongarch64||mips||mips64||powerpc||TARGET_gemini) +libatomic
+  DEPENDS:=@!(arc||armeb||loongarch64||mips||mips64||powerpc||TARGET_gemini) $(ATOMIC64_DEPENDS)
 endef
 
 define Package/naiveproxy/description
@@ -57,22 +57,22 @@ ifneq ($(CONFIG_CCACHE),)
   export naive_ccache_flags=cc_wrapper="$(CCACHE)"
 endif
 
-CLANG_VER:=21-init-16348-gbd809ffb-15
+CLANG_VER:=24-init-3796-g20e97c4b-27
 CLANG_FILE:=clang-llvmorg-$(CLANG_VER).tar.xz
 define Download/CLANG
 	URL:=https://commondatastorage.googleapis.com/chromium-browser-clang/Linux_x64
 	URL_FILE:=$(CLANG_FILE)
 	FILE:=$(CLANG_FILE)
-	HASH:=b448a78b42740352a37b458115a9482f213097bbf28f1f839e72cab829bdfa6d
+	HASH:=968195fa0b49958e066695df2c7c985d169a20fa06eedb8fcef900a6030edcb0
 endef
 
-PGO_VER:=main-1752989296-3dc3c84b1ea64dfbadeca18145c6e823bab3ff87-3a0e503d2bd87771c1e55103ac2a9a7b59a7411b
+PGO_VER:=8037-1789495081-7feb9cdd3829d739633f8ac2c1a41d6c0f693bd3-9272cb3a6934b0e4510fb1cde78ca7e9d7859922
 PGO_FILE:=chrome-linux-$(PGO_VER).profdata
 define Download/PGO_PROF
 	URL:=https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles
 	URL_FILE:=$(PGO_FILE)
 	FILE:=$(PGO_FILE)
-	HASH:=97dcc3060a7ea38abffffc128e030d16bed0992810a551cef740d56f1eb1f09b
+	HASH:=1e1f79dc4b6de72bccfbc2e67498e75ce60c4b53c10bceb0559c358596cd71a2
 endef
 
 define Build/Prepare
