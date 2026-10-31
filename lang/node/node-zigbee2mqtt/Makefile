@@ -6,13 +6,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.12.1
-PKG_RELEASE:=1
+PKG_VERSION:=2.14.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://mirrors.tencent.com/npm/$(PKG_NPM_NAME)/-/ \
                 https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6266e4b1fa440bbbca2603ff9d05a119a29c85ca68597166140ab20831706cc2
+PKG_HASH:=0730286b1e6300011f5da7ddc01ca029dd62b402cb8a1b5020e9c0bacc384e53
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=GPL-3.0
@@ -30,7 +30,7 @@ define Package/node-zigbee2mqtt
   CATEGORY:=Languages
   TITLE:=Zigbee to MQTT bridge using Zigbee-herdsman
   URL:=https://github.com/Koenkk/zigbee2mqtt
-  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport-bindings-cpp
 endef
 
 define Package/node-zigbee2mqtt/description
@@ -83,6 +83,7 @@ define Package/node-zigbee2mqtt/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{data,scripts} \
 		$(1)/opt/$(PKG_NPM_NAME)/
+	rm -rf $(1)/opt/$(PKG_NPM_NAME)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings-cpp
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zigbee2mqtt.init $(1)/etc/init.d/zigbee2mqtt
 	$(INSTALL_DIR) $(1)/etc/zigbee2mqtt

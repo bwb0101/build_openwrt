@@ -6,13 +6,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.2.1
+PKG_VERSION:=2.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://mirrors.tencent.com/npm/$(PKG_NPM_NAME)/-/ \
                 https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=eb1dc54f19d53bad06a409b59c520711d5024b591df13ebf024f0a93c6d42774
+PKG_HASH:=6ae8d4919027f1be62d6878b480eca3fdfd134e5db947c48205da3a9a03666bd
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_FLAGS:=no-mips16
@@ -50,6 +50,7 @@ TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
 	cd $(PKG_BUILD_DIR); \
+	npm pkg delete devDependencies; \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \

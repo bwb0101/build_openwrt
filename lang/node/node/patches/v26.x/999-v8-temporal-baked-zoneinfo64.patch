@@ -1,0 +1,72 @@
+From: Martijn van der Ven <martijn@vanderven.se>
+Date: Thu Aug 20 09:37:04 2026 +0000
+Subject: Enable Temporal with system ICU via baked zoneinfo64 data
+
+V8 loads Temporal's timezone data through the ICU-internal udatamem.h
+API, which system ICU does not provide, so configuring with
+--with-intl=system-icu leaves Temporal disabled. Always use the baked
+zoneinfo64 data path that V8 already uses for builds without intl
+instead; the zoneinfo64.res input is vendored in the release tarball
+as part of the zoneinfo64 crate.
+
+Patch-Source: https://github.com/nodejs/node/pull/62766
+--- a/deps/v8/src/objects/js-temporal-zoneinfo64.h
++++ b/deps/v8/src/objects/js-temporal-zoneinfo64.h
+@@ -7,7 +7,7 @@
+ 
+ #include "temporal_rs/Provider.d.hpp"
+ 
+-#ifdef V8_INTL_SUPPORT
++#if false
+ #include "unicode/udata.h"
+ #else
+ #include <vector>
+@@ -37,7 +37,7 @@ class ZoneInfo64Provider {
+   ZoneInfo64Provider();
+   ~ZoneInfo64Provider();
+   std::unique_ptr<temporal_rs::Provider> provider;
+-#ifdef V8_INTL_SUPPORT
++#if false
+   UDataMemory* memory;
+ #endif
+ };
+--- a/deps/v8/src/objects/js-temporal-zoneinfo64.cc
++++ b/deps/v8/src/objects/js-temporal-zoneinfo64.cc
+@@ -10,7 +10,7 @@
+ #include "temporal_rs/Provider.hpp"
+ #include "temporal_rs/TimeZone.hpp"
+ 
+-#ifdef V8_INTL_SUPPORT
++#if false
+ #ifndef V8_ENABLE_TEMPORAL_SYSTEMICU
+ // ICU internal header file
+ #include "udatamem.h"
+@@ -50,7 +50,7 @@ extern "C" size_t zoneinfo64_static_data
+ namespace v8::internal {
+ 
+ ZoneInfo64Provider::ZoneInfo64Provider() {
+-#ifdef V8_INTL_SUPPORT
++#if false
+   UErrorCode status = U_ZERO_ERROR;
+   memory = udata_open(0, "res", "zoneinfo64", &status);
+   if (U_FAILURE(status)) {
+@@ -114,7 +114,7 @@ ZoneInfo64Provider::~ZoneInfo64Provider(
+ 
+   // Then clean up memory
+   // This ideally is a no-op when using static data
+-#ifdef V8_INTL_SUPPORT
++#if false
+   if (memory) {
+     udata_close(memory);
+   }
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
+@@ -1167,7 +1167,7 @@
+                 '../../deps/crates/crates.gyp:temporal_capi',
+               ],
+             }],
+-            ['v8_enable_i18n_support==0', {
++            ['0==0', {
+               'dependencies': [
+                 '../../deps/crates/crates.gyp:temporal_zoneinfo64_data',
+               ],
