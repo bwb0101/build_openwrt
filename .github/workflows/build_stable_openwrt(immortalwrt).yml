@@ -40,6 +40,8 @@ env:
   COMBINE_DISK: true
   TZ: Asia/Shanghai
 
+permissions:
+  contents: write
 jobs:
   Toolchain:
     runs-on: ubuntu-24.04
@@ -352,6 +354,27 @@ jobs:
           ccache -s || true
           # which ccache
           [ -e $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache ] || ln -s "$(command -v ccache)" $OPENWRT_ROOT_PATH/staging_dir/host/bin/ccache
+      - name: 密钥检测
+        run: |
+          if [ ! -f "keys/key-build" ]; then
+            echo "未检测到固定密钥，正在自动生成..."
+            mkdir -p keys
+            openssl genrsa -out keys/key-build 2048
+            openssl rsa -in keys/key-build -pubout -out keys/key-build.pub
+            chmod 600 keys/key-build
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add keys/
+            git commit -m "chore: save auto-generated fixed build key [skip ci]"
+            git push
+            echo "密钥已保存至仓库！"
+          else
+            echo "检测到已有固定密钥，直接复用。"
+          fi
+          echo "正在将密钥拷贝到 OpenWrt 源码目录: $OPENWRT_ROOT_PATH"
+          cp keys/key-build "$OPENWRT_ROOT_PATH/key-build"
+          cp keys/key-build.pub "$OPENWRT_ROOT_PATH/key-build.pub"
+          chmod 600 "$OPENWRT_ROOT_PATH/key-build"
       - name: 下载Packages
         id: download
         run: |
