@@ -366,7 +366,7 @@ jobs:
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git add keys/
             git commit -m "chore: save auto-generated fixed build key [skip ci]"
-            git push origin HEAD
+            git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
             echo "密钥已保存至仓库！"
           else
             echo "检测到已有固定密钥，直接复用。"
