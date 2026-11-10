@@ -22,6 +22,9 @@ on:
     # 转换为 UTC 时间：每周六 16:30（即北京时间每周日 0:30）
     - cron: '30 16 * * 6'
 
+permissions:
+  contents: write
+  actions: write
 env:
   TZ: Asia/Shanghai
 
