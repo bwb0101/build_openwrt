@@ -367,7 +367,7 @@ jobs:
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git add keys/
-            git commit -m "chore: save fixed prime256v1 build key for APK [skip ci]"
+            git commit -m "chore: save prime256v1 build key for APK [skip ci]"
             git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
             echo "固定密钥已推送到仓库！"
           else
