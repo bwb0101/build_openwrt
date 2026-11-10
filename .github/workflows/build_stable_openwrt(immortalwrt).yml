@@ -357,26 +357,26 @@ jobs:
       - name: 密钥检测
         run: |
           if [ ! -f "keys/private-key.pem" ]; then
-            echo "未检测到固定密钥，正在生成 Ed25519 密钥对..."
+            echo "未检测到固定密钥，正在生成 ECDSA prime256v1 密钥对..."
             mkdir -p keys
-            openssl genpkey -algorithm ed25519 -out keys/private-key.pem
-            openssl pkey -in keys/private-key.pem -pubout -out keys/public-key.pem
-            chmod 600 keys/private-key.pem
+            openssl ecparam -name prime256v1 -genkey -noout -out keys/key-build.pem
+            openssl ec -in keys/key-build.pem -pubout -out keys/public-key.pem
+            chmod 600 keys/key-build.pem
 
             # 提交并保存至 GitHub 仓库
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git add keys/
-            git commit -m "chore: save fixed Ed25519 build key for APK [skip ci]"
+            git commit -m "chore: save fixed prime256v1 build key for APK [skip ci]"
             git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
             echo "固定密钥已推送到仓库！"
           else
             echo "检测到已有固定密钥，直接复用。"
           fi
           echo "正在将密钥拷贝到 OpenWrt 源码目录: $OPENWRT_ROOT_PATH"
-          cp keys/private-key.pem "$OPENWRT_ROOT_PATH/private-key.pem"
+          cp keys/key-build.pem "$OPENWRT_ROOT_PATH/key-build.pem"
           cp keys/public-key.pem "$OPENWRT_ROOT_PATH/public-key.pem"
-          chmod 600 "$OPENWRT_ROOT_PATH/private-key.pem"
+          chmod 600 "$OPENWRT_ROOT_PATH/key-build.pem"
       - name: 下载Packages
         id: download
         run: |
