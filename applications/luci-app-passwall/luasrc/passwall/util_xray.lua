@@ -12,7 +12,7 @@ local GLOBAL = {
 
 local xray_version = api.get_app_version("xray")
 
-local xray_min_version = "26.7.11"
+local xray_min_version = "26.9.9"
 
 local function get_domain_excluded()
 	local path = string.format("/etc/%s/rules/domains_excluded", api.c_config)
@@ -303,9 +303,13 @@ function gen_outbound(flag, node, tag, proxy_table)
 					local finalmask = {}
 					local TP = node.transport
 					if TP == "mkcp" then
+						local s = { type = "mkcp-legacy" }
+						if node.mkcp_seed and node.mkcp_seed ~= "" then
+							s.settings = { value = node.mkcp_seed }
+						end
+						local udp = { s }
 						local map = {none = "none", srtp = "srtp", utp = "utp", ["wechat-video"] = "wechat",
 							dtls = "dtls", wireguard = "wireguard", dns = "dns"}
-						local udp = {}
 						if node.mkcp_guise and node.mkcp_guise ~= "none" then
 							local g = { type = "mkcp-legacy" }
 							g.settings = { header = map[node.mkcp_guise] }
@@ -314,11 +318,6 @@ function gen_outbound(flag, node, tag, proxy_table)
 							end
 							udp[#udp+1] = g
 						end
-						local s = { type = "mkcp-legacy" }
-						if node.mkcp_seed and node.mkcp_seed ~= "" then
-							s.settings = { value = node.mkcp_seed }
-						end
-						udp[#udp+1] = s
 						finalmask.udp = udp
 					elseif TP == "hysteria" then
 						local udp = {}
@@ -356,6 +355,30 @@ function gen_outbound(flag, node, tag, proxy_table)
 								}
 							}
 							udp[#udp+1] = r
+						elseif node.hysteria2_hop and node.hysteria2_hop ~= "" then
+							udp[#udp+1] = {
+								type = "udphop",
+								settings = {
+									mode = "intervallocal,intervalremote",
+									remotePorts = string.gsub(node.hysteria2_hop, ":", "-"),
+									interval = (function(v)
+										if not v then return 30 end
+										if v:find("-", 1, true) then
+											local min, max = v:match("^(%d+)%-(%d+)$")
+											min = tonumber(min)
+											max = tonumber(max)
+											if min and max then
+												min = (min >= 5) and min or 5
+												max = (max >= min) and max or min
+												return min .. "-" .. max
+											end
+											return 30
+										end
+										v = tonumber((v or "30"):match("^%d+"))
+										return (v and v >= 5) and v or 30
+									end)(node.hysteria2_hop_interval)
+								}
+							}
 						end
 						finalmask.udp = udp
 						local up = tonumber(node.hysteria2_up_mbps) or 0
@@ -364,25 +387,6 @@ function gen_outbound(flag, node, tag, proxy_table)
 							congestion = (up <= 0 and down <= 0) and "bbr" or "brutal",
 							brutalUp = up > 0 and (up .. "mbps") or nil,
 							brutalDown = down > 0 and (down .. "mbps") or nil,
-							udpHop = (node.hysteria2_hop) and {
-								ports = string.gsub(node.hysteria2_hop, ":", "-"),
-								interval = (function(v)
-									if not v then return 30 end
-									if v:find("-", 1, true) then
-										local min, max = v:match("^(%d+)%-(%d+)$")
-										min = tonumber(min)
-										max = tonumber(max)
-										if min and max then
-											min = (min >= 5) and min or 5
-											max = (max >= min) and max or min
-											return min .. "-" .. max
-										end
-										return 30
-									end
-									v = tonumber((v or "30"):match("^%d+"))
-									return (v and v >= 5) and v or 30
-								end)(node.hysteria2_hop_interval)
-							} or nil,
 							maxIdleTimeout = (function(t)
 								t = tonumber(tostring(t or "30"):match("^%d+"))
 								return (t and t >= 4 and t <= 120) and t or 30
@@ -432,7 +436,7 @@ function gen_outbound(flag, node, tag, proxy_table)
 				peers = (node.protocol == "wireguard") and {
 					{
 						publicKey = node.wireguard_public_key,
-						endpoint = node.address .. ":" .. node.port,
+						endpoint = (api.is_ipv6(node.address) and ("[" .. node.address .. "]") or node.address) .. ":" .. node.port,
 						preSharedKey = node.wireguard_preSharedKey,
 						keepAlive = node.wireguard_keepAlive and tonumber(node.wireguard_keepAlive) or nil
 					}
@@ -807,9 +811,13 @@ function gen_config_server(node)
 					finalmask = (function()
 						local finalmask = {}
 						if node.transport == "mkcp" then
+							local s = { type = "mkcp-legacy" }
+							if node.mkcp_seed and node.mkcp_seed ~= "" then
+								s.settings = { value = node.mkcp_seed }
+							end
+							local udp = { s }
 							local map = {none = "none", srtp = "srtp", utp = "utp", ["wechat-video"] = "wechat",
 								dtls = "dtls", wireguard = "wireguard", dns = "dns"}
-							local udp = {}
 							if node.mkcp_guise and node.mkcp_guise ~= "none" then
 								local g = { type = "mkcp-legacy" }
 								g.settings = { header = map[node.mkcp_guise] }
@@ -818,11 +826,6 @@ function gen_config_server(node)
 								end
 								udp[#udp+1] = g
 							end
-							local s = { type = "mkcp-legacy" }
-							if node.mkcp_seed and node.mkcp_seed ~= "" then
-								s.settings = { value = node.mkcp_seed }
-							end
-							udp[#udp+1] = s
 							finalmask.udp = udp
 						elseif node.transport == "hysteria" then
 							local udp = {}

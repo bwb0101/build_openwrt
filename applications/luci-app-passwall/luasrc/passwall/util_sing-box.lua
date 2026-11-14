@@ -362,16 +362,22 @@ function gen_outbound(flag, node, tag, proxy_table)
 					["User-Agent"] = node.user_agent
 				} or nil,
 			}
-			local path = api.UrlDecode(node.ws_path)
-			local path_dat = api.split(path, "?")
-			local params = {}
-			for _, v in pairs(api.split(path_dat[2], '&')) do
-				local t = api.split(v, '=')
+			local path, query = (node.ws_path or "/"):match("^(.-)%?(.*)$")
+			local params, query_params = {}, {}
+			for v in (query or ""):gmatch("[^&]+") do
+				local t = api.split(api.UrlDecode(v), '=')
 				params[t[1]] = t[2]
+				if t[1] ~= "ed" and t[1] ~= "eh" then
+					table.insert(query_params, v)
+				end
 			end
 			local ed = tonumber(params.ed)
 			if ed then
-				v2ray_transport.path = path_dat[1]
+				-- Consume early-data options while preserving the remaining query.
+				v2ray_transport.path = path
+				if #query_params > 0 then
+					v2ray_transport.path = path .. "?" .. table.concat(query_params, "&")
+				end
 				v2ray_transport.max_early_data = ed
 			end
 			v2ray_transport.early_data_header_name = params.eh or "Sec-WebSocket-Protocol"
@@ -501,6 +507,7 @@ function gen_outbound(flag, node, tag, proxy_table)
 				pre_shared_key = node.wireguard_preSharedKey,
 				reserved = node.wireguard_reserved,
 				mtu = tonumber(node.wireguard_mtu),
+				persistent_keepalive_interval = tonumber(node.wireguard_keepAlive),
 			}
 		end
 
@@ -2178,7 +2185,7 @@ function gen_config(var)
 							local remote_dns_server = api.clone(remote_server)
 							remote_dns_server.tag = value.shunt_tag
 							local is_local = (remote_server.address and api.is_local_ip(remote_server.address)) or
-									 (remote_server.server and api.is_local_ip(remote_server.server))  --dns为本地ip，不走代理
+									(remote_server.server and api.is_local_ip(remote_server.server))  --dns为本地ip，不走代理
 							remote_dns_server.detour = is_local and "direct" or value.outboundTag
 							table.insert(dns.servers, remote_dns_server)
 							dns_rule.server = remote_dns_server.tag
@@ -2432,7 +2439,8 @@ function gen_config(var)
 								port = value.server_port,
 								public_key = value.peer_public_key,
 								pre_shared_key = value.pre_shared_key,
-								allowed_ips = {"0.0.0.0/0"},
+								allowed_ips = {"0.0.0.0/0", "::/0"},
+								persistent_keepalive_interval = value.persistent_keepalive_interval,
 								reserved = value.reserved
 							}
 						},
