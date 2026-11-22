@@ -102,7 +102,7 @@ if (routing_mode === 'bypass_mainland_china') {
 	if (isEmpty(china_dns_server) || type(china_dns_server) !== 'string' || china_dns_server === 'wan')
 		china_dns_server = wan_dns;
 }
-const dns_default_strategy = (ipv6_support === '1') ? 'prefer_ipv6' : 'prefer_ipv4';
+const dns_default_strategy = (ipv6_support === '1') ? 'prefer_ipv6' : 'ipv4_only';
 
 function make_domain_resolver(server) {
 	return {
@@ -599,6 +599,16 @@ if (!isEmpty(main_node)) {
 		});
 	}
 }
+
+if (ipv6_support === '1') {
+	const ipv6_by_outbound = {};
+	for (let server in config.dns.servers) {
+		if (server.detour)
+			ipv6_by_outbound[server.tag] = server.detour;
+	}
+	if (!isEmpty(ipv6_by_outbound))
+		config.dns.ipv6_by_outbound = ipv6_by_outbound;
+}
 /* DNS end */
 
 /* Inbound start */
@@ -780,8 +790,17 @@ if (!isEmpty(main_node)) {
 	}
 
 	if (tailscale_enabled) {
-		push_route(config.route.rules, { inbound: tailscale_tag }, 'direct-out');
+		const direct_match = { inbound: tailscale_tag };
+		if (tailscale_advertise_exit_node) {
+			/* Keep local services and advertised subnets reachable directly. */
+			direct_match.ip_is_private = true;
+			if (length(tailscale_advertise_routes))
+				direct_match.ip_cidr = tailscale_advertise_routes;
+		}
+		push_route(config.route.rules, direct_match, 'direct-out');
 		push_route(config.route.rules, { preferred_by: tailscale_tag }, tailscale_tag);
+		if (tailscale_advertise_exit_node)
+			push(config.route.rules, { inbound: tailscale_tag, port: 53, action: 'hijack-dns' });
 	}
 	add_control_pre_match_fallback_rules(config.route.rules, pre_match_control);
 
